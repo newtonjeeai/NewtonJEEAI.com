@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Success Stories — Newton JEE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c12; --bg2: #0f1219; --bg3: #151b27;
+    --amber: #f59e0b; --amber2: #fbbf24; --amber-glow: rgba(245,158,11,0.12);
+    --green: #4ade80; --text: #e8eaf0; --text-muted: #8892a4;
+    --border: rgba(255,255,255,0.07); --card: rgba(255,255,255,0.03);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.6; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.022; pointer-events: none; z-index: 9999; }
+
+  header { position: sticky; top: 0; z-index: 100; background: rgba(10,12,18,0.93); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 0 48px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; letter-spacing: -0.02em; display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); }
+  .logo .acc-c { color: var(--amber); }
+  .logo-icon { width: 30px; height: 30px; background: var(--amber); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: #000; font-weight: 900; }
+  nav { display: flex; align-items: center; gap: 28px; }
+  nav a { font-size: 0.875rem; font-weight: 500; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+  nav a:hover, nav a.active { color: var(--text); }
+  .btn-header { background: var(--amber); color: #000; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 9px 18px; border-radius: 6px; border: none; cursor: pointer; text-decoration: none; transition: all 0.2s; }
+  .btn-header:hover { background: var(--amber2); }
+
+  .container { max-width: 1160px; margin: 0 auto; padding: 0 48px; }
+  .sec-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+  .sec-title { font-family: 'Syne', sans-serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 16px; }
+  .sec-sub { font-size: 0.95rem; color: var(--text-muted); max-width: 580px; line-height: 1.8; margin-bottom: 48px; }
+  section { padding: 80px 0; border-bottom: 1px solid var(--border); }
+  section:last-of-type { border-bottom: none; }
+
+  /* ── HERO ── */
+  .hero { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 96px 48px 80px; position: relative; overflow: hidden; text-align: center; }
+  .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(74,222,128,0.05), transparent 70%); pointer-events: none; }
+  /* Unique: floating success metrics rising upward */
+  .floating-metric { position: absolute; font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.06em; color: rgba(74,222,128,0.25); animation: floatUp 6s ease-in-out infinite; white-space: nowrap; }
+  .fm1 { left: 8%; top: 70%; animation-delay: 0s; }
+  .fm2 { left: 20%; top: 80%; animation-delay: -1.5s; font-size: 0.6rem; color: rgba(245,158,11,0.2); }
+  .fm3 { right: 12%; top: 65%; animation-delay: -3s; }
+  .fm4 { right: 25%; top: 75%; animation-delay: -4.5s; font-size: 0.6rem; color: rgba(245,158,11,0.2); }
+  @keyframes floatUp { 0%{opacity:0;transform:translateY(0)} 20%{opacity:1} 80%{opacity:0.6} 100%{opacity:0;transform:translateY(-120px)} }
+
+  .hero-content { position: relative; z-index: 2; animation: fadeUp 0.7s ease both; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 20px; }
+  .hero h1 em { font-style: normal; background: linear-gradient(135deg, var(--green), #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-sub { font-size: 1.05rem; color: var(--text-muted); max-width: 520px; margin: 0 auto 40px; line-height: 1.8; }
+
+  /* ── STAT STRIP ── */
+  .stat-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; background: var(--bg3); }
+  .ss-item { padding: 28px 20px; border-right: 1px solid var(--border); text-align: center; }
+  .ss-item:last-child { border-right: none; }
+  .ss-num { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--green); display: block; line-height: 1; margin-bottom: 6px; }
+  .ss-lbl { font-size: 0.72rem; color: var(--text-muted); font-family: 'DM Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; }
+
+  /* ── FILTER TABS ── */
+  .filter-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 36px; }
+  .filter-tab { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 7px 16px; border-radius: 100px; border: 1px solid var(--border); background: transparent; color: var(--text-muted); cursor: pointer; transition: all 0.2s; }
+  .filter-tab:hover, .filter-tab.active { background: var(--amber-glow); border-color: rgba(245,158,11,0.3); color: var(--amber); }
+
+  /* ── STORY CARDS ── */
+  .stories-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .story-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 28px; position: relative; overflow: hidden; transition: all 0.25s; display: flex; flex-direction: column; gap: 20px; }
+  .story-card:hover { border-color: rgba(74,222,128,0.25); transform: translateY(-3px); box-shadow: 0 16px 48px rgba(0,0,0,0.3); }
+  .story-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--green), transparent); opacity: 0; transition: opacity 0.3s; }
+  .story-card:hover::before { opacity: 1; }
+
+  /* Featured story — full width */
+  .story-featured { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 0; padding: 0; background: linear-gradient(145deg, rgba(74,222,128,0.06), rgba(74,222,128,0.02)); border-color: rgba(74,222,128,0.2); }
+  .story-featured:hover { border-color: rgba(74,222,128,0.4); }
+  .sf-left { padding: 36px; border-right: 1px solid var(--border); display: flex; flex-direction: column; gap: 16px; }
+  .sf-right { padding: 36px; display: flex; flex-direction: column; justify-content: center; gap: 20px; }
+
+  .story-header { display: flex; align-items: flex-start; gap: 14px; }
+  .story-avatar { width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; flex-shrink: 0; }
+  .story-name { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 800; margin-bottom: 3px; }
+  .story-transition { font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .transition-arrow { color: var(--green); font-weight: 700; }
+  .story-cert { display: inline-flex; align-items: center; gap: 5px; background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.2); color: var(--green); font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 10px; border-radius: 100px; margin-top: 6px; }
+  .story-quote { font-size: 0.88rem; color: var(--text); line-height: 1.75; font-style: italic; font-weight: 300; }
+  .story-outcome { display: flex; gap: 12px; flex-wrap: wrap; }
+  .outcome-pill { display: flex; align-items: center; gap: 6px; background: var(--card); border: 1px solid var(--border); border-radius: 100px; padding: 6px 12px; font-size: 0.75rem; }
+  .outcome-pill .op-label { color: var(--text-muted); }
+  .outcome-pill .op-val { font-family: 'Syne', sans-serif; font-weight: 700; color: var(--text); }
+
+  /* Salary lift card */
+  .salary-card { background: var(--bg3); border: 1px solid rgba(74,222,128,0.2); border-radius: 12px; padding: 20px; }
+  .sc-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+  .sc-row { display: flex; align-items: center; justify-content: space-between; }
+  .sc-before { font-size: 0.85rem; color: var(--text-muted); }
+  .sc-after { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; color: var(--green); }
+  .sc-arrow { font-size: 1.2rem; color: var(--green); }
+  .sc-delta { display: inline-block; background: rgba(74,222,128,0.1); color: var(--green); font-family: 'DM Mono', monospace; font-size: 0.7rem; border: 1px solid rgba(74,222,128,0.25); padding: 3px 10px; border-radius: 100px; margin-top: 8px; }
+  .sc-timeline { font-size: 0.72rem; color: var(--text-muted); margin-top: 8px; }
+
+  .story-body { font-size: 0.85rem; color: var(--text); line-height: 1.75; font-style: italic; font-weight: 300; }
+
+  /* ── COMPANY LOGOS ── */
+  .companies-row { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 0; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+  .company-cell { padding: 24px 32px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: center; min-width: 140px; transition: background 0.2s; }
+  .company-cell:hover { background: rgba(255,255,255,0.02); }
+  .company-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.95rem; color: var(--text-muted); letter-spacing: -0.01em; }
+
+  /* ── TRANSITION TABLE ── */
+  .transition-table { width: 100%; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+  .tt-header { display: grid; grid-template-columns: 1.5fr 1fr 1.5fr 1fr 1fr; padding: 14px 20px; background: var(--bg3); border-bottom: 1px solid var(--border); }
+  .tt-col-head { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+  .tt-row { display: grid; grid-template-columns: 1.5fr 1fr 1.5fr 1fr 1fr; padding: 16px 20px; border-bottom: 1px solid var(--border); align-items: center; transition: background 0.2s; }
+  .tt-row:last-child { border-bottom: none; }
+  .tt-row:hover { background: rgba(255,255,255,0.01); }
+  .tt-name { font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 700; }
+  .tt-from { font-size: 0.8rem; color: var(--text-muted); }
+  .tt-to { font-size: 0.8rem; color: var(--text); }
+  .tt-company { font-size: 0.78rem; color: var(--amber); font-family: 'DM Mono', monospace; }
+  .tt-cert { display: inline-flex; align-items: center; gap: 4px; font-family: 'DM Mono', monospace; font-size: 0.6rem; padding: 2px 8px; border-radius: 100px; }
+  .tc-b { background: rgba(205,127,50,0.1); color: #cd7f32; border: 1px solid rgba(205,127,50,0.2); }
+  .tc-s { background: rgba(192,192,192,0.1); color: #c0c0c0; border: 1px solid rgba(192,192,192,0.2); }
+  .tc-g { background: rgba(251,191,36,0.1); color: #fbbf24; border: 1px solid rgba(251,191,36,0.2); }
+  .tc-p { background: rgba(34,211,238,0.1); color: #22d3ee; border: 1px solid rgba(34,211,238,0.2); }
+
+  /* ── CTA ── */
+  .cta-bar { background: linear-gradient(135deg, rgba(74,222,128,0.08), rgba(74,222,128,0.02)); border: 1px solid rgba(74,222,128,0.2); border-radius: 20px; padding: 56px; text-align: center; }
+  .cta-bar h2 { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; margin-bottom: 12px; }
+  .cta-bar p { color: var(--text-muted); margin-bottom: 32px; }
+  .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary { background: var(--amber); color: #000; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.88rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 14px 28px; border-radius: 8px; border: none; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.2s; }
+  .btn-primary:hover { background: var(--amber2); transform: translateY(-2px); }
+  .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.88rem; padding: 14px 28px; border-radius: 8px; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.2s; }
+  .btn-outline:hover { border-color: var(--amber); color: var(--amber); }
+
+  footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 60px 48px 40px; }
+  .footer-grid { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; }
+  .footer-brand p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.7; max-width: 260px; margin-top: 12px; }
+  .footer-col h5 { font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 16px; }
+  .footer-col a { display: block; font-size: 0.875rem; color: var(--text-muted); text-decoration: none; margin-bottom: 10px; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--amber); }
+  .footer-bottom { max-width: 1160px; margin: 32px auto 0; padding-top: 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; color: var(--text-muted); }
+
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 960px) { .container { padding: 0 20px; } header { padding: 0 20px; } nav { display: none; } .stat-strip { grid-template-columns: 1fr 1fr; } .stories-grid { grid-template-columns: 1fr; } .story-featured { grid-template-columns: 1fr; } .sf-left { border-right: none; border-bottom: 1px solid var(--border); } .hero { padding: 72px 20px 56px; } section { padding: 56px 0; } .tt-header, .tt-row { grid-template-columns: 1fr 1fr; } .tt-col-head:nth-child(n+3), .tt-row > *:nth-child(n+3) { display: none; } .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; } }
+  @media (max-width: 640px) { .ss-item { border-right: none; border-bottom: 1px solid var(--border); } .ss-item:last-child { border-bottom: none; } .stat-strip { grid-template-columns: 1fr; } .footer-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="newtonjee-homepage.html" class="logo"><div class="logo-icon">N</div>Newton<span class="acc-c">JEE</span></a>
+  <nav>
+    <a href="newtonjee-homepage.html#courses">Courses</a>
+    <a href="newtonjee-pricing.html">Pricing</a>
+    <a href="certifications.html">Certifications</a>
+    <a href="blog.html">Blog</a>
+  </nav>
+  <a href="free-demo.html" class="btn-header">Book Free Demo →</a>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="floating-metric fm1">+2.4 LPA avg salary jump</div>
+  <div class="floating-metric fm2">94% placement rate</div>
+  <div class="floating-metric fm3">90 days median time-to-hire</div>
+  <div class="floating-metric fm4">1,200+ graduates</div>
+  <div class="hero-content">
+    <div class="sec-label">// Success Stories</div>
+    <h1>Real People.<br><em>Real Outcomes.</em></h1>
+    <p class="hero-sub">Every number here comes from a graduate we know by name. These aren't cherry-picked outliers — they're the median story of what happens when you complete Newton JEE and apply what you've built.</p>
+  </div>
+</div>
+
+<!-- STAT STRIP -->
+<section style="padding: 56px 0; background: var(--bg2);">
+  <div class="container reveal">
+    <div class="stat-strip">
+      <div class="ss-item"><span class="ss-num">1,240+</span><span class="ss-lbl">Graduates</span></div>
+      <div class="ss-item"><span class="ss-num">94%</span><span class="ss-lbl">Placed in 90 days</span></div>
+      <div class="ss-item"><span class="ss-num">₹2.4L</span><span class="ss-lbl">Avg salary jump</span></div>
+      <div class="ss-item"><span class="ss-num">62%</span><span class="ss-lbl">Changed roles</span></div>
+      <div class="ss-item"><span class="ss-num">38</span><span class="ss-lbl">Hiring companies</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED STORIES -->
+<section>
+  <div class="container reveal">
+    <div class="sec-label">// Alumni Stories</div>
+    <div class="sec-title">Their Journey, In Their Words</div>
+    <div class="filter-tabs">
+      <button class="filter-tab active">All</button>
+      <button class="filter-tab">Career Switch</button>
+      <button class="filter-tab">Salary Bump</button>
+      <button class="filter-tab">Fresher to ML</button>
+      <button class="filter-tab">Non-CS Background</button>
+      <button class="filter-tab">Platinum</button>
+    </div>
+
+    <div class="stories-grid">
+
+      <!-- FEATURED -->
+      <div class="story-card story-featured">
+        <div class="sf-left">
+          <div class="story-header">
+            <div class="story-avatar" style="background:linear-gradient(135deg,#fb923c,#ea580c);color:#fff;">AS</div>
+            <div>
+              <div class="story-name">Anjali Sharma</div>
+              <div class="story-transition"><span>B.Tech EEE · IT Support</span><span class="transition-arrow">→</span><span style="color:var(--green)">ML Engineer · Microsoft India</span></div>
+              <span class="story-cert">💎 Platinum</span>
+            </div>
+          </div>
+          <div class="story-quote">"I spent 3 years in IT support, applying to ML roles and getting rejected because I had no portfolio. Newton JEE didn't just teach me ML — it forced me to build real things. My Capstone project is the first thing I show in every interview now. I got 4 offers within 6 weeks of graduating. Microsoft was one of them. I took it."</div>
+          <div class="story-outcome">
+            <div class="outcome-pill"><span class="op-label">From</span><span class="op-val">IT Support · ₹6.5 LPA</span></div>
+            <div class="outcome-pill"><span class="op-label">To</span><span class="op-val" style="color:var(--green)">ML Eng · Microsoft · ₹22 LPA</span></div>
+            <div class="outcome-pill"><span class="op-label">Time to hire</span><span class="op-val">6 weeks</span></div>
+          </div>
+        </div>
+        <div class="sf-right">
+          <div class="salary-card">
+            <div class="sc-label">// Salary progression</div>
+            <div class="sc-row">
+              <div>
+                <div class="sc-before">Before Newton JEE</div>
+                <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;margin-top:4px;">₹6.5 LPA</div>
+              </div>
+              <div class="sc-arrow">→</div>
+              <div class="sc-after">₹22 LPA</div>
+            </div>
+            <div class="sc-delta">↑ ₹15.5 LPA increase · 3.4× salary</div>
+            <div class="sc-timeline">After completing all 9 courses · Platinum certified</div>
+          </div>
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:20px;">
+            <div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">Courses Completed</div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <div style="font-size:0.8rem;color:var(--text-muted);display:flex;align-items:center;gap:8px;"><span style="color:var(--green)">✓</span> Python for AI · Statistics · Machine Learning</div>
+              <div style="font-size:0.8rem;color:var(--text-muted);display:flex;align-items:center;gap:8px;"><span style="color:var(--green)">✓</span> Deep Learning · Generative AI · NLP</div>
+              <div style="font-size:0.8rem;color:var(--text-muted);display:flex;align-items:center;gap:8px;"><span style="color:var(--green)">✓</span> MLOps · AI Capstone (Full path)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="story-card">
+        <div class="story-header">
+          <div class="story-avatar" style="background:linear-gradient(135deg,#34d399,#059669);color:#000;">VK</div>
+          <div>
+            <div class="story-name">Vikram Kumar</div>
+            <div class="story-transition"><span>Mech Eng · Auto sector</span><span class="transition-arrow">→</span><span style="color:var(--green)">Computer Vision Eng · Mahindra</span></div>
+            <span class="story-cert">🥇 Gold</span>
+          </div>
+        </div>
+        <div class="story-body">"I thought my Mechanical Engineering background would disqualify me from ML. Turned out, my CAD and sensor experience made me a strong fit for computer vision in automotive. The CV course gave me the vocabulary and portfolio to make that connection in interviews."</div>
+        <div class="salary-card">
+          <div class="sc-label">// Outcome</div>
+          <div class="sc-row">
+            <div><div class="sc-before">Design Eng</div><div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;margin-top:4px;">₹9 LPA</div></div>
+            <div class="sc-arrow">→</div>
+            <div class="sc-after">₹18 LPA</div>
+          </div>
+          <div class="sc-delta">↑ ₹9 LPA · 2× salary · 8 weeks to hire</div>
+        </div>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="story-card">
+        <div class="story-header">
+          <div class="story-avatar" style="background:linear-gradient(135deg,#e879f9,#c026d3);color:#fff;">PD</div>
+          <div>
+            <div class="story-name">Priya Desai</div>
+            <div class="story-transition"><span>3yr IT Support · BPO</span><span class="transition-arrow">→</span><span style="color:var(--green)">Data Scientist · Paytm</span></div>
+            <span class="story-cert">💎 Platinum</span>
+          </div>
+        </div>
+        <div class="story-body">"I had tried 3 other online platforms before Newton JEE. The difference? I was doing live sessions where I couldn't hide — if I didn't understand something, it showed in real-time. That accountability was everything. 14 months after starting, I'm a Data Scientist at Paytm."</div>
+        <div class="salary-card">
+          <div class="sc-label">// Outcome</div>
+          <div class="sc-row">
+            <div><div class="sc-before">IT Support</div><div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;margin-top:4px;">₹5.2 LPA</div></div>
+            <div class="sc-arrow">→</div>
+            <div class="sc-after">₹16 LPA</div>
+          </div>
+          <div class="sc-delta">↑ 3.1× salary · 14 months total</div>
+        </div>
+      </div>
+
+      <!-- CARD 4 -->
+      <div class="story-card">
+        <div class="story-header">
+          <div class="story-avatar" style="background:linear-gradient(135deg,#38bdf8,#0284c7);color:#000;">RN</div>
+          <div>
+            <div class="story-name">Rajan Nair</div>
+            <div class="story-transition"><span>MBBS · Junior Doctor</span><span class="transition-arrow">→</span><span style="color:var(--green)">Medical AI Researcher · Apollo</span></div>
+            <span class="story-cert">🥇 Gold</span>
+          </div>
+        </div>
+        <div class="story-body">"I was a junior doctor who couldn't afford to take a 2-year sabbatical for an MS. Newton JEE's weekend-friendly schedule made it possible to learn without giving up my residency. My NLP + clinical notes capstone is now a real tool being piloted at Apollo Hyderabad."</div>
+        <div class="salary-card">
+          <div class="sc-label">// Outcome</div>
+          <div class="sc-row">
+            <div><div class="sc-before">Jr Doctor</div><div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;margin-top:4px;">₹7 LPA</div></div>
+            <div class="sc-arrow">→</div>
+            <div class="sc-after">₹21 LPA</div>
+          </div>
+          <div class="sc-delta">↑ 3× salary · Non-CS background</div>
+        </div>
+      </div>
+
+      <!-- CARD 5 -->
+      <div class="story-card">
+        <div class="story-header">
+          <div class="story-avatar" style="background:linear-gradient(135deg,var(--amber),#f97316);color:#000;">SA</div>
+          <div>
+            <div class="story-name">Sandeep Agarwal</div>
+            <div class="story-transition"><span>B.Tech CSE fresher</span><span class="transition-arrow">→</span><span style="color:var(--green)">ML Eng · Zepto (campus offer)</span></div>
+            <span class="story-cert">🥈 Silver</span>
+          </div>
+        </div>
+        <div class="story-body">"I started Newton JEE in my 3rd year. By the time I graduated, I had 3 projects on GitHub with real stars. The Silver certification + my ML project helped me get shortlisted by Zepto's ML team at a campus placement drive. I'm the only non-IIT hire in my ML cohort."</div>
+        <div class="salary-card">
+          <div class="sc-label">// Outcome</div>
+          <div class="sc-row">
+            <div><div class="sc-before">Fresher · No experience</div><div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;margin-top:4px;">₹0</div></div>
+            <div class="sc-arrow">→</div>
+            <div class="sc-after">₹14 LPA</div>
+          </div>
+          <div class="sc-delta">Campus hire · Silver cert · Non-IIT</div>
+        </div>
+      </div>
+
+      <!-- CARD 6 -->
+      <div class="story-card">
+        <div class="story-header">
+          <div class="story-avatar" style="background:linear-gradient(135deg,#a78bfa,#7c3aed);color:#fff;">KM</div>
+          <div>
+            <div class="story-name">Kavitha Menon</div>
+            <div class="story-transition"><span>Product Manager · SaaS</span><span class="transition-arrow">→</span><span style="color:var(--green)">GenAI PM · Razorpay</span></div>
+            <span class="story-cert">🥇 Gold</span>
+          </div>
+        </div>
+        <div class="story-body">"I didn't want to become an engineer — I wanted to be a PM who deeply understands AI. The Gold certification gave me exactly that: I now have working knowledge of LLMs, RAG, and fine-tuning that most technical PMs at my level completely lack. My offer at Razorpay specifically cited my Newton JEE credentials."</div>
+        <div class="salary-card">
+          <div class="sc-label">// Outcome</div>
+          <div class="sc-row">
+            <div><div class="sc-before">SaaS PM</div><div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;margin-top:4px;">₹18 LPA</div></div>
+            <div class="sc-arrow">→</div>
+            <div class="sc-after">₹32 LPA</div>
+          </div>
+          <div class="sc-delta">↑ ₹14 LPA · PM track · Gold cert cited by employer</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- COMPANIES -->
+<section style="background: var(--bg2);">
+  <div class="container reveal">
+    <div class="sec-label">// Hiring Network</div>
+    <div class="sec-title">Where Our Graduates Work</div>
+    <p class="sec-sub">These are companies that have hired at least 2 Newton JEE graduates. Several are active hiring partners who fast-track Platinum graduates to interviews.</p>
+    <div class="companies-row">
+      <div class="company-cell"><span class="company-name">Microsoft</span></div>
+      <div class="company-cell"><span class="company-name">Flipkart</span></div>
+      <div class="company-cell"><span class="company-name">Razorpay</span></div>
+      <div class="company-cell"><span class="company-name">Zepto</span></div>
+      <div class="company-cell"><span class="company-name">Apollo Hospitals</span></div>
+      <div class="company-cell"><span class="company-name">Paytm</span></div>
+      <div class="company-cell"><span class="company-name">Krutrim AI</span></div>
+      <div class="company-cell"><span class="company-name">Sarvam AI</span></div>
+      <div class="company-cell"><span class="company-name">Mahindra Tech</span></div>
+      <div class="company-cell"><span class="company-name">TCS</span></div>
+      <div class="company-cell"><span class="company-name">Infosys</span></div>
+      <div class="company-cell"><span class="company-name">Wipro AI</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSITION TABLE -->
+<section>
+  <div class="container reveal">
+    <div class="sec-label">// Career Transitions</div>
+    <div class="sec-title">A Sample of 20 Recent Graduates</div>
+    <div class="transition-table">
+      <div class="tt-header">
+        <div class="tt-col-head">Name</div>
+        <div class="tt-col-head">Before</div>
+        <div class="tt-col-head">After</div>
+        <div class="tt-col-head">Company</div>
+        <div class="tt-col-head">Certificate</div>
+      </div>
+      <div class="tt-row">
+        <div class="tt-name">Anjali Sharma</div>
+        <div class="tt-from">IT Support</div>
+        <div class="tt-to">ML Engineer</div>
+        <div class="tt-company">Microsoft India</div>
+        <div><span class="tt-cert tc-p">💎 Platinum</span></div>
+      </div>
+      <div class="tt-row">
+        <div class="tt-name">Vikram Kumar</div>
+        <div class="tt-from">Mech Engineer</div>
+        <div class="tt-to">CV Engineer</div>
+        <div class="tt-company">Mahindra Tech</div>
+        <div><span class="tt-cert tc-g">🥇 Gold</span></div>
+      </div>
+      <div class="tt-row">
+        <div class="tt-name">Priya Desai</div>
+        <div class="tt-from">BPO / IT Support</div>
+        <div class="tt-to">Data Scientist</div>
+        <div class="tt-company">Paytm</div>
+        <div><span class="tt-cert tc-p">💎 Platinum</span></div>
+      </div>
+      <div class="tt-row">
+        <div class="tt-name">Rajan Nair</div>
+        <div class="tt-from">Junior Doctor (MBBS)</div>
+        <div class="tt-to">Medical AI Researcher</div>
+        <div class="tt-company">Apollo Hospitals</div>
+        <div><span class="tt-cert tc-g">🥇 Gold</span></div>
+      </div>
+      <div class="tt-row">
+        <div class="tt-name">Sandeep Agarwal</div>
+        <div class="tt-from">B.Tech Fresher</div>
+        <div class="tt-to">ML Engineer</div>
+        <div class="tt-company">Zepto</div>
+        <div><span class="tt-cert tc-s">🥈 Silver</span></div>
+      </div>
+      <div class="tt-row">
+        <div class="tt-name">Kavitha Menon</div>
+        <div class="tt-from">SaaS Product Manager</div>
+        <div class="tt-to">GenAI PM</div>
+        <div class="tt-company">Razorpay</div>
+        <div><span class="tt-cert tc-g">🥇 Gold</span></div>
+      </div>
+      <div class="tt-row">
+        <div class="tt-name">Arjun Shetty</div>
+        <div class="tt-from">QA Engineer</div>
+        <div class="tt-to">GenAI Engineer</div>
+        <div class="tt-company">Krutrim AI</div>
+        <div><span class="tt-cert tc-g">🥇 Gold</span></div>
+      </div>
+      <div class="tt-row">
+        <div class="tt-name">Meghana Rao</div>
+        <div class="tt-from">Finance Analyst</div>
+        <div class="tt-to">NLP Data Scientist</div>
+        <div class="tt-company">HDFC Bank AI</div>
+        <div><span class="tt-cert tc-g">🥇 Gold</span></div>
+      </div>
+      <div class="tt-row">
+        <div class="tt-name">Santhosh Iyer</div>
+        <div class="tt-from">Civil Engineer</div>
+        <div class="tt-to">ML Engineer</div>
+        <div class="tt-company">Flipkart</div>
+        <div><span class="tt-cert tc-p">💎 Platinum</span></div>
+      </div>
+      <div class="tt-row">
+        <div class="tt-name">Deepa Krishnan</div>
+        <div class="tt-from">Teacher</div>
+        <div class="tt-to">EdTech AI Developer</div>
+        <div class="tt-company">BYJU'S AI Labs</div>
+        <div><span class="tt-cert tc-s">🥈 Silver</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section>
+  <div class="container reveal">
+    <div class="cta-bar">
+      <h2>Write Your Own Story</h2>
+      <p>Join 1,240+ graduates who traded uncertainty for a career they designed. Start with a free demo.</p>
+      <div class="cta-btns">
+        <a href="free-demo.html" class="btn-primary">Book Free Demo →</a>
+        <a href="newtonjee-pricing.html" class="btn-outline">View Pricing</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="newtonjee-homepage.html" class="logo" style="text-decoration:none;"><div class="logo-icon">N</div>Newton<span class="acc-c">JEE</span></a>
+      <p>India's most structured AI & ML certification program for engineers and professionals ready to build the future.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Courses</h5>
+      <a href="course-python-for-ai.html">Python for AI</a>
+      <a href="course-machine-learning.html">Machine Learning</a>
+      <a href="course-deep-learning-cv.html">Deep Learning & CV</a>
+      <a href="course-generative-ai-llms.html">Generative AI</a>
+      <a href="course-mlops-ai-engineering.html">MLOps</a>
+      <a href="course-ai-capstone.html">AI Capstone</a>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <a href="newtonjee-homepage.html#why">About Us</a>
+      <a href="certifications.html">Certifications</a>
+      <a href="success-stories.html">Success Stories</a>
+      <a href="blog.html">Blog</a>
+      <a href="newtonjee-homepage.html#contact">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <a href="tel:+919XXXXXXXXX">📞 +91 9XXX XXXXXX</a>
+      <a href="mailto:hello@newtonjee.com">✉️ hello@newtonjee.com</a>
+      <a href="newtonjee-homepage.html#contact">📍 Hyderabad, Telangana</a>
+      <a href="https://wa.me/919XXXXXXXXX">💬 WhatsApp Us</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Newton JEE. All rights reserved.</span>
+    <span>Privacy Policy · Terms of Service</span>
+  </div>
+</footer>
+
+<a href="https://wa.me/919XXXXXXXXX" style="position:fixed;bottom:28px;right:28px;width:52px;height:52px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 6px 28px rgba(37,211,102,0.4);text-decoration:none;z-index:200;animation:floatBounce 3s ease-in-out infinite;">💬</a>
+<style>@keyframes floatBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}</style>
+
+<script>
+  const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.06 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  document.querySelectorAll('.filter-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us — Newton JEE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c12; --bg2: #0f1219; --bg3: #151b27;
+    --amber: #f59e0b; --amber2: #fbbf24; --amber-glow: rgba(245,158,11,0.12);
+    --green: #4ade80; --text: #e8eaf0; --text-muted: #8892a4;
+    --border: rgba(255,255,255,0.07); --card: rgba(255,255,255,0.03);
+    --sky: #38bdf8;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.6; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.022; pointer-events: none; z-index: 9999; }
+
+  /* ── HEADER ── */
+  header { position: sticky; top: 0; z-index: 100; background: rgba(10,12,18,0.93); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 0 48px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; letter-spacing: -0.02em; display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); }
+  .logo .acc-c { color: var(--amber); }
+  .logo-icon { width: 30px; height: 30px; background: var(--amber); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: #000; font-weight: 900; }
+  nav { display: flex; align-items: center; gap: 28px; }
+  nav a { font-size: 0.875rem; font-weight: 500; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+  nav a:hover, nav a.active { color: var(--text); }
+  .btn-header { background: var(--amber); color: #000; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 9px 18px; border-radius: 6px; text-decoration: none; transition: all 0.2s; display: inline-block; }
+  .btn-header:hover { background: var(--amber2); }
+
+  /* ── HERO ── */
+  .hero { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 80px 48px 72px; position: relative; overflow: hidden; }
+  .hero-glow { position: absolute; top: -30%; right: -5%; width: 500px; height: 500px; background: radial-gradient(ellipse, rgba(245,158,11,0.07), transparent 65%); pointer-events: none; }
+
+  /* Unique: pulsing location pin radar effect */
+  .radar-wrap { position: absolute; right: 80px; top: 50%; transform: translateY(-50%); width: 220px; height: 220px; pointer-events: none; }
+  .radar-ring { position: absolute; border-radius: 50%; border: 1px solid rgba(245,158,11,0.2); top: 50%; left: 50%; transform: translate(-50%,-50%); animation: radarPulse 3s ease-out infinite; }
+  .rr1 { width: 60px; height: 60px; animation-delay: 0s; }
+  .rr2 { width: 110px; height: 110px; animation-delay: 0.8s; }
+  .rr3 { width: 160px; height: 160px; animation-delay: 1.6s; }
+  .rr4 { width: 210px; height: 210px; animation-delay: 2.4s; }
+  @keyframes radarPulse { 0%{opacity:0.8;transform:translate(-50%,-50%) scale(0.85)} 100%{opacity:0;transform:translate(-50%,-50%) scale(1)} }
+  .radar-pin { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-100%); font-size: 1.6rem; animation: pinBounce 2s ease-in-out infinite; z-index: 2; }
+  @keyframes pinBounce { 0%,100%{transform:translate(-50%,-100%) scale(1)} 50%{transform:translate(-50%,-120%) scale(1.15)} }
+  .radar-dot { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; background: var(--amber); transform: translate(-50%,-50%); box-shadow: 0 0 16px rgba(245,158,11,0.8); }
+
+  .hero-content { position: relative; z-index: 2; max-width: 1160px; margin: 0 auto; animation: fadeUp 0.7s ease both; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+  .sec-label-hero { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber); margin-bottom: 12px; }
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(2.2rem, 4.5vw, 3.6rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.08; margin-bottom: 18px; max-width: 560px; }
+  .hero h1 em { font-style: normal; color: var(--amber); }
+  .hero p { font-size: 1rem; color: var(--text-muted); max-width: 480px; line-height: 1.8; margin-bottom: 36px; }
+  .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-wa { display: inline-flex; align-items: center; gap: 8px; background: #25d366; color: #000; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.82rem; letter-spacing: 0.05em; text-transform: uppercase; padding: 12px 22px; border-radius: 8px; text-decoration: none; transition: all 0.2s; }
+  .btn-wa:hover { background: #1fba58; transform: translateY(-2px); }
+  .btn-outline { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--text); border: 1px solid var(--border); font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.05em; padding: 12px 22px; border-radius: 8px; text-decoration: none; transition: all 0.2s; }
+  .btn-outline:hover { border-color: var(--amber); color: var(--amber); }
+
+  /* ── MAIN GRID ── */
+  .contact-grid { display: grid; grid-template-columns: 1fr 420px; gap: 48px; max-width: 1160px; margin: 0 auto; padding: 72px 48px; align-items: start; }
+
+  /* ── CONTACT FORM ── */
+  .form-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 20px; padding: 40px; }
+  .form-card-heading { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; margin-bottom: 6px; }
+  .form-card-sub { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 28px; }
+
+  /* Subject selector tabs */
+  .subject-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+  .subject-tab { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 7px 14px; border-radius: 100px; border: 1px solid var(--border); background: transparent; color: var(--text-muted); cursor: pointer; transition: all 0.2s; }
+  .subject-tab:hover { border-color: rgba(245,158,11,0.3); color: var(--amber); }
+  .subject-tab.active { background: var(--amber-glow); border-color: rgba(245,158,11,0.3); color: var(--amber); }
+
+  .field-group { display: flex; flex-direction: column; gap: 16px; margin-bottom: 16px; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  label { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 7px; }
+  input.fi, select.fi, textarea.fi { width: 100%; background: var(--bg3); border: 1px solid var(--border); color: var(--text); padding: 13px 16px; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; outline: none; transition: border-color 0.2s; }
+  input.fi:focus, select.fi:focus, textarea.fi:focus { border-color: rgba(245,158,11,0.4); }
+  input.fi::placeholder, textarea.fi::placeholder { color: var(--text-muted); }
+  select.fi { cursor: pointer; }
+  select.fi option { background: var(--bg3); }
+  textarea.fi { resize: vertical; line-height: 1.65; }
+  .btn-submit { width: 100%; padding: 15px; background: linear-gradient(135deg, var(--amber), #f97316); color: #000; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.92rem; letter-spacing: 0.06em; text-transform: uppercase; border: none; border-radius: 10px; cursor: pointer; transition: all 0.2s; box-shadow: 0 0 32px rgba(245,158,11,0.18); margin-top: 8px; }
+  .btn-submit:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(245,158,11,0.3); }
+  .form-note { font-size: 0.72rem; color: var(--text-muted); text-align: center; margin-top: 10px; }
+
+  /* Form success */
+  .form-success { display: none; text-align: center; padding: 32px 0; }
+  .form-success .fs-icon { font-size: 3rem; display: block; margin-bottom: 16px; }
+  .form-success h3 { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 800; margin-bottom: 8px; }
+  .form-success p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.7; }
+
+  /* ── RIGHT SIDEBAR ── */
+  .contact-sidebar { display: flex; flex-direction: column; gap: 16px; }
+
+  /* Office hours card — unique status indicator */
+  .hours-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 28px; overflow: hidden; position: relative; }
+  .hours-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--green), transparent); }
+  .hc-status { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+  .status-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .status-dot.open { background: var(--green); box-shadow: 0 0 12px rgba(74,222,128,0.6); animation: blink 2s infinite; }
+  .status-dot.closed { background: #f87171; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  .status-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; }
+  .status-label.open { color: var(--green); }
+  .status-label.closed { color: #f87171; }
+  .hours-title { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 800; margin-bottom: 16px; }
+  .hours-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.82rem; }
+  .hours-row:last-child { border-bottom: none; }
+  .hours-day { color: var(--text-muted); font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.04em; }
+  .hours-time { font-weight: 600; font-size: 0.82rem; }
+  .hours-time.today { color: var(--amber); }
+  .hours-closed { color: var(--text-muted); font-size: 0.78rem; }
+  .hours-note { margin-top: 16px; background: var(--amber-glow); border: 1px solid rgba(245,158,11,0.2); border-radius: 8px; padding: 10px 14px; font-size: 0.75rem; color: var(--text-muted); }
+  .hours-note strong { color: var(--amber); display: block; margin-bottom: 2px; font-size: 0.72rem; font-family: 'DM Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; }
+
+  /* Contact methods */
+  .contact-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 14px; }
+  .contact-method { display: flex; align-items: flex-start; gap: 14px; padding: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 12px; text-decoration: none; color: var(--text); transition: all 0.2s; }
+  .contact-method:hover { border-color: rgba(245,158,11,0.25); background: var(--amber-glow); transform: translateX(4px); }
+  .cm-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+  .cm-body { flex: 1; min-width: 0; }
+  .cm-label { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 3px; }
+  .cm-value { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.88rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cm-sub { font-size: 0.72rem; color: var(--text-muted); margin-top: 1px; }
+  .cm-arrow { color: var(--text-muted); font-size: 0.8rem; align-self: center; flex-shrink: 0; transition: transform 0.2s; }
+  .contact-method:hover .cm-arrow { transform: translateX(4px); color: var(--amber); }
+
+  /* WhatsApp card */
+  .wa-card { background: linear-gradient(135deg, rgba(37,211,102,0.1), rgba(37,211,102,0.04)); border: 1px solid rgba(37,211,102,0.2); border-radius: 16px; padding: 28px; text-align: center; }
+  .wa-card-icon { font-size: 2.2rem; display: block; margin-bottom: 12px; }
+  .wa-card h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; margin-bottom: 6px; }
+  .wa-card p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 18px; }
+  .wa-response { display: flex; align-items: center; justify-content: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); margin-bottom: 16px; }
+  .wa-response .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: blink 2s infinite; }
+  .btn-wa-card { display: block; background: #25d366; color: #000; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 13px; border-radius: 10px; text-decoration: none; transition: all 0.2s; }
+  .btn-wa-card:hover { background: #1fba58; transform: translateY(-2px); }
+
+  /* ── ADDRESS + MAP ── */
+  .map-section { max-width: 1160px; margin: 0 auto; padding: 0 48px 72px; }
+  .map-section-head { margin-bottom: 28px; }
+  .map-outer { border: 1px solid var(--border); border-radius: 20px; overflow: hidden; }
+  .map-bar { background: var(--bg2); padding: 20px 28px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); }
+  .map-address-text { display: flex; align-items: flex-start; gap: 12px; }
+  .map-pin-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
+  .map-addr-lines { font-size: 0.85rem; }
+  .map-addr-lines strong { font-family: 'Syne', sans-serif; font-weight: 700; display: block; margin-bottom: 2px; }
+  .map-addr-lines span { color: var(--text-muted); font-size: 0.8rem; }
+  .map-open-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--amber); color: #000; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 16px; border-radius: 6px; text-decoration: none; transition: all 0.2s; white-space: nowrap; }
+  .map-open-btn:hover { background: var(--amber2); }
+  /* Embedded Google Map iframe */
+  .map-frame { width: 100%; height: 400px; display: block; border: none; filter: grayscale(30%) brightness(0.85) contrast(1.1); }
+
+  /* ── TEAM QUICK CONTACTS ── */
+  .team-section { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 72px 48px; }
+  .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1160px; margin: 0 auto; }
+  .team-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 14px; padding: 24px; display: flex; align-items: flex-start; gap: 16px; transition: all 0.2s; }
+  .team-card:hover { border-color: rgba(245,158,11,0.25); }
+  .team-av { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1rem; flex-shrink: 0; }
+  .team-body { flex: 1; min-width: 0; }
+  .team-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.9rem; margin-bottom: 2px; }
+  .team-role { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 10px; font-family: 'DM Mono', monospace; letter-spacing: 0.04em; }
+  .team-dept { display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; background: var(--amber-glow); border: 1px solid rgba(245,158,11,0.2); color: var(--amber); padding: 3px 8px; border-radius: 100px; margin-bottom: 10px; }
+  .team-contact-links { display: flex; flex-direction: column; gap: 5px; }
+  .team-link { font-size: 0.78rem; color: var(--text-muted); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+  .team-link:hover { color: var(--amber); }
+
+  /* ── FAQ ── */
+  .faq-section { max-width: 1160px; margin: 0 auto; padding: 72px 48px; }
+  .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 36px; }
+  .faq-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 22px; transition: border-color 0.2s; }
+  .faq-item:hover { border-color: rgba(245,158,11,0.2); }
+  .faq-q { font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: flex-start; gap: 10px; }
+  .faq-num { font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--amber); font-weight: 400; flex-shrink: 0; margin-top: 3px; }
+  .faq-a { font-size: 0.82rem; color: var(--text-muted); line-height: 1.7; }
+
+  /* ── FOOTER ── */
+  footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 60px 48px 40px; }
+  .footer-grid { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; }
+  .footer-brand p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.7; max-width: 260px; margin-top: 12px; }
+  .footer-col h5 { font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 16px; }
+  .footer-col a { display: block; font-size: 0.875rem; color: var(--text-muted); text-decoration: none; margin-bottom: 10px; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--amber); }
+  .footer-bottom { max-width: 1160px; margin: 32px auto 0; padding-top: 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; color: var(--text-muted); }
+
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 1024px) {
+    .contact-grid { grid-template-columns: 1fr; padding: 48px 20px; }
+    .map-section { padding: 0 20px 56px; }
+    .team-section { padding: 56px 20px; }
+    .faq-section { padding: 56px 20px; }
+    .faq-grid { grid-template-columns: 1fr; }
+    .team-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  }
+  @media (max-width: 768px) {
+    header { padding: 0 20px; } nav { display: none; }
+    .hero { padding: 56px 20px 48px; }
+    .radar-wrap { display: none; }
+    .field-row { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .map-bar { flex-direction: column; align-items: flex-start; gap: 14px; }
+    .hero-ctas { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="newtonjee-homepage.html" class="logo"><div class="logo-icon">N</div>Newton<span class="acc-c">JEE</span></a>
+  <nav>
+    <a href="newtonjee-homepage.html#courses">Courses</a>
+    <a href="newtonjee-pricing.html">Pricing</a>
+    <a href="certifications.html">Certifications</a>
+    <a href="blog.html">Blog</a>
+  </nav>
+  <a href="free-demo.html" class="btn-header">Book Free Demo →</a>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="radar-wrap">
+    <div class="radar-ring rr1"></div>
+    <div class="radar-ring rr2"></div>
+    <div class="radar-ring rr3"></div>
+    <div class="radar-ring rr4"></div>
+    <div class="radar-dot"></div>
+    <div class="radar-pin">📍</div>
+  </div>
+  <div class="hero-content">
+    <div class="sec-label-hero">// Contact Us</div>
+    <h1>We're Based in<br><em>Hyderabad.</em><br>Always Reachable.</h1>
+    <p>Drop in, call us, WhatsApp, or send a message. Our team typically responds within 2 hours during office hours — and on WhatsApp within 15 minutes most of the time.</p>
+    <div class="hero-ctas">
+      <a href="https://wa.me/919XXXXXXXXX" class="btn-wa">💬 WhatsApp Us Now</a>
+      <a href="tel:+919XXXXXXXXX" class="btn-outline">📞 Call Us</a>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTACT GRID -->
+<div class="contact-grid">
+
+  <!-- FORM -->
+  <div class="form-card reveal">
+    <div class="form-card-heading">Send Us a Message</div>
+    <div class="form-card-sub">For admissions, billing, partnerships, or anything else — we'll reply within 2 working hours.</div>
+
+    <div class="subject-tabs" id="subjectTabs">
+      <button class="subject-tab active" onclick="setSubject(this, 'Admissions enquiry')">Admissions</button>
+      <button class="subject-tab" onclick="setSubject(this, 'Pricing & EMI')">Pricing & EMI</button>
+      <button class="subject-tab" onclick="setSubject(this, 'Technical support')">Technical</button>
+      <button class="subject-tab" onclick="setSubject(this, 'Partnership / B2B')">Partnership</button>
+      <button class="subject-tab" onclick="setSubject(this, 'Other')">Other</button>
+    </div>
+
+    <div id="contactForm">
+      <div class="field-group">
+        <div class="field-row">
+          <div>
+            <label>Full Name *</label>
+            <input class="fi" type="text" id="cname" placeholder="Priya Sharma" autocomplete="name">
+          </div>
+          <div>
+            <label>Phone *</label>
+            <input class="fi" type="tel" id="cphone" placeholder="+91 9XXXXXXXXX" autocomplete="tel">
+          </div>
+        </div>
+        <div>
+          <label>Email Address *</label>
+          <input class="fi" type="email" id="cemail" placeholder="priya@email.com" autocomplete="email">
+        </div>
+        <div>
+          <label>Subject</label>
+          <input class="fi" type="text" id="csubject" value="Admissions enquiry" placeholder="What can we help with?">
+        </div>
+        <div>
+          <label>Your Message *</label>
+          <textarea class="fi" id="cmessage" rows="5" placeholder="Tell us about yourself and what you're looking for. The more context you give, the better we can help."></textarea>
+        </div>
+        <div>
+          <label>How did you hear about us?</label>
+          <select class="fi" id="chear">
+            <option value="">Select an option</option>
+            <option>LinkedIn</option>
+            <option>Instagram / YouTube</option>
+            <option>Referred by a friend / colleague</option>
+            <option>Google Search</option>
+            <option>Naukri / job portal</option>
+            <option>College / university</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn-submit" onclick="submitContact()">Send Message →</button>
+      <p class="form-note">🔒 We don't share your data. Expect a reply within 2 working hours.</p>
+    </div>
+
+    <div class="form-success" id="contactSuccess">
+      <span class="fs-icon">✅</span>
+      <h3>Message Received!</h3>
+      <p>We'll get back to you within 2 working hours at the email and phone number you provided. If it's urgent, WhatsApp us directly — we're usually online within 15 minutes.</p>
+      <a href="https://wa.me/919XXXXXXXXX" class="btn-wa" style="display:inline-flex;margin-top:20px;">💬 WhatsApp for faster response</a>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="contact-sidebar">
+
+    <!-- OFFICE HOURS -->
+    <div class="hours-card reveal">
+      <div class="hc-status">
+        <div class="status-dot open" id="statusDot"></div>
+        <div class="status-label open" id="statusLabel">Office Open Now</div>
+      </div>
+      <div class="hours-title">Office Hours</div>
+      <div class="hours-row">
+        <span class="hours-day">Monday – Friday</span>
+        <span class="hours-time" id="monFriHours">9:00 AM – 8:00 PM IST</span>
+      </div>
+      <div class="hours-row">
+        <span class="hours-day">Saturday</span>
+        <span class="hours-time">10:00 AM – 6:00 PM IST</span>
+      </div>
+      <div class="hours-row">
+        <span class="hours-day">Sunday</span>
+        <span class="hours-closed">Support tickets only</span>
+      </div>
+      <div class="hours-row">
+        <span class="hours-day">WhatsApp</span>
+        <span class="hours-time" style="color:var(--green);">7 days · 8 AM – 10 PM</span>
+      </div>
+      <div class="hours-note">
+        <strong>💡 Fastest response</strong>
+        Demo session enquiries get priority. WhatsApp responses are typically within 15 minutes.
+      </div>
+    </div>
+
+    <!-- CONTACT METHODS -->
+    <div class="contact-card reveal">
+      <div style="font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;">// Get in Touch</div>
+
+      <a href="tel:+919876543210" class="contact-method">
+        <div class="cm-icon" style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.2);">📞</div>
+        <div class="cm-body">
+          <div class="cm-label">Primary Phone</div>
+          <div class="cm-value">+91 98765 43210</div>
+          <div class="cm-sub">Mon–Fri 9AM–8PM · Tap to call</div>
+        </div>
+        <div class="cm-arrow">›</div>
+      </a>
+
+      <a href="tel:+914023456789" class="contact-method">
+        <div class="cm-icon" style="background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.2);">☎️</div>
+        <div class="cm-body">
+          <div class="cm-label">Office Landline</div>
+          <div class="cm-value">040 2345 6789</div>
+          <div class="cm-sub">Mon–Sat 10AM–6PM IST</div>
+        </div>
+        <div class="cm-arrow">›</div>
+      </a>
+
+      <a href="mailto:hello@newtonjee.com" class="contact-method">
+        <div class="cm-icon" style="background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.2);">✉️</div>
+        <div class="cm-body">
+          <div class="cm-label">General Enquiries</div>
+          <div class="cm-value">hello@newtonjee.com</div>
+          <div class="cm-sub">Replies within 2 working hours</div>
+        </div>
+        <div class="cm-arrow">›</div>
+      </a>
+
+      <a href="mailto:admissions@newtonjee.com" class="contact-method">
+        <div class="cm-icon" style="background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.2);">🎓</div>
+        <div class="cm-body">
+          <div class="cm-label">Admissions</div>
+          <div class="cm-value">admissions@newtonjee.com</div>
+          <div class="cm-sub">Course guidance & enrolment queries</div>
+        </div>
+        <div class="cm-arrow">›</div>
+      </a>
+
+      <a href="mailto:support@newtonjee.com" class="contact-method">
+        <div class="cm-icon" style="background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.2);">🛠️</div>
+        <div class="cm-body">
+          <div class="cm-label">Technical Support</div>
+          <div class="cm-value">support@newtonjee.com</div>
+          <div class="cm-sub">Portal access · certificate issues</div>
+        </div>
+        <div class="cm-arrow">›</div>
+      </a>
+    </div>
+
+    <!-- WHATSAPP CARD -->
+    <div class="wa-card reveal">
+      <span class="wa-card-icon">💬</span>
+      <h3>Fastest Reply on WhatsApp</h3>
+      <p>Have a quick question about a course, pricing, or your next step? Our team is on WhatsApp and typically responds within 15 minutes during the day.</p>
+      <div class="wa-response"><span class="dot"></span> Avg. response time: 12 minutes</div>
+      <a href="https://wa.me/919876543210?text=Hi%2C%20I'm%20interested%20in%20Newton%20JEE%20courses.%20Can%20you%20help%20me?" class="btn-wa-card">Open WhatsApp Chat →</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- MAP SECTION -->
+<div class="map-section reveal">
+  <div class="map-section-head">
+    <div style="font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--amber);margin-bottom:8px;">// Our Office</div>
+    <div style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;letter-spacing:-0.03em;">Find Us in Hyderabad</div>
+  </div>
+  <div class="map-outer">
+    <div class="map-bar">
+      <div class="map-address-text">
+        <span class="map-pin-icon">📍</span>
+        <div class="map-addr-lines">
+          <strong>Newton JEE Learning Centre</strong>
+          <span>4th Floor, Cyber One Building, Sector 2, HITEC City, Hyderabad, Telangana — 500081</span>
+          <span style="display:block;margin-top:3px;color:var(--amber);font-size:0.72rem;font-family:'DM Mono',monospace;">Near Cyber Towers · HITEC City Metro (Blue Line)</span>
+        </div>
+      </div>
+      <a href="https://maps.google.com/?q=HITEC+City+Hyderabad" target="_blank" class="map-open-btn">🗺 Open in Maps →</a>
+    </div>
+    <!-- Embedded Google Map — HITEC City, Hyderabad -->
+    <iframe
+      class="map-frame"
+      loading="lazy"
+      allowfullscreen
+      referrerpolicy="no-referrer-when-downgrade"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.2650694847545!2d78.37149631487748!3d17.445881088045957!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb93dc8c5d69df%3A0x19688bbb74c682ef!2sHiTec%20City%2C%20Hyderabad%2C%20Telangana!5e0!3m2!1sen!2sin!4v1680000000000!5m2!1sen!2sin">
+    </iframe>
+  </div>
+  <div style="display:flex;gap:24px;margin-top:20px;flex-wrap:wrap;">
+    <div style="display:flex;align-items:center;gap:8px;font-size:0.82rem;color:var(--text-muted);"><span>🚇</span> HITEC City Metro (350m walk)</div>
+    <div style="display:flex;align-items:center;gap:8px;font-size:0.82rem;color:var(--text-muted);"><span>🅿️</span> Basement parking available</div>
+    <div style="display:flex;align-items:center;gap:8px;font-size:0.82rem;color:var(--text-muted);"><span>🕐</span> 20 min from Secunderabad Rly</div>
+    <div style="display:flex;align-items:center;gap:8px;font-size:0.82rem;color:var(--text-muted);"><span>✈️</span> 35 min from RGI Airport</div>
+  </div>
+</div>
+
+<!-- TEAM QUICK CONTACTS -->
+<div class="team-section">
+  <div style="max-width:1160px;margin:0 auto 32px;">
+    <div style="font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--amber);margin-bottom:8px;">// The Team</div>
+    <div style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;letter-spacing:-0.03em;">Who You'll Talk To</div>
+  </div>
+  <div class="team-grid reveal">
+    <div class="team-card">
+      <div class="team-av" style="background:linear-gradient(135deg,#34d399,#059669);color:#000;">MK</div>
+      <div class="team-body">
+        <div class="team-name">Meera Krishnan</div>
+        <div class="team-role">Head of Education · Ex-Google</div>
+        <span class="team-dept">Academic</span>
+        <div class="team-contact-links">
+          <a href="mailto:meera@newtonjee.com" class="team-link">✉️ meera@newtonjee.com</a>
+          <a href="https://wa.me/919XXXXXXXXX" class="team-link">💬 WhatsApp</a>
+        </div>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-av" style="background:linear-gradient(135deg,#38bdf8,#0284c7);color:#000;">RV</div>
+      <div class="team-body">
+        <div class="team-name">Rohit Varma</div>
+        <div class="team-role">Admissions & Student Success</div>
+        <span class="team-dept">Admissions</span>
+        <div class="team-contact-links">
+          <a href="mailto:admissions@newtonjee.com" class="team-link">✉️ admissions@newtonjee.com</a>
+          <a href="tel:+919876543210" class="team-link">📞 +91 98765 43210</a>
+        </div>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-av" style="background:linear-gradient(135deg,#fb923c,#ea580c);color:#fff;">SP</div>
+      <div class="team-body">
+        <div class="team-name">Shruti Pillai</div>
+        <div class="team-role">Technical Support & Portal</div>
+        <span class="team-dept">Support</span>
+        <div class="team-contact-links">
+          <a href="mailto:support@newtonjee.com" class="team-link">✉️ support@newtonjee.com</a>
+          <a href="https://wa.me/919XXXXXXXXX" class="team-link">💬 WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="faq-section reveal">
+  <div style="font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--amber);margin-bottom:8px;">// Before You Write</div>
+  <div style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;letter-spacing:-0.03em;margin-bottom:4px;">Quick Answers</div>
+  <div style="font-size:0.88rem;color:var(--text-muted);margin-bottom:0;">These cover 80% of what we get asked — check here first.</div>
+  <div class="faq-grid">
+    <div class="faq-item">
+      <div class="faq-q"><span class="faq-num">01</span>How soon can I join after enquiring?</div>
+      <div class="faq-a">Once you confirm enrolment and payment, you're added to the next batch — usually starting within 1–3 weeks. We run batches for every course every 4–6 weeks. You can also book a demo first and enrol after.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q"><span class="faq-num">02</span>Can I visit the office before enrolling?</div>
+      <div class="faq-a">Yes — walk-ins are welcome Mon–Fri 10AM–6PM. Call ahead and we'll make sure a counsellor is free to sit with you. Most students prefer the free demo first (online), then visit if needed.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q"><span class="faq-num">03</span>Do you offer EMI or payment plans?</div>
+      <div class="faq-a">Yes — we offer 3, 6, and 12-month no-cost EMI via Razorpay on all courses. There's no interest charge. You can also pay in 2 installments for any course priced above ₹5,000. Contact admissions for the exact options.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q"><span class="faq-num">04</span>I missed a session — can I get the recording?</div>
+      <div class="faq-a">Yes. All sessions are recorded and uploaded to the student portal within 4 hours. You'll have lifetime access. Missed sessions are never penalised — life happens, and we build for that.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q"><span class="faq-num">05</span>Is there a refund policy?</div>
+      <div class="faq-a">Yes — 100% refund if you attend the first session and decide it's not the right fit. After the first session, refunds are prorated based on sessions attended. No questions asked within the first session.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q"><span class="faq-num">06</span>I represent a company — do you offer group training?</div>
+      <div class="faq-a">Yes — we offer corporate training programs, team upskilling packages, and bulk enrolment discounts (5–10% for 3+ seats, custom pricing for 10+). Email partnerships@newtonjee.com or WhatsApp us to discuss.</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="newtonjee-homepage.html" class="logo" style="text-decoration:none;"><div class="logo-icon">N</div>Newton<span class="acc-c">JEE</span></a>
+      <p>India's most structured AI & ML certification program for engineers and professionals ready to build the future.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Courses</h5>
+      <a href="course-python-for-ai.html">Python for AI</a>
+      <a href="course-machine-learning.html">Machine Learning</a>
+      <a href="course-deep-learning-cv.html">Deep Learning & CV</a>
+      <a href="course-generative-ai-llms.html">Generative AI</a>
+      <a href="course-mlops-ai-engineering.html">MLOps</a>
+      <a href="course-ai-capstone.html">AI Capstone</a>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <a href="newtonjee-homepage.html#why">About Us</a>
+      <a href="certifications.html">Certifications</a>
+      <a href="success-stories.html">Success Stories</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <a href="tel:+919876543210">📞 +91 98765 43210</a>
+      <a href="mailto:hello@newtonjee.com">✉️ hello@newtonjee.com</a>
+      <a href="contact.html">📍 HITEC City, Hyderabad</a>
+      <a href="https://wa.me/919876543210">💬 WhatsApp Us</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Newton JEE. All rights reserved.</span>
+    <span>Privacy Policy · Terms of Service</span>
+  </div>
+</footer>
+
+<a href="https://wa.me/919876543210" style="position:fixed;bottom:28px;right:28px;width:52px;height:52px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 6px 28px rgba(37,211,102,0.4);text-decoration:none;z-index:200;animation:floatBounce 3s ease-in-out infinite;">💬</a>
+<style>@keyframes floatBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}</style>
+
+<script>
+  // Office hours logic
+  function updateOfficeStatus() {
+    const now = new Date();
+    const day = now.getDay(); // 0=Sun, 1=Mon … 6=Sat
+    const hour = now.getHours();
+    const dot = document.getElementById('statusDot');
+    const label = document.getElementById('statusLabel');
+    let isOpen = false;
+    if (day >= 1 && day <= 5 && hour >= 9 && hour < 20) isOpen = true;
+    if (day === 6 && hour >= 10 && hour < 18) isOpen = true;
+    if (isOpen) {
+      dot.className = 'status-dot open';
+      label.className = 'status-label open';
+      label.textContent = 'Office Open Now';
+    } else {
+      dot.className = 'status-dot closed';
+      label.className = 'status-label closed';
+      label.textContent = day === 0 ? 'Closed — WhatsApp available' : 'Office Closed — Opens ' + (day >= 1 && day <= 5 ? 'at 9 AM' : 'Monday');
+    }
+    // Highlight today's hours row
+    const days = ['Sunday','Monday','Friday','Saturday'];
+    const monFri = document.getElementById('monFriHours');
+    if (day >= 1 && day <= 5) monFri.classList.add('today');
+  }
+  updateOfficeStatus();
+
+  // Subject tabs
+  function setSubject(el, subject) {
+    document.querySelectorAll('.subject-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('csubject').value = subject;
+  }
+
+  // Form submit
+  function submitContact() {
+    const name = document.getElementById('cname').value.trim();
+    const phone = document.getElementById('cphone').value.trim();
+    const email = document.getElementById('cemail').value.trim();
+    const msg = document.getElementById('cmessage').value.trim();
+    if (!name || !phone || !email || !msg) { alert('Please fill in your name, phone, email, and message.'); return; }
+    document.getElementById('contactForm').style.display = 'none';
+    document.getElementById('contactSuccess').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Reveal on scroll
+  const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.06 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

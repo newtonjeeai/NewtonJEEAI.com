@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Capstone Project — Newton JEE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c12;
+    --bg2: #0f1219;
+    --bg3: #151b27;
+    --amber: #f59e0b;
+    --amber2: #fbbf24;
+    --amber-glow: rgba(245,158,11,0.12);
+    --green: #4ade80;
+    --text: #e8eaf0;
+    --text-muted: #8892a4;
+    --border: rgba(255,255,255,0.07);
+    --card: rgba(255,255,255,0.03);
+    /* course accent: warm gold-to-orange — capstone feels like achievement & culmination */
+    --acc: #fb923c;
+    --acc2: #ea580c;
+    --acc-glow: rgba(251,146,60,0.1);
+    --acc-border: rgba(251,146,60,0.25);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.6; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.022; pointer-events: none; z-index: 9999; }
+
+  /* ── HEADER ── */
+  header { position: sticky; top: 0; z-index: 100; background: rgba(10,12,18,0.93); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 0 48px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; letter-spacing: -0.02em; display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); }
+  .logo .acc-c { color: var(--amber); }
+  .logo-icon { width: 30px; height: 30px; background: var(--amber); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: #000; font-weight: 900; }
+  nav { display: flex; align-items: center; gap: 28px; }
+  nav a { font-size: 0.875rem; font-weight: 500; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+  nav a:hover { color: var(--text); }
+  .btn-header { background: var(--amber); color: #000; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 9px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 0.2s; text-decoration: none; }
+  .btn-header:hover { background: var(--amber2); }
+
+  /* ── BREADCRUMB ── */
+  .breadcrumb { padding: 14px 48px; background: var(--bg2); border-bottom: 1px solid var(--border); font-size: 0.78rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
+  .breadcrumb a { color: var(--text-muted); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--amber); }
+  .breadcrumb .sep { opacity: 0.4; }
+  .breadcrumb .current { color: var(--text); }
+
+  /* ── HERO ── */
+  .course-hero { position: relative; padding: 72px 48px 0; overflow: hidden; background: var(--bg2); border-bottom: 1px solid var(--border); }
+
+  /* Unique hero element: animated project pipeline — stages flowing right */
+  .hero-pipeline {
+    position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+  }
+  .hero-pipeline::before {
+    content: '';
+    position: absolute;
+    top: 30%; left: -10%; right: -10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(251,146,60,0.15) 20%, rgba(251,146,60,0.35) 50%, rgba(251,146,60,0.15) 80%, transparent 100%);
+    animation: pipelineFlow 4s ease-in-out infinite;
+  }
+  @keyframes pipelineFlow {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+  .pipeline-node {
+    position: absolute;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--acc);
+    top: calc(30% - 3px);
+    box-shadow: 0 0 12px rgba(251,146,60,0.6);
+    animation: nodeTravel 4s linear infinite;
+  }
+  .pipeline-node:nth-child(2) { animation-delay: -1.3s; opacity: 0.6; width: 5px; height: 5px; top: calc(30% - 2px); }
+  .pipeline-node:nth-child(3) { animation-delay: -2.6s; opacity: 0.4; width: 6px; height: 6px; top: calc(30% - 2px); }
+  @keyframes nodeTravel {
+    0%   { left: -5%; opacity: 0; }
+    5%   { opacity: 1; }
+    95%  { opacity: 1; }
+    100% { left: 105%; opacity: 0; }
+  }
+
+  .hero-glow { position: absolute; top: -20%; right: 5%; width: 600px; height: 520px; background: radial-gradient(ellipse, rgba(251,146,60,0.1), transparent 65%); pointer-events: none; }
+
+  .hero-layout { position: relative; display: grid; grid-template-columns: 1fr 360px; gap: 48px; max-width: 1160px; margin: 0 auto; align-items: start; }
+  .hero-left { padding-bottom: 72px; animation: fadeUp 0.7s ease both; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+
+  .course-badge-row { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+  .badge { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; }
+  .badge.capstone   { background: rgba(251,146,60,0.12); color: var(--acc); border: 1px solid var(--acc-border); }
+  .badge.platinum   { background: rgba(34,211,238,0.12); color: #22d3ee; border: 1px solid rgba(34,211,238,0.25); }
+  .badge.live       { background: rgba(239,68,68,0.12); color: #f87171; border: 1px solid rgba(239,68,68,0.2); }
+  .badge .dot       { width: 5px; height: 5px; border-radius: 50%; background: currentColor; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  .course-hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 4.5vw, 3.4rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 18px; }
+  .course-hero h1 span { background: linear-gradient(135deg, var(--acc), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .course-tagline { font-size: 1.05rem; color: var(--text-muted); font-weight: 300; max-width: 520px; margin-bottom: 32px; line-height: 1.7; }
+
+  .meta-pills { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 36px; }
+  .meta-pill { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-muted); }
+  .meta-pill strong { color: var(--text); font-weight: 600; }
+
+  .hero-stats { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .hstat { flex: 1; padding: 20px; border-right: 1px solid var(--border); text-align: center; }
+  .hstat:last-child { border-right: none; }
+  .hstat .num { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--acc); display: block; }
+  .hstat .lbl { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; font-family: 'DM Mono', monospace; }
+
+  /* ── ENROL CARD ── */
+  .enrol-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 16px; padding: 32px; position: sticky; top: 80px; animation: fadeUp 0.6s 0.2s ease both; }
+  .enrol-fee { font-family: 'Syne', sans-serif; font-size: 2.4rem; font-weight: 800; line-height: 1; }
+  .enrol-fee sup { font-size: 1.1rem; vertical-align: top; margin-top: 8px; }
+  .enrol-mrp { font-size: 0.85rem; color: var(--text-muted); text-decoration: line-through; margin-left: 8px; }
+  .enrol-save { display: inline-block; background: rgba(74,222,128,0.12); color: var(--green); font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 100px; margin: 6px 0; }
+  .enrol-emi { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 24px; }
+  .btn-enrol-main { width: 100%; padding: 15px; background: linear-gradient(135deg, var(--acc), var(--acc2)); color: #fff; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.92rem; letter-spacing: 0.05em; text-transform: uppercase; border: none; border-radius: 10px; cursor: pointer; transition: all 0.2s; margin-bottom: 12px; box-shadow: 0 0 40px rgba(251,146,60,0.22); }
+  .btn-enrol-main:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 8px 40px rgba(251,146,60,0.35); }
+  .btn-demo-sm { width: 100%; padding: 12px; background: transparent; border: 1px solid var(--border); color: var(--text); font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; border-radius: 10px; cursor: pointer; transition: all 0.2s; margin-bottom: 20px; }
+  .btn-demo-sm:hover { border-color: var(--amber); color: var(--amber); }
+  .card-includes { border-top: 1px solid var(--border); padding-top: 20px; }
+  .card-includes h5 { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+  .include-row { display: flex; align-items: center; gap: 10px; font-size: 0.82rem; color: var(--text-muted); padding: 6px 0; }
+  .include-row .ck { color: var(--green); font-size: 0.85rem; flex-shrink: 0; }
+  .next-batch { margin-top: 20px; background: var(--amber-glow); border: 1px solid rgba(245,158,11,0.2); border-radius: 8px; padding: 12px 16px; font-size: 0.8rem; }
+  .next-batch strong { color: var(--amber); display: block; margin-bottom: 2px; font-family: 'Syne', sans-serif; }
+  .next-batch span { color: var(--text-muted); }
+
+  /* ── PAGE BODY ── */
+  .page-body { max-width: 1160px; margin: 0 auto; padding: 0 48px; }
+  .content-grid { display: grid; grid-template-columns: 1fr 360px; gap: 64px; align-items: start; }
+  .content-main { min-width: 0; }
+  .content-side { position: sticky; top: 80px; }
+
+  section.body-section { padding: 64px 0; border-bottom: 1px solid var(--border); }
+  section.body-section:last-child { border-bottom: none; }
+  .sec-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+  .sec-title { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 24px; }
+
+  /* ── LEARN GRID ── */
+  .learn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .learn-item { display: flex; align-items: flex-start; gap: 12px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; font-size: 0.85rem; transition: border-color 0.2s; }
+  .learn-item:hover { border-color: var(--acc-border); }
+  .learn-item .li-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+  .learn-item .li-text strong { display: block; font-weight: 600; font-size: 0.85rem; margin-bottom: 2px; }
+  .learn-item .li-text span { font-size: 0.75rem; color: var(--text-muted); }
+
+  /* ── UNIQUE: PROJECT PIPELINE STAGES ── */
+  .pipeline-stages {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+    border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 28px;
+  }
+  .pipeline-stage {
+    padding: 28px 20px; border-right: 1px solid var(--border);
+    position: relative; transition: background 0.2s; text-align: center;
+  }
+  .pipeline-stage:last-child { border-right: none; }
+  .pipeline-stage:hover { background: rgba(251,146,60,0.04); }
+  .stage-icon { font-size: 1.8rem; display: block; margin-bottom: 12px; }
+  .stage-num { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--acc); text-transform: uppercase; margin-bottom: 6px; display: block; }
+  .pipeline-stage h4 { font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 700; margin-bottom: 6px; }
+  .pipeline-stage p { font-size: 0.72rem; color: var(--text-muted); line-height: 1.5; }
+  .stage-connector {
+    position: absolute; right: -10px; top: 50%; transform: translateY(-50%);
+    background: var(--bg3); border: 1px solid var(--acc-border); color: var(--acc);
+    border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center;
+    justify-content: center; font-size: 0.65rem; z-index: 2;
+  }
+  .pipeline-stage:last-child .stage-connector { display: none; }
+
+  /* ── UNIQUE: PROJECT GALLERY ── */
+  .project-gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .project-card {
+    background: var(--bg3); border: 1px solid var(--border); border-radius: 14px;
+    padding: 24px; position: relative; overflow: hidden; transition: all 0.25s; cursor: pointer;
+  }
+  .project-card:hover { border-color: var(--acc-border); transform: translateY(-3px); }
+  .project-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--acc), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .project-card:hover::before { opacity: 1; }
+  .project-domain { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; color: var(--acc); text-transform: uppercase; margin-bottom: 10px; }
+  .project-card h4 { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; margin-bottom: 6px; line-height: 1.3; }
+  .project-card p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 14px; }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 6px; }
+  .stack-pill { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.06em; background: var(--card); border: 1px solid var(--border); color: var(--text-muted); padding: 2px 8px; border-radius: 100px; }
+  .project-difficulty { position: absolute; top: 16px; right: 16px; font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 100px; }
+  .project-difficulty.hard { background: rgba(239,68,68,0.12); color: #f87171; border: 1px solid rgba(239,68,68,0.2); }
+  .project-difficulty.medium { background: rgba(251,191,36,0.12); color: #fbbf24; border: 1px solid rgba(251,191,36,0.2); }
+  .project-highlight { grid-column: 1 / -1; }
+
+  /* ── UNIQUE: MENTOR REVIEW DEMO ── */
+  .review-demo {
+    background: var(--bg3); border: 1px solid var(--border); border-radius: 14px;
+    overflow: hidden; margin-bottom: 24px;
+  }
+  .review-demo-header {
+    padding: 16px 20px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .review-demo-header .title { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+  .review-live { display: flex; align-items: center; gap: 6px; font-size: 0.72rem; color: #f87171; font-family: 'DM Mono', monospace; }
+  .review-live .rdot { width: 6px; height: 6px; border-radius: 50%; background: #f87171; animation: pulse 1.5s infinite; }
+  .review-demo-body { padding: 24px; }
+  .review-comment {
+    display: flex; gap: 14px; margin-bottom: 16px;
+    animation: fadeUp 0.4s ease both;
+  }
+  .review-comment:nth-child(2) { animation-delay: 0.1s; }
+  .review-comment:nth-child(3) { animation-delay: 0.2s; }
+  .comment-avatar { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.75rem; flex-shrink: 0; }
+  .comment-bubble { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; flex: 1; }
+  .comment-name { font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 700; margin-bottom: 4px; }
+  .comment-text { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+  .comment-tag { display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.6rem; background: var(--acc-glow); color: var(--acc); border: 1px solid var(--acc-border); padding: 2px 7px; border-radius: 100px; margin-top: 6px; }
+  .comment-tag.green { background: rgba(74,222,128,0.1); color: var(--green); border-color: rgba(74,222,128,0.25); }
+
+  /* ── CURRICULUM ── */
+  .week-item { border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px; overflow: hidden; }
+  .week-header { width: 100%; background: none; border: none; color: var(--text); padding: 18px 20px; cursor: pointer; display: flex; align-items: center; gap: 14px; text-align: left; transition: background 0.2s; }
+  .week-header:hover { background: rgba(255,255,255,0.02); }
+  .week-num { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; background: var(--acc-glow); color: var(--acc); padding: 3px 10px; border-radius: 100px; white-space: nowrap; flex-shrink: 0; }
+  .week-title { font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700; flex: 1; }
+  .week-ch { color: var(--acc); transition: transform 0.3s; margin-left: auto; flex-shrink: 0; }
+  .week-item.open .week-ch { transform: rotate(180deg); }
+  .week-body { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  .week-item.open .week-body { max-height: 600px; border-top: 1px solid var(--border); }
+  .week-body ul { padding: 16px 20px 20px 20px; list-style: none; }
+  .week-body li { font-size: 0.83rem; color: var(--text-muted); padding: 6px 0; border-bottom: 1px solid var(--border); display: flex; align-items: baseline; gap: 10px; }
+  .week-body li:last-child { border-bottom: none; }
+  .week-body li::before { content: '—'; color: var(--acc); font-size: 0.7rem; flex-shrink: 0; }
+
+  /* ── OUTCOMES ── */
+  .outcomes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
+  .outcome-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 22px; transition: all 0.2s; }
+  .outcome-card:hover { border-color: var(--acc-border); }
+  .outcome-icon { font-size: 1.5rem; margin-bottom: 10px; display: block; }
+  .outcome-card h4 { font-family: 'Syne', sans-serif; font-size: 0.92rem; font-weight: 700; margin-bottom: 4px; }
+  .outcome-card p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; }
+  .salary-badge { display: inline-flex; align-items: center; gap: 4px; background: var(--acc-glow); color: var(--acc); border: 1px solid var(--acc-border); border-radius: 100px; padding: 2px 10px; font-size: 0.68rem; font-family: 'DM Mono', monospace; margin-top: 8px; }
+
+  .who-for { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-top: 20px; }
+  .who-for h4 { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+  .who-row { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; padding: 6px 0; border-bottom: 1px solid var(--border); }
+  .who-row:last-child { border-bottom: none; }
+
+  /* ── INSTRUCTOR ── */
+  .instructor-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 14px; padding: 28px; display: flex; gap: 24px; align-items: flex-start; }
+  .instructor-avatar { width: 68px; height: 68px; border-radius: 50%; background: linear-gradient(135deg, var(--acc), var(--acc2)); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.3rem; color: #fff; flex-shrink: 0; }
+  .instructor-name { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; margin-bottom: 4px; }
+  .instructor-role { font-size: 0.78rem; color: var(--acc); font-family: 'DM Mono', monospace; margin-bottom: 12px; }
+  .instructor-bio { font-size: 0.84rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 14px; }
+  .instructor-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+  .inst-tag { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.06em; background: var(--card); border: 1px solid var(--border); color: var(--text-muted); padding: 3px 10px; border-radius: 100px; }
+
+  /* ── SCHEDULE ── */
+  .schedule-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .schedule-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 22px; transition: border-color 0.2s; }
+  .schedule-card:hover { border-color: var(--acc-border); }
+  .sch-batch { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; color: var(--acc); text-transform: uppercase; margin-bottom: 8px; }
+  .sch-date { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; margin-bottom: 4px; }
+  .sch-time { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 10px; }
+  .sch-seats { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 16px; }
+  .seat-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .seat-dot.low { background: #f87171; box-shadow: 0 0 6px rgba(248,113,113,0.5); animation: pulse 1.5s infinite; }
+  .seat-dot.open { background: var(--green); }
+  .sch-btn { width: 100%; padding: 9px; background: transparent; border: 1px solid var(--border); color: var(--text); font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 700; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+  .sch-btn:hover { background: var(--acc); border-color: var(--acc); color: #fff; }
+
+  /* ── REVIEWS ── */
+  .reviews-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .review-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 24px; transition: border-color 0.2s; }
+  .review-card:hover { border-color: var(--acc-border); }
+  .review-stars { color: var(--amber); font-size: 0.9rem; margin-bottom: 12px; letter-spacing: 2px; }
+  .review-card blockquote { font-size: 0.84rem; color: var(--text); line-height: 1.7; font-style: italic; font-weight: 300; margin-bottom: 18px; }
+  .reviewer { display: flex; align-items: center; gap: 12px; }
+  .rev-avatar { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.8rem; flex-shrink: 0; }
+  .rev-name { font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 700; }
+  .rev-role { font-size: 0.72rem; color: var(--text-muted); }
+
+  /* ── RELATED ── */
+  .related-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .related-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-decoration: none; color: var(--text); transition: all 0.2s; display: block; }
+  .related-card:hover { border-color: var(--acc-border); transform: translateY(-2px); }
+  .rel-tag { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--acc); display: block; margin-bottom: 8px; }
+  .related-card h4 { font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 700; margin-bottom: 6px; }
+  .related-card p { font-size: 0.75rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 12px; }
+  .rel-mrp { font-size: 0.75rem; color: var(--text-muted); text-decoration: line-through; margin-right: 6px; }
+  .rel-price { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 800; color: var(--text); }
+
+  /* ── FOOTER ── */
+  footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 60px 48px 40px; margin-top: 0; }
+  .footer-grid { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; }
+  .footer-brand p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.7; max-width: 260px; margin-top: 12px; }
+  .footer-col h5 { font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 16px; }
+  .footer-col a { display: block; font-size: 0.875rem; color: var(--text-muted); text-decoration: none; margin-bottom: 10px; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--amber); }
+  .footer-bottom { max-width: 1160px; margin: 32px auto 0; padding-top: 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; color: var(--text-muted); }
+
+  /* ── MOBILE STICKY BAR ── */
+  .sticky-bottom { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: rgba(10,12,18,0.97); backdrop-filter: blur(16px); border-top: 1px solid var(--border); padding: 14px 20px; z-index: 200; gap: 12px; align-items: center; }
+  .sticky-price { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; }
+
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 960px) {
+    .hero-layout { grid-template-columns: 1fr; }
+    .enrol-card { display: none; }
+    .content-grid { grid-template-columns: 1fr; }
+    .content-side { display: none; }
+    .sticky-bottom { display: flex; }
+    .pipeline-stages { grid-template-columns: 1fr 1fr; }
+    header { padding: 0 20px; }
+    nav { display: none; }
+    .breadcrumb { padding: 12px 20px; }
+    .course-hero { padding: 48px 20px 0; }
+    .page-body { padding: 0 20px; }
+    footer { padding: 48px 20px 32px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  }
+  @media (max-width: 640px) {
+    .learn-grid { grid-template-columns: 1fr; }
+    .outcomes-grid { grid-template-columns: 1fr; }
+    .reviews-grid { grid-template-columns: 1fr; }
+    .project-gallery { grid-template-columns: 1fr; }
+    .related-grid { grid-template-columns: 1fr; }
+    .schedule-grid { grid-template-columns: 1fr; }
+    .pipeline-stages { grid-template-columns: 1fr; }
+    .hero-stats { flex-direction: column; }
+    .hstat { border-right: none; border-bottom: 1px solid var(--border); }
+    .hstat:last-child { border-bottom: none; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .instructor-card { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="newtonjee-homepage.html" class="logo"><div class="logo-icon">N</div>Newton<span class="acc-c">JEE</span></a>
+  <nav>
+    <a href="newtonjee-homepage.html#courses">Courses</a>
+    <a href="newtonjee-pricing.html">Pricing</a>
+    <a href="newtonjee-homepage.html#certifications">Certifications</a>
+    <a href="newtonjee-homepage.html#blog">Blog</a>
+  </nav>
+  <a href="#enrol-section" class="btn-header">Enrol Now →</a>
+</header>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="newtonjee-homepage.html">Home</a><span class="sep">›</span>
+  <a href="newtonjee-homepage.html#courses">Courses</a><span class="sep">›</span>
+  <span class="current">AI Capstone Project</span>
+</div>
+
+<!-- HERO -->
+<div class="course-hero">
+  <div class="hero-pipeline">
+    <div class="pipeline-node"></div>
+    <div class="pipeline-node"></div>
+    <div class="pipeline-node"></div>
+  </div>
+  <div class="hero-glow"></div>
+
+  <div class="hero-layout">
+    <div class="hero-left">
+      <div class="course-badge-row">
+        <span class="badge capstone">Capstone</span>
+        <span class="badge platinum">💎 Platinum Certificate</span>
+        <span class="badge live"><span class="dot"></span> Live Mentor Sessions</span>
+      </div>
+      <h1>Build Something<br><span>Real. Ship It.</span></h1>
+      <p class="course-tagline">The culminating 8-week project course where you apply everything you've learned to build, deploy, and demo a production-grade AI system — with live mentor guidance, weekly feedback sessions, and a real-world capstone that becomes the centrepiece of your portfolio.</p>
+
+      <div class="meta-pills">
+        <span class="meta-pill">⏱ <strong>8 Weeks</strong></span>
+        <span class="meta-pill">🗓 <strong>8 Mentor Sessions</strong></span>
+        <span class="meta-pill">🏆 <strong>Platinum Badge</strong></span>
+        <span class="meta-pill">🎯 <strong>Portfolio-ready project</strong></span>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hstat"><span class="num">100%</span><span class="lbl">Project-Based</span></div>
+        <div class="hstat"><span class="num">8</span><span class="lbl">Mentor Reviews</span></div>
+        <div class="hstat"><span class="num">1:1</span><span class="lbl">Career Session</span></div>
+        <div class="hstat"><span class="num">💎</span><span class="lbl">Platinum Cert</span></div>
+      </div>
+    </div>
+
+    <!-- STICKY ENROL CARD -->
+    <div class="enrol-card">
+      <div><span class="enrol-fee"><sup>₹</sup>9,999</span><span class="enrol-mrp">₹18,000</span></div>
+      <div><span class="enrol-save">You save ₹8,001 — 44% OFF</span></div>
+      <div class="enrol-emi">or ₹834/month · 12-month no-cost EMI</div>
+      <button class="btn-enrol-main">⚡ Enrol Now</button>
+      <button class="btn-demo-sm">📅 Book Free Demo</button>
+      <div class="card-includes">
+        <h5>What's Included</h5>
+        <div class="include-row"><span class="ck">✓</span> 8 live mentor review sessions</div>
+        <div class="include-row"><span class="ck">✓</span> 1:1 career coaching session</div>
+        <div class="include-row"><span class="ck">✓</span> Full project scoping support</div>
+        <div class="include-row"><span class="ck">✓</span> Weekly feedback & code review</div>
+        <div class="include-row"><span class="ck">✓</span> Deployment infra assistance</div>
+        <div class="include-row"><span class="ck">✓</span> LinkedIn Platinum badge</div>
+        <div class="include-row"><span class="ck">✓</span> LinkedIn profile + resume review</div>
+        <div class="include-row"><span class="ck">✓</span> Live demo to hiring partners</div>
+        <div class="include-row"><span class="ck">✓</span> Placement referral support</div>
+      </div>
+      <div class="next-batch">
+        <strong>🗓 Next Batch: Jun 7, 2025</strong>
+        <span>Sat sessions · 11:00 AM – 1:00 PM IST</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE BODY -->
+<div class="page-body">
+<div class="content-grid">
+<div class="content-main">
+
+  <!-- WHAT YOU WILL BUILD -->
+  <section class="body-section reveal">
+    <div class="sec-label">// The Capstone</div>
+    <div class="sec-title">You Build. You Ship. You Own It.</div>
+    <p style="font-size:0.9rem;color:var(--text-muted);line-height:1.8;max-width:640px;margin-bottom:32px;">This isn't a guided tutorial with a predetermined outcome. You choose a real problem, design an AI solution, build it from scratch, deploy it live, and present it to the batch — and to hiring partners. Every decision is yours. Every line of code is yours. Every result is yours.</p>
+
+    <!-- PROJECT PIPELINE STAGES -->
+    <div class="pipeline-stages">
+      <div class="pipeline-stage">
+        <span class="stage-connector">›</span>
+        <span class="stage-icon">🎯</span>
+        <span class="stage-num">Week 1–2</span>
+        <h4>Scope & Design</h4>
+        <p>Define your problem, validate the approach, and design the system architecture with mentor feedback.</p>
+      </div>
+      <div class="pipeline-stage">
+        <span class="stage-connector">›</span>
+        <span class="stage-icon">⚙️</span>
+        <span class="stage-num">Week 3–5</span>
+        <h4>Build & Iterate</h4>
+        <p>Implement core ML/AI components with weekly code reviews. Break things, learn why, fix them better.</p>
+      </div>
+      <div class="pipeline-stage">
+        <span class="stage-connector">›</span>
+        <span class="stage-icon">🚀</span>
+        <span class="stage-num">Week 6–7</span>
+        <h4>Deploy & Polish</h4>
+        <p>Ship to production. Build a live demo. Add monitoring. Make it something you'd show a hiring manager.</p>
+      </div>
+      <div class="pipeline-stage">
+        <span class="stage-icon">🏆</span>
+        <span class="stage-num">Week 8</span>
+        <h4>Demo Day</h4>
+        <p>Live presentation to the cohort and invited hiring partners. Real feedback. Real opportunity.</p>
+      </div>
+    </div>
+
+    <!-- LEARN GRID -->
+    <div class="learn-grid">
+      <div class="learn-item"><span class="li-icon">🗺️</span><div class="li-text"><strong>Problem Framing</strong><span>Turning business problems into ML-solvable statements with clear success metrics</span></div></div>
+      <div class="learn-item"><span class="li-icon">🏗️</span><div class="li-text"><strong>System Design for AI</strong><span>Architecture decisions, data pipelines, model selection and tradeoffs</span></div></div>
+      <div class="learn-item"><span class="li-icon">🔁</span><div class="li-text"><strong>Iterative Development</strong><span>Building v0 fast, measuring, and improving — not perfecting before shipping</span></div></div>
+      <div class="learn-item"><span class="li-icon">🌐</span><div class="li-text"><strong>Production Deployment</strong><span>FastAPI, Docker, cloud hosting, CI/CD basics for your specific project</span></div></div>
+      <div class="learn-item"><span class="li-icon">📊</span><div class="li-text"><strong>Monitoring & Observability</strong><span>Logging, drift detection, and knowing when your model is degrading in production</span></div></div>
+      <div class="learn-item"><span class="li-icon">🎤</span><div class="li-text"><strong>Technical Storytelling</strong><span>How to demo your project, explain decisions, and handle hard questions in interviews</span></div></div>
+    </div>
+  </section>
+
+  <!-- PROJECT GALLERY -->
+  <section class="body-section reveal">
+    <div class="sec-label">// Past Capstones</div>
+    <div class="sec-title">What Students Have Built</div>
+    <p style="font-size:0.9rem;color:var(--text-muted);line-height:1.8;max-width:640px;margin-bottom:28px;">Every project is unique to the student's domain and goal. These are real capstones built by recent Newton JEE graduates — all are live in production or on GitHub.</p>
+
+    <div class="project-gallery">
+      <!-- Featured Project -->
+      <div class="project-card project-highlight" style="background:linear-gradient(135deg,rgba(251,146,60,0.06),rgba(251,146,60,0.02));">
+        <span class="project-difficulty hard">Advanced</span>
+        <div class="project-domain">Healthcare × LLMs</div>
+        <h4>Clinical Note Summariser — RAG pipeline for Indian hospital discharge notes</h4>
+        <p>Built a BERT-based NER model to extract diagnoses and medications from unstructured Hindi-English mixed clinical notes, then wired it to a LangChain RAG pipeline for structured Q&A. Deployed on AWS EC2 with a FastAPI backend serving a Streamlit UI. Over 500 test documents processed. Now piloting with a Hyderabad clinic.</p>
+        <div class="project-stack">
+          <span class="stack-pill">PyTorch</span><span class="stack-pill">LangChain</span><span class="stack-pill">BERT</span>
+          <span class="stack-pill">FastAPI</span><span class="stack-pill">AWS EC2</span><span class="stack-pill">Streamlit</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <span class="project-difficulty medium">Intermediate</span>
+        <div class="project-domain">Finance × ML</div>
+        <h4>Mutual Fund Comparator with ML-driven risk scoring</h4>
+        <p>Scraped 3 years of NAV data, engineered 40+ features, trained an XGBoost classifier to predict risk-adjusted return quartiles. Deployed as a public API with a React dashboard.</p>
+        <div class="project-stack">
+          <span class="stack-pill">XGBoost</span><span class="stack-pill">Pandas</span><span class="stack-pill">FastAPI</span><span class="stack-pill">React</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <span class="project-difficulty medium">Intermediate</span>
+        <div class="project-domain">E-commerce × CV</div>
+        <h4>Visual product search for clothing catalogues</h4>
+        <p>CLIP embeddings for image-to-image search, indexed with FAISS. Handles 10K product images with sub-100ms retrieval. Chrome extension as the UI. 800+ GitHub stars.</p>
+        <div class="project-stack">
+          <span class="stack-pill">CLIP</span><span class="stack-pill">FAISS</span><span class="stack-pill">PyTorch</span><span class="stack-pill">Chrome Ext</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <span class="project-difficulty hard">Advanced</span>
+        <div class="project-domain">EdTech × GenAI</div>
+        <h4>Personalised Doubt-Solver Agent for JEE Physics</h4>
+        <p>Multi-step reasoning agent with GPT-4, tool calling to a physics formula DB, and step-by-step LaTeX solution rendering. Fine-tuned on 2K JEE solved examples using QLoRA.</p>
+        <div class="project-stack">
+          <span class="stack-pill">GPT-4</span><span class="stack-pill">LangChain Agents</span><span class="stack-pill">QLoRA</span><span class="stack-pill">LaTeX</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENTOR REVIEW DEMO — unique interactive section -->
+  <section class="body-section reveal">
+    <div class="sec-label">// How Mentorship Works</div>
+    <div class="sec-title">Weekly Review Sessions</div>
+    <p style="font-size:0.9rem;color:var(--text-muted);line-height:1.8;max-width:640px;margin-bottom:28px;">Every week, you share your latest code, demo, or architecture doc. Your mentor does a live review — specific, constructive, and laser-focused on making your project better. This is what professional code review feels like.</p>
+
+    <div class="review-demo">
+      <div class="review-demo-header">
+        <span class="title">// Sample Mentor Review Session · Week 4</span>
+        <span class="review-live"><span class="rdot"></span> Live Replay</span>
+      </div>
+      <div class="review-demo-body">
+        <div class="review-comment">
+          <div class="comment-avatar" style="background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;">VR</div>
+          <div class="comment-bubble">
+            <div class="comment-name">Vikram Rajan <span style="font-size:0.68rem;color:var(--acc);font-family:'DM Mono',monospace;font-weight:400;"> · Student</span></div>
+            <div class="comment-text">I've got the RAG pipeline working — embeddings in FAISS, retrieval looks good. But my generation latency is around 4–5 seconds per query on free-tier. Is this a retrieval issue or the LLM call?</div>
+          </div>
+        </div>
+        <div class="review-comment">
+          <div class="comment-avatar" style="background:linear-gradient(135deg,#34d399,#059669);color:#000;">MK</div>
+          <div class="comment-bubble">
+            <div class="comment-name">Meera Krishnan <span style="font-size:0.68rem;color:var(--green);font-family:'DM Mono',monospace;font-weight:400;"> · Mentor · Ex-Google</span></div>
+            <div class="comment-text">Good question — add a timer around both calls and isolate it. But my bet is the LLM. Before optimising: are you passing the full retrieved context every time? If so, add a re-ranker to cut your context window by 60%. Here's the pattern:</div>
+            <div class="comment-tag green">Code review suggestion</div>
+          </div>
+        </div>
+        <div class="review-comment">
+          <div class="comment-avatar" style="background:linear-gradient(135deg,#38bdf8,#0284c7);color:#fff;">SY</div>
+          <div class="comment-bubble">
+            <div class="comment-name" style="font-size:0.72rem;">Also — your FAISS index size tells me you're storing raw vectors without compression. Try Product Quantisation (PQ) if you need to scale beyond 50K docs.</div>
+            <span class="comment-tag">Architecture note</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:0.82rem;color:var(--text-muted);font-style:italic;">This is what every review session looks like. You bring a specific problem. Your mentor brings a decade of production experience.</p>
+  </section>
+
+  <!-- CURRICULUM -->
+  <section class="body-section reveal">
+    <div class="sec-label">// 8-Week Structure</div>
+    <div class="sec-title">Week-by-Week Breakdown</div>
+
+    <div class="week-item open">
+      <button class="week-header">
+        <span class="week-num">Week 1</span>
+        <span class="week-title">Project Scoping & Problem Framing</span>
+        <span class="week-ch">▼</span>
+      </button>
+      <div class="week-body"><ul>
+        <li>1:1 project consultation — choosing a problem you'll care about for 8 weeks</li>
+        <li>From idea to ML problem statement: defining inputs, outputs, and success metrics</li>
+        <li>Baseline research: what exists, what doesn't, what your project uniquely adds</li>
+        <li>Data availability audit — do you have enough of the right kind of data?</li>
+        <li>Deliverable: Project Brief (1-page doc with problem, approach, and timeline)</li>
+      </ul></div>
+    </div>
+
+    <div class="week-item">
+      <button class="week-header">
+        <span class="week-num">Week 2</span>
+        <span class="week-title">System Architecture & Data Pipeline</span>
+        <span class="week-ch">▼</span>
+      </button>
+      <div class="week-body"><ul>
+        <li>Designing your full system: components, data flow, model interfaces</li>
+        <li>Data collection, cleaning, and versioning with DVC</li>
+        <li>Setting up your repo structure the production-engineering way</li>
+        <li>Architecture review with mentor — identifying risks before you build</li>
+        <li>Deliverable: System design doc + clean data pipeline running</li>
+      </ul></div>
+    </div>
+
+    <div class="week-item">
+      <button class="week-header">
+        <span class="week-num">Weeks 3–4</span>
+        <span class="week-title">Core Model Development & Experimentation</span>
+        <span class="week-ch">▼</span>
+      </button>
+      <div class="week-body"><ul>
+        <li>Rapid prototyping: build v0 by end of week 3, no matter how rough</li>
+        <li>Experiment tracking with MLflow — logging every run, metric, and parameter</li>
+        <li>Model selection: picking the right approach for your specific problem constraints</li>
+        <li>Baseline → improved model → evaluating the delta honestly</li>
+        <li>Weekly code review: mentor reads your actual code, not just outputs</li>
+        <li>Deliverable: Working model v1 with evaluation metrics documented</li>
+      </ul></div>
+    </div>
+
+    <div class="week-item">
+      <button class="week-header">
+        <span class="week-num">Week 5</span>
+        <span class="week-title">API Layer & Integration</span>
+        <span class="week-ch">▼</span>
+      </button>
+      <div class="week-body"><ul>
+        <li>Building a FastAPI or Flask backend to serve your model predictions</li>
+        <li>Input validation, error handling, and graceful failure modes</li>
+        <li>Logging inference requests for monitoring and debugging</li>
+        <li>Frontend or demo UI — Streamlit, Gradio, or basic HTML/React depending on project</li>
+        <li>Deliverable: Local demo that a non-technical person can use</li>
+      </ul></div>
+    </div>
+
+    <div class="week-item">
+      <button class="week-header">
+        <span class="week-num">Weeks 6–7</span>
+        <span class="week-title">Deployment & Production Polish</span>
+        <span class="week-ch">▼</span>
+      </button>
+      <div class="week-body"><ul>
+        <li>Containerising your app with Docker: reproducibility and clean dependencies</li>
+        <li>Deploying to a live URL: AWS EC2, Railway, Render, or Hugging Face Spaces</li>
+        <li>Basic monitoring: request logs, latency tracking, alert conditions</li>
+        <li>Performance optimisation: reducing latency, memory usage, and cost per prediction</li>
+        <li>Writing a strong README and GitHub repo that impresses recruiters</li>
+        <li>Deliverable: Live deployed project with public URL</li>
+      </ul></div>
+    </div>
+
+    <div class="week-item">
+      <button class="week-header">
+        <span class="week-num">Week 8</span>
+        <span class="week-title">Demo Day — Live Presentations</span>
+        <span class="week-ch">▼</span>
+      </button>
+      <div class="week-body"><ul>
+        <li>How to demo an ML project: the 5-minute structure that works in any interview</li>
+        <li>Handling hard questions: "Why this model?", "What would you do differently?", "Can it scale?"</li>
+        <li>Live demo to cohort — peer feedback in real-time</li>
+        <li>Presentation to invited hiring partners from the Newton JEE network</li>
+        <li>Platinum certificate issuance + LinkedIn badge activation</li>
+        <li>Deliverable: Demo Day presentation (recorded and added to your portfolio)</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <!-- OUTCOMES -->
+  <section class="body-section reveal">
+    <div class="sec-label">// After the Capstone</div>
+    <div class="sec-title">What This Earns You</div>
+    <div class="outcomes-grid">
+      <div class="outcome-card">
+        <span class="outcome-icon">💼</span>
+        <h4>A Real Portfolio Project</h4>
+        <p>Not a tutorial. Not a Kaggle fork. A system you designed, built, deployed, and can explain from first principles in any interview.</p>
+        <div class="salary-badge">↑ Most cited in interviews</div>
+      </div>
+      <div class="outcome-card">
+        <span class="outcome-icon">💎</span>
+        <h4>Platinum LinkedIn Badge</h4>
+        <p>The highest certificate in the Newton JEE path. Signals to recruiters that you've gone end-to-end — from raw data to production system.</p>
+        <div class="salary-badge">Unlocks Full Stack AI Engineer cert</div>
+      </div>
+      <div class="outcome-card">
+        <span class="outcome-icon">🎤</span>
+        <h4>Live Demo Day Exposure</h4>
+        <p>Your project is presented to actual hiring partners from our network. Some graduates have received interview calls directly from Demo Day.</p>
+        <div class="salary-badge">Hiring partner network</div>
+      </div>
+      <div class="outcome-card">
+        <span class="outcome-icon">🧭</span>
+        <h4>1:1 Career Coaching</h4>
+        <p>A dedicated session with a mentor to map your next 6 months: which roles to target, how to position your portfolio, which skills to build next.</p>
+        <div class="salary-badge">Post-capstone career plan</div>
+      </div>
+    </div>
+
+    <div class="who-for">
+      <h4>// This Course Is Right For You If</h4>
+      <div class="who-row">🎓 You've completed 4+ Newton JEE courses and feel ready to apply everything in one project</div>
+      <div class="who-row">💼 You want a specific, impressive portfolio piece rather than a list of certificates</div>
+      <div class="who-row">🚀 You're preparing for ML Engineer, Data Scientist, or AI Engineer job applications</div>
+      <div class="who-row">🏢 You want direct exposure to hiring partners and real interview prep</div>
+    </div>
+  </section>
+
+  <!-- INSTRUCTOR -->
+  <section class="body-section reveal">
+    <div class="sec-label">// Your Mentor</div>
+    <div class="sec-title">Expert-Led Code Reviews</div>
+    <div class="instructor-card">
+      <div class="instructor-avatar">MK</div>
+      <div>
+        <div class="instructor-name">Meera Krishnan</div>
+        <div class="instructor-role">Head of ML Engineering · Ex-Google · Ex-Flipkart AI</div>
+        <div class="instructor-bio">10 years shipping ML systems at scale — from Google's search quality team to Flipkart's recommendation engine that now serves 400M users. Meera has mentored 80+ engineers transitioning into ML roles and believes the fastest way to learn systems thinking is to build one real thing with a real deadline. Her capstone philosophy: "I don't care about perfect code. I care about honest problem-solving and clear thinking. Those are the things you can't fake in an interview." Every project gets weekly code reviews that are direct, specific, and immediately actionable.</div>
+        <div class="instructor-tags">
+          <span class="inst-tag">MLOps</span><span class="inst-tag">System Design</span><span class="inst-tag">PyTorch</span>
+          <span class="inst-tag">Distributed ML</span><span class="inst-tag">Career Coaching</span><span class="inst-tag">IIT Bombay M.Tech</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCHEDULE -->
+  <section class="body-section reveal">
+    <div class="sec-label">// Upcoming Batches</div>
+    <div class="sec-title">Pick Your Cohort</div>
+    <div class="schedule-grid">
+      <div class="schedule-card">
+        <div class="sch-batch">Cohort #05</div>
+        <div class="sch-date">Jun 7, 2025</div>
+        <div class="sch-time">Saturdays · 11:00 AM – 1:00 PM IST</div>
+        <div class="sch-seats"><span class="seat-dot low"></span> 2 seats left</div>
+        <button class="sch-btn">Reserve Seat →</button>
+      </div>
+      <div class="schedule-card">
+        <div class="sch-batch">Cohort #06</div>
+        <div class="sch-date">Jul 5, 2025</div>
+        <div class="sch-time">Saturdays · 11:00 AM – 1:00 PM IST</div>
+        <div class="sch-seats"><span class="seat-dot open"></span> 9 seats open</div>
+        <button class="sch-btn">Reserve Seat →</button>
+      </div>
+      <div class="schedule-card">
+        <div class="sch-batch">Cohort #07</div>
+        <div class="sch-date">Aug 2, 2025</div>
+        <div class="sch-time">Saturdays · 11:00 AM – 1:00 PM IST</div>
+        <div class="sch-seats"><span class="seat-dot open"></span> 15 seats open</div>
+        <button class="sch-btn">Reserve Seat →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENROL SECTION -->
+  <section class="body-section reveal" id="enrol-section">
+    <div class="sec-label">// Ready to Build?</div>
+    <div class="sec-title">Enrol in AI Capstone</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;">
+      <div>
+        <div style="font-family:'Syne',sans-serif;font-size:2.8rem;font-weight:800;line-height:1;">
+          <sup style="font-size:1.2rem;vertical-align:top;margin-top:10px;">₹</sup>9,999
+          <span style="font-size:1rem;color:var(--text-muted);text-decoration:line-through;font-weight:400;margin-left:10px;">₹18,000</span>
+        </div>
+        <div style="margin:10px 0 6px;display:inline-block;background:rgba(74,222,128,0.12);color:var(--green);font-size:0.78rem;font-weight:700;padding:4px 12px;border-radius:100px;">Save ₹8,001 · 44% OFF</div>
+        <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:28px;">or ₹834/month · 12-month no-cost EMI</div>
+        <div style="display:flex;flex-direction:column;gap:10px;max-width:340px;">
+          <button class="btn-enrol-main" style="max-width:100%">⚡ Enrol Now — Pay ₹9,999</button>
+          <button class="btn-demo-sm" style="max-width:100%">📅 Book Free Demo First</button>
+        </div>
+        <div style="margin-top:16px;font-size:0.75rem;color:var(--text-muted);">🔒 Secured by Razorpay · 100% refund after first session if unsatisfied</div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:24px;">
+        <div style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">Everything included</div>
+        <div class="include-row"><span class="ck">✓</span> 8 live mentor review sessions (2hr each)</div>
+        <div class="include-row"><span class="ck">✓</span> 1:1 career coaching session</div>
+        <div class="include-row"><span class="ck">✓</span> Dedicated project Slack channel</div>
+        <div class="include-row"><span class="ck">✓</span> Weekly written code feedback</div>
+        <div class="include-row"><span class="ck">✓</span> Deployment infra guidance</div>
+        <div class="include-row"><span class="ck">✓</span> LinkedIn Platinum badge</div>
+        <div class="include-row"><span class="ck">✓</span> Full Stack AI Engineer certificate</div>
+        <div class="include-row"><span class="ck">✓</span> Demo Day with hiring partners</div>
+        <div class="include-row"><span class="ck">✓</span> Resume + LinkedIn profile review</div>
+        <div class="include-row"><span class="ck">✓</span> Placement referral support</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="body-section reveal">
+    <div class="sec-label">// Alumni Feedback</div>
+    <div class="sec-title">What Capstone Graduates Say</div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <blockquote>The Capstone was the hardest and most valuable thing I've done in my career. Meera's weekly reviews were surgical — she didn't tell me what to build, but she asked the right questions until I figured out why my architecture was wrong. My project is now the first thing I show in any interview. I got 4 offers from it.</blockquote>
+        <div class="reviewer">
+          <div class="rev-avatar" style="background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;">AS</div>
+          <div><div class="rev-name">Anjali Sharma</div><div class="rev-role">B.Tech EEE → ML Engineer · Microsoft India</div></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <blockquote>The Demo Day was surreal. I presented my clinical NLP project to 3 companies and got an interview from one of them the next week. That doesn't happen with any other course. You're not just learning — you're being introduced to the industry.</blockquote>
+        <div class="reviewer">
+          <div class="rev-avatar" style="background:linear-gradient(135deg,#34d399,#059669);color:#000;">RK</div>
+          <div><div class="rev-name">Rahul Karthik</div><div class="rev-role">MBBS + CS → AI Research Engineer · Apollo Hospitals</div></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <blockquote>I'd done 6 courses before the Capstone. The Capstone is where I finally understood that knowing ML and knowing how to build ML systems are completely different skills. The deployment week alone taught me more than 3 months of Udemy courses.</blockquote>
+        <div class="reviewer">
+          <div class="rev-avatar" style="background:linear-gradient(135deg,#38bdf8,#0284c7);color:#000;">VP</div>
+          <div><div class="rev-name">Vipul Patel</div><div class="rev-role">B.Tech CSE → AI Engineer · Zepto</div></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <blockquote>The 1:1 career session with Meera changed my job search strategy completely. She looked at my project, my target companies, and my resume, and gave me a 3-month plan that was more specific and useful than 6 months of general career advice. Got placed within 8 weeks.</blockquote>
+        <div class="reviewer">
+          <div class="rev-avatar" style="background:linear-gradient(135deg,var(--amber),#f97316);color:#000;">PD</div>
+          <div><div class="rev-name">Priya Desai</div><div class="rev-role">3 Years IT Support → Data Scientist · Paytm</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RELATED -->
+  <section class="body-section reveal">
+    <div class="sec-label">// Prepare for the Capstone</div>
+    <div class="sec-title">Recommended Prerequisites</div>
+    <div class="related-grid">
+      <a href="course-mlops-ai-engineering.html" class="related-card">
+        <span class="rel-tag">Advanced · Essential</span>
+        <h4>MLOps & AI Engineering</h4>
+        <p>Docker, FastAPI, CI/CD — the deployment skills you'll use every week of the Capstone.</p>
+        <div><span class="rel-mrp">₹12,000</span><span class="rel-price">₹6,999</span></div>
+      </a>
+      <a href="course-generative-ai-llms.html" class="related-card">
+        <span class="rel-tag">Advanced · Popular Choice</span>
+        <h4>Generative AI & LLMs</h4>
+        <p>Most capstone projects involve LLMs. This course gives you the depth to use them properly.</p>
+        <div><span class="rel-mrp">₹16,000</span><span class="rel-price">₹8,999</span></div>
+      </a>
+      <a href="newtonjee-pricing.html#bundles" class="related-card">
+        <span class="rel-tag">Bundle · Best Value</span>
+        <h4>Full Stack AI Engineer Bundle</h4>
+        <p>All 8 courses + Capstone — the complete path. Save ₹46,001 vs buying individually.</p>
+        <div><span class="rel-mrp">₹1,01,000</span><span class="rel-price">₹54,999</span></div>
+      </a>
+    </div>
+  </section>
+
+</div><!-- end content-main -->
+
+<!-- SIDEBAR -->
+<div class="content-side">
+  <div class="enrol-card" style="display:block;">
+    <div><span class="enrol-fee"><sup>₹</sup>9,999</span><span class="enrol-mrp">₹18,000</span></div>
+    <div><span class="enrol-save">You save ₹8,001 — 44% OFF</span></div>
+    <div class="enrol-emi">or ₹834/month · 12-month no-cost EMI</div>
+    <button class="btn-enrol-main">⚡ Enrol Now</button>
+    <button class="btn-demo-sm">📅 Book Free Demo</button>
+    <div class="card-includes">
+      <h5>What's Included</h5>
+      <div class="include-row"><span class="ck">✓</span> 8 live mentor review sessions</div>
+      <div class="include-row"><span class="ck">✓</span> 1:1 career coaching session</div>
+      <div class="include-row"><span class="ck">✓</span> Full project scoping support</div>
+      <div class="include-row"><span class="ck">✓</span> Deployment infra guidance</div>
+      <div class="include-row"><span class="ck">✓</span> LinkedIn Platinum badge</div>
+      <div class="include-row"><span class="ck">✓</span> Demo Day with hiring partners</div>
+      <div class="include-row"><span class="ck">✓</span> Resume + LinkedIn review</div>
+      <div class="include-row"><span class="ck">✓</span> Placement referral support</div>
+    </div>
+    <div class="next-batch">
+      <strong>🗓 Next Cohort: Jun 7, 2025</strong>
+      <span>Saturdays · 11:00 AM – 1:00 PM IST · 2 seats left</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- end content-grid -->
+</div><!-- end page-body -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="newtonjee-homepage.html" class="logo" style="text-decoration:none;color:var(--text);">
+        <div class="logo-icon">N</div>Newton<span class="acc-c">JEE</span>
+      </a>
+      <p>India's most structured AI & ML certification program for engineers and professionals ready to build the future.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Courses</h5>
+      <a href="course-python-for-ai.html">Python for AI</a>
+      <a href="course-machine-learning.html">Machine Learning</a>
+      <a href="course-deep-learning-cv.html">Deep Learning & CV</a>
+      <a href="course-generative-ai-llms.html">Generative AI</a>
+      <a href="course-mlops-ai-engineering.html">MLOps</a>
+      <a href="course-ai-capstone.html">AI Capstone</a>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <a href="newtonjee-homepage.html#why">About Us</a>
+      <a href="newtonjee-homepage.html#certifications">Certifications</a>
+      <a href="newtonjee-homepage.html#testimonials">Success Stories</a>
+      <a href="newtonjee-pricing.html">Pricing</a>
+      <a href="newtonjee-homepage.html#contact">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <a href="tel:+919XXXXXXXXX">📞 +91 9XXX XXXXXX</a>
+      <a href="mailto:hello@newtonjee.com">✉️ hello@newtonjee.com</a>
+      <a href="#">📍 Hyderabad, Telangana</a>
+      <a href="https://wa.me/919XXXXXXXXX">💬 WhatsApp Us</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Newton JEE. All rights reserved.</span>
+    <span>Privacy Policy · Terms of Service</span>
+  </div>
+</footer>
+
+<!-- MOBILE BAR -->
+<div class="sticky-bottom">
+  <div><div class="sticky-price">₹9,999</div><div style="font-size:0.72rem;color:var(--text-muted);">₹834/mo EMI</div></div>
+  <div style="display:flex;gap:10px;flex:1;justify-content:flex-end;">
+    <button class="btn-demo-sm" style="padding:10px 16px;font-size:0.78rem;">Demo</button>
+    <button class="btn-enrol-main" style="padding:10px 20px;font-size:0.82rem;margin-bottom:0;width:auto;">Enrol →</button>
+  </div>
+</div>
+
+<a href="https://wa.me/919XXXXXXXXX" class="wa-float" style="position:fixed;bottom:28px;right:28px;width:52px;height:52px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 6px 28px rgba(37,211,102,0.4);text-decoration:none;z-index:200;animation:floatBounce 3s ease-in-out infinite;">💬</a>
+
+<style>@keyframes floatBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}</style>
+
+<script>
+  document.querySelectorAll('.week-header').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.week-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.06 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

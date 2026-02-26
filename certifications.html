@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Certifications — Newton JEE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c12; --bg2: #0f1219; --bg3: #151b27;
+    --amber: #f59e0b; --amber2: #fbbf24; --amber-glow: rgba(245,158,11,0.12);
+    --green: #4ade80; --text: #e8eaf0; --text-muted: #8892a4;
+    --border: rgba(255,255,255,0.07); --card: rgba(255,255,255,0.03);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.6; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.022; pointer-events: none; z-index: 9999; }
+
+  /* ── HEADER ── */
+  header { position: sticky; top: 0; z-index: 100; background: rgba(10,12,18,0.93); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 0 48px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; letter-spacing: -0.02em; display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); }
+  .logo .acc-c { color: var(--amber); }
+  .logo-icon { width: 30px; height: 30px; background: var(--amber); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: #000; font-weight: 900; }
+  nav { display: flex; align-items: center; gap: 28px; }
+  nav a { font-size: 0.875rem; font-weight: 500; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+  nav a:hover, nav a.active { color: var(--text); }
+  .btn-header { background: var(--amber); color: #000; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 9px 18px; border-radius: 6px; border: none; cursor: pointer; text-decoration: none; transition: all 0.2s; }
+  .btn-header:hover { background: var(--amber2); }
+
+  /* ── PAGE ── */
+  .container { max-width: 1160px; margin: 0 auto; padding: 0 48px; }
+  .sec-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+  .sec-title { font-family: 'Syne', sans-serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 16px; }
+  .sec-sub { font-size: 0.95rem; color: var(--text-muted); max-width: 580px; line-height: 1.8; margin-bottom: 48px; }
+  section { padding: 80px 0; border-bottom: 1px solid var(--border); }
+  section:last-of-type { border-bottom: none; }
+
+  /* ── HERO ── */
+  .hero { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 96px 48px 80px; position: relative; overflow: hidden; text-align: center; }
+  .hero-glow { position: absolute; top: -40%; left: 50%; transform: translateX(-50%); width: 800px; height: 600px; background: radial-gradient(ellipse, rgba(245,158,11,0.08) 0%, transparent 60%); pointer-events: none; }
+  /* Unique: orbiting certification rings */
+  .hero-rings { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: 600px; height: 600px; pointer-events: none; }
+  .ring { position: absolute; border-radius: 50%; border: 1px solid; top: 50%; left: 50%; transform: translate(-50%,-50%); animation: ringPulse 4s ease-in-out infinite; }
+  .ring-1 { width: 200px; height: 200px; border-color: rgba(245,158,11,0.12); animation-delay: 0s; }
+  .ring-2 { width: 340px; height: 340px; border-color: rgba(245,158,11,0.07); animation-delay: -1.3s; }
+  .ring-3 { width: 480px; height: 480px; border-color: rgba(245,158,11,0.04); animation-delay: -2.6s; }
+  @keyframes ringPulse { 0%,100%{opacity:0.4;transform:translate(-50%,-50%) scale(1)} 50%{opacity:1;transform:translate(-50%,-50%) scale(1.03)} }
+  /* Tier dots orbiting */
+  .orbit-dot { position: absolute; width: 10px; height: 10px; border-radius: 50%; top: 50%; left: 50%; }
+  .od-bronze { background: #cd7f32; box-shadow: 0 0 10px rgba(205,127,50,0.6); animation: orbit1 8s linear infinite; }
+  .od-silver { background: #c0c0c0; box-shadow: 0 0 10px rgba(192,192,192,0.6); animation: orbit2 10s linear infinite; }
+  .od-gold   { background: #fbbf24; box-shadow: 0 0 10px rgba(251,191,36,0.6); animation: orbit3 13s linear infinite; }
+  .od-plat   { background: #22d3ee; box-shadow: 0 0 12px rgba(34,211,238,0.7); animation: orbit4 16s linear infinite; }
+  @keyframes orbit1 { from{transform:translate(-50%,-50%) rotate(0deg) translateX(100px) rotate(0deg)} to{transform:translate(-50%,-50%) rotate(360deg) translateX(100px) rotate(-360deg)} }
+  @keyframes orbit2 { from{transform:translate(-50%,-50%) rotate(90deg) translateX(170px) rotate(-90deg)} to{transform:translate(-50%,-50%) rotate(450deg) translateX(170px) rotate(-450deg)} }
+  @keyframes orbit3 { from{transform:translate(-50%,-50%) rotate(180deg) translateX(240px) rotate(-180deg)} to{transform:translate(-50%,-50%) rotate(540deg) translateX(240px) rotate(-540deg)} }
+  @keyframes orbit4 { from{transform:translate(-50%,-50%) rotate(270deg) translateX(310px) rotate(-270deg)} to{transform:translate(-50%,-50%) rotate(630deg) translateX(310px) rotate(-630deg)} }
+
+  .hero-content { position: relative; z-index: 2; animation: fadeUp 0.7s ease both; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 20px; }
+  .hero h1 em { font-style: normal; background: linear-gradient(135deg, var(--amber), #fb923c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-sub { font-size: 1.05rem; color: var(--text-muted); max-width: 520px; margin: 0 auto 40px; line-height: 1.8; }
+  .hero-stats { display: inline-flex; gap: 0; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; background: var(--bg3); }
+  .hst { padding: 20px 32px; border-right: 1px solid var(--border); text-align: center; }
+  .hst:last-child { border-right: none; }
+  .hst-num { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--amber); display: block; }
+  .hst-lbl { font-size: 0.72rem; color: var(--text-muted); font-family: 'DM Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; }
+
+  /* ── TIER GRID ── */
+  .tier-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 48px; }
+  .tier-card {
+    border-radius: 16px; padding: 32px 24px; border: 1px solid;
+    position: relative; overflow: hidden; transition: all 0.3s;
+    cursor: default;
+  }
+  .tier-card::before { content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity 0.3s; border-radius: inherit; }
+  .tier-card:hover { transform: translateY(-4px); }
+  .tier-card:hover::before { opacity: 1; }
+
+  /* Bronze */
+  .tc-bronze { background: linear-gradient(145deg, rgba(205,127,50,0.08), rgba(205,127,50,0.02)); border-color: rgba(205,127,50,0.25); }
+  .tc-bronze::before { background: radial-gradient(ellipse at top, rgba(205,127,50,0.1), transparent 60%); }
+  .tc-bronze:hover { box-shadow: 0 12px 40px rgba(205,127,50,0.15); }
+  /* Silver */
+  .tc-silver { background: linear-gradient(145deg, rgba(192,192,192,0.08), rgba(192,192,192,0.02)); border-color: rgba(192,192,192,0.25); }
+  .tc-silver::before { background: radial-gradient(ellipse at top, rgba(192,192,192,0.1), transparent 60%); }
+  .tc-silver:hover { box-shadow: 0 12px 40px rgba(192,192,192,0.15); }
+  /* Gold */
+  .tc-gold { background: linear-gradient(145deg, rgba(251,191,36,0.08), rgba(251,191,36,0.02)); border-color: rgba(251,191,36,0.3); }
+  .tc-gold::before { background: radial-gradient(ellipse at top, rgba(251,191,36,0.12), transparent 60%); }
+  .tc-gold:hover { box-shadow: 0 12px 40px rgba(251,191,36,0.2); }
+  /* Platinum */
+  .tc-plat { background: linear-gradient(145deg, rgba(34,211,238,0.08), rgba(34,211,238,0.02)); border-color: rgba(34,211,238,0.25); }
+  .tc-plat::before { background: radial-gradient(ellipse at top, rgba(34,211,238,0.12), transparent 60%); }
+  .tc-plat:hover { box-shadow: 0 12px 40px rgba(34,211,238,0.2); }
+
+  .tier-medal { font-size: 2.4rem; display: block; margin-bottom: 16px; }
+  .tier-name { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; margin-bottom: 4px; }
+  .tier-badge-label { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; display: block; }
+  .tc-bronze .tier-badge-label { color: #cd7f32; }
+  .tc-silver .tier-badge-label { color: #c0c0c0; }
+  .tc-gold   .tier-badge-label { color: #fbbf24; }
+  .tc-plat   .tier-badge-label { color: #22d3ee; }
+  .tier-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; }
+  .tier-courses { border-top: 1px solid var(--border); padding-top: 16px; }
+  .tier-courses h6 { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+  .tc-course { display: flex; align-items: center; gap: 8px; font-size: 0.78rem; color: var(--text-muted); padding: 4px 0; }
+  .tc-course::before { content: '→'; font-size: 0.65rem; flex-shrink: 0; }
+  .tc-bronze .tc-course::before { color: #cd7f32; }
+  .tc-silver .tc-course::before { color: #c0c0c0; }
+  .tc-gold   .tc-course::before { color: #fbbf24; }
+  .tc-plat   .tc-course::before { color: #22d3ee; }
+
+  /* ── LINKEDIN BADGE SECTION ── */
+  .badge-showcase { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+  .badge-visual { position: relative; }
+  /* Mock LinkedIn card */
+  .linkedin-card { background: #1a1d24; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 24px; max-width: 360px; }
+  .li-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .li-avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #6366f1); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 800; color: #fff; font-size: 1rem; }
+  .li-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; margin-bottom: 2px; }
+  .li-role { font-size: 0.72rem; color: rgba(255,255,255,0.5); }
+  .li-badge-row { display: flex; flex-direction: column; gap: 10px; }
+  .li-badge { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; padding: 10px 14px; }
+  .li-badge-icon { font-size: 1.3rem; flex-shrink: 0; }
+  .li-badge-text { flex: 1; }
+  .li-badge-name { font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700; margin-bottom: 1px; }
+  .li-badge-issuer { font-size: 0.68rem; color: rgba(255,255,255,0.4); font-family: 'DM Mono', monospace; }
+  .li-badge-date { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: rgba(255,255,255,0.3); text-align: right; }
+  .li-badge.gold-active { border-color: rgba(251,191,36,0.3); background: rgba(251,191,36,0.05); }
+  .li-badge.plat-active { border-color: rgba(34,211,238,0.3); background: rgba(34,211,238,0.05); }
+  .linkedin-badge-pulse { position: absolute; top: -8px; right: -8px; width: 20px; height: 20px; border-radius: 50%; background: #0077b5; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; color: #fff; font-weight: 900; animation: badgePop 2s ease-in-out infinite; }
+  @keyframes badgePop { 0%,100%{transform:scale(1)} 50%{transform:scale(1.2)} }
+  .badge-info p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 24px; }
+  .badge-steps { display: flex; flex-direction: column; gap: 14px; }
+  .badge-step { display: flex; align-items: flex-start; gap: 14px; }
+  .bstep-num { width: 28px; height: 28px; border-radius: 50%; background: var(--amber-glow); border: 1px solid rgba(245,158,11,0.3); color: var(--amber); font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .bstep-text strong { display: block; font-weight: 700; font-size: 0.88rem; margin-bottom: 2px; }
+  .bstep-text span { font-size: 0.78rem; color: var(--text-muted); }
+
+  /* ── CERT SAMPLE VISUAL ── */
+  .cert-preview { position: relative; max-width: 720px; margin: 0 auto 16px; }
+  .cert-mock {
+    background: linear-gradient(145deg, #0f1626, #141e30);
+    border: 1px solid rgba(245,158,11,0.2);
+    border-radius: 16px; padding: 48px 56px;
+    position: relative; overflow: hidden; text-align: center;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+  }
+  .cert-mock::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #cd7f32, #c0c0c0, #fbbf24, #22d3ee); }
+  .cert-border { position: absolute; inset: 12px; border: 1px solid rgba(245,158,11,0.08); border-radius: 10px; pointer-events: none; }
+  .cert-watermark { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: 8rem; font-weight: 800; color: rgba(245,158,11,0.02); pointer-events: none; letter-spacing: -0.05em; }
+  .cert-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1rem; color: var(--amber); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 32px; display: block; }
+  .cert-heading { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; }
+  .cert-name { font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; }
+  .cert-has { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; }
+  .cert-course { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; color: var(--amber); margin-bottom: 28px; }
+  .cert-meta { display: flex; align-items: center; justify-content: center; gap: 32px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.06); }
+  .cert-sig { text-align: center; }
+  .cert-sig-line { width: 100px; height: 1px; background: rgba(255,255,255,0.15); margin: 0 auto 6px; }
+  .cert-sig-name { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.08em; color: var(--text-muted); }
+  .cert-badge { width: 56px; height: 56px; border-radius: 50%; background: rgba(251,191,36,0.12); border: 2px solid rgba(251,191,36,0.4); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; }
+  .cert-id { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--text-muted); margin-top: 20px; display: block; letter-spacing: 0.08em; }
+
+  /* ── VERIFICATION ── */
+  .verify-box { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 40px; max-width: 560px; margin: 0 auto; text-align: center; }
+  .verify-icon { font-size: 2.4rem; margin-bottom: 16px; display: block; }
+  .verify-box h3 { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 800; margin-bottom: 8px; }
+  .verify-box p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 24px; }
+  .verify-input-row { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .verify-input { flex: 1; background: var(--bg3); border: none; color: var(--text); padding: 14px 18px; font-family: 'DM Mono', monospace; font-size: 0.85rem; outline: none; letter-spacing: 0.05em; }
+  .verify-input::placeholder { color: var(--text-muted); }
+  .verify-btn { background: var(--amber); color: #000; border: none; padding: 14px 24px; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
+  .verify-btn:hover { background: var(--amber2); }
+  .verify-result { margin-top: 16px; padding: 14px; border-radius: 8px; font-size: 0.82rem; display: none; }
+  .verify-result.success { background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.2); color: var(--green); }
+
+  /* ── PATH OVERVIEW ── */
+  .path-flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+  .path-step { padding: 28px 16px; text-align: center; border-right: 1px solid var(--border); position: relative; transition: background 0.2s; }
+  .path-step:last-child { border-right: none; }
+  .path-step:hover { background: rgba(245,158,11,0.03); }
+  .ps-num { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 10px; }
+  .ps-medal { font-size: 1.6rem; display: block; margin-bottom: 8px; }
+  .ps-name { font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px; }
+  .ps-courses { font-size: 0.68rem; color: var(--text-muted); font-family: 'DM Mono', monospace; }
+  .ps-arrow { position: absolute; right: -10px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; border-radius: 50%; background: var(--bg3); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.6rem; color: var(--amber); z-index: 2; }
+  .path-step:last-child .ps-arrow { display: none; }
+
+  /* ── FAQ ── */
+  .faq-item { border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px; overflow: hidden; }
+  .faq-q { width: 100%; background: none; border: none; color: var(--text); padding: 18px 22px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; text-align: left; font-family: 'Syne', sans-serif; font-size: 0.92rem; font-weight: 700; transition: background 0.2s; }
+  .faq-q:hover { background: rgba(255,255,255,0.02); }
+  .faq-ch { color: var(--amber); transition: transform 0.3s; flex-shrink: 0; margin-left: 12px; }
+  .faq-item.open .faq-ch { transform: rotate(180deg); }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  .faq-item.open .faq-a { max-height: 300px; border-top: 1px solid var(--border); }
+  .faq-a-inner { padding: 16px 22px 20px; font-size: 0.85rem; color: var(--text-muted); line-height: 1.8; }
+
+  /* ── CTA ── */
+  .cta-bar { background: linear-gradient(135deg, rgba(245,158,11,0.1), rgba(251,146,60,0.05)); border: 1px solid rgba(245,158,11,0.2); border-radius: 20px; padding: 56px; text-align: center; }
+  .cta-bar h2 { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; margin-bottom: 12px; }
+  .cta-bar p { color: var(--text-muted); margin-bottom: 32px; }
+  .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary { background: var(--amber); color: #000; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.88rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 14px 28px; border-radius: 8px; border: none; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.2s; }
+  .btn-primary:hover { background: var(--amber2); transform: translateY(-2px); }
+  .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.88rem; padding: 14px 28px; border-radius: 8px; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.2s; }
+  .btn-outline:hover { border-color: var(--amber); color: var(--amber); }
+
+  /* ── FOOTER ── */
+  footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 60px 48px 40px; }
+  .footer-grid { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; }
+  .footer-brand p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.7; max-width: 260px; margin-top: 12px; }
+  .footer-col h5 { font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 16px; }
+  .footer-col a { display: block; font-size: 0.875rem; color: var(--text-muted); text-decoration: none; margin-bottom: 10px; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--amber); }
+  .footer-bottom { max-width: 1160px; margin: 32px auto 0; padding-top: 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; color: var(--text-muted); }
+
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 960px) { .container { padding: 0 20px; } header { padding: 0 20px; } nav { display: none; } .tier-grid { grid-template-columns: 1fr 1fr; } .badge-showcase { grid-template-columns: 1fr; } .path-flow { grid-template-columns: 1fr 1fr; } .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; } section { padding: 56px 0; } .hero { padding: 72px 20px 56px; } }
+  @media (max-width: 640px) { .tier-grid { grid-template-columns: 1fr; } .hero-stats { flex-direction: column; width: 100%; } .path-flow { grid-template-columns: 1fr; } .hst { border-right: none; border-bottom: 1px solid var(--border); } .hst:last-child { border-bottom: none; } .footer-grid { grid-template-columns: 1fr; } .cta-btns { flex-direction: column; align-items: center; } }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="newtonjee-homepage.html" class="logo"><div class="logo-icon">N</div>Newton<span class="acc-c">JEE</span></a>
+  <nav>
+    <a href="newtonjee-homepage.html#courses">Courses</a>
+    <a href="newtonjee-pricing.html">Pricing</a>
+    <a href="certifications.html" class="active">Certifications</a>
+    <a href="blog.html">Blog</a>
+  </nav>
+  <a href="free-demo.html" class="btn-header">Book Free Demo →</a>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-rings">
+    <div class="ring ring-1"></div>
+    <div class="ring ring-2"></div>
+    <div class="ring ring-3"></div>
+    <div class="orbit-dot od-bronze"></div>
+    <div class="orbit-dot od-silver"></div>
+    <div class="orbit-dot od-gold"></div>
+    <div class="orbit-dot od-plat"></div>
+  </div>
+  <div class="hero-content">
+    <div class="sec-label">// Certification Program</div>
+    <h1>Credentials That<br><em>Signal Real Skill</em></h1>
+    <p class="hero-sub">Four tiers of LinkedIn-verified certification — Bronze to Platinum — built around what AI & ML employers actually look for. Not just completion badges. Proof of ability.</p>
+    <div class="hero-stats">
+      <div class="hst"><span class="hst-num">4</span><span class="hst-lbl">Cert Tiers</span></div>
+      <div class="hst"><span class="hst-num">1,200+</span><span class="hst-lbl">Certified</span></div>
+      <div class="hst"><span class="hst-num">94%</span><span class="hst-lbl">Placed in 90 days</span></div>
+      <div class="hst"><span class="hst-num">LI ✓</span><span class="hst-lbl">LinkedIn Verified</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- CERTIFICATION TIERS -->
+<section>
+  <div class="container reveal">
+    <div class="sec-label">// The Four Tiers</div>
+    <div class="sec-title">Build Your Certification Stack</div>
+    <p class="sec-sub">Each tier represents a genuine jump in capability. You earn a higher tier only by completing the courses for it — no shortcuts, no participation trophies.</p>
+
+    <div class="tier-grid">
+      <div class="tier-card tc-bronze">
+        <span class="tier-medal">🥉</span>
+        <div class="tier-name">Bronze</div>
+        <span class="tier-badge-label">Foundation Level</span>
+        <p class="tier-desc">Demonstrates solid Python fluency and mathematical foundations for AI. The baseline credential that shows you're past tutorial mode.</p>
+        <div class="tier-courses">
+          <h6>Earned from</h6>
+          <div class="tc-course">Python for AI & Data Science</div>
+          <div class="tc-course">Statistics & Math for ML</div>
+        </div>
+      </div>
+      <div class="tier-card tc-silver">
+        <span class="tier-medal">🥈</span>
+        <div class="tier-name">Silver</div>
+        <span class="tier-badge-label">Practitioner Level</span>
+        <p class="tier-desc">Signals hands-on ML and deep learning competence. Graduates at this level can build, evaluate, and deploy real models independently.</p>
+        <div class="tier-courses">
+          <h6>Earned from</h6>
+          <div class="tc-course">Machine Learning Mastery</div>
+          <div class="tc-course">Deep Learning & Computer Vision</div>
+        </div>
+      </div>
+      <div class="tier-card tc-gold">
+        <span class="tier-medal">🥇</span>
+        <div class="tier-name">Gold</div>
+        <span class="tier-badge-label">Advanced Level</span>
+        <p class="tier-desc">Positions you as a specialist in language AI and generative systems. The credential most requested by recruiters at AI-first companies.</p>
+        <div class="tier-courses">
+          <h6>Earned from (any 2)</h6>
+          <div class="tc-course">NLP & Text Mining</div>
+          <div class="tc-course">Generative AI & LLMs</div>
+          <div class="tc-course">Computer Vision</div>
+        </div>
+      </div>
+      <div class="tier-card tc-plat">
+        <span class="tier-medal">💎</span>
+        <div class="tier-name">Platinum</div>
+        <span class="tier-badge-label">Full Stack AI Level</span>
+        <p class="tier-desc">The highest credential — awarded only to graduates who complete MLOps and the AI Capstone. Unlocks the Full Stack AI Engineer designation.</p>
+        <div class="tier-courses">
+          <h6>Earned from both</h6>
+          <div class="tc-course">MLOps & AI Engineering</div>
+          <div class="tc-course">AI Capstone Project</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATION PATH -->
+<section style="background: var(--bg2);">
+  <div class="container reveal">
+    <div class="sec-label">// The Full Path</div>
+    <div class="sec-title">From Zero to Full Stack AI Engineer</div>
+    <p class="sec-sub">Each stage unlocks the next. Start anywhere that matches your level — if you already have Python, skip to Silver. The path is designed to be completed over 10–14 months while working full-time.</p>
+    <div class="path-flow">
+      <div class="path-step">
+        <div class="ps-arrow">›</div>
+        <span class="ps-num">Stage 01</span>
+        <span class="ps-medal">🥉</span>
+        <div class="ps-name">Bronze</div>
+        <div class="ps-courses">2 courses · ~5 months</div>
+      </div>
+      <div class="path-step">
+        <div class="ps-arrow">›</div>
+        <span class="ps-num">Stage 02</span>
+        <span class="ps-medal">🥈</span>
+        <div class="ps-name">Silver</div>
+        <div class="ps-courses">2 courses · ~5 months</div>
+      </div>
+      <div class="path-step">
+        <div class="ps-arrow">›</div>
+        <span class="ps-num">Stage 03</span>
+        <span class="ps-medal">🥇</span>
+        <div class="ps-name">Gold</div>
+        <div class="ps-courses">2–3 courses · ~5 months</div>
+      </div>
+      <div class="path-step">
+        <div class="ps-arrow">›</div>
+        <span class="ps-num">Stage 04</span>
+        <span class="ps-medal">💎</span>
+        <div class="ps-name">Platinum</div>
+        <div class="ps-courses">2 courses · ~4 months</div>
+      </div>
+      <div class="path-step">
+        <span class="ps-num">Final</span>
+        <span class="ps-medal">🏆</span>
+        <div class="ps-name">Full Stack AI Engineer</div>
+        <div class="ps-courses">All 9 courses</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LINKEDIN BADGE -->
+<section>
+  <div class="container reveal">
+    <div class="sec-label">// LinkedIn Integration</div>
+    <div class="sec-title">How the LinkedIn Badge Works</div>
+    <div class="badge-showcase">
+      <div class="badge-visual">
+        <div class="linkedin-card" style="position:relative;">
+          <div class="linkedin-badge-pulse" title="LinkedIn">in</div>
+          <div class="li-card-header">
+            <div class="li-avatar">RK</div>
+            <div>
+              <div class="li-name">Rahul Krishnamurthy</div>
+              <div class="li-role">ML Engineer · Hyderabad</div>
+            </div>
+          </div>
+          <div style="font-size:0.68rem;color:rgba(255,255,255,0.3);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;">Licences & Certifications</div>
+          <div class="li-badge-row">
+            <div class="li-badge gold-active">
+              <div class="li-badge-icon">🥇</div>
+              <div class="li-badge-text">
+                <div class="li-badge-name" style="color:#fbbf24;">Gold AI Practitioner</div>
+                <div class="li-badge-issuer">Newton JEE · Verified</div>
+              </div>
+              <div class="li-badge-date">Mar 2025</div>
+            </div>
+            <div class="li-badge plat-active">
+              <div class="li-badge-icon">💎</div>
+              <div class="li-badge-text">
+                <div class="li-badge-name" style="color:#22d3ee;">Platinum · Full Stack AI Engineer</div>
+                <div class="li-badge-issuer">Newton JEE · Verified</div>
+              </div>
+              <div class="li-badge-date">Jun 2025</div>
+            </div>
+            <div class="li-badge" style="opacity:0.5;">
+              <div class="li-badge-icon">🥉</div>
+              <div class="li-badge-text">
+                <div class="li-badge-name">Bronze Foundation</div>
+                <div class="li-badge-issuer">Newton JEE · Verified</div>
+              </div>
+              <div class="li-badge-date">Aug 2024</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="badge-info">
+        <p>Every Newton JEE certificate comes with a unique verification ID and a shareable LinkedIn credential. Recruiters can click to verify in one step — no PDFs, no guesswork.</p>
+        <div class="badge-steps">
+          <div class="badge-step">
+            <div class="bstep-num">1</div>
+            <div class="bstep-text"><strong>Complete your course & project</strong><span>Attend all sessions, complete the final project, and pass the exit evaluation.</span></div>
+          </div>
+          <div class="badge-step">
+            <div class="bstep-num">2</div>
+            <div class="bstep-text"><strong>Receive your certificate + badge ID</strong><span>Your PDF certificate and unique badge ID are issued within 48 hours of graduation.</span></div>
+          </div>
+          <div class="badge-step">
+            <div class="bstep-num">3</div>
+            <div class="bstep-text"><strong>Add to LinkedIn in 2 clicks</strong><span>Use our direct LinkedIn integration — it auto-fills issuer, date, and verification URL.</span></div>
+          </div>
+          <div class="badge-step">
+            <div class="bstep-num">4</div>
+            <div class="bstep-text"><strong>Recruiters verify instantly</strong><span>Anyone who views your profile can click the credential and see your verified completion record.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SAMPLE CERTIFICATE -->
+<section style="background: var(--bg2);">
+  <div class="container reveal">
+    <div class="sec-label">// Sample Certificate</div>
+    <div class="sec-title">What You'll Receive</div>
+    <div class="cert-preview">
+      <div class="cert-mock">
+        <div class="cert-border"></div>
+        <div class="cert-watermark">N</div>
+        <span class="cert-logo">Newton JEE</span>
+        <div class="cert-heading">Certificate of Completion</div>
+        <div class="cert-name">Priya Raghunathan</div>
+        <div class="cert-has">has successfully completed</div>
+        <div class="cert-course">Generative AI & LLMs</div>
+        <div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:28px;">with distinction · 36 live hours · 5 production projects</div>
+        <div class="cert-meta">
+          <div class="cert-sig">
+            <div class="cert-sig-line"></div>
+            <div class="cert-sig-name">Meera Krishnan, Head of Education</div>
+          </div>
+          <div class="cert-badge">🥇</div>
+          <div class="cert-sig">
+            <div class="cert-sig-line"></div>
+            <div class="cert-sig-name">Newton JEE Certification Board</div>
+          </div>
+        </div>
+        <span class="cert-id">ID: NJ-GENAI-2025-0847 · Issued: 14 March 2025 · verify.newtonjee.com/NJ-GENAI-2025-0847</span>
+      </div>
+    </div>
+    <p style="text-align:center;font-size:0.8rem;color:var(--text-muted);">High-resolution PDF, 297×210mm, print-ready. Includes digital watermark and verification QR code.</p>
+  </div>
+</section>
+
+<!-- VERIFICATION -->
+<section>
+  <div class="container reveal">
+    <div class="sec-label">// Verify a Certificate</div>
+    <div class="sec-title">Instant Certificate Verification</div>
+    <div class="verify-box">
+      <span class="verify-icon">🔍</span>
+      <h3>Enter a Certificate ID</h3>
+      <p>Verify any Newton JEE certificate by entering its unique ID. Results are instant and publicly available to employers and institutions.</p>
+      <div class="verify-input-row">
+        <input class="verify-input" type="text" placeholder="NJ-GENAI-2025-XXXX" id="certIdInput">
+        <button class="verify-btn" onclick="verifyDemo()">Verify →</button>
+      </div>
+      <div class="verify-result" id="verifyResult"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section style="background: var(--bg2);">
+  <div class="container reveal">
+    <div class="sec-label">// FAQ</div>
+    <div class="sec-title">Certificate Questions</div>
+    <div style="max-width: 720px;">
+      <div class="faq-item open">
+        <button class="faq-q">Do recruiters actually recognise Newton JEE certificates? <span class="faq-ch">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Yes — Newton JEE certificates are specifically cited in job applications by our alumni and have been verified by hiring managers at companies including Microsoft, Flipkart, Razorpay, Zepto, and Apollo Hospitals. We're also working on direct recruiting partnerships where Platinum graduates are fast-tracked to interviews. The most important signal is the public verifiability: recruiters can confirm the credential in seconds, which removes friction and builds trust.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What's the difference between the certificate and the LinkedIn badge? <span class="faq-ch">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">The certificate is a formal PDF document issued per course, suitable for sharing, printing, and attaching to job applications. The LinkedIn badge is a live, verifiable credential linked to your LinkedIn profile that recruiters can click to verify in real time. You receive both for every course you complete.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Do certificates expire? <span class="faq-ch">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Newton JEE certificates don't expire — once earned, they're yours permanently. The verification record stays live indefinitely. That said, we recommend supplementing older certificates with more recent courses as the field evolves, to signal that your knowledge is current.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What if I don't complete all courses for a tier? <span class="faq-ch">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">You receive individual course certificates for every course you complete regardless of tier. The tier badges (Bronze, Silver, Gold, Platinum) are awarded automatically once you complete the required courses for that tier. There's no time limit — complete them over months or years.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can I share my certificate on platforms other than LinkedIn? <span class="faq-ch">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Absolutely. Your certificate PDF and a unique shareable verification URL can be added to any platform — Naukri, Shine, Instagram, your personal portfolio, or directly emailed to recruiters. The verification URL works on any device without requiring a login.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section>
+  <div class="container reveal">
+    <div class="cta-bar">
+      <h2>Start Earning Your Certification</h2>
+      <p>Browse all courses or book a free demo to find the right starting point for your level and goals.</p>
+      <div class="cta-btns">
+        <a href="newtonjee-homepage.html#courses" class="btn-primary">Browse All Courses →</a>
+        <a href="free-demo.html" class="btn-outline">Book Free Demo</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="newtonjee-homepage.html" class="logo" style="text-decoration:none;"><div class="logo-icon">N</div>Newton<span class="acc-c">JEE</span></a>
+      <p>India's most structured AI & ML certification program for engineers and professionals ready to build the future.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Courses</h5>
+      <a href="course-python-for-ai.html">Python for AI</a>
+      <a href="course-machine-learning.html">Machine Learning</a>
+      <a href="course-deep-learning-cv.html">Deep Learning & CV</a>
+      <a href="course-generative-ai-llms.html">Generative AI</a>
+      <a href="course-mlops-ai-engineering.html">MLOps</a>
+      <a href="course-ai-capstone.html">AI Capstone</a>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <a href="newtonjee-homepage.html#why">About Us</a>
+      <a href="certifications.html">Certifications</a>
+      <a href="success-stories.html">Success Stories</a>
+      <a href="blog.html">Blog</a>
+      <a href="newtonjee-homepage.html#contact">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <a href="tel:+919XXXXXXXXX">📞 +91 9XXX XXXXXX</a>
+      <a href="mailto:hello@newtonjee.com">✉️ hello@newtonjee.com</a>
+      <a href="newtonjee-homepage.html#contact">📍 Hyderabad, Telangana</a>
+      <a href="https://wa.me/919XXXXXXXXX">💬 WhatsApp Us</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Newton JEE. All rights reserved.</span>
+    <span>Privacy Policy · Terms of Service</span>
+  </div>
+</footer>
+
+<a href="https://wa.me/919XXXXXXXXX" style="position:fixed;bottom:28px;right:28px;width:52px;height:52px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 6px 28px rgba(37,211,102,0.4);text-decoration:none;z-index:200;animation:floatBounce 3s ease-in-out infinite;">💬</a>
+<style>@keyframes floatBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}</style>
+
+<script>
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+  const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.06 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  function verifyDemo() {
+    const val = document.getElementById('certIdInput').value.trim();
+    const res = document.getElementById('verifyResult');
+    if (val.length > 4) {
+      res.className = 'verify-result success';
+      res.style.display = 'block';
+      res.innerHTML = `✓ Certificate <strong>${val}</strong> is valid · Issued to <strong>Priya Raghunathan</strong> · Generative AI & LLMs · 14 March 2025`;
+    }
+  }
+  document.getElementById('certIdInput').addEventListener('keydown', e => { if(e.key==='Enter') verifyDemo(); });
+</script>
+</body>
+</html>
