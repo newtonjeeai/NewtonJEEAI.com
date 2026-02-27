@@ -678,6 +678,173 @@
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
+  /* ── INTRO SECTION ───────────────────────────── */
+  .intro-section {
+    padding: 96px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .intro-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 80% 50%, rgba(245,158,11,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 10% 50%, rgba(34,211,238,0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .intro-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .intro-left {}
+  .intro-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 20px;
+  }
+  .intro-eyebrow::before {
+    content: '';
+    width: 24px; height: 1px;
+    background: var(--amber);
+    flex-shrink: 0;
+  }
+  .intro-headline {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+  .intro-headline .amber { color: var(--amber); }
+  .intro-headline .dim { color: var(--text-muted); }
+  .intro-tagline {
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+    font-weight: 300;
+    margin-bottom: 36px;
+    max-width: 480px;
+  }
+  .intro-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+  }
+  .intro-meta .sep { color: var(--border); }
+  .intro-meta a {
+    color: var(--amber);
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .intro-meta a:hover { opacity: 0.75; }
+
+  .intro-right {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .intro-manifesto {
+    position: relative;
+    padding: 40px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+  }
+  .intro-manifesto::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: linear-gradient(to bottom, var(--amber), transparent);
+    border-radius: 3px 0 0 3px;
+  }
+  .manifesto-warning {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #f87171;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .manifesto-warning .warn-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #f87171;
+    animation: pulse 2s infinite;
+  }
+  .manifesto-body {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--text);
+    font-weight: 300;
+    margin-bottom: 28px;
+  }
+  .manifesto-body strong {
+    font-weight: 600;
+    color: var(--text);
+  }
+  .manifesto-body .highlight {
+    color: var(--amber);
+    font-weight: 500;
+  }
+  .manifesto-divider {
+    height: 1px;
+    background: var(--border);
+    margin-bottom: 24px;
+  }
+  .intro-stats-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+  .intro-stat {
+    text-align: center;
+    padding: 16px 8px;
+    background: rgba(245,158,11,0.04);
+    border: 1px solid rgba(245,158,11,0.12);
+    border-radius: 10px;
+  }
+  .intro-stat .s-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--amber);
+    display: block;
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+  .intro-stat .s-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  @media (max-width: 1024px) {
+    .intro-inner { grid-template-columns: 1fr; gap: 48px; }
+    .intro-tagline { max-width: 100%; }
+  }
+
   @media (max-width: 900px) {
     .hero-float { display: none; }
     header nav { display: none; }
@@ -761,6 +928,64 @@
   <div class="proof-item"><span class="icon">⭐</span><div><strong>4.9/5</strong><span> avg. rating</span></div></div>
   <div class="proof-item"><span class="icon">📅</span><div><strong>3</strong><span> years active</span></div></div>
 </div>
+
+
+<!-- INTRO SECTION -->
+<section class="intro-section" id="about">
+  <div class="intro-inner">
+
+    <!-- LEFT: Identity & positioning -->
+    <div class="intro-left reveal">
+      <div class="intro-eyebrow">About NewtonJEEAI Technologies</div>
+      <h2 class="intro-headline">
+        India's Most <span class="amber">Elite</span><br>
+        AI Career<br>
+        <span class="dim">Accelerator.</span>
+      </h2>
+      <p class="intro-tagline">
+        Built for engineers and IT professionals who refuse to be left behind by the AI revolution. We don't just teach AI — <strong>we build AI careers.</strong>
+      </p>
+      <div class="intro-meta">
+        <a href="https://newtonjee.com" target="_blank">newtonjee.com</a>
+        <span class="sep">|</span>
+        <span>📍 Hyderabad, India</span>
+      </div>
+    </div>
+
+    <!-- RIGHT: Manifesto card + stats -->
+    <div class="intro-right reveal">
+      <div class="intro-manifesto">
+        <div class="manifesto-warning">
+          <span class="warn-dot"></span>
+          The AI transformation is already here
+        </div>
+        <div class="manifesto-body">
+          Millions of traditional tech roles are being automated, compressed, or eliminated — while demand for AI-skilled professionals has surged <span class="highlight">300% in a single year.</span> The window to position yourself at the front of this wave is <strong>narrow and closing fast.</strong>
+          <br><br>
+          We are not a mass-enrollment platform. We are an <strong>exclusive, micro-batch AI institute</strong> where every student gets personal mentorship, real-world projects, and LinkedIn-verified credentials that make recruiters reach out to <em>them</em> first.
+          <br><br>
+          With a <span class="highlight">94% placement rate</span>, a maximum of <strong>15 students per cohort</strong>, and curriculum built around what industry actually demands — we build AI careers.
+        </div>
+        <div class="manifesto-divider"></div>
+        <div class="intro-stats-row">
+          <div class="intro-stat">
+            <span class="s-num">1,200+</span>
+            <span class="s-label">Engineers Trained</span>
+          </div>
+          <div class="intro-stat">
+            <span class="s-num">₹45 LPA</span>
+            <span class="s-label">Avg AI Engineer Salary in Network</span>
+          </div>
+          <div class="intro-stat">
+            <span class="s-num">1 Demo</span>
+            <span class="s-label">Free Session to Start Your Journey</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
 
 <!-- COURSES SECTION -->
 <section class="courses-section" id="courses">
