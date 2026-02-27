@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python for AI & Data Science — Newton JEE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800;1,900&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c12;
+    --bg2: #0f1219;
+    --bg3: #151b27;
+    --amber: #f59e0b;
+    --amber2: #fbbf24;
+    --amber-glow: rgba(245,158,11,0.12);
+    --cyan: #22d3ee;
+    --green: #4ade80;
+    --text: #e8eaf0;
+    --text-muted: #8892a4;
+    --border: rgba(255,255,255,0.07);
+    --card: rgba(255,255,255,0.03);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.022; pointer-events: none; z-index: 9999;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,12,18,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 48px; height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem;
+    letter-spacing: -0.02em; display: flex; align-items: center; gap: 8px;
+    text-decoration: none; color: var(--text);
+  }
+  .logo .acc { color: var(--amber); }
+  .logo-icon {
+    width: 30px; height: 30px; background: var(--amber); border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem; color: #000; font-weight: 900;
+  }
+  nav { display: flex; align-items: center; gap: 28px; }
+  nav a { font-size: 0.875rem; font-weight: 500; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+  nav a:hover { color: var(--text); }
+  .btn-header {
+    background: var(--amber); color: #000;
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 9px 18px; border-radius: 6px; text-decoration: none; transition: all 0.2s; border: none; cursor: pointer;
+  }
+  .btn-header:hover { background: var(--amber2); }
+
+  /* ── BREADCRUMB ── */
+  .breadcrumb {
+    padding: 14px 48px;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .breadcrumb a { color: var(--text-muted); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--amber); }
+  .breadcrumb .sep { opacity: 0.4; }
+  .breadcrumb .current { color: var(--text); }
+
+  /* ── COURSE HERO ── */
+  .course-hero {
+    position: relative;
+    padding: 72px 48px 0;
+    overflow: hidden;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(245,158,11,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245,158,11,0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse 60% 100% at 20% 50%, black, transparent 80%);
+  }
+  .hero-glow {
+    position: absolute; top: -20%; left: 5%; width: 500px; height: 400px;
+    background: radial-gradient(ellipse, rgba(245,158,11,0.09), transparent 65%);
+    pointer-events: none;
+  }
+  .hero-layout {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 48px;
+    max-width: 1160px;
+    margin: 0 auto;
+    align-items: start;
+  }
+  .hero-left { padding-bottom: 72px; }
+
+  .course-badge-row { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'DM Mono', monospace; font-size: 0.65rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 100px;
+  }
+  .badge.beginner { background: rgba(74,222,128,0.12); color: var(--green); border: 1px solid rgba(74,222,128,0.2); }
+  .badge.bronze { background: rgba(205,127,50,0.12); color: #cd7f32; border: 1px solid rgba(205,127,50,0.25); }
+  .badge.live { background: rgba(239,68,68,0.12); color: #f87171; border: 1px solid rgba(239,68,68,0.2); }
+  .badge .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  .course-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4.5vw, 3.4rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    margin-bottom: 18px;
+  }
+  .course-hero h1 span { color: var(--amber); }
+  .course-tagline { font-size: 1.05rem; color: var(--text-muted); font-weight: 300; max-width: 520px; margin-bottom: 32px; line-height: 1.7; }
+
+  .meta-pills { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 36px; }
+  .meta-pill { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-muted); }
+  .meta-pill strong { color: var(--text); font-weight: 600; }
+
+  .hero-stats { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 0; }
+  .hstat {
+    flex: 1; padding: 20px;
+    border-right: 1px solid var(--border); text-align: center;
+  }
+  .hstat:last-child { border-right: none; }
+  .hstat .num { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--amber); display: block; }
+  .hstat .lbl { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; font-family: 'DM Mono', monospace; }
+
+  /* sticky enrol card */
+  .enrol-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    position: sticky;
+    top: 80px;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+  .enrol-price-row { margin-bottom: 6px; }
+  .enrol-fee { font-family: 'Syne', sans-serif; font-size: 2.4rem; font-weight: 800; line-height: 1; }
+  .enrol-fee sup { font-size: 1.1rem; vertical-align: top; margin-top: 8px; }
+  .enrol-mrp { font-size: 0.85rem; color: var(--text-muted); text-decoration: line-through; margin-left: 8px; }
+  .enrol-save {
+    display: inline-block; background: rgba(74,222,128,0.12); color: var(--green);
+    font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 100px; margin-bottom: 6px;
+  }
+  .enrol-emi { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 24px; }
+
+  .btn-enrol-main {
+    width: 100%; padding: 15px; background: var(--amber); color: #000;
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.92rem;
+    letter-spacing: 0.05em; text-transform: uppercase; border: none;
+    border-radius: 10px; cursor: pointer; transition: all 0.2s; margin-bottom: 12px;
+    box-shadow: 0 0 40px rgba(245,158,11,0.2);
+  }
+  .btn-enrol-main:hover { background: var(--amber2); transform: translateY(-2px); box-shadow: 0 8px 40px rgba(245,158,11,0.35); }
+  .btn-demo-sm {
+    width: 100%; padding: 12px; background: transparent;
+    border: 1px solid var(--border); color: var(--text);
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.82rem;
+    letter-spacing: 0.04em; text-transform: uppercase; border-radius: 10px; cursor: pointer;
+    transition: all 0.2s; margin-bottom: 20px;
+  }
+  .btn-demo-sm:hover { border-color: var(--amber); color: var(--amber); }
+
+  .card-includes { border-top: 1px solid var(--border); padding-top: 20px; }
+  .card-includes h5 {
+    font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px;
+  }
+  .include-row {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.82rem; color: var(--text-muted); padding: 6px 0;
+  }
+  .include-row .ck { color: var(--green); font-size: 0.85rem; flex-shrink: 0; }
+
+  .next-batch {
+    margin-top: 20px; background: var(--amber-glow);
+    border: 1px solid rgba(245,158,11,0.2); border-radius: 8px; padding: 12px 16px;
+    font-size: 0.8rem;
+  }
+  .next-batch strong { color: var(--amber); display: block; margin-bottom: 2px; font-family: 'Syne', sans-serif; }
+  .next-batch span { color: var(--text-muted); }
+
+  /* ── BODY SECTIONS ── */
+  .page-body { max-width: 1160px; margin: 0 auto; padding: 0 48px; }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 64px;
+    align-items: start;
+  }
+  .content-main { min-width: 0; }
+  .content-side { position: sticky; top: 80px; }
+
+  section.body-section { padding: 64px 0; border-bottom: 1px solid var(--border); }
+  section.body-section:last-child { border-bottom: none; }
+
+  .sec-label {
+    font-family: 'DM Mono', monospace; font-size: 0.68rem;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px;
+  }
+  .sec-title {
+    font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 800;
+    letter-spacing: -0.02em; margin-bottom: 24px;
+  }
+
+  /* What you'll learn */
+  .learn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .learn-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 16px; font-size: 0.85rem; transition: border-color 0.2s;
+  }
+  .learn-item:hover { border-color: var(--border-hover, rgba(245,158,11,0.25)); }
+  .learn-item .li-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+  .learn-item .li-text strong { display: block; font-weight: 600; font-size: 0.85rem; margin-bottom: 2px; }
+  .learn-item .li-text span { font-size: 0.75rem; color: var(--text-muted); }
+
+  /* Career outcomes */
+  .outcomes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
+  .outcome-card {
+    background: var(--bg3); border: 1px solid var(--border); border-radius: 12px;
+    padding: 22px; transition: all 0.2s;
+  }
+  .outcome-card:hover { border-color: rgba(245,158,11,0.25); }
+  .outcome-icon { font-size: 1.5rem; margin-bottom: 10px; display: block; }
+  .outcome-card h4 { font-family: 'Playfair Display', serif; font-size: 0.92rem; font-weight: 700; margin-bottom: 4px; }
+  .outcome-card p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; }
+
+  .who-for { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-top: 20px; }
+  .who-for h4 { font-family: 'Playfair Display', serif; font-size: 0.88rem; font-weight: 700; margin-bottom: 14px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.72rem; font-family: 'DM Mono', monospace; }
+  .who-row { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; padding: 6px 0; border-bottom: 1px solid var(--border); }
+  .who-row:last-child { border-bottom: none; }
+  .who-row .wi { font-size: 1rem; flex-shrink: 0; }
+
+  /* Curriculum */
+  .week-item { border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px; overflow: hidden; }
+  .week-header {
+    width: 100%; background: none; border: none; color: var(--text);
+    padding: 18px 20px; cursor: pointer;
+    display: flex; align-items: center; gap: 14px; text-align: left; transition: background 0.2s;
+  }
+  .week-header:hover { background: rgba(255,255,255,0.02); }
+  .week-num {
+    font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em;
+    background: var(--amber-glow); color: var(--amber); padding: 3px 10px;
+    border-radius: 100px; white-space: nowrap; flex-shrink: 0;
+  }
+  .week-title { font-family: 'Playfair Display', serif; font-size: 0.9rem; font-weight: 700; flex: 1; }
+  .week-ch { color: var(--amber); transition: transform 0.3s; margin-left: auto; flex-shrink: 0; }
+  .week-item.open .week-ch { transform: rotate(180deg); }
+  .week-body {
+    max-height: 0; overflow: hidden; transition: max-height 0.35s ease;
+    border-top: 0 solid var(--border);
+  }
+  .week-item.open .week-body { max-height: 400px; border-top-width: 1px; }
+  .week-body ul { padding: 16px 20px 16px 44px; }
+  .week-body li { font-size: 0.85rem; color: var(--text-muted); padding: 5px 0; list-style: disc; }
+
+  /* Projects */
+  .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .project-card {
+    background: var(--bg3); border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px; position: relative; overflow: hidden; transition: all 0.25s;
+  }
+  .project-card:hover { border-color: rgba(245,158,11,0.25); transform: translateY(-3px); }
+  .project-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: linear-gradient(90deg, var(--amber), transparent);
+  }
+  .proj-number {
+    font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em;
+    color: var(--amber); margin-bottom: 12px;
+  }
+  .project-card h4 { font-family: 'Playfair Display', serif; font-size: 0.92rem; font-weight: 700; margin-bottom: 8px; }
+  .project-card p { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 14px; line-height: 1.5; }
+  .tool-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tool-tag {
+    font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.08em;
+    background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+    padding: 3px 8px; border-radius: 4px; color: var(--text-muted);
+  }
+
+  /* Certificate */
+  .cert-showcase {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: center;
+  }
+  .cert-visual {
+    background: linear-gradient(135deg, var(--bg3), #1a2238);
+    border: 1px solid rgba(205,127,50,0.3);
+    border-radius: 14px; padding: 36px; text-align: center; position: relative;
+    overflow: hidden;
+  }
+  .cert-visual::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at top, rgba(205,127,50,0.08), transparent 60%);
+  }
+  .cert-emoji { font-size: 3rem; display: block; margin-bottom: 12px; position: relative; }
+  .cert-visual h4 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 800; margin-bottom: 4px; position: relative; color: #cd7f32; }
+  .cert-visual p { font-size: 0.78rem; color: var(--text-muted); position: relative; }
+  .cert-li-badge {
+    margin-top: 16px; display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(10,102,194,0.15); border: 1px solid rgba(10,102,194,0.3);
+    border-radius: 100px; padding: 5px 14px; font-size: 0.72rem; color: #60a5fa;
+    position: relative;
+  }
+  .cert-info h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 800; margin-bottom: 12px; }
+  .cert-info p { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 20px; line-height: 1.7; }
+  .cert-steps { display: flex; flex-direction: column; gap: 12px; }
+  .cert-step { display: flex; align-items: center; gap: 12px; font-size: 0.82rem; }
+  .cert-step .cs-num {
+    width: 24px; height: 24px; background: var(--amber-glow); border: 1px solid rgba(245,158,11,0.3);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--amber); flex-shrink: 0;
+  }
+  .cert-step span { color: var(--text-muted); }
+
+  /* Instructor */
+  .instructor-card {
+    background: var(--bg3); border: 1px solid var(--border); border-radius: 14px; padding: 32px;
+    display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start;
+  }
+  .instructor-avatar {
+    width: 88px; height: 88px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--amber), #f97316);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; color: #000;
+    flex-shrink: 0; border: 3px solid rgba(245,158,11,0.3);
+  }
+  .instructor-name { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; margin-bottom: 4px; }
+  .instructor-role { font-size: 0.8rem; color: var(--amber); margin-bottom: 12px; font-weight: 500; }
+  .instructor-bio { font-size: 0.875rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 16px; }
+  .instructor-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .inst-tag {
+    font-size: 0.72rem; background: var(--card); border: 1px solid var(--border);
+    padding: 4px 10px; border-radius: 6px; color: var(--text-muted);
+  }
+
+  /* Schedule */
+  .schedule-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .schedule-card {
+    background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 22px;
+    transition: border-color 0.2s;
+  }
+  .schedule-card:hover { border-color: rgba(245,158,11,0.25); }
+  .sch-batch { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; color: var(--amber); text-transform: uppercase; margin-bottom: 10px; }
+  .sch-date { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; margin-bottom: 4px; }
+  .sch-time { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px; }
+  .sch-seats {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 0.72rem; color: var(--text-muted);
+  }
+  .seat-dot { width: 7px; height: 7px; border-radius: 50%; }
+  .seat-dot.open { background: var(--green); }
+  .seat-dot.low { background: var(--amber); }
+  .sch-btn {
+    width: 100%; margin-top: 14px; padding: 9px; border-radius: 7px; cursor: pointer;
+    font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.05em; text-transform: uppercase; transition: all 0.2s;
+    border: 1px solid var(--border); background: transparent; color: var(--text);
+  }
+  .sch-btn:hover { background: var(--amber); border-color: var(--amber); color: #000; }
+  .sch-btn.full { opacity: 0.5; cursor: not-allowed; }
+
+  /* Reviews */
+  .reviews-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .review-card {
+    background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 24px;
+  }
+  .review-stars { color: var(--amber); font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 12px; }
+  .review-card blockquote { font-size: 0.85rem; color: var(--text); line-height: 1.7; font-style: italic; font-weight: 300; margin-bottom: 16px; }
+  .reviewer { display: flex; align-items: center; gap: 10px; }
+  .rev-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 800; color: #000;
+    flex-shrink: 0;
+  }
+  .rev-name { font-family: 'Syne', sans-serif; font-size: 0.82rem; font-weight: 700; }
+  .rev-role { font-size: 0.72rem; color: var(--text-muted); }
+
+  /* Related */
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .related-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 22px;
+    transition: all 0.25s; text-decoration: none; color: var(--text); display: block;
+  }
+  .related-card:hover { border-color: rgba(245,158,11,0.25); transform: translateY(-3px); }
+  .rel-tag { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; color: var(--amber); text-transform: uppercase; margin-bottom: 10px; display: block; }
+  .related-card h4 { font-family: 'Playfair Display', serif; font-size: 0.9rem; font-weight: 700; margin-bottom: 8px; }
+  .related-card p { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 14px; }
+  .rel-price { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; color: var(--amber); }
+  .rel-mrp { font-size: 0.75rem; color: var(--text-muted); text-decoration: line-through; margin-right: 6px; }
+
+  /* sticky bottom bar (mobile) */
+  .sticky-bottom {
+    display: none;
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: rgba(10,12,18,0.97); backdrop-filter: blur(16px);
+    border-top: 1px solid var(--border);
+    padding: 14px 20px;
+    z-index: 200;
+    gap: 12px; align-items: center;
+  }
+  .sticky-price { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; }
+  .sticky-btns { display: flex; gap: 10px; flex: 1; justify-content: flex-end; }
+
+  /* reveal */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* WA float */
+  .wa-float {
+    position: fixed; bottom: 28px; right: 28px;
+    width: 52px; height: 52px; background: #25d366; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+    box-shadow: 0 6px 28px rgba(37,211,102,0.4); text-decoration: none; z-index: 200;
+    animation: floatBounce 3s ease-in-out infinite;
+  }
+  @keyframes floatBounce { 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(-5px) } }
+
+  @media (max-width: 960px) {
+    .hero-layout { grid-template-columns: 1fr; }
+    .enrol-card { position: static; display: none; }
+    .content-grid { grid-template-columns: 1fr; }
+    .content-side { display: none; }
+    .sticky-bottom { display: flex; }
+    .course-hero { padding: 48px 24px 0; }
+    .page-body { padding: 0 24px; }
+    header { padding: 0 24px; }
+    nav { display: none; }
+    .learn-grid, .outcomes-grid, .projects-grid, .cert-showcase, .reviews-grid { grid-template-columns: 1fr; }
+    .schedule-grid { grid-template-columns: 1fr 1fr; }
+    .related-grid { grid-template-columns: 1fr; }
+    .breadcrumb { padding: 14px 24px; }
+    .hero-left { padding-bottom: 40px; }
+  }
+
+
+  /* ── PLAYFAIR HEADINGS — applied site-wide ── */
+  .section-title,
+  .courses-header h2,
+  .why-title,
+  section > .container > h2,
+  section h2.section-title,
+  .faq-list ~ h2,
+  .page-hero h2,
+  .cert-section h2,
+  .outcomes h2,
+  .demo-title,
+  .pricing-hero h2,
+  .intro-headline,
+  .hero-left h2,
+  .cert-info h3,
+  .cert-card h3,
+  .enrol-card-header h3,
+  .track-card h3 {
+    font-family: 'Playfair Display', serif !important;
+  }
+  /* marker class to avoid duplicate injection */
+  .playfair-headings-applied { display: none; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="newtonjee-homepage.html" class="logo"><div class="logo-icon">N</div>Newton<span class="acc">JEE</span></a>
+  <nav>
+    <a href="#">Courses</a>
+    <a href="#">Pricing</a>
+    <a href="certifications.html">Certifications</a>
+    <a href="blog.html">Blog</a>
+    <a href="robotics-research.html" style="font-size:0.875rem;font-weight:500;color:#8892a4;text-decoration:none;">Robotics</a>
+  </nav>
+  <button class="btn-header" onclick="document.getElementById('enrol-section').scrollIntoView({behavior:'smooth'})">Enrol Now →</button>
+</header>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="newtonjee-homepage.html">Home</a><span class="sep">›</span>
+  <a href="newtonjee-homepage.html#courses">Courses</a><span class="sep">›</span>
+  <span class="current">Python for AI & Data Science</span>
+</div>
+
+<!-- COURSE HERO -->
+<div class="course-hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-layout">
+    <div class="hero-left">
+      <div class="course-badge-row">
+        <span class="badge beginner">🌱 Beginner</span>
+        <span class="badge bronze">🥉 Bronze Certificate</span>
+        <span class="badge live"><span class="dot"></span> Live Sessions</span>
+      </div>
+      <h1>Python for <span>AI</span> &<br>Data Science</h1>
+      <p class="course-tagline">The definitive starting point for anyone entering AI. Learn Python the right way — with real data problems, not toy exercises.</p>
+      <div class="meta-pills">
+        <div class="meta-pill">⏱ <strong>4 Weeks</strong></div>
+        <div class="meta-pill">📺 <strong>12 Live Sessions</strong></div>
+        <div class="meta-pill">👥 <strong>Max 15 students</strong></div>
+        <div class="meta-pill">🌐 <strong>Online · Weekend</strong></div>
+        <div class="meta-pill">🗣️ <strong>English + Telugu</strong></div>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><span class="num">320+</span><span class="lbl">Enrolled</span></div>
+        <div class="hstat"><span class="num">4.9★</span><span class="lbl">Rating</span></div>
+        <div class="hstat"><span class="num">3</span><span class="lbl">Projects</span></div>
+        <div class="hstat"><span class="num">94%</span><span class="lbl">Completion</span></div>
+      </div>
+    </div>
+
+    <!-- ENROL CARD (desktop) -->
+    <div class="enrol-card">
+      <div class="enrol-price-row">
+        <span class="enrol-fee"><sup>₹</sup>4,999</span>
+        <span class="enrol-mrp">₹8,000</span>
+      </div>
+      <span class="enrol-save">You save ₹3,001 — 38% OFF</span>
+      <div class="enrol-emi">or ₹417/month · 12-month no-cost EMI</div>
+      <button class="btn-enrol-main">⚡ Enrol Now</button>
+      <button class="btn-demo-sm">📅 Book Free Demo</button>
+      <div class="card-includes">
+        <h5>What's Included</h5>
+        <div class="include-row"><span class="ck">✓</span> 12 live sessions (2hrs each)</div>
+        <div class="include-row"><span class="ck">✓</span> Lifetime recording access</div>
+        <div class="include-row"><span class="ck">✓</span> 3 hands-on projects</div>
+        <div class="include-row"><span class="ck">✓</span> LinkedIn Bronze badge</div>
+        <div class="include-row"><span class="ck">✓</span> Mentor office hours</div>
+        <div class="include-row"><span class="ck">✓</span> Private WhatsApp group</div>
+        <div class="include-row"><span class="ck">✓</span> Placement assistance</div>
+      </div>
+      <div class="next-batch">
+        <strong>🗓 Next Batch: March 8, 2025</strong>
+        <span>Sat & Sun · 10:00 AM – 12:00 PM IST</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE BODY -->
+<div class="page-body">
+  <div class="content-grid">
+    <div class="content-main">
+
+      <!-- WHAT YOU'LL LEARN -->
+      <section class="body-section reveal">
+        <div class="sec-label">// Curriculum Highlights</div>
+        <div class="sec-title">What You'll Learn</div>
+        <div class="learn-grid">
+          <div class="learn-item">
+            <span class="li-icon">🐍</span>
+            <div class="li-text"><strong>Python Fundamentals</strong><span>Variables, loops, functions, OOP — the right way</span></div>
+          </div>
+          <div class="learn-item">
+            <span class="li-icon">🔢</span>
+            <div class="li-text"><strong>NumPy & Arrays</strong><span>Vectorised operations, broadcasting, linear algebra basics</span></div>
+          </div>
+          <div class="learn-item">
+            <span class="li-icon">🐼</span>
+            <div class="li-text"><strong>Pandas for Data Wrangling</strong><span>DataFrames, merging, groupby, cleaning messy datasets</span></div>
+          </div>
+          <div class="learn-item">
+            <span class="li-icon">📊</span>
+            <div class="li-text"><strong>Data Visualisation</strong><span>Matplotlib, Seaborn — charts that tell real stories</span></div>
+          </div>
+          <div class="learn-item">
+            <span class="li-icon">🔍</span>
+            <div class="li-text"><strong>Exploratory Data Analysis</strong><span>EDA workflow, outlier detection, feature understanding</span></div>
+          </div>
+          <div class="learn-item">
+            <span class="li-icon">🤖</span>
+            <div class="li-text"><strong>Scikit-learn Intro</strong><span>Your first ML model — linear regression end-to-end</span></div>
+          </div>
+          <div class="learn-item">
+            <span class="li-icon">📁</span>
+            <div class="li-text"><strong>Working with Real Datasets</strong><span>Kaggle datasets, APIs, CSV/JSON/SQL ingestion</span></div>
+          </div>
+          <div class="learn-item">
+            <span class="li-icon">⚙️</span>
+            <div class="li-text"><strong>Dev Environment Setup</strong><span>Jupyter, VS Code, Git, virtual environments, Colab</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CAREER OUTCOMES -->
+      <section class="body-section reveal">
+        <div class="sec-label">// After This Course</div>
+        <div class="sec-title">Career Outcomes</div>
+        <div class="outcomes-grid">
+          <div class="outcome-card">
+            <span class="outcome-icon">🤖</span>
+            <h4>ML Engineer (Junior)</h4>
+            <p>Foundation for all ML roles. Every ML job description starts with Python proficiency.</p>
+          </div>
+          <div class="outcome-card">
+            <span class="outcome-icon">📊</span>
+            <h4>Data Analyst</h4>
+            <p>Pandas + visualisation skills map directly to analyst roles at startups and enterprises.</p>
+          </div>
+          <div class="outcome-card">
+            <span class="outcome-icon">🔬</span>
+            <h4>Research Intern</h4>
+            <p>University labs and AI research teams seek students who can prototype fast in Python.</p>
+          </div>
+          <div class="outcome-card">
+            <span class="outcome-icon">🚀</span>
+            <h4>AI Startup Contributor</h4>
+            <p>Enough Python to contribute to real AI products from day one at early-stage startups.</p>
+          </div>
+        </div>
+        <div class="who-for">
+          <h4>// This course is for</h4>
+          <div class="who-row"><span class="wi">🎓</span> B.Tech students in CSE, ECE, IT (2nd year onwards)</div>
+          <div class="who-row"><span class="wi">💼</span> Working professionals switching into data / AI roles</div>
+          <div class="who-row"><span class="wi">🔧</span> Non-IT professionals who want a career in AI</div>
+          <div class="who-row"><span class="wi">❌</span> Not for: those who already know Python & Pandas well</div>
+        </div>
+      </section>
+
+      <!-- CURRICULUM -->
+      <section class="body-section reveal">
+        <div class="sec-label">// Week by Week</div>
+        <div class="sec-title">Full Curriculum</div>
+
+        <div class="week-item open">
+          <button class="week-header">
+            <span class="week-num">WEEK 1</span>
+            <span class="week-title">Python Foundations & Dev Setup</span>
+            <span class="week-ch">▼</span>
+          </button>
+          <div class="week-body">
+            <ul>
+              <li>Setting up Python, Jupyter Notebook, VS Code & Git</li>
+              <li>Data types: strings, lists, tuples, dicts, sets</li>
+              <li>Control flow: if/else, for/while loops</li>
+              <li>Functions, lambda, map/filter/zip</li>
+              <li>File I/O: reading CSVs, JSON, text files</li>
+              <li>OOP basics: classes, objects, inheritance</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="week-item">
+          <button class="week-header">
+            <span class="week-num">WEEK 2</span>
+            <span class="week-title">NumPy & Pandas — Data Wrangling</span>
+            <span class="week-ch">▼</span>
+          </button>
+          <div class="week-body">
+            <ul>
+              <li>NumPy arrays, shapes, broadcasting, vectorised ops</li>
+              <li>Creating & importing DataFrames</li>
+              <li>Indexing, slicing, boolean masking</li>
+              <li>Handling missing data — fillna, dropna, imputation</li>
+              <li>GroupBy, pivot tables, merging & joining</li>
+              <li>String operations & datetime handling</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="week-item">
+          <button class="week-header">
+            <span class="week-num">WEEK 3</span>
+            <span class="week-title">Data Visualisation & EDA</span>
+            <span class="week-ch">▼</span>
+          </button>
+          <div class="week-body">
+            <ul>
+              <li>Matplotlib: line, bar, scatter, histogram, heatmap</li>
+              <li>Seaborn: pairplot, boxplot, violinplot, correlation</li>
+              <li>Plotly interactive charts</li>
+              <li>EDA workflow on a real-world Kaggle dataset</li>
+              <li>Outlier detection & distribution analysis</li>
+              <li>Communicating insights with charts</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="week-item">
+          <button class="week-header">
+            <span class="week-num">WEEK 4</span>
+            <span class="week-title">Intro to Scikit-learn & Capstone</span>
+            <span class="week-ch">▼</span>
+          </button>
+          <div class="week-body">
+            <ul>
+              <li>ML pipeline: train/test split, feature scaling</li>
+              <li>Linear & Logistic Regression with Scikit-learn</li>
+              <li>Model evaluation: accuracy, precision, recall, F1</li>
+              <li>Cross-validation basics</li>
+              <li>Capstone: End-to-end prediction project</li>
+              <li>Code review, portfolio submission, badge issuance</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section class="body-section reveal">
+        <div class="sec-label">// Hands-on Work</div>
+        <div class="sec-title">3 Real Projects</div>
+        <div class="projects-grid">
+          <div class="project-card">
+            <div class="proj-number">PROJECT 01</div>
+            <h4>IPL Match Outcome Predictor</h4>
+            <p>Clean and analyse 10 years of IPL data, engineer features, and build a logistic regression model to predict match results.</p>
+            <div class="tool-tags">
+              <span class="tool-tag">Pandas</span>
+              <span class="tool-tag">NumPy</span>
+              <span class="tool-tag">Seaborn</span>
+              <span class="tool-tag">Scikit-learn</span>
+            </div>
+          </div>
+          <div class="project-card">
+            <div class="proj-number">PROJECT 02</div>
+            <h4>Zomato Restaurant EDA</h4>
+            <p>Explore restaurant ratings, cuisine trends, and pricing across Indian cities. Build a full EDA report with visual storytelling.</p>
+            <div class="tool-tags">
+              <span class="tool-tag">Pandas</span>
+              <span class="tool-tag">Matplotlib</span>
+              <span class="tool-tag">Plotly</span>
+            </div>
+          </div>
+          <div class="project-card" style="grid-column: 1 / -1;">
+            <div class="proj-number">PROJECT 03 — CAPSTONE</div>
+            <h4>House Price Prediction — End-to-End</h4>
+            <p>Full pipeline from raw data ingestion to a deployed prediction function. Includes data cleaning, feature engineering, model training, evaluation, and a Jupyter report suitable for portfolio use.</p>
+            <div class="tool-tags">
+              <span class="tool-tag">Pandas</span>
+              <span class="tool-tag">NumPy</span>
+              <span class="tool-tag">Scikit-learn</span>
+              <span class="tool-tag">Matplotlib</span>
+              <span class="tool-tag">Git</span>
+              <span class="tool-tag">Jupyter</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CERTIFICATE -->
+      <section class="body-section reveal">
+        <div class="sec-label">// Your Credential</div>
+        <div class="sec-title">Bronze Certificate Awarded</div>
+        <div class="cert-showcase">
+          <div class="cert-visual">
+            <span class="cert-emoji">🥉</span>
+            <h4>Newton JEE Bronze Badge</h4>
+            <p>AI Foundations — Python & Data Science</p>
+            <div class="cert-li-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#60a5fa"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H6.5v-7H9V17zm-1.25-8.5c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25zM18 17h-2.5v-3.5c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5V17H10v-7h2.5v1c.46-.69 1.23-1 2-1 1.66 0 3 1.34 3 3V17z"/></svg>
+              Appears on your LinkedIn profile
+            </div>
+          </div>
+          <div class="cert-info">
+            <h4>How LinkedIn Badging Works</h4>
+            <p>Upon successful completion of all projects and sessions, you receive a verifiable digital certificate that links directly to your LinkedIn profile under "Licenses & Certifications."</p>
+            <div class="cert-steps">
+              <div class="cert-step"><div class="cs-num">1</div><span>Complete all 4 weeks & submit 3 projects</span></div>
+              <div class="cert-step"><div class="cs-num">2</div><span>Mentor reviews and approves your capstone</span></div>
+              <div class="cert-step"><div class="cs-num">3</div><span>Receive credential link via email within 48hrs</span></div>
+              <div class="cert-step"><div class="cs-num">4</div><span>One-click add to your LinkedIn profile</span></div>
+              <div class="cert-step"><div class="cs-num">5</div><span>Recruiters can verify authenticity via the link</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- INSTRUCTOR -->
+      <section class="body-section reveal">
+        <div class="sec-label">// Your Mentor</div>
+        <div class="sec-title">Meet Your Instructor</div>
+        <div class="instructor-card">
+          <div class="instructor-avatar">RV</div>
+          <div>
+            <div class="instructor-name">Ravi Varma</div>
+            <div class="instructor-role">Senior Data Scientist · Ex-Flipkart & Ola</div>
+            <div class="instructor-bio">7 years in production ML systems at Flipkart's pricing team and Ola's demand forecasting. Ravi has taught Python to 600+ students and believes the biggest mistake beginners make is learning Python in isolation — which is why every session here is built around real data problems from Indian companies.</div>
+            <div class="instructor-tags">
+              <span class="inst-tag">Python</span>
+              <span class="inst-tag">Scikit-learn</span>
+              <span class="inst-tag">SQL</span>
+              <span class="inst-tag">Demand Forecasting</span>
+              <span class="inst-tag">IIT Hyderabad M.Tech</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCHEDULE -->
+      <section class="body-section reveal">
+        <div class="sec-label">// Upcoming Batches</div>
+        <div class="sec-title">Pick Your Batch</div>
+        <div class="schedule-grid">
+          <div class="schedule-card">
+            <div class="sch-batch">Batch #12</div>
+            <div class="sch-date">Mar 8, 2025</div>
+            <div class="sch-time">Sat & Sun · 10:00–12:00 PM IST</div>
+            <div class="sch-seats"><span class="seat-dot low"></span> 4 seats left</div>
+            <button class="sch-btn">Reserve Seat →</button>
+          </div>
+          <div class="schedule-card">
+            <div class="sch-batch">Batch #13</div>
+            <div class="sch-date">Mar 22, 2025</div>
+            <div class="sch-time">Sat & Sun · 2:00–4:00 PM IST</div>
+            <div class="sch-seats"><span class="seat-dot open"></span> 11 seats open</div>
+            <button class="sch-btn">Reserve Seat →</button>
+          </div>
+          <div class="schedule-card">
+            <div class="sch-batch">Batch #14</div>
+            <div class="sch-date">Apr 5, 2025</div>
+            <div class="sch-time">Sat & Sun · 10:00–12:00 PM IST</div>
+            <div class="sch-seats"><span class="seat-dot open"></span> 15 seats open</div>
+            <button class="sch-btn">Reserve Seat →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ENROL BLOCK (full width) -->
+      <section class="body-section reveal" id="enrol-section">
+        <div class="sec-label">// Ready to Start?</div>
+        <div class="sec-title">Enrol in This Course</div>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items:start;">
+          <div>
+            <div style="font-family:'Syne',sans-serif; font-size:2.8rem; font-weight:800; line-height:1;">
+              <sup style="font-size:1.2rem; vertical-align:top; margin-top:10px;">₹</sup>4,999
+              <span style="font-size:1rem; color:var(--text-muted); text-decoration:line-through; font-weight:400; margin-left:10px;">₹8,000</span>
+            </div>
+            <div style="margin:10px 0 6px; display:inline-block; background:rgba(74,222,128,0.12); color:var(--green); font-size:0.78rem; font-weight:700; padding:4px 12px; border-radius:100px;">Save ₹3,001 · 38% OFF</div>
+            <div style="font-size:0.82rem; color:var(--text-muted); margin-bottom:28px;">or ₹417/month · 12-month no-cost EMI via Razorpay</div>
+            <div style="display:flex; flex-direction:column; gap:10px; max-width: 340px;">
+              <button class="btn-enrol-main" style="max-width:100%">⚡ Enrol Now — Pay ₹4,999</button>
+              <button class="btn-demo-sm" style="max-width:100%">📅 Book Free Demo First</button>
+            </div>
+            <div style="margin-top:16px; font-size:0.75rem; color:var(--text-muted);">🔒 Secured by Razorpay · 100% refund after 2 sessions if unsatisfied</div>
+          </div>
+          <div style="background:var(--bg3); border:1px solid var(--border); border-radius:12px; padding:24px;">
+            <div style="font-family:'DM Mono',monospace; font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-muted); margin-bottom:14px;">Everything included</div>
+            <div class="include-row"><span class="ck">✓</span> 12 live sessions (2hrs each) · 24 hrs total</div>
+            <div class="include-row"><span class="ck">✓</span> Lifetime recording access</div>
+            <div class="include-row"><span class="ck">✓</span> 3 real-world projects with mentor review</div>
+            <div class="include-row"><span class="ck">✓</span> LinkedIn-verified Bronze badge</div>
+            <div class="include-row"><span class="ck">✓</span> Mentor office hours (1hr/week)</div>
+            <div class="include-row"><span class="ck">✓</span> Private WhatsApp batch group</div>
+            <div class="include-row"><span class="ck">✓</span> Resume & LinkedIn profile review</div>
+            <div class="include-row"><span class="ck">✓</span> Placement referral support</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- REVIEWS -->
+      <section class="body-section reveal">
+        <div class="sec-label">// Alumni Feedback</div>
+        <div class="sec-title">What Students Say</div>
+        <div class="reviews-grid">
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote>I had tried learning Python from YouTube for 6 months and always got stuck. Ravi's approach of teaching through actual IPL and Zomato data made everything click. Completed in 4 weeks and already applying to internships.</blockquote>
+            <div class="reviewer">
+              <div class="rev-avatar" style="background:linear-gradient(135deg,var(--amber),#f97316)">AK</div>
+              <div><div class="rev-name">Aditya Kulkarni</div><div class="rev-role">B.Tech CSE · VIT Vellore</div></div>
+            </div>
+          </div>
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote>The batch size of 15 is real — my questions never got ignored. By week 3 I was writing Pandas code confidently. The capstone project went straight into my resume and my interviewer asked me about it.</blockquote>
+            <div class="reviewer">
+              <div class="rev-avatar" style="background:linear-gradient(135deg,var(--cyan),#6366f1)">SM</div>
+              <div><div class="rev-name">Shreya Menon</div><div class="rev-role">Mech Engg → Data Analyst · TCS</div></div>
+            </div>
+          </div>
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote>Best ₹5k I've ever spent on learning. The Discord group is still active months after the course and seniors help you even with interview questions. The LinkedIn badge legitimately got me recruiter DMs.</blockquote>
+            <div class="reviewer">
+              <div class="rev-avatar" style="background:linear-gradient(135deg,var(--green),#22d3ee)">PG</div>
+              <div><div class="rev-name">Prashant Gupta</div><div class="rev-role">B.Tech IT → ML Intern · Sarvam AI</div></div>
+            </div>
+          </div>
+          <div class="review-card">
+            <div class="review-stars">★★★★☆</div>
+            <blockquote>Pace is fast in week 1 if you're a true beginner but the recordings saved me — I watched sessions twice. By week 2 it all made sense. The EDA project was genuinely fun. Would recommend anyone pivot into data roles.</blockquote>
+            <div class="reviewer">
+              <div class="rev-avatar" style="background:linear-gradient(135deg,#a78bfa,#ec4899)">DK</div>
+              <div><div class="rev-name">Divya Krishnan</div><div class="rev-role">Civil Engg → Data Analyst · Razorpay</div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RELATED COURSES -->
+      <section class="body-section reveal">
+        <div class="sec-label">// What's Next</div>
+        <div class="sec-title">Students Also Take</div>
+        <div class="related-grid">
+          <a href="#" class="related-card">
+            <span class="rel-tag">Beginner · Next Step</span>
+            <h4>Statistics & Math for ML</h4>
+            <p>Linear algebra, probability & hypothesis testing built for ML — not a maths degree.</p>
+            <div><span class="rel-mrp">₹7,000</span><span class="rel-price">₹3,999</span></div>
+          </a>
+          <a href="#" class="related-card">
+            <span class="rel-tag">Intermediate · Most Popular</span>
+            <h4>Machine Learning Mastery</h4>
+            <p>Regression to ensemble methods — build 5 production-quality ML models from scratch.</p>
+            <div><span class="rel-mrp">₹14,000</span><span class="rel-price">₹7,999</span></div>
+          </a>
+          <a href="#" class="related-card">
+            <span class="rel-tag">Bundle · Best Value</span>
+            <h4>Foundation Bundle</h4>
+            <p>Python + Statistics together — save ₹7,001 vs buying separately. Earn Bronze badge faster.</p>
+            <div><span class="rel-mrp">₹15,000</span><span class="rel-price">₹7,999</span></div>
+          </a>
+        </div>
+      </section>
+
+    </div><!-- end content-main -->
+
+    <!-- STICKY SIDEBAR (desktop) -->
+    <div class="content-side">
+      <div class="enrol-card" style="display:block;">
+        <div class="enrol-price-row">
+          <span class="enrol-fee"><sup>₹</sup>4,999</span>
+          <span class="enrol-mrp">₹8,000</span>
+        </div>
+        <span class="enrol-save">You save ₹3,001 — 38% OFF</span>
+        <div class="enrol-emi">or ₹417/month · 12-month no-cost EMI</div>
+        <button class="btn-enrol-main">⚡ Enrol Now</button>
+        <button class="btn-demo-sm">📅 Book Free Demo</button>
+        <div class="card-includes">
+          <h5>What's Included</h5>
+          <div class="include-row"><span class="ck">✓</span> 12 live sessions (2hrs each)</div>
+          <div class="include-row"><span class="ck">✓</span> Lifetime recording access</div>
+          <div class="include-row"><span class="ck">✓</span> 3 hands-on projects</div>
+          <div class="include-row"><span class="ck">✓</span> LinkedIn Bronze badge</div>
+          <div class="include-row"><span class="ck">✓</span> Mentor office hours</div>
+          <div class="include-row"><span class="ck">✓</span> Private WhatsApp group</div>
+          <div class="include-row"><span class="ck">✓</span> Placement assistance</div>
+        </div>
+        <div class="next-batch">
+          <strong>🗓 Next Batch: March 8, 2025</strong>
+          <span>Sat & Sun · 10:00 AM – 12:00 PM IST</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end content-grid -->
+</div><!-- end page-body -->
+
+<!-- MOBILE STICKY BOTTOM BAR -->
+<div class="sticky-bottom">
+  <div><div class="sticky-price">₹4,999</div><div style="font-size:0.72rem;color:var(--text-muted);">₹417/mo EMI</div></div>
+  <div class="sticky-btns">
+    <button class="btn-demo-sm" style="padding:10px 16px;font-size:0.78rem;">Demo</button>
+    <button class="btn-enrol-main" style="padding:10px 20px;font-size:0.82rem;margin-bottom:0;width:auto;">Enrol →</button>
+  </div>
+</div>
+
+<a href="https://wa.me/918019466635" class="wa-float">💬</a>
+
+<script>
+  // Curriculum accordion
+  document.querySelectorAll('.week-header').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.week-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.06 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+<!-- ── SITE FOOTER ── -->
+<footer style="background:#080c14;border-top:1px solid rgba(255,255,255,0.06);padding:48px 48px 32px;margin-top:0;">
+  <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;flex-wrap:wrap;">
+    <div>
+      <a href="newtonjee-homepage.html" style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:#e8eaf0;text-decoration:none;display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+        <span style="width:28px;height:28px;background:#f59e0b;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:0.85rem;color:#000;font-weight:900;">N</span>
+        Newton<span style="color:#f59e0b;">JEE</span>
+      </a>
+      <p style="font-size:0.82rem;color:#5d7080;line-height:1.7;max-width:240px;">India's most elite AI &amp; Robotics career accelerator. Hyderabad, Telangana.</p>
+    </div>
+    <div>
+      <h5 style="font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#5d7080;margin-bottom:16px;">Courses</h5>
+      <a href="course-python-for-ai.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Python for AI</a>
+      <a href="course-machine-learning.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Machine Learning</a>
+      <a href="course-generative-ai-llms.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Generative AI &amp; LLMs</a>
+      <a href="robotics-research.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">🤖 Robotics Research</a>
+      <a href="newtonjee-homepage.html#courses" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;">All Courses →</a>
+    </div>
+    <div>
+      <h5 style="font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#5d7080;margin-bottom:16px;">Platform</h5>
+      <a href="certifications.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Certifications</a>
+      <a href="success-stories.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Success Stories</a>
+      <a href="newtonjee-pricing.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Pricing</a>
+      <a href="blog.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Blog</a>
+      <a href="portal.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;">Student Portal</a>
+    </div>
+    <div>
+      <h5 style="font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#5d7080;margin-bottom:16px;">Contact</h5>
+      <a href="tel:+918019466635" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">📞 +91 80194 66635</a>
+      <a href="mailto:hello@newtonjee.com" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">✉ hello@newtonjee.com</a>
+      <a href="https://wa.me/918019466635" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">💬 WhatsApp Us</a>
+      <a href="contact.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;">📍 HITEC City, Hyderabad</a>
+    </div>
+  </div>
+  <div style="max-width:1200px;margin:28px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,0.05);display:flex;justify-content:space-between;font-size:0.72rem;color:#3d5060;">
+    <span>© 2025 NewtonJEEAI Technologies. All rights reserved.</span>
+    <span>Privacy Policy · Terms of Service</span>
+  </div>
+</footer>
+
+</body>
+</html>
+
+<div class="playfair-headings-applied"></div>

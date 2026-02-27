@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Robotics Research Courses — Newton JEE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800;1,900&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #040810;
+    --bg2: #080e18;
+    --bg3: #0d1520;
+    --amber: #f59e0b;
+    --amber2: #fbbf24;
+    /* Robotics accent: electric teal / cyan — precision, circuitry, machine intelligence */
+    --acc: #00e5ff;
+    --acc2: #00b8d9;
+    --acc3: #0d9aad;
+    --acc-glow: rgba(0,229,255,0.1);
+    --acc-border: rgba(0,229,255,0.22);
+    --green: #4ade80;
+    --orange: #fb923c;
+    --text: #dde8f0;
+    --text-muted: #5d7a8c;
+    --border: rgba(0,229,255,0.08);
+    --border2: rgba(255,255,255,0.06);
+    --card: rgba(0,229,255,0.03);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.6; }
+
+  /* ── NOISE + CIRCUIT OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.018; pointer-events: none; z-index: 9999;
+  }
+
+  /* Circuit grid background */
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,0.025) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none; z-index: 0;
+    mask-image: radial-gradient(ellipse 100% 100% at 50% 0%, black 30%, transparent 80%);
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(4,8,16,0.94);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--acc-border);
+    padding: 0 48px; height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; letter-spacing: -0.02em; display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); }
+  .logo .acc-c { color: var(--amber); }
+  .logo-icon { width: 30px; height: 30px; background: var(--amber); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: #000; font-weight: 900; }
+  nav { display: flex; align-items: center; gap: 28px; }
+  nav a { font-size: 0.875rem; font-weight: 500; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+  nav a:hover { color: var(--text); }
+  nav a.active { color: var(--acc); }
+  .btn-header { background: var(--acc); color: #000; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 9px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 0.2s; box-shadow: 0 0 20px rgba(0,229,255,0.2); }
+  .btn-header:hover { background: var(--acc2); box-shadow: 0 0 30px rgba(0,229,255,0.35); }
+
+  /* ── BREADCRUMB ── */
+  .breadcrumb { position: relative; z-index: 1; padding: 13px 48px; background: var(--bg2); border-bottom: 1px solid var(--border); font-size: 0.78rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
+  .breadcrumb a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+  .breadcrumb a:hover { color: var(--acc); }
+  .breadcrumb .sep { opacity: 0.3; }
+  .breadcrumb .current { color: var(--acc); }
+
+  /* ── HERO ── */
+  .page-hero {
+    position: relative; z-index: 1;
+    padding: 80px 48px 0;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--acc-border);
+    overflow: hidden;
+  }
+
+  /* Scanning beam animation */
+  .hero-scan {
+    position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(180deg, transparent 0%, rgba(0,229,255,0.03) 50%, transparent 100%);
+    background-size: 100% 300px;
+    animation: scan 6s linear infinite;
+  }
+  @keyframes scan {
+    0% { background-position: 0 -300px; }
+    100% { background-position: 0 100%; }
+  }
+
+  /* Radial glow */
+  .hero-glow {
+    position: absolute; top: -10%; right: -5%; width: 700px; height: 600px;
+    background: radial-gradient(ellipse, rgba(0,229,255,0.09) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-glow2 {
+    position: absolute; bottom: -20%; left: -5%; width: 500px; height: 400px;
+    background: radial-gradient(ellipse, rgba(245,158,11,0.05) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  /* Floating hex nodes */
+  .hero-hexnodes { position: absolute; right: 48px; top: 60px; pointer-events: none; }
+  .hexnode {
+    position: absolute;
+    width: 56px; height: 56px;
+    border: 1px solid var(--acc-border);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    background: rgba(0,229,255,0.05);
+    animation: hexFloat 4s ease-in-out infinite;
+  }
+  .hexnode:nth-child(1) { top: 0; left: 60px; animation-delay: 0s; }
+  .hexnode:nth-child(2) { top: 64px; left: 0; animation-delay: 0.6s; }
+  .hexnode:nth-child(3) { top: 64px; left: 120px; animation-delay: 1.2s; }
+  .hexnode:nth-child(4) { top: 128px; left: 60px; animation-delay: 1.8s; }
+  .hexnode:nth-child(5) { top: 192px; left: 0; animation-delay: 2.4s; }
+  .hexnode:nth-child(6) { top: 192px; left: 120px; animation-delay: 3s; }
+  @keyframes hexFloat {
+    0%,100% { transform: translateY(0) scale(1); opacity: 0.6; }
+    50% { transform: translateY(-8px) scale(1.05); opacity: 1; }
+  }
+
+  .hero-layout { position: relative; display: grid; grid-template-columns: 1fr 380px; gap: 60px; max-width: 1200px; margin: 0 auto; align-items: start; }
+  .hero-left { padding-bottom: 80px; animation: fadeUp 0.7s ease both; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+
+  .badge-row { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; }
+  .badge { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; }
+  .badge-new { background: rgba(0,229,255,0.12); color: var(--acc); border: 1px solid var(--acc-border); }
+  .badge-research { background: rgba(251,146,60,0.12); color: var(--orange); border: 1px solid rgba(251,146,60,0.25); }
+  .badge-live { background: rgba(74,222,128,0.1); color: var(--green); border: 1px solid rgba(74,222,128,0.22); }
+  .badge-live::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.8)} }
+
+  .hero-left h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 5vw, 4.2rem);
+    font-weight: 800; line-height: 1.08;
+    letter-spacing: -0.04em;
+    margin-bottom: 20px;
+  }
+  .hero-left h1 .acc { color: var(--acc); }
+  .hero-left h1 .dim { color: var(--text-muted); }
+
+  .hero-desc { font-size: 1.05rem; color: var(--text-muted); font-weight: 300; line-height: 1.75; max-width: 560px; margin-bottom: 36px; }
+  .hero-desc strong { color: var(--text); font-weight: 500; }
+
+  .hero-meta-row { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; margin-bottom: 36px; }
+  .hero-meta-item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; }
+  .hero-meta-item .icon { color: var(--acc); font-size: 1rem; }
+  .hero-meta-item span { color: var(--text-muted); }
+  .hero-meta-item strong { color: var(--text); font-weight: 600; }
+
+  .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--acc); color: #000;
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.88rem;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 14px 28px; border-radius: 8px; border: none; cursor: pointer;
+    text-decoration: none; transition: all 0.2s;
+    box-shadow: 0 0 40px rgba(0,229,255,0.2);
+  }
+  .btn-primary:hover { background: var(--acc2); transform: translateY(-2px); box-shadow: 0 6px 40px rgba(0,229,255,0.35); }
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent; color: var(--text);
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.88rem;
+    padding: 13px 24px; border-radius: 8px; border: 1px solid var(--border2); cursor: pointer;
+    text-decoration: none; transition: all 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--acc-border); color: var(--acc); }
+
+  /* Enrol sidebar */
+  .enrol-sidebar { animation: fadeUp 0.7s 0.25s ease both; }
+  .enrol-card {
+    background: var(--bg3); border: 1px solid var(--acc-border);
+    border-radius: 16px; overflow: hidden; position: sticky; top: 80px;
+    box-shadow: 0 0 60px rgba(0,229,255,0.06);
+  }
+  .enrol-card-header {
+    background: linear-gradient(135deg, rgba(0,229,255,0.1), rgba(0,229,255,0.03));
+    padding: 28px; border-bottom: 1px solid var(--acc-border);
+  }
+  .enrol-card-header .track-label { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc); margin-bottom: 8px; }
+  .enrol-card-header h3 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 800; margin-bottom: 12px; }
+  .price-row { display: flex; align-items: baseline; gap: 10px; }
+  .price-main { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--text); }
+  .price-mrp { font-size: 0.9rem; color: var(--text-muted); text-decoration: line-through; }
+  .price-off { font-size: 0.72rem; background: rgba(74,222,128,0.12); color: var(--green); padding: 2px 8px; border-radius: 100px; font-weight: 600; }
+  .emi-note { font-size: 0.75rem; color: var(--text-muted); margin-top: 6px; }
+  .enrol-card-body { padding: 24px; }
+  .include-list { list-style: none; margin-bottom: 20px; }
+  .include-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.82rem; color: var(--text-muted); padding: 7px 0; border-bottom: 1px solid var(--border); }
+  .include-list li:last-child { border-bottom: none; }
+  .include-list li .ck { color: var(--acc); flex-shrink: 0; font-size: 0.9rem; margin-top: 1px; }
+  .btn-enrol-main {
+    width: 100%; padding: 15px; background: var(--acc); color: #000;
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.88rem;
+    letter-spacing: 0.06em; text-transform: uppercase; border: none; border-radius: 10px;
+    cursor: pointer; transition: all 0.2s; margin-bottom: 10px;
+    box-shadow: 0 0 30px rgba(0,229,255,0.15);
+  }
+  .btn-enrol-main:hover { background: var(--acc2); box-shadow: 0 4px 30px rgba(0,229,255,0.3); }
+  .btn-demo-card {
+    width: 100%; padding: 12px; background: transparent;
+    border: 1px solid var(--border2); color: var(--text);
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.82rem;
+    letter-spacing: 0.04em; text-transform: uppercase; border-radius: 8px;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .btn-demo-card:hover { border-color: var(--acc-border); color: var(--acc); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 80px 48px; position: relative; z-index: 1; }
+  .section.alt { background: var(--bg2); }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .section-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--acc); margin-bottom: 12px; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3.5vw, 2.6rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 14px; }
+  .section-sub { color: var(--text-muted); font-size: 0.95rem; font-weight: 300; max-width: 520px; margin-bottom: 52px; line-height: 1.7; }
+
+  /* ── TRACKS GRID ── */
+  .tracks-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+  .track-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 32px; position: relative; overflow: hidden;
+    transition: all 0.3s; cursor: pointer;
+  }
+  .track-card:hover { border-color: var(--acc-border); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,229,255,0.08); }
+  .track-card:hover .track-glow { opacity: 1; }
+  .track-glow {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 60% at 50% 0%, rgba(0,229,255,0.05), transparent);
+    opacity: 0; transition: opacity 0.3s; pointer-events: none;
+  }
+  .track-number { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc); margin-bottom: 14px; opacity: 0.6; }
+  .track-icon { font-size: 2.4rem; margin-bottom: 16px; display: block; }
+  .track-card h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 800; margin-bottom: 10px; line-height: 1.2; }
+  .track-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 20px; }
+  .track-pills { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 20px; }
+  .pill { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; background: rgba(0,229,255,0.06); color: var(--acc); border: 1px solid var(--acc-border); padding: 3px 10px; border-radius: 100px; }
+  .track-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 20px; border-top: 1px solid var(--border); }
+  .track-level { font-size: 0.75rem; color: var(--text-muted); }
+  .track-price { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--text); }
+  .track-cert { font-size: 0.72rem; color: var(--acc); font-family: 'DM Mono', monospace; margin-top: 3px; }
+
+  /* Featured track */
+  .track-card.featured { border-color: var(--acc-border); background: rgba(0,229,255,0.03); }
+  .featured-ribbon {
+    position: absolute; top: 14px; right: -28px;
+    background: var(--acc); color: #000;
+    font-family: 'DM Mono', monospace; font-size: 0.55rem; font-weight: 600; letter-spacing: 0.1em;
+    padding: 4px 40px; transform: rotate(45deg);
+  }
+
+  /* ── CURRICULUM ── */
+  .curriculum-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .curriculum-track-block {
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 14px; overflow: hidden;
+  }
+  .curriculum-track-header {
+    padding: 20px 24px; background: rgba(0,229,255,0.04);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .curriculum-track-header .t-icon { font-size: 1.3rem; }
+  .curriculum-track-header h4 { font-family: 'Playfair Display', serif; font-size: 0.92rem; font-weight: 800; }
+  .curriculum-track-header .t-weeks { font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--acc); margin-left: auto; }
+  .module-list { list-style: none; }
+  .module-item { padding: 13px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; font-size: 0.83rem; transition: background 0.2s; }
+  .module-item:last-child { border-bottom: none; }
+  .module-item:hover { background: rgba(0,229,255,0.02); }
+  .module-item .m-num { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--text-muted); width: 24px; flex-shrink: 0; }
+  .module-item .m-name { flex: 1; }
+  .module-item .m-tag { font-family: 'DM Mono', monospace; font-size: 0.58rem; text-transform: uppercase; color: var(--acc); opacity: 0.6; letter-spacing: 0.08em; }
+
+  /* ── RESEARCH AREAS ── */
+  .research-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .research-card {
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 14px; padding: 28px; position: relative; overflow: hidden;
+    transition: all 0.25s;
+  }
+  .research-card:hover { border-color: var(--acc-border); }
+  .research-card::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 2px; background: linear-gradient(90deg, var(--acc), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .research-card:hover::after { opacity: 1; }
+  .r-icon { font-size: 2rem; margin-bottom: 14px; display: block; }
+  .research-card h4 { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 800; margin-bottom: 8px; }
+  .research-card p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 14px; }
+  .r-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .r-tag { font-size: 0.62rem; font-family: 'DM Mono', monospace; color: var(--text-muted); background: rgba(255,255,255,0.03); border: 1px solid var(--border2); padding: 2px 8px; border-radius: 4px; letter-spacing: 0.06em; }
+
+  /* ── PROJECTS SHOWCASE ── */
+  .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .project-card {
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 14px;
+    transition: all 0.25s; position: relative; overflow: hidden;
+  }
+  .project-card:hover { border-color: var(--acc-border); transform: translateY(-3px); }
+  .project-num { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acc); opacity: 0.5; }
+  .project-card h4 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 800; line-height: 1.3; }
+  .project-card p { font-size: 0.83rem; color: var(--text-muted); line-height: 1.65; flex: 1; }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 7px; }
+  .stack-tag { font-size: 0.62rem; font-family: 'DM Mono', monospace; background: rgba(0,229,255,0.06); color: var(--acc); border: 1px solid var(--acc-border); padding: 3px 9px; border-radius: 4px; letter-spacing: 0.06em; }
+  .project-outcome { font-size: 0.78rem; color: var(--green); font-weight: 500; padding-top: 10px; border-top: 1px solid var(--border); }
+
+  /* ── TOOLS/STACK ── */
+  .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
+  .tool-chip {
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px 18px;
+    display: flex; align-items: center; gap: 12px;
+    transition: all 0.2s; font-size: 0.83rem; font-weight: 500;
+  }
+  .tool-chip:hover { border-color: var(--acc-border); background: rgba(0,229,255,0.03); }
+  .tool-chip .t-emoji { font-size: 1.2rem; flex-shrink: 0; }
+  .tool-chip .t-cat { font-family: 'DM Mono', monospace; font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); display: block; margin-top: 1px; }
+
+  /* ── CAREER OUTCOMES ── */
+  .outcomes-row { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+  .outcomes-left {}
+  .role-list { display: flex; flex-direction: column; gap: 12px; margin-top: 36px; }
+  .role-item {
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px 20px;
+    display: flex; align-items: center; gap: 16px;
+    transition: all 0.2s;
+  }
+  .role-item:hover { border-color: var(--acc-border); }
+  .role-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .role-title { font-family: 'Playfair Display', serif; font-size: 0.92rem; font-weight: 700; }
+  .role-companies { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+  .role-salary { font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 800; color: var(--acc); margin-left: auto; flex-shrink: 0; }
+  .outcomes-right {}
+  .outlook-card {
+    background: var(--bg3); border: 1px solid var(--acc-border);
+    border-radius: 16px; padding: 36px;
+  }
+  .outlook-stat { margin-bottom: 28px; }
+  .outlook-stat:last-child { margin-bottom: 0; }
+  .outlook-num { font-family: 'Syne', sans-serif; font-size: 3rem; font-weight: 800; color: var(--acc); line-height: 1; }
+  .outlook-label { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; }
+  .outlook-divider { height: 1px; background: var(--border); margin: 20px 0; }
+
+  /* ── CERTIFICATE ── */
+  .cert-section-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+  .cert-card {
+    background: linear-gradient(135deg, var(--bg3), rgba(0,229,255,0.04));
+    border: 1px solid var(--acc-border);
+    border-radius: 18px; padding: 40px; position: relative; overflow: hidden;
+  }
+  .cert-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--acc), var(--amber), var(--acc));
+  }
+  .cert-tier { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--acc); margin-bottom: 10px; }
+  .cert-emoji-big { font-size: 3.5rem; display: block; margin-bottom: 16px; }
+  .cert-card h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; }
+  .cert-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 24px; }
+  .cert-perks { display: flex; flex-direction: column; gap: 10px; }
+  .cert-perk { display: flex; align-items: center; gap: 10px; font-size: 0.83rem; }
+  .cert-perk .ck { color: var(--acc); }
+  .cert-info {}
+  .cert-info h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 16px; }
+  .cert-info p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 28px; }
+  .cert-steps { display: flex; flex-direction: column; gap: 16px; }
+  .cert-step { display: flex; align-items: flex-start; gap: 14px; }
+  .step-num {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--acc-glow); border: 1px solid var(--acc-border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--acc);
+    flex-shrink: 0;
+  }
+  .step-text strong { display: block; font-size: 0.88rem; font-weight: 600; margin-bottom: 2px; }
+  .step-text span { font-size: 0.78rem; color: var(--text-muted); }
+
+  /* ── FAQ ── */
+  .faq-list { max-width: 760px; margin: 0 auto; }
+  .faq-item { border-bottom: 1px solid var(--border); }
+  .faq-q {
+    width: 100%; background: none; border: none; color: var(--text);
+    font-family: 'Syne', sans-serif; font-size: 0.92rem; font-weight: 600;
+    text-align: left; padding: 22px 0; cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    transition: color 0.2s;
+  }
+  .faq-q:hover { color: var(--acc); }
+  .faq-q .ch { color: var(--acc); transition: transform 0.3s; flex-shrink: 0; }
+  .faq-item.open .ch { transform: rotate(180deg); }
+  .faq-a { font-size: 0.875rem; color: var(--text-muted); line-height: 1.75; max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.3s; }
+  .faq-item.open .faq-a { max-height: 320px; padding-bottom: 22px; }
+
+  /* ── FOOTER ── */
+  footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 56px 48px 32px; position: relative; z-index: 1; }
+  .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; }
+  .footer-brand p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.7; max-width: 260px; margin-top: 12px; }
+  .footer-col h5 { font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 18px; }
+  .footer-col a { display: block; font-size: 0.83rem; color: var(--text-muted); text-decoration: none; margin-bottom: 10px; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--acc); }
+  .footer-bottom { max-width: 1200px; margin: 32px auto 0; padding-top: 20px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); }
+
+  /* ── MOBILE NAV BAR ── */
+  .mobile-bar {
+    display: none; position: fixed; bottom: 0; left: 0; right: 0;
+    background: rgba(4,8,16,0.97); backdrop-filter: blur(16px);
+    border-top: 1px solid var(--acc-border); padding: 14px 20px;
+    z-index: 200; gap: 12px; align-items: center;
+  }
+  .mobile-bar .m-price { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; }
+  .mobile-bar .m-emi { font-size: 0.72rem; color: var(--text-muted); }
+  .mobile-bar .btn-enrol-mob { flex: 1; padding: 13px; background: var(--acc); color: #000; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; border: none; border-radius: 8px; cursor: pointer; }
+
+  /* Floating WA */
+  .wa-float {
+    position: fixed; bottom: 28px; right: 28px; width: 52px; height: 52px;
+    background: #25d366; border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; font-size: 1.5rem;
+    box-shadow: 0 6px 28px rgba(37,211,102,0.4); text-decoration: none; z-index: 200;
+    animation: waBounce 3s ease-in-out infinite;
+  }
+  @keyframes waBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+
+  /* Reveal */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .hero-layout { grid-template-columns: 1fr; }
+    .enrol-sidebar { display: none; }
+    .mobile-bar { display: flex; }
+    .hero-hexnodes { display: none; }
+    .curriculum-grid { grid-template-columns: 1fr; }
+    .outcomes-row { grid-template-columns: 1fr; }
+    .cert-section-inner { grid-template-columns: 1fr; }
+    .research-grid { grid-template-columns: 1fr 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    footer .footer-inner { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 768px) {
+    header { padding: 0 20px; }
+    header nav { display: none; }
+    .breadcrumb { padding: 13px 20px; }
+    .page-hero { padding: 48px 20px 0; }
+    .section { padding: 56px 20px; }
+    .research-grid { grid-template-columns: 1fr; }
+    .tracks-grid { grid-template-columns: 1fr; }
+    .tools-grid { grid-template-columns: repeat(2, 1fr); }
+    footer { padding: 48px 20px 100px; }
+    footer .footer-inner { grid-template-columns: 1fr; gap: 28px; }
+  }
+
+  /* ── PLAYFAIR HEADINGS — applied site-wide ── */
+  .section-title,
+  .courses-header h2,
+  .why-title,
+  section > .container > h2,
+  section h2.section-title,
+  .faq-list ~ h2,
+  .page-hero h2,
+  .cert-section h2,
+  .outcomes h2,
+  .demo-title,
+  .pricing-hero h2,
+  .intro-headline,
+  .hero-left h2,
+  .cert-info h3,
+  .cert-card h3,
+  .enrol-card-header h3,
+  .track-card h3 {
+    font-family: 'Playfair Display', serif !important;
+  }
+  /* marker class to avoid duplicate injection */
+  .playfair-headings-applied { display: none; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="newtonjee-homepage.html" class="logo">
+    <div class="logo-icon">N</div>
+    Newton<span class="acc-c">JEE</span>
+  </a>
+  <nav>
+    <a href="newtonjee-homepage.html">Home</a>
+    <a href="#" class="active">Robotics Research</a>
+    <a href="newtonjee-pricing.html">Pricing</a>
+    <a href="certifications.html">Certifications</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <button class="btn-header">Enrol Now →</button>
+</header>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="newtonjee-homepage.html">Home</a>
+  <span class="sep">›</span>
+  <span class="current">Robotics Research Courses</span>
+</div>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="hero-scan"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+
+  <!-- Animated hex nodes -->
+  <div class="hero-hexnodes">
+    <div class="hexnode">🤖</div>
+    <div class="hexnode">👁️</div>
+    <div class="hexnode">⚙️</div>
+    <div class="hexnode">🧠</div>
+    <div class="hexnode">📡</div>
+    <div class="hexnode">🔬</div>
+  </div>
+
+  <div class="hero-layout">
+    <div class="hero-left">
+      <div class="badge-row">
+        <span class="badge badge-new">🆕 New Track</span>
+        <span class="badge badge-research">🔬 Research-Grade</span>
+        <span class="badge badge-live">Enrolling Now</span>
+      </div>
+
+      <h1>
+        <span class="dim">AI-Powered</span><br>
+        <span class="acc">Robotics</span><br>
+        Research Courses
+      </h1>
+
+      <p class="hero-desc">
+        India's first <strong>research-grade robotics curriculum</strong> built on top of AI foundations.
+        Go beyond mechanical control — build autonomous agents that <strong>see, decide, and act</strong>
+        using Computer Vision, Reinforcement Learning, and Edge AI. Designed exclusively for
+        engineers who already understand code and want to work at the frontier.
+      </p>
+
+      <div class="hero-meta-row">
+        <div class="hero-meta-item"><span class="icon">📅</span><div><strong>4 Tracks</strong> <span>· 32 weeks total</span></div></div>
+        <div class="hero-meta-item"><span class="icon">👥</span><div><strong>12 seats</strong> <span>per cohort</span></div></div>
+        <div class="hero-meta-item"><span class="icon">🏅</span><div><strong>Robotics Badge</strong> <span>· LinkedIn verified</span></div></div>
+        <div class="hero-meta-item"><span class="icon">🔬</span><div><strong>Lab Projects</strong> <span>· Hardware + Software</span></div></div>
+      </div>
+
+      <div class="hero-ctas">
+        <a href="free-demo.html" class="btn-primary">🗓 Book Free Demo Session</a>
+        <a href="#tracks" class="btn-secondary">View All Tracks ↓</a>
+      </div>
+    </div>
+
+    <!-- ENROL SIDEBAR -->
+    <div class="enrol-sidebar">
+      <div class="enrol-card">
+        <div class="enrol-card-header">
+          <div class="track-label">// Full Robotics Track Bundle</div>
+          <h3>All 4 Research Tracks</h3>
+          <div class="price-row">
+            <span class="price-main">₹59,999</span>
+            <span class="price-mrp">₹1,10,000</span>
+            <span class="price-off">Save 45%</span>
+          </div>
+          <div class="emi-note">As low as ₹5,000/month · No-cost EMI</div>
+        </div>
+        <div class="enrol-card-body">
+          <ul class="include-list">
+            <li><span class="ck">✓</span>All 4 research tracks (32 weeks)</li>
+            <li><span class="ck">✓</span>Hardware kit: Raspberry Pi 5 + Camera Module</li>
+            <li><span class="ck">✓</span>100% live sessions with research mentors</li>
+            <li><span class="ck">✓</span>3 end-to-end robotics projects</li>
+            <li><span class="ck">✓</span>LinkedIn Robotics Research Badge</li>
+            <li><span class="ck">✓</span>Lifetime recording access</li>
+            <li><span class="ck">✓</span>Placement support + referrals</li>
+            <li><span class="ck">✓</span>1:1 research paper review session</li>
+          </ul>
+          <button class="btn-enrol-main">⚡ Enrol in Full Track</button>
+          <button class="btn-demo-card">📅 Book Free Demo First</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TRACKS -->
+<section class="section" id="tracks">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">// 04 Research Tracks</div>
+      <h2 class="section-title">Choose Your Robotics Specialisation</h2>
+      <p class="section-sub">Each track is a standalone research-grade course. Take one, stack them, or go all-in with the full bundle. Every track earns you a verifiable skill module on your LinkedIn profile.</p>
+    </div>
+    <div class="tracks-grid reveal">
+
+      <!-- Track 1 -->
+      <div class="track-card">
+        <div class="track-glow"></div>
+        <div class="track-number">// Track 01</div>
+        <span class="track-icon">👁️</span>
+        <h3>Computer Vision for Robotics</h3>
+        <p>Real-time perception for autonomous systems. Object detection, depth estimation, semantic segmentation, and live inference on edge hardware — the eyes of every modern robot.</p>
+        <div class="track-pills">
+          <span class="pill">OpenCV</span>
+          <span class="pill">YOLOv8</span>
+          <span class="pill">Depth AI</span>
+          <span class="pill">Jetson Nano</span>
+          <span class="pill">ROS2</span>
+        </div>
+        <div class="track-footer">
+          <div>
+            <div class="track-level">⏱ 8 weeks · Intermediate</div>
+            <div class="track-cert">🔬 CV-Robotics Module Badge</div>
+          </div>
+          <div class="track-price">₹14,999</div>
+        </div>
+      </div>
+
+      <!-- Track 2 -->
+      <div class="track-card featured">
+        <div class="featured-ribbon">MOST POPULAR</div>
+        <div class="track-glow"></div>
+        <div class="track-number">// Track 02</div>
+        <span class="track-icon">🧠</span>
+        <h3>Reinforcement Learning & Robot Control</h3>
+        <p>Train agents to navigate environments, manipulate objects, and make real-world decisions. From Q-Learning to PPO — the intelligence layer behind autonomous robotics at Tesla, Boston Dynamics, and warehouse automation.</p>
+        <div class="track-pills">
+          <span class="pill">PyTorch</span>
+          <span class="pill">Stable Baselines3</span>
+          <span class="pill">Gymnasium</span>
+          <span class="pill">MuJoCo</span>
+          <span class="pill">Isaac Sim</span>
+        </div>
+        <div class="track-footer">
+          <div>
+            <div class="track-level">⏱ 8 weeks · Advanced</div>
+            <div class="track-cert">🔬 RL-Robotics Module Badge</div>
+          </div>
+          <div class="track-price">₹17,999</div>
+        </div>
+      </div>
+
+      <!-- Track 3 -->
+      <div class="track-card">
+        <div class="track-glow"></div>
+        <div class="track-number">// Track 03</div>
+        <span class="track-icon">⚡</span>
+        <h3>Edge AI & Embedded Intelligence</h3>
+        <p>Deploy trained models on microcontrollers and single-board computers. TensorFlow Lite, ONNX Runtime, model quantisation and pruning — the bridge between "I trained a model" and "it runs in the real world."</p>
+        <div class="track-pills">
+          <span class="pill">TFLite</span>
+          <span class="pill">ONNX</span>
+          <span class="pill">Raspberry Pi 5</span>
+          <span class="pill">STM32</span>
+          <span class="pill">Edge Impulse</span>
+        </div>
+        <div class="track-footer">
+          <div>
+            <div class="track-level">⏱ 8 weeks · Intermediate</div>
+            <div class="track-cert">🔬 Edge-AI Module Badge</div>
+          </div>
+          <div class="track-price">₹14,999</div>
+        </div>
+      </div>
+
+      <!-- Track 4 -->
+      <div class="track-card">
+        <div class="track-glow"></div>
+        <div class="track-number">// Track 04</div>
+        <span class="track-icon">🤖</span>
+        <h3>Autonomous Systems Capstone</h3>
+        <p>Build an end-to-end autonomous robot from scratch — perception pipeline, decision-making engine, actuation layer, and deployment on real hardware. Your capstone project becomes the centrepiece of your robotics portfolio.</p>
+        <div class="track-pills">
+          <span class="pill">ROS2</span>
+          <span class="pill">SLAM</span>
+          <span class="pill">Nav2</span>
+          <span class="pill">Gazebo</span>
+          <span class="pill">Python</span>
+        </div>
+        <div class="track-footer">
+          <div>
+            <div class="track-level">⏱ 8 weeks · Capstone</div>
+            <div class="track-cert">💎 Robotics Research Badge</div>
+          </div>
+          <div class="track-price">₹17,999</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CURRICULUM -->
+<section class="section alt" id="curriculum">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">// Detailed Curriculum</div>
+      <h2 class="section-title">What You'll Learn, Week by Week</h2>
+      <p class="section-sub">Every module is built around a hands-on lab exercise. No theoretical fluff — every concept is validated by running code on actual hardware or simulation.</p>
+    </div>
+    <div class="curriculum-grid reveal">
+
+      <!-- Track 1 curriculum -->
+      <div class="curriculum-track-block">
+        <div class="curriculum-track-header">
+          <span class="t-icon">👁️</span>
+          <h4>CV for Robotics</h4>
+          <span class="t-weeks">8 Weeks</span>
+        </div>
+        <ul class="module-list">
+          <li class="module-item"><span class="m-num">01</span><span class="m-name">Camera models & calibration</span><span class="m-tag">Lab</span></li>
+          <li class="module-item"><span class="m-num">02</span><span class="m-name">Real-time object detection (YOLOv8)</span><span class="m-tag">Lab</span></li>
+          <li class="module-item"><span class="m-num">03</span><span class="m-name">Depth estimation & stereo vision</span><span class="m-tag">Lab</span></li>
+          <li class="module-item"><span class="m-num">04</span><span class="m-name">Semantic segmentation with SAM</span><span class="m-tag">Lab</span></li>
+          <li class="module-item"><span class="m-num">05</span><span class="m-name">Optical flow & motion tracking</span><span class="m-tag">Lab</span></li>
+          <li class="module-item"><span class="m-num">06</span><span class="m-name">Visual odometry & pose estimation</span><span class="m-tag">Lab</span></li>
+          <li class="module-item"><span class="m-num">07</span><span class="m-name">Live inference on Jetson Nano</span><span class="m-tag">Hardware</span></li>
+          <li class="module-item"><span class="m-num">08</span><span class="m-name">Capstone: obstacle-avoidance robot</span><span class="m-tag">Project</span></li>
+        </ul>
+      </div>
+
+      <!-- Track 2 curriculum -->
+      <div class="curriculum-track-block">
+        <div class="curriculum-track-header">
+          <span class="t-icon">🧠</span>
+          <h4>RL & Robot Control</h4>
+          <span class="t-weeks">8 Weeks</span>
+        </div>
+        <ul class="module-list">
+          <li class="module-item"><span class="m-num">01</span><span class="m-name">MDP, Bellman equations, Q-Learning</span><span class="m-tag">Theory</span></li>
+          <li class="module-item"><span class="m-num">02</span><span class="m-name">Deep Q-Networks (DQN) from scratch</span><span class="m-tag">Lab</span></li>
+          <li class="module-item"><span class="m-num">03</span><span class="m-name">Policy gradient methods (A2C, PPO)</span><span class="m-tag">Lab</span></li>
+          <li class="module-item"><span class="m-num">04</span><span class="m-name">Continuous action spaces & SAC</span><span class="m-tag">Lab</span></li>
+          <li class="module-item"><span class="m-num">05</span><span class="m-name">Multi-agent RL environments</span><span class="m-tag">Lab</span></li>
+          <li class="module-item"><span class="m-num">06</span><span class="m-name">Sim-to-real transfer strategies</span><span class="m-tag">Research</span></li>
+          <li class="module-item"><span class="m-num">07</span><span class="m-name">Training in Isaac Sim / MuJoCo</span><span class="m-tag">Sim</span></li>
+          <li class="module-item"><span class="m-num">08</span><span class="m-name">Capstone: trained navigation agent</span><span class="m-tag">Project</span></li>
+        </ul>
+      </div>
+
+      <!-- Track 3 curriculum -->
+      <div class="curriculum-track-block">
+        <div class="curriculum-track-header">
+          <span class="t-icon">⚡</span>
+          <h4>Edge AI & Embedded</h4>
+          <span class="t-weeks">8 Weeks</span>
+        </div>
+        <ul class="module-list">
+          <li class="module-item"><span class="m-num">01</span><span class="m-name">Embedded ML landscape & tradeoffs</span><span class="m-tag">Theory</span></li>
+          <li class="module-item"><span class="m-num">02</span><span class="m-name">Model quantisation (INT8, FP16)</span><span class="m-tag">Lab</span></li>
+          <li class="module-item"><span class="m-num">03</span><span class="m-name">TensorFlow Lite conversion & tuning</span><span class="m-tag">Lab</span></li>
+          <li class="module-item"><span class="m-num">04</span><span class="m-name">ONNX Runtime on Raspberry Pi</span><span class="m-tag">Hardware</span></li>
+          <li class="module-item"><span class="m-num">05</span><span class="m-name">Knowledge distillation & pruning</span><span class="m-tag">Lab</span></li>
+          <li class="module-item"><span class="m-num">06</span><span class="m-name">Edge Impulse: sensor ML pipelines</span><span class="m-tag">Lab</span></li>
+          <li class="module-item"><span class="m-num">07</span><span class="m-name">Power & latency profiling</span><span class="m-tag">Lab</span></li>
+          <li class="module-item"><span class="m-num">08</span><span class="m-name">Capstone: real-time classifier on Pi</span><span class="m-tag">Project</span></li>
+        </ul>
+      </div>
+
+      <!-- Track 4 curriculum -->
+      <div class="curriculum-track-block">
+        <div class="curriculum-track-header">
+          <span class="t-icon">🤖</span>
+          <h4>Autonomous Systems Capstone</h4>
+          <span class="t-weeks">8 Weeks</span>
+        </div>
+        <ul class="module-list">
+          <li class="module-item"><span class="m-num">01</span><span class="m-name">ROS2 architecture & node design</span><span class="m-tag">Lab</span></li>
+          <li class="module-item"><span class="m-num">02</span><span class="m-name">Sensor fusion: LiDAR + Camera</span><span class="m-tag">Lab</span></li>
+          <li class="module-item"><span class="m-num">03</span><span class="m-name">SLAM: mapping unknown environments</span><span class="m-tag">Lab</span></li>
+          <li class="module-item"><span class="m-num">04</span><span class="m-name">Path planning (A*, RRT, Nav2)</span><span class="m-tag">Lab</span></li>
+          <li class="module-item"><span class="m-num">05</span><span class="m-name">Gazebo simulation pipelines</span><span class="m-tag">Sim</span></li>
+          <li class="module-item"><span class="m-num">06</span><span class="m-name">Hardware integration & deployment</span><span class="m-tag">Hardware</span></li>
+          <li class="module-item"><span class="m-num">07</span><span class="m-name">System testing & failure analysis</span><span class="m-tag">Research</span></li>
+          <li class="module-item"><span class="m-num">08</span><span class="m-name">Final: end-to-end autonomous robot</span><span class="m-tag">Capstone</span></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH AREAS -->
+<section class="section" id="research">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">// Active Research Areas</div>
+      <h2 class="section-title">Where Our Curriculum Meets Frontier Research</h2>
+      <p class="section-sub">Every track is aligned with active industry research problems. Students engage with current papers, replicate experiments, and contribute to open-source robotics projects.</p>
+    </div>
+    <div class="research-grid reveal">
+      <div class="research-card">
+        <span class="r-icon">🚗</span>
+        <h4>Autonomous Navigation</h4>
+        <p>SLAM, localisation, path planning, and obstacle avoidance in dynamic, unstructured environments. Applicable to delivery drones, AGVs, and self-driving vehicles.</p>
+        <div class="r-tags"><span class="r-tag">SLAM</span><span class="r-tag">Nav2</span><span class="r-tag">Lidar</span><span class="r-tag">RRT*</span></div>
+      </div>
+      <div class="research-card">
+        <span class="r-icon">🦾</span>
+        <h4>Robotic Manipulation</h4>
+        <p>Grasp planning, dexterous manipulation, and task-and-motion planning for industrial and surgical robotics. High-demand in pharma automation and smart manufacturing.</p>
+        <div class="r-tags"><span class="r-tag">Moveit2</span><span class="r-tag">Grasp-Net</span><span class="r-tag">IK Solvers</span></div>
+      </div>
+      <div class="research-card">
+        <span class="r-icon">🌐</span>
+        <h4>Human-Robot Interaction</h4>
+        <p>Gesture recognition, intent prediction, and collaborative task execution. Foundational for service robots, exoskeletons, and assistive technology.</p>
+        <div class="r-tags"><span class="r-tag">MediaPipe</span><span class="r-tag">Pose Est.</span><span class="r-tag">HRI Protocols</span></div>
+      </div>
+      <div class="research-card">
+        <span class="r-icon">📡</span>
+        <h4>Multi-Robot Coordination</h4>
+        <p>Swarm intelligence, fleet management, and distributed task allocation. Core to Amazon warehousing, drone swarms, and industrial IoT.</p>
+        <div class="r-tags"><span class="r-tag">MARL</span><span class="r-tag">ROS2 Fleet</span><span class="r-tag">DDS</span></div>
+      </div>
+      <div class="research-card">
+        <span class="r-icon">🔬</span>
+        <h4>Sim-to-Real Transfer</h4>
+        <p>Domain randomisation, physics engine calibration, and transfer learning strategies to close the gap between simulation training and real-world deployment.</p>
+        <div class="r-tags"><span class="r-tag">Isaac Sim</span><span class="r-tag">MuJoCo</span><span class="r-tag">DR Techniques</span></div>
+      </div>
+      <div class="research-card">
+        <span class="r-icon">⚕️</span>
+        <h4>Medical & Rehabilitation Robotics</h4>
+        <p>Precision actuation for surgical assistance, prosthetic limb control using EMG signals, and rehabilitation exoskeletons. India's fastest-growing medtech robotics segment.</p>
+        <div class="r-tags"><span class="r-tag">EMG</span><span class="r-tag">Force Control</span><span class="r-tag">ROS-Medical</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="section alt" id="projects">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">// Capstone Projects</div>
+      <h2 class="section-title">Build Things That Actually Work</h2>
+      <p class="section-sub">Every student completes 3 portfolio projects. These aren't toy demos — they are production-grade systems that solve real engineering problems.</p>
+    </div>
+    <div class="projects-grid reveal">
+      <div class="project-card">
+        <div class="project-num">// Project 01</div>
+        <h4>Real-Time Object-Avoiding Delivery Bot</h4>
+        <p>Build a mobile ground robot that uses a camera + YOLOv8 for obstacle detection, ROS2 for navigation, and a PPO-trained policy for dynamic path replanning. Deployed on actual hardware in a timed obstacle course.</p>
+        <div class="project-stack">
+          <span class="stack-tag">YOLOv8</span><span class="stack-tag">ROS2</span><span class="stack-tag">PPO</span><span class="stack-tag">Raspberry Pi</span><span class="stack-tag">OpenCV</span>
+        </div>
+        <div class="project-outcome">✓ Live hardware demo · Portfolio video · GitHub release</div>
+      </div>
+      <div class="project-card">
+        <div class="project-num">// Project 02</div>
+        <h4>Edge-Deployed Predictive Maintenance System</h4>
+        <p>Train a vibration anomaly detection model using sensor data from industrial equipment, quantise it to TFLite INT8, and deploy on a Raspberry Pi 5 with sub-20ms inference latency. Tested against real failure datasets.</p>
+        <div class="project-stack">
+          <span class="stack-tag">TFLite</span><span class="stack-tag">Edge Impulse</span><span class="stack-tag">Pi 5</span><span class="stack-tag">ONNX</span><span class="stack-tag">Pandas</span>
+        </div>
+        <div class="project-outcome">✓ &lt;20ms latency · Industry dataset · Deployed system</div>
+      </div>
+      <div class="project-card">
+        <div class="project-num">// Project 03</div>
+        <h4>Reinforcement Learning Navigation Agent</h4>
+        <p>Train a RL agent in Isaac Sim to navigate a complex 3D environment with moving obstacles, then transfer the policy to a physical differential-drive robot using domain randomisation techniques.</p>
+        <div class="project-stack">
+          <span class="stack-tag">Isaac Sim</span><span class="stack-tag">SAC</span><span class="stack-tag">Sim-to-Real</span><span class="stack-tag">ROS2</span><span class="stack-tag">MuJoCo</span>
+        </div>
+        <div class="project-outcome">✓ Sim + hardware validation · Research-quality writeup</div>
+      </div>
+      <div class="project-card">
+        <div class="project-num">// Project 04</div>
+        <h4>SLAM-Based Autonomous Indoor Mapper</h4>
+        <p>Build a robot that constructs a 2D occupancy map of an unknown indoor environment in real-time using LiDAR + camera fusion, localises itself within the map, and autonomously reaches designated waypoints.</p>
+        <div class="project-stack">
+          <span class="stack-tag">SLAM Toolbox</span><span class="stack-tag">Nav2</span><span class="stack-tag">LiDAR</span><span class="stack-tag">Gazebo</span><span class="stack-tag">RTAB-Map</span>
+        </div>
+        <div class="project-outcome">✓ Full mapping demo · Video + technical report</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS & STACK -->
+<section class="section" id="tools">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">// Tools & Frameworks</div>
+      <h2 class="section-title">Industry-Standard Stack</h2>
+      <p class="section-sub">Everything taught is what robotics teams at ISRO, Ola Electric, and global autonomous vehicle companies actually use.</p>
+    </div>
+    <div class="tools-grid reveal">
+      <div class="tool-chip"><span class="t-emoji">🤖</span><div><strong>ROS2 Humble</strong><span class="t-cat">Framework</span></div></div>
+      <div class="tool-chip"><span class="t-emoji">👁️</span><div><strong>OpenCV</strong><span class="t-cat">Vision</span></div></div>
+      <div class="tool-chip"><span class="t-emoji">🔥</span><div><strong>PyTorch</strong><span class="t-cat">DL Framework</span></div></div>
+      <div class="tool-chip"><span class="t-emoji">🎯</span><div><strong>YOLOv8</strong><span class="t-cat">Detection</span></div></div>
+      <div class="tool-chip"><span class="t-emoji">🧪</span><div><strong>Gymnasium</strong><span class="t-cat">RL Env</span></div></div>
+      <div class="tool-chip"><span class="t-emoji">🏋️</span><div><strong>Stable Baselines3</strong><span class="t-cat">RL Library</span></div></div>
+      <div class="tool-chip"><span class="t-emoji">🌐</span><div><strong>Isaac Sim</strong><span class="t-cat">Simulation</span></div></div>
+      <div class="tool-chip"><span class="t-emoji">🎮</span><div><strong>Gazebo</strong><span class="t-cat">Simulation</span></div></div>
+      <div class="tool-chip"><span class="t-emoji">⚡</span><div><strong>TFLite</strong><span class="t-cat">Edge Deploy</span></div></div>
+      <div class="tool-chip"><span class="t-emoji">📦</span><div><strong>ONNX Runtime</strong><span class="t-cat">Inference</span></div></div>
+      <div class="tool-chip"><span class="t-emoji">🍓</span><div><strong>Raspberry Pi 5</strong><span class="t-cat">Hardware</span></div></div>
+      <div class="tool-chip"><span class="t-emoji">🖥️</span><div><strong>Jetson Nano</strong><span class="t-cat">Edge GPU</span></div></div>
+      <div class="tool-chip"><span class="t-emoji">🗺️</span><div><strong>SLAM Toolbox</strong><span class="t-cat">Mapping</span></div></div>
+      <div class="tool-chip"><span class="t-emoji">🧭</span><div><strong>Nav2</strong><span class="t-cat">Navigation</span></div></div>
+      <div class="tool-chip"><span class="t-emoji">🔬</span><div><strong>MuJoCo</strong><span class="t-cat">Physics Sim</span></div></div>
+      <div class="tool-chip"><span class="t-emoji">📡</span><div><strong>Edge Impulse</strong><span class="t-cat">Embedded ML</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CAREER OUTCOMES -->
+<section class="section alt" id="careers">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">// Career Outcomes</div>
+      <h2 class="section-title">Where Robotics Engineers Are Hired</h2>
+    </div>
+    <div class="outcomes-row reveal">
+      <div class="outcomes-left">
+        <p style="color:var(--text-muted); font-size:0.92rem; line-height:1.75; max-width:480px; margin-bottom:32px;">
+          Robotics + AI is the most under-supplied skill set in Indian tech right now. Companies are hiring aggressively — and salaries reflect the scarcity.
+        </p>
+        <div class="role-list">
+          <div class="role-item">
+            <span class="role-icon">🚗</span>
+            <div>
+              <div class="role-title">Autonomous Systems Engineer</div>
+              <div class="role-companies">Ola Electric · Mahindra EV · Tata Motors · Waymo India</div>
+            </div>
+            <span class="role-salary">₹28–55 LPA</span>
+          </div>
+          <div class="role-item">
+            <span class="role-icon">🤖</span>
+            <div>
+              <div class="role-title">Robotics Software Engineer</div>
+              <div class="role-companies">Amazon Robotics · Flipkart · GreyOrange · Addverb</div>
+            </div>
+            <span class="role-salary">₹22–45 LPA</span>
+          </div>
+          <div class="role-item">
+            <span class="role-icon">🔬</span>
+            <div>
+              <div class="role-title">ML Research Engineer</div>
+              <div class="role-companies">ISRO · DRDO · IIT Labs · Qualcomm Research</div>
+            </div>
+            <span class="role-salary">₹18–40 LPA</span>
+          </div>
+          <div class="role-item">
+            <span class="role-icon">⚡</span>
+            <div>
+              <div class="role-title">Edge AI / Embedded ML Engineer</div>
+              <div class="role-companies">Qualcomm · NVIDIA · MediaTek · Bosch India</div>
+            </div>
+            <span class="role-salary">₹20–42 LPA</span>
+          </div>
+          <div class="role-item">
+            <span class="role-icon">🌐</span>
+            <div>
+              <div class="role-title">Computer Vision Engineer</div>
+              <div class="role-companies">Swiggy · Zepto · Delhivery · Intel India</div>
+            </div>
+            <span class="role-salary">₹18–38 LPA</span>
+          </div>
+        </div>
+      </div>
+      <div class="outcomes-right">
+        <div class="outlook-card">
+          <div class="outlook-stat">
+            <div class="outlook-num">340%</div>
+            <div class="outlook-label">growth in robotics job postings in India, 2023–2024</div>
+          </div>
+          <div class="outlook-divider"></div>
+          <div class="outlook-stat">
+            <div class="outlook-num">₹35 LPA</div>
+            <div class="outlook-label">median salary for robotics AI engineers with 2+ years experience</div>
+          </div>
+          <div class="outlook-divider"></div>
+          <div class="outlook-stat">
+            <div class="outlook-num">12,000+</div>
+            <div class="outlook-label">unfilled robotics & embedded AI roles in India right now</div>
+          </div>
+          <div class="outlook-divider"></div>
+          <div class="outlook-stat">
+            <div class="outlook-num">94%</div>
+            <div class="outlook-label">Newton JEE placement rate across all engineering tracks</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATE -->
+<section class="section" id="certificate">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">// LinkedIn Credential</div>
+      <h2 class="section-title">Earn the Robotics Research Badge</h2>
+    </div>
+    <div class="cert-section-inner reveal">
+      <div class="cert-card">
+        <div class="cert-tier">// Newton JEE Certification</div>
+        <span class="cert-emoji-big">🤖</span>
+        <h3>Robotics Research Engineer</h3>
+        <p>A LinkedIn-verified credential recognising end-to-end robotics AI competency — from perception and learning to edge deployment and autonomous systems. The rarest badge in Newton JEE's portfolio.</p>
+        <div class="cert-perks">
+          <div class="cert-perk"><span class="ck">✓</span> Appears directly on your LinkedIn profile</div>
+          <div class="cert-perk"><span class="ck">✓</span> Verifiable by recruiters — one click confirmation</div>
+          <div class="cert-perk"><span class="ck">✓</span> Covers 4 sub-modules: CV · RL · Edge AI · Autonomous Systems</div>
+          <div class="cert-perk"><span class="ck">✓</span> Includes project portfolio link</div>
+          <div class="cert-perk"><span class="ck">✓</span> Issued after hardware project demo review</div>
+        </div>
+      </div>
+      <div class="cert-info">
+        <h3>How the certification works</h3>
+        <p>Unlike attendance certificates, our Robotics Research Badge is competency-verified. You earn it by building and demonstrating a working autonomous system — not by completing quizzes.</p>
+        <div class="cert-steps">
+          <div class="cert-step">
+            <div class="step-num">1</div>
+            <div class="step-text">
+              <strong>Complete all 4 research tracks</strong>
+              <span>32 weeks of live sessions, labs, and research discussions</span>
+            </div>
+          </div>
+          <div class="cert-step">
+            <div class="step-num">2</div>
+            <div class="step-text">
+              <strong>Submit 3 capstone projects</strong>
+              <span>Code, demo video, and technical writeup reviewed by mentors</span>
+            </div>
+          </div>
+          <div class="cert-step">
+            <div class="step-num">3</div>
+            <div class="step-text">
+              <strong>Live hardware demo review</strong>
+              <span>30-minute session with Newton JEE robotics faculty</span>
+            </div>
+          </div>
+          <div class="cert-step">
+            <div class="step-num">4</div>
+            <div class="step-text">
+              <strong>Badge issued to your LinkedIn</strong>
+              <span>Permanent, verifiable credential with a unique credential ID</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section alt" id="faq">
+  <div class="container">
+    <div class="reveal" style="text-align:center; margin-bottom:48px;">
+      <div class="section-eyebrow" style="text-align:center;">// FAQ</div>
+      <h2 class="section-title">Robotics Programme FAQ</h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item open">
+        <button class="faq-q">Do I need prior robotics hardware experience? <span class="ch">▼</span></button>
+        <div class="faq-a">No hardware experience is required, but you should be comfortable with Python and have completed at least the Machine Learning Mastery and Computer Vision courses (or equivalent knowledge). The programme assumes AI/ML fluency — we don't teach Python or basic ML from scratch here.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Is physical hardware required? Will it be provided? <span class="ch">▼</span></button>
+        <div class="faq-a">Students enrolling in the Full Robotics Track Bundle receive a hardware kit (Raspberry Pi 5 + camera module) included in the fee. For individual track enrolments, simulation-only options are available for Tracks 1 and 2. Tracks 3 and 4 have a hardware requirement — a discounted kit list is provided at enrolment.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can I take one track at a time, or must I do all four? <span class="ch">▼</span></button>
+        <div class="faq-a">You can take tracks individually. Tracks 1, 2, and 3 are independent. Track 4 (Autonomous Systems Capstone) requires Tracks 1 and 3 as prerequisites. The Full Bundle gives you the best price and a sequential, mentored learning journey across all four.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What's the batch size for robotics courses? <span class="ch">▼</span></button>
+        <div class="faq-a">Robotics cohorts are capped at 12 students — smaller than our regular AI courses, because each student gets mentor attention during hardware lab sessions. This also ensures everyone gets adequate simulation compute resources.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Are the robotics sessions online or in-person? <span class="ch">▼</span></button>
+        <div class="faq-a">All theory and simulation sessions are 100% online and live. Hardware integration sessions (Weeks 7–8 of each track) are also conducted online, with students setting up hardware at home guided by the mentor in real-time. Occasional in-person lab days may be offered in Hyderabad for students who can attend.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Will this qualify me for research internships or PhD programmes? <span class="ch">▼</span></button>
+        <div class="faq-a">Yes — our Robotics Research programme is specifically designed with research outcomes in mind. Mentors help students formulate research questions, replicate paper experiments, and write technical reports. Several past students have used their projects as a basis for IIT/NIT research internship applications and international Master's programme portfolios.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="newtonjee-homepage.html" class="logo" style="text-decoration:none;">
+        <div class="logo-icon">N</div>
+        Newton<span class="acc-c">JEE</span>
+      </a>
+      <p>India's most elite AI & Robotics career accelerator. Hyderabad, Telangana.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Robotics Tracks</h5>
+      <a href="#tracks">CV for Robotics</a>
+      <a href="#tracks">RL & Robot Control</a>
+      <a href="#tracks">Edge AI & Embedded</a>
+      <a href="#tracks">Autonomous Capstone</a>
+    </div>
+    <div class="footer-col">
+      <h5>Platform</h5>
+      <a href="newtonjee-homepage.html">AI Courses</a>
+      <a href="newtonjee-pricing.html">Pricing</a>
+      <a href="certifications.html">Certifications</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h5>Enrol</h5>
+      <a href="free-demo.html">📅 Free Demo</a>
+      <a href="https://wa.me/918019466635">💬 WhatsApp Us</a>
+      <a href="/cdn-cgi/l/email-protection#e088858c8c8fa08e8597948f8e8a8585ce838f8d">✉ Email Us</a>
+      <a href="portal.html">Student Portal</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 NewtonJEEAI Technologies. All rights reserved.</span>
+    <span>Privacy Policy · Terms of Service</span>
+  </div>
+</footer>
+
+<!-- Mobile bottom bar -->
+<div class="mobile-bar">
+  <div>
+    <div class="m-price">₹59,999</div>
+    <div class="m-emi">Full Bundle · EMI from ₹5,000/mo</div>
+  </div>
+  <button class="btn-enrol-mob">Enrol Now →</button>
+</div>
+
+<!-- Floating WA -->
+<a href="https://wa.me/918019466635" class="wa-float" title="Chat on WhatsApp">💬</a>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ── FAQ ACCORDION ── */
+document.querySelectorAll('.faq-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  });
+});
+
+/* ── SCROLL REVEAL ── */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      // stagger children
+      e.target.querySelectorAll('.track-card, .research-card, .project-card, .tool-chip, .role-item, .module-item').forEach((el, i) => {
+        el.style.transitionDelay = `${i * 45}ms`;
+        el.classList.add('reveal', 'visible');
+      });
+    }
+  });
+}, { threshold: 0.07 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+/* ── TRACK CARD GLOW FOLLOWS MOUSE ── */
+document.querySelectorAll('.track-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const rect = card.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    card.querySelector('.track-glow').style.background =
+      `radial-gradient(circle at ${x}% ${y}%, rgba(0,229,255,0.08), transparent 55%)`;
+  });
+});
+
+/* ── CIRCUIT NODE RIPPLE ON CLICK ── */
+document.querySelectorAll('.hexnode').forEach(node => {
+  node.addEventListener('click', () => {
+    node.style.transform = 'scale(1.3)';
+    node.style.borderColor = 'rgba(0,229,2
+<div class="playfair-headings-applied"></div>

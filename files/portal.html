@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Portal — Newton JEE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800;1,900&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c12; --bg2: #0f1219; --bg3: #151b27;
+    --amber: #f59e0b; --amber2: #fbbf24; --amber-glow: rgba(245,158,11,0.12);
+    --green: #4ade80; --text: #e8eaf0; --text-muted: #8892a4;
+    --border: rgba(255,255,255,0.07); --card: rgba(255,255,255,0.03);
+    --violet: #a78bfa; --sky: #38bdf8;
+    --portal: #6366f1; /* indigo — portal feels digital/app-like */
+    --portal-glow: rgba(99,102,241,0.12);
+    --portal-border: rgba(99,102,241,0.25);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.6; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.022; pointer-events: none; z-index: 9999; }
+
+  /* ── HEADER ── */
+  header { position: sticky; top: 0; z-index: 200; background: rgba(10,12,18,0.93); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 0 48px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; letter-spacing: -0.02em; display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); }
+  .logo .acc-c { color: var(--amber); }
+  .logo-icon { width: 30px; height: 30px; background: var(--amber); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: #000; font-weight: 900; }
+  nav { display: flex; align-items: center; gap: 28px; }
+  nav a { font-size: 0.875rem; font-weight: 500; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+  nav a:hover { color: var(--text); }
+  .btn-header { background: var(--amber); color: #000; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 9px 18px; border-radius: 6px; text-decoration: none; transition: all 0.2s; display: inline-block; }
+  .btn-header:hover { background: var(--amber2); }
+
+  /* ── PHASE 2 BANNER ── */
+  .phase-banner { background: linear-gradient(90deg, rgba(99,102,241,0.15) 0%, rgba(99,102,241,0.05) 100%); border-bottom: 1px solid var(--portal-border); padding: 12px 48px; display: flex; align-items: center; justify-content: center; gap: 12px; text-align: center; }
+  .phase-badge { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; background: var(--portal-glow); border: 1px solid var(--portal-border); color: var(--portal); padding: 3px 10px; border-radius: 100px; flex-shrink: 0; }
+  .phase-badge .bdot { width: 5px; height: 5px; border-radius: 50%; background: var(--portal); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .phase-text { font-size: 0.82rem; color: var(--text-muted); }
+  .phase-text strong { color: var(--text); }
+  .phase-eta { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--amber); background: var(--amber-glow); border: 1px solid rgba(245,158,11,0.2); padding: 3px 10px; border-radius: 100px; }
+
+  /* ── HERO: SPLIT VIEW ── */
+  .hero-split { display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100vh - 112px); }
+
+  /* LEFT: AUTH PANEL */
+  .auth-panel { background: var(--bg2); border-right: 1px solid var(--border); padding: 72px 64px; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; }
+  .auth-glow { position: absolute; top: -20%; left: -20%; width: 500px; height: 500px; background: radial-gradient(ellipse, rgba(99,102,241,0.06), transparent 60%); pointer-events: none; }
+  .auth-panel-content { position: relative; z-index: 2; max-width: 400px; }
+
+  .portal-icon { width: 56px; height: 56px; background: linear-gradient(135deg, var(--portal), #4f46e5); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 28px; box-shadow: 0 8px 28px rgba(99,102,241,0.3); }
+  .auth-heading { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 800; letter-spacing: -0.04em; margin-bottom: 8px; }
+  .auth-sub { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 36px; line-height: 1.7; }
+
+  /* Tab switcher */
+  .auth-tabs { display: flex; background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: 4px; margin-bottom: 28px; }
+  .auth-tab { flex: 1; text-align: center; padding: 9px; border-radius: 7px; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.82rem; cursor: pointer; border: none; background: transparent; color: var(--text-muted); transition: all 0.2s; }
+  .auth-tab.active { background: var(--portal); color: #fff; box-shadow: 0 4px 12px rgba(99,102,241,0.3); }
+
+  /* Auth forms */
+  .auth-form { display: none; flex-direction: column; gap: 14px; }
+  .auth-form.visible { display: flex; animation: fadeUp 0.3s ease both; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+  label.fl { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 6px; }
+  input.fi { width: 100%; background: var(--bg3); border: 1px solid var(--border); color: var(--text); padding: 13px 16px; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; outline: none; transition: border-color 0.2s; }
+  input.fi:focus { border-color: var(--portal-border); box-shadow: 0 0 0 3px rgba(99,102,241,0.08); }
+  input.fi::placeholder { color: var(--text-muted); }
+  .forgot { font-size: 0.75rem; color: var(--text-muted); text-decoration: none; text-align: right; display: block; margin-top: -6px; transition: color 0.2s; }
+  .forgot:hover { color: var(--amber); }
+  .btn-auth { width: 100%; padding: 14px; background: linear-gradient(135deg, var(--portal), #4f46e5); color: #fff; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.9rem; letter-spacing: 0.05em; text-transform: uppercase; border: none; border-radius: 10px; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 20px rgba(99,102,241,0.25); }
+  .btn-auth:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(99,102,241,0.35); }
+
+  .auth-divider { display: flex; align-items: center; gap: 12px; }
+  .auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .auth-divider span { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--text-muted); letter-spacing: 0.08em; }
+
+  .btn-google { width: 100%; padding: 12px; background: transparent; border: 1px solid var(--border); color: var(--text); font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.82rem; border-radius: 10px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 10px; }
+  .btn-google:hover { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.03); }
+  .google-icon { width: 18px; height: 18px; }
+
+  .terms-note { font-size: 0.72rem; color: var(--text-muted); text-align: center; line-height: 1.6; }
+  .terms-note a { color: var(--text-muted); text-decoration: underline; }
+
+  /* Waitlist box */
+  .waitlist-box { background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(99,102,241,0.03)); border: 1px solid var(--portal-border); border-radius: 14px; padding: 24px; margin-top: 24px; }
+  .wb-head { display: flex; align-items: center; gap: 8px; font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--portal); margin-bottom: 10px; }
+  .wb-head .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--portal); animation: pulse 2s infinite; }
+  .wb-text { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 14px; }
+  .wb-row { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .wb-input { flex: 1; background: var(--bg3); border: none; color: var(--text); padding: 11px 14px; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; outline: none; }
+  .wb-input::placeholder { color: var(--text-muted); }
+  .wb-btn { background: var(--portal); color: #fff; border: none; padding: 11px 18px; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
+  .wb-btn:hover { background: #4f46e5; }
+  .wb-count { font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--text-muted); margin-top: 8px; text-align: center; }
+  .wb-count strong { color: var(--portal); }
+
+  /* RIGHT: PORTAL PREVIEW */
+  .preview-panel { background: var(--bg); overflow: hidden; position: relative; display: flex; flex-direction: column; }
+
+  /* Phase 2 frosted overlay */
+  .preview-overlay { position: absolute; inset: 0; z-index: 10; backdrop-filter: blur(2px); background: rgba(10,12,18,0.6); display: flex; align-items: center; justify-content: center; }
+  .overlay-card { background: var(--bg2); border: 1px solid var(--portal-border); border-radius: 20px; padding: 40px 48px; text-align: center; max-width: 360px; animation: fadeUp 0.6s ease both; }
+  .oc-icon { font-size: 2.8rem; display: block; margin-bottom: 16px; }
+  .oc-badge { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; background: var(--portal-glow); border: 1px solid var(--portal-border); color: var(--portal); padding: 4px 12px; border-radius: 100px; margin-bottom: 16px; }
+  .oc-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 800; margin-bottom: 10px; }
+  .oc-sub { font-size: 0.82rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 20px; }
+  .oc-features { display: flex; flex-direction: column; gap: 8px; text-align: left; margin-bottom: 24px; }
+  .oc-feat { display: flex; align-items: center; gap: 10px; font-size: 0.82rem; }
+  .oc-feat .fck { color: var(--portal); font-size: 0.85rem; }
+  .oc-eta { display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.68rem; background: var(--amber-glow); border: 1px solid rgba(245,158,11,0.2); color: var(--amber); padding: 6px 14px; border-radius: 100px; }
+
+  /* Portal dashboard mockup */
+  .portal-mock { padding: 24px; display: flex; flex-direction: column; gap: 16px; filter: blur(1.5px); pointer-events: none; user-select: none; }
+
+  /* Mock sidebar + main */
+  .mock-layout { display: grid; grid-template-columns: 200px 1fr; gap: 0; height: 100%; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+  .mock-sidebar { background: var(--bg2); border-right: 1px solid var(--border); padding: 20px 0; }
+  .mock-sidebar-head { padding: 0 16px 16px; border-bottom: 1px solid var(--border); margin-bottom: 12px; }
+  .ms-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--portal), #4f46e5); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.75rem; color: #fff; margin-bottom: 8px; }
+  .ms-name { font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 700; }
+  .ms-email { font-size: 0.62rem; color: var(--text-muted); font-family: 'DM Mono', monospace; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .mock-nav-item { display: flex; align-items: center; gap: 9px; padding: 9px 16px; font-size: 0.78rem; color: var(--text-muted); transition: all 0.2s; cursor: pointer; }
+  .mock-nav-item.active { background: var(--portal-glow); color: var(--portal); border-left: 2px solid var(--portal); }
+  .mock-nav-item.active .mni-icon { color: var(--portal); }
+  .mni-icon { font-size: 0.9rem; flex-shrink: 0; }
+  .mock-main { background: var(--bg); padding: 20px; overflow: hidden; }
+
+  /* Mock dashboard header */
+  .mm-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+  .mm-title { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 800; }
+  .mm-date { font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--text-muted); }
+
+  /* Stat cards */
+  .mock-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 18px; }
+  .mstat { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
+  .mstat-num { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; display: block; line-height: 1; margin-bottom: 4px; }
+  .mstat-lbl { font-family: 'DM Mono', monospace; font-size: 0.55rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); }
+
+  /* Course progress list */
+  .mock-courses { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+  .mock-course-row { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; }
+  .mcr-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .mcr-name { font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 700; }
+  .mcr-pct { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--text-muted); }
+  .mcr-bar { height: 4px; background: var(--bg3); border-radius: 100px; overflow: hidden; }
+  .mcr-fill { height: 100%; border-radius: 100px; transition: width 0.5s ease; }
+
+  /* Cert row */
+  .mock-certs { display: flex; gap: 10px; }
+  .mock-cert { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 12px; flex: 1; text-align: center; }
+  .mc-medal { font-size: 1.2rem; display: block; margin-bottom: 6px; }
+  .mc-name { font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 700; margin-bottom: 3px; }
+  .mc-badge { display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.5rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 7px; border-radius: 100px; background: rgba(74,222,128,0.1); color: var(--green); border: 1px solid rgba(74,222,128,0.2); }
+
+  /* ── FEATURES SECTION ── */
+  .features-section { padding: 80px 48px; border-top: 1px solid var(--border); }
+  .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1160px; margin: 0 auto; }
+  .feat-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 28px; position: relative; overflow: hidden; transition: all 0.25s; }
+  .feat-card:hover { border-color: var(--portal-border); transform: translateY(-3px); }
+  .feat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--portal), transparent); opacity: 0; transition: opacity 0.3s; }
+  .feat-card:hover::before { opacity: 1; }
+  .feat-icon { font-size: 1.8rem; margin-bottom: 14px; display: block; }
+  .feat-tag { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--portal); margin-bottom: 8px; display: block; }
+  .feat-title { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 800; margin-bottom: 8px; }
+  .feat-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 14px; }
+  .feat-status { display: inline-flex; align-items: center; gap: 5px; font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 9px; border-radius: 100px; }
+  .fs-soon { background: var(--portal-glow); color: var(--portal); border: 1px solid var(--portal-border); }
+  .fs-phase3 { background: rgba(245,158,11,0.1); color: var(--amber); border: 1px solid rgba(245,158,11,0.2); }
+
+  /* ── TIMELINE ── */
+  .timeline-section { padding: 72px 48px; background: var(--bg2); border-top: 1px solid var(--border); }
+  .timeline { max-width: 700px; margin: 36px auto 0; position: relative; }
+  .timeline::before { content: ''; position: absolute; left: 20px; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, var(--portal), var(--amber), rgba(255,255,255,0.05)); }
+  .tl-item { display: flex; gap: 24px; padding-bottom: 40px; position: relative; }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-dot { width: 41px; height: 41px; border-radius: 50%; border: 2px solid; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; background: var(--bg2); position: relative; z-index: 2; }
+  .tl-done { border-color: var(--green); color: var(--green); background: rgba(74,222,128,0.08); }
+  .tl-active { border-color: var(--portal); color: var(--portal); background: var(--portal-glow); box-shadow: 0 0 20px rgba(99,102,241,0.3); animation: tlPulse 2s ease-in-out infinite; }
+  .tl-coming { border-color: var(--border); color: var(--text-muted); }
+  @keyframes tlPulse { 0%,100%{box-shadow:0 0 20px rgba(99,102,241,0.3)} 50%{box-shadow:0 0 32px rgba(99,102,241,0.6)} }
+  .tl-body { padding-top: 6px; }
+  .tl-phase { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+  .tl-phase.active { color: var(--portal); }
+  .tl-phase.done { color: var(--green); }
+  .tl-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 800; margin-bottom: 6px; }
+  .tl-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.7; }
+  .tl-tag { display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.06em; padding: 3px 9px; border-radius: 100px; margin-top: 6px; }
+  .tl-tag.live { background: rgba(74,222,128,0.1); color: var(--green); border: 1px solid rgba(74,222,128,0.2); }
+  .tl-tag.building { background: var(--portal-glow); color: var(--portal); border: 1px solid var(--portal-border); }
+  .tl-tag.planned { background: var(--amber-glow); color: var(--amber); border: 1px solid rgba(245,158,11,0.2); }
+
+  /* ── FOOTER ── */
+  footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 60px 48px 40px; }
+  .footer-grid { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; }
+  .footer-brand p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.7; max-width: 260px; margin-top: 12px; }
+  .footer-col h5 { font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 16px; }
+  .footer-col a { display: block; font-size: 0.875rem; color: var(--text-muted); text-decoration: none; margin-bottom: 10px; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--amber); }
+  .footer-bottom { max-width: 1160px; margin: 32px auto 0; padding-top: 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; color: var(--text-muted); }
+
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 1100px) { .hero-split { grid-template-columns: 1fr; } .preview-panel { min-height: 600px; } .features-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 768px) {
+    header { padding: 0 20px; } nav { display: none; }
+    .phase-banner { padding: 10px 20px; flex-wrap: wrap; }
+    .auth-panel { padding: 48px 24px; }
+    .features-section { padding: 56px 20px; }
+    .timeline-section { padding: 56px 20px; }
+    .features-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .mock-layout { grid-template-columns: 1fr; }
+    .mock-sidebar { display: none; }
+  }
+  @media (max-width: 540px) { .footer-grid { grid-template-columns: 1fr; } }
+
+  /* ── PLAYFAIR HEADINGS — applied site-wide ── */
+  .section-title,
+  .courses-header h2,
+  .why-title,
+  section > .container > h2,
+  section h2.section-title,
+  .faq-list ~ h2,
+  .page-hero h2,
+  .cert-section h2,
+  .outcomes h2,
+  .demo-title,
+  .pricing-hero h2,
+  .intro-headline,
+  .hero-left h2,
+  .cert-info h3,
+  .cert-card h3,
+  .enrol-card-header h3,
+  .track-card h3 {
+    font-family: 'Playfair Display', serif !important;
+  }
+  /* marker class to avoid duplicate injection */
+  .playfair-headings-applied { display: none; }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="newtonjee-homepage.html" class="logo"><div class="logo-icon">N</div>Newton<span class="acc-c">JEE</span></a>
+  <nav>
+    <a href="newtonjee-homepage.html#courses">Courses</a>
+    <a href="newtonjee-pricing.html">Pricing</a>
+    <a href="certifications.html">Certifications</a>
+    <a href="blog.html">Blog</a>
+    <a href="robotics-research.html" style="font-size:0.875rem;font-weight:500;color:#8892a4;text-decoration:none;">Robotics</a>
+  </nav>
+  <a href="free-demo.html" class="btn-header">Book Free Demo →</a>
+</header>
+
+<!-- PHASE 2 BANNER -->
+<div class="phase-banner">
+  <span class="phase-badge"><span class="bdot"></span> Phase 2</span>
+  <span class="phase-text"><strong>Student Portal is under construction</strong> — full launch soon. Join the waitlist for early access.</span>
+  <span class="phase-eta">Q3 2025 Launch</span>
+</div>
+
+<!-- HERO SPLIT -->
+<div class="hero-split">
+
+  <!-- AUTH PANEL -->
+  <div class="auth-panel">
+    <div class="auth-glow"></div>
+    <div class="auth-panel-content">
+      <div class="portal-icon">🎓</div>
+      <div class="auth-heading">Student Portal</div>
+      <div class="auth-sub">Your courses, certificates, assignments, and badge sharing — all in one place. Launching Q3 2025.</div>
+
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tabLogin" onclick="switchTab('login')">Sign In</button>
+        <button class="auth-tab" id="tabRegister" onclick="switchTab('register')">Register</button>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <div class="auth-form visible" id="loginForm">
+        <div>
+          <label class="fl">Email Address</label>
+          <input class="fi" type="email" placeholder="priya@email.com">
+        </div>
+        <div>
+          <label class="fl">Password</label>
+          <input class="fi" type="password" placeholder="••••••••">
+          <a href="#" class="forgot">Forgot password?</a>
+        </div>
+        <button class="btn-auth" onclick="showComingSoon()">Sign In to Portal →</button>
+        <div class="auth-divider"><span>or continue with</span></div>
+        <button class="btn-google" onclick="showComingSoon()">
+          <svg class="google-icon" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+          Continue with Google
+        </button>
+        <p class="terms-note">By signing in you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
+      </div>
+
+      <!-- REGISTER FORM -->
+      <div class="auth-form" id="registerForm">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div>
+            <label class="fl">First Name</label>
+            <input class="fi" type="text" placeholder="Priya">
+          </div>
+          <div>
+            <label class="fl">Last Name</label>
+            <input class="fi" type="text" placeholder="Sharma">
+          </div>
+        </div>
+        <div>
+          <label class="fl">Email Address</label>
+          <input class="fi" type="email" placeholder="priya@email.com">
+        </div>
+        <div>
+          <label class="fl">Phone Number</label>
+          <input class="fi" type="tel" placeholder="+91 XXXXX XXXXX">
+        </div>
+        <div>
+          <label class="fl">Create Password</label>
+          <input class="fi" type="password" placeholder="8+ characters">
+        </div>
+        <button class="btn-auth" onclick="showComingSoon()">Create My Account →</button>
+        <p class="terms-note">By registering you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
+      </div>
+
+      <!-- WAITLIST for early access -->
+      <div class="waitlist-box">
+        <div class="wb-head"><span class="dot"></span> Early Access Waitlist</div>
+        <div class="wb-text">The portal is almost ready. Join the waitlist to get early access and be notified the moment it launches.</div>
+        <div class="wb-row">
+          <input class="wb-input" type="email" placeholder="your@email.com" id="wlEmail">
+          <button class="wb-btn" onclick="joinWaitlist()">Join Waitlist</button>
+        </div>
+        <div class="wb-count" id="wbCount"><strong>247 students</strong> already on the waitlist</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PORTAL PREVIEW (blurred mock dashboard) -->
+  <div class="preview-panel">
+    <!-- Phase 2 overlay -->
+    <div class="preview-overlay">
+      <div class="overlay-card">
+        <span class="oc-icon">🔐</span>
+        <div class="oc-badge"><span class="bdot"></span> Phase 2 — In Development</div>
+        <div class="oc-title">Your Dashboard<br>is Being Built</div>
+        <div class="oc-sub">We're building a portal worthy of the program. Every feature is designed around how students actually use it.</div>
+        <div class="oc-features">
+          <div class="oc-feat"><span class="fck">✦</span> Course progress & recordings</div>
+          <div class="oc-feat"><span class="fck">✦</span> Assignment submission & feedback</div>
+          <div class="oc-feat"><span class="fck">✦</span> Certificate download (PDF + verified)</div>
+          <div class="oc-feat"><span class="fck">✦</span> 1-click LinkedIn badge sharing</div>
+          <div class="oc-feat"><span class="fck">✦</span> Live class links & schedule</div>
+          <div class="oc-feat"><span class="fck">✦</span> Mentor office hours booking</div>
+        </div>
+        <span class="oc-eta">🚀 Launching Q3 2025</span>
+      </div>
+    </div>
+
+    <!-- Blurred dashboard mockup behind overlay -->
+    <div class="portal-mock">
+      <div class="mock-layout">
+        <div class="mock-sidebar">
+          <div class="mock-sidebar-head">
+            <div class="ms-avatar">PS</div>
+            <div class="ms-name">Priya Sharma</div>
+            <div class="ms-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b4c4c6ddcdd5f4d1d9d5ddd89ad7dbd9">[email&#160;protected]</a></div>
+          </div>
+          <div class="mock-nav-item active"><span class="mni-icon">🏠</span> Dashboard</div>
+          <div class="mock-nav-item"><span class="mni-icon">📚</span> My Courses</div>
+          <div class="mock-nav-item"><span class="mni-icon">📝</span> Assignments</div>
+          <div class="mock-nav-item"><span class="mni-icon">🏆</span> Certificates</div>
+          <div class="mock-nav-item"><span class="mni-icon">💼</span> LinkedIn Badges</div>
+          <div class="mock-nav-item"><span class="mni-icon">📅</span> Schedule</div>
+          <div class="mock-nav-item"><span class="mni-icon">🙋</span> Office Hours</div>
+          <div class="mock-nav-item"><span class="mni-icon">⚙️</span> Settings</div>
+        </div>
+        <div class="mock-main">
+          <div class="mm-header">
+            <div class="mm-title">Good evening, Priya 👋</div>
+            <div class="mm-date">Thursday, 26 Feb 2026</div>
+          </div>
+          <div class="mock-stats">
+            <div class="mstat"><span class="mstat-num" style="color:var(--green);">3</span><div class="mstat-lbl">Active Courses</div></div>
+            <div class="mstat"><span class="mstat-num" style="color:var(--amber);">72%</span><div class="mstat-lbl">Avg Progress</div></div>
+            <div class="mstat"><span class="mstat-num" style="color:var(--portal);">2</span><div class="mstat-lbl">Certificates</div></div>
+          </div>
+          <div style="font-family:'DM Mono',monospace;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;">My Courses</div>
+          <div class="mock-courses">
+            <div class="mock-course-row">
+              <div class="mcr-top"><span class="mcr-name">Python for AI & Data Science</span><span class="mcr-pct">100%</span></div>
+              <div class="mcr-bar"><div class="mcr-fill" style="width:100%;background:var(--green);"></div></div>
+            </div>
+            <div class="mock-course-row">
+              <div class="mcr-top"><span class="mcr-name">Machine Learning Mastery</span><span class="mcr-pct">84%</span></div>
+              <div class="mcr-bar"><div class="mcr-fill" style="width:84%;background:var(--amber);"></div></div>
+            </div>
+            <div class="mock-course-row">
+              <div class="mcr-top"><span class="mcr-name">Deep Learning & CV</span><span class="mcr-pct">33%</span></div>
+              <div class="mcr-bar"><div class="mcr-fill" style="width:33%;background:var(--portal);"></div></div>
+            </div>
+          </div>
+          <div style="font-family:'DM Mono',monospace;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;">My Certificates</div>
+          <div class="mock-certs">
+            <div class="mock-cert">
+              <span class="mc-medal">🥉</span>
+              <div class="mc-name">Bronze</div>
+              <span class="mc-badge">Issued</span>
+            </div>
+            <div class="mock-cert">
+              <span class="mc-medal">🥈</span>
+              <div class="mc-name">Silver</div>
+              <span class="mc-badge" style="background:rgba(245,158,11,0.1);color:var(--amber);border-color:rgba(245,158,11,0.2);">In Progress</span>
+            </div>
+            <div class="mock-cert" style="opacity:0.4;">
+              <span class="mc-medal">🥇</span>
+              <div class="mc-name">Gold</div>
+              <span class="mc-badge" style="background:var(--card);color:var(--text-muted);border-color:var(--border);">Locked</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FEATURES GRID -->
+<div class="features-section">
+  <div style="max-width:1160px;margin:0 auto 40px;">
+    <div style="font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--amber);margin-bottom:8px;">// What's Coming</div>
+    <div style="font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;letter-spacing:-0.03em;">Every Feature You'll Need</div>
+  </div>
+  <div class="features-grid reveal">
+    <div class="feat-card">
+      <span class="feat-icon">📚</span>
+      <span class="feat-tag">Learning</span>
+      <div class="feat-title">My Enrolled Courses</div>
+      <div class="feat-desc">See all your active and completed courses in one view. Track session attendance, access recordings, and pick up exactly where you left off.</div>
+      <span class="feat-status fs-soon">Coming Q3 2025</span>
+    </div>
+    <div class="feat-card">
+      <span class="feat-icon">📝</span>
+      <span class="feat-tag">Assignments</span>
+      <div class="feat-title">Assignment Submission</div>
+      <div class="feat-desc">Submit assignments, receive mentor feedback, and track revision rounds — all in one thread per assignment. No more lost emails or scattered Google Drive links.</div>
+      <span class="feat-status fs-soon">Coming Q3 2025</span>
+    </div>
+    <div class="feat-card">
+      <span class="feat-icon">🏆</span>
+      <span class="feat-tag">Certificates</span>
+      <div class="feat-title">Certificate Download</div>
+      <div class="feat-desc">Download your certificates as high-resolution print-ready PDFs the moment they're issued. Each certificate includes a unique QR code for instant verification.</div>
+      <span class="feat-status fs-soon">Coming Q3 2025</span>
+    </div>
+    <div class="feat-card">
+      <span class="feat-icon">💼</span>
+      <span class="feat-tag">LinkedIn</span>
+      <div class="feat-title">1-Click Badge Sharing</div>
+      <div class="feat-desc">Add your Newton JEE certificate directly to LinkedIn Licences & Certifications in two clicks. Issuer, date, and verification URL are auto-filled — no copy-pasting.</div>
+      <span class="feat-status fs-soon">Coming Q3 2025</span>
+    </div>
+    <div class="feat-card">
+      <span class="feat-icon">📅</span>
+      <span class="feat-tag">Schedule</span>
+      <div class="feat-title">Live Class Schedule & Links</div>
+      <div class="feat-desc">Your personalised class calendar with Zoom links, session topics, and assignment due dates. Add to Google Calendar or iCal with one click.</div>
+      <span class="feat-status fs-soon">Coming Q3 2025</span>
+    </div>
+    <div class="feat-card">
+      <span class="feat-icon">🙋</span>
+      <span class="feat-tag">Mentorship</span>
+      <div class="feat-title">Office Hours Booking</div>
+      <div class="feat-desc">Book 1:1 mentor slots directly from the portal. See availability in real-time, pick a slot, and get a Zoom link instantly — no back-and-forth messages.</div>
+      <span class="feat-status fs-phase3">Phase 3</span>
+    </div>
+  </div>
+</div>
+
+<!-- DEVELOPMENT TIMELINE -->
+<div class="timeline-section reveal">
+  <div style="max-width:1160px;margin:0 auto 8px;text-align:center;">
+    <div style="font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--amber);margin-bottom:8px;">// Build Roadmap</div>
+    <div style="font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;letter-spacing:-0.03em;margin-bottom:6px;">We're Building This Openly</div>
+    <div style="font-size:0.9rem;color:var(--text-muted);">Here's exactly where we are and what's next.</div>
+  </div>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot tl-done">✓</div>
+      <div class="tl-body">
+        <div class="tl-phase done">// Phase 1 — Complete</div>
+        <div class="tl-title">Website & Course Pages</div>
+        <div class="tl-desc">Full website with all 9 course pages, pricing calculator, certifications page, success stories, blog, contact, and demo booking. Design system fully consistent.</div>
+        <span class="tl-tag live">✓ Live Now</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot tl-active">◉</div>
+      <div class="tl-body">
+        <div class="tl-phase active">// Phase 2 — In Development</div>
+        <div class="tl-title">Student Portal v1</div>
+        <div class="tl-desc">Authentication (email + Google), enrolled course dashboard, session recordings, assignment submission, certificate download, and LinkedIn badge sharing. Backend: Supabase + Vercel.</div>
+        <span class="tl-tag building">⚙ Building Now — ETA Q3 2025</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot tl-coming">◎</div>
+      <div class="tl-body">
+        <div class="tl-phase">// Phase 3 — Planned</div>
+        <div class="tl-title">Live Class Integration & Mentor Scheduling</div>
+        <div class="tl-desc">Embedded Zoom sessions inside the portal, real-time attendance tracking, mentor office hours booking, and cohort discussion boards.</div>
+        <span class="tl-tag planned">Planned — Q4 2025</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot tl-coming">◎</div>
+      <div class="tl-body">
+        <div class="tl-phase">// Phase 4 — Planned</div>
+        <div class="tl-title">Alumni Network & Placement Board</div>
+        <div class="tl-desc">Verified alumni directory, peer networking, job board exclusive to Newton JEE graduates, and direct referral pipeline to hiring partners.</div>
+        <span class="tl-tag planned">Planned — Q1 2026</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="newtonjee-homepage.html" class="logo" style="text-decoration:none;"><div class="logo-icon">N</div>Newton<span class="acc-c">JEE</span></a>
+      <p>India's most structured AI & ML certification program for engineers and professionals ready to build the future.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Courses</h5>
+      <a href="course-python-for-ai.html">Python for AI</a>
+      <a href="course-machine-learning.html">Machine Learning</a>
+      <a href="course-deep-learning-cv.html">Deep Learning & CV</a>
+      <a href="course-generative-ai-llms.html">Generative AI</a>
+      <a href="course-mlops-ai-engineering.html">MLOps</a>
+      <a href="course-ai-capstone.html">AI Capstone</a>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <a href="newtonjee-homepage.html#why">About Us</a>
+      <a href="certifications.html">Certifications</a>
+      <a href="success-stories.html">Success Stories</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <a href="tel:+918019466635">📞 +91 80194 66635</a>
+      <a href="/cdn-cgi/l/email-protection#2c44494040436c42495b584342464949024f4341">✉️ <span class="__cf_email__" data-cfemail="8ae2efe6e6e5cae4effdfee5e4e0efefa4e9e5e7">[email&#160;protected]</span></a>
+      <a href="contact.html">📍 HITEC City, Hyderabad</a>
+      <a href="https://wa.me/918019466635">💬 WhatsApp Us</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Newton JEE. All rights reserved.</span>
+    <span>Privacy Policy · Terms of Service</span>
+  </div>
+</footer>
+
+<a href="https://wa.me/918019466635" style="position:fixed;bottom:28px;right:28px;width:52px;height:52px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 6px 28px rgba(37,211,102,0.4);text-decoration:none;z-index:300;animation:floatBounce 3s ease-in-out infinite;">💬</a>
+<style>@keyframes floatBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}</style>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  function switchTab(tab) {
+    document.getElementById('loginForm').classList.remove('visible');
+    document.getElementById('registerForm').classList.remove('visible');
+    document.getElementById('tabLogin').classList.remove('active');
+    document.getElementById('tabRegister').classList.remove('active');
+    if (tab === 'login') {
+      document.getElementById('loginForm').classList.add('visible');
+      document.getElementById('tabLogin').classList.add('active');
+    } else {
+      document.getElementById('registerForm').classList.add('visible');
+      document.getElementById('tabRegister').classList.add('active');
+    }
+  }
+
+  function showComingSoon() {
+    const box = document.querySelector('.waitlist-box');
+    box.style.borderColor = 'rgba(99,102,241,0.5)';
+    box.style.boxShadow = '0 0 24px rgba(99,102,241,0.2)';
+    box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    document.getElementById('wlEmail').focus();
+    setTimeout(() => { box.style.borderColor = ''; box.style.boxShadow = ''; }, 2000);
+  }
+
+  function joinWaitlist() {
+    const email = document.getElementById('wlEmail').value.trim();
+    if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
+    document.getElementById('wbCount').innerHTML = '<strong>248 students</strong> on the waitlist — you\'re in! 🎉';
+    document.getElementById('wlEmail').value = '';
+    document.getElementById('wlEmail').placeholder = 'You\'re on the waitlist!';
+    document.getElementById('wlEmail').disabled = true;
+    document.querySelec
+<div class="playfair-headings-applied"></div>
