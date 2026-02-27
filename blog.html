@@ -20,9 +20,13 @@
   body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.022; pointer-events: none; z-index: 1; }
 
   header { position: sticky; top: 0; z-index: 100; background: rgba(10,12,18,0.93); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 0 48px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
-  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; letter-spacing: -0.02em; display: flex; align-items: center; gap: 8px; text-decoration: none; color: #ffffff; }
-  .logo .acc-c { color: var(--amber); }
-  .logo-icon { width: 30px; height: 30px; background: var(--amber); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: #000; font-weight: 900; }
+    .logo {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    line-height: 1;
+    flex-shrink: 0;
+  }
 
   nav { display: flex; align-items: center; gap: 28px; }
   nav a {
@@ -36,7 +40,6 @@
   }
   nav a:hover { color: var(--amber2); }
   nav a.active { color: var(--amber2); }
-  nav a:hover, nav a.active { color: var(--text); }
   .btn-header { background: var(--amber); color: #000; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 9px 18px; border-radius: 6px; border: none; cursor: pointer; text-decoration: none; transition: all 0.2s; }
   .btn-header:hover { background: var(--amber2); }
 
@@ -49,7 +52,7 @@
   /* ── HERO / FEATURED ── */
   .hero { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 0 48px; }
   .hero-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 400px; gap: 0; min-height: 480px; }
-  .hero-left { padding: 72px 64px 72px 0; border-right: 1px solid var(--border); animation: fadeUp 0.7s ease both; }
+  .hero-left { padding-bottom: 72px; }
   @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
   .featured-tag { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; background: var(--amber-glow); border: 1px solid rgba(245,158,11,0.25); color: var(--amber); padding: 5px 12px; border-radius: 100px; margin-bottom: 20px; }
   .featured-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--amber); animation: pulse 2s infinite; }
@@ -132,7 +135,7 @@
 
   @media (max-width: 960px) {
     header { flex-wrap: wrap; height: auto; padding: 12px 20px; gap: 8px; }
-    nav { gap: 14px; flex-wrap: wrap; } .container { padding: 0 20px; } header { padding: 0 20px; } nav { display: flex; overflow-x: auto; gap: 16px; font-size: 0.8rem; -ms-overflow-style: none; scrollbar-width: none; } .hero { padding: 0 20px; } .hero-inner { grid-template-columns: 1fr; } .hero-left { padding: 48px 0; border-right: none; border-bottom: 1px solid var(--border); } .hero-right { padding: 32px 0; } .articles-grid { grid-template-columns: 1fr 1fr; } .tut-strip { grid-template-columns: 1fr 1fr; } .newsletter { grid-template-columns: 1fr; gap: 28px; } .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; } section { padding: 56px 0; } }
+    nav { gap: 14px; flex-wrap: wrap; } .container { padding: 0 20px; } header { padding: 0 20px; } nav { display: flex; overflow-x: auto; gap: 16px; font-size: 0.8rem; -ms-overflow-style: none; scrollbar-width: none; } .hero { padding: 0 20px; } .hero-inner { grid-template-columns: 1fr; } .hero-left { padding-bottom: 72px; } .hero-right { padding: 32px 0; } .articles-grid { grid-template-columns: 1fr 1fr; } .tut-strip { grid-template-columns: 1fr 1fr; } .newsletter { grid-template-columns: 1fr; gap: 28px; } .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; } section { padding: 56px 0; } }
   @media (max-width: 640px) { .articles-grid { grid-template-columns: 1fr; } .tut-strip { grid-template-columns: 1fr; } .footer-grid { grid-template-columns: 1fr; } .nl-row { flex-direction: column; border-radius: 10px; } .nl-input { border-radius: 8px 8px 0 0; } .nl-btn { border-radius: 0 0 8px 8px; padding: 12px; } }
 
   /* ── PLAYFAIR HEADINGS — applied site-wide ── */
@@ -162,7 +165,26 @@
 <body>
 
 <header>
-  <a href="newtonjee-homepage.html" class="logo"><div class="logo-icon">N</div>Newton<span class="acc-c">JEE</span></a>
+  <a href="newtonjee-homepage.html" class="logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 48" width="220" height="38" style="display:block;">
+  <!-- NEWTON letters -->
+  <text x="2" y="37"
+    font-family="Arial Black, Arial, Helvetica, sans-serif"
+    font-weight="900"
+    font-size="36px"
+    fill="#ffffff"
+    letter-spacing="1">NEWTON</text>
+  <!-- JEE amber block -->
+  <rect x="188" y="3" width="88" height="42" rx="5" fill="#f5a623"/>
+  <rect x="188" y="3" width="88" height="12" rx="5" fill="rgba(255,255,255,0.22)"/>
+  <rect x="188" y="35" width="88" height="10" rx="0" fill="rgba(0,0,0,0.12)"/>
+  <!-- JEE text -->
+  <text x="196" y="37"
+    font-family="Arial Black, Arial, Helvetica, sans-serif"
+    font-weight="900"
+    font-size="35px"
+    fill="#111111"
+    letter-spacing="-1">JEE</text>
+</svg></a>
     <nav>
     <a href="newtonjee-homepage.html#courses">Courses</a>
     <a href="certifications.html">Certifications</a>
@@ -445,7 +467,26 @@
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
-      <a href="newtonjee-homepage.html" class="logo" style="text-decoration:none;"><div class="logo-icon">N</div>Newton<span class="acc-c">JEE</span></a>
+      <a href="newtonjee-homepage.html" class="logo" style="text-decoration:none;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 48" width="220" height="38" style="display:block;">
+  <!-- NEWTON letters -->
+  <text x="2" y="37"
+    font-family="Arial Black, Arial, Helvetica, sans-serif"
+    font-weight="900"
+    font-size="36px"
+    fill="#ffffff"
+    letter-spacing="1">NEWTON</text>
+  <!-- JEE amber block -->
+  <rect x="188" y="3" width="88" height="42" rx="5" fill="#f5a623"/>
+  <rect x="188" y="3" width="88" height="12" rx="5" fill="rgba(255,255,255,0.22)"/>
+  <rect x="188" y="35" width="88" height="10" rx="0" fill="rgba(0,0,0,0.12)"/>
+  <!-- JEE text -->
+  <text x="196" y="37"
+    font-family="Arial Black, Arial, Helvetica, sans-serif"
+    font-weight="900"
+    font-size="35px"
+    fill="#111111"
+    letter-spacing="-1">JEE</text>
+</svg></a>
       <p>India's most structured AI & ML certification program for engineers and professionals ready to build the future.</p>
     </div>
     <div class="footer-col">

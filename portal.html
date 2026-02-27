@@ -20,16 +20,30 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.6; }
-  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.022; pointer-events: none; z-index: 9999; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.022; pointer-events: none; z-index: 1; }
 
   /* ── HEADER ── */
   header { position: sticky; top: 0; z-index: 200; background: rgba(10,12,18,0.93); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 0 48px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
-  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; letter-spacing: -0.02em; display: flex; align-items: center; gap: 8px; text-decoration: none; color: #ffffff; }
-  .logo .acc-c { color: var(--amber); }
-  .logo-icon { width: 30px; height: 30px; background: var(--amber); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: #000; font-weight: 900; }
+    .logo {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
   nav { display: flex; align-items: center; gap: 28px; }
-  nav a { font-size: 0.875rem; font-weight: 500; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
-  nav a:hover { color: var(--text); }
+  nav a {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--amber);
+    text-decoration: none;
+    transition: color 0.2s;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+  nav a:hover { color: var(--amber2); }
+  nav a.active { color: var(--amber2); }
   .btn-header { background: var(--amber); color: #000; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 9px 18px; border-radius: 6px; text-decoration: none; transition: all 0.2s; display: inline-block; }
   .btn-header:hover { background: var(--amber2); }
 
@@ -201,12 +215,14 @@
   .footer-col a:hover { color: var(--amber); }
   .footer-bottom { max-width: 1160px; margin: 32px auto 0; padding-top: 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; color: var(--text-muted); }
 
-  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+  .reveal { opacity: 1 !important; transform: translateY(0); transition: opacity 0.6s ease, transform 0.6s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
   @media (max-width: 1100px) { .hero-split { grid-template-columns: 1fr; } .preview-panel { min-height: 600px; } .features-grid { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 768px) {
-    header { padding: 0 20px; } nav { display: none; }
+    header { flex-wrap: wrap; height: auto; padding: 12px 20px; gap: 8px; }
+    nav { gap: 14px; flex-wrap: wrap; }
+    header { padding: 0 20px; } nav { display: flex; overflow-x: auto; gap: 16px; font-size: 0.8rem; -ms-overflow-style: none; scrollbar-width: none; }
     .phase-banner { padding: 10px 20px; flex-wrap: wrap; }
     .auth-panel { padding: 48px 24px; }
     .features-section { padding: 56px 20px; }
@@ -245,13 +261,33 @@
 <body>
 
 <header>
-  <a href="newtonjee-homepage.html" class="logo"><div class="logo-icon">N</div>Newton<span class="acc-c">JEE</span></a>
-  <nav>
+  <a href="newtonjee-homepage.html" class="logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 48" width="220" height="38" style="display:block;">
+  <!-- NEWTON letters -->
+  <text x="2" y="37"
+    font-family="Arial Black, Arial, Helvetica, sans-serif"
+    font-weight="900"
+    font-size="36px"
+    fill="#ffffff"
+    letter-spacing="1">NEWTON</text>
+  <!-- JEE amber block -->
+  <rect x="188" y="3" width="88" height="42" rx="5" fill="#f5a623"/>
+  <rect x="188" y="3" width="88" height="12" rx="5" fill="rgba(255,255,255,0.22)"/>
+  <rect x="188" y="35" width="88" height="10" rx="0" fill="rgba(0,0,0,0.12)"/>
+  <!-- JEE text -->
+  <text x="196" y="37"
+    font-family="Arial Black, Arial, Helvetica, sans-serif"
+    font-weight="900"
+    font-size="35px"
+    fill="#111111"
+    letter-spacing="-1">JEE</text>
+</svg></a>
+    <nav>
     <a href="newtonjee-homepage.html#courses">Courses</a>
-    <a href="newtonjee-pricing.html">Pricing</a>
     <a href="certifications.html">Certifications</a>
+    <a href="newtonjee-pricing.html">Pricing</a>
     <a href="blog.html">Blog</a>
-    <a href="robotics-research.html" style="font-size:0.875rem;font-weight:500;color:#8892a4;text-decoration:none;">Robotics</a>
+    <a href="robotics-research.html">Robotics</a>
+    <a href="contact.html">Contact</a>
   </nav>
   <a href="free-demo.html" class="btn-header">Book Free Demo →</a>
 </header>
@@ -531,7 +567,26 @@
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
-      <a href="newtonjee-homepage.html" class="logo" style="text-decoration:none;"><div class="logo-icon">N</div>Newton<span class="acc-c">JEE</span></a>
+      <a href="newtonjee-homepage.html" class="logo" style="text-decoration:none;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 48" width="220" height="38" style="display:block;">
+  <!-- NEWTON letters -->
+  <text x="2" y="37"
+    font-family="Arial Black, Arial, Helvetica, sans-serif"
+    font-weight="900"
+    font-size="36px"
+    fill="#ffffff"
+    letter-spacing="1">NEWTON</text>
+  <!-- JEE amber block -->
+  <rect x="188" y="3" width="88" height="42" rx="5" fill="#f5a623"/>
+  <rect x="188" y="3" width="88" height="12" rx="5" fill="rgba(255,255,255,0.22)"/>
+  <rect x="188" y="35" width="88" height="10" rx="0" fill="rgba(0,0,0,0.12)"/>
+  <!-- JEE text -->
+  <text x="196" y="37"
+    font-family="Arial Black, Arial, Helvetica, sans-serif"
+    font-weight="900"
+    font-size="35px"
+    fill="#111111"
+    letter-spacing="-1">JEE</text>
+</svg></a>
       <p>India's most structured AI & ML certification program for engineers and professionals ready to build the future.</p>
     </div>
     <div class="footer-col">
@@ -549,13 +604,14 @@
       <a href="certifications.html">Certifications</a>
       <a href="success-stories.html">Success Stories</a>
       <a href="blog.html">Blog</a>
+    <a href="robotics-research.html">Robotics</a>
       <a href="contact.html">Contact</a>
     </div>
     <div class="footer-col">
       <h5>Contact</h5>
       <a href="tel:+918019466635">📞 +91 80194 66635</a>
-      <a href="/cdn-cgi/l/email-protection#2c44494040436c42495b584342464949024f4341">✉️ <span class="__cf_email__" data-cfemail="8ae2efe6e6e5cae4effdfee5e4e0efefa4e9e5e7">[email&#160;protected]</span></a>
-      <a href="contact.html">📍 HITEC City, Hyderabad</a>
+      <a href="/cdn-cgi/l/email-protection#53303c3d27323027133d3624273c3d3936367d303c3e">✉ <span class="__cf_email__" data-cfemail="1c7f7372687d7f685c72796b687372767979327f7371">[email&#160;protected]</span></a>
+      <a href="contact.html">📍 Mallampet, Hyderabad</a>
       <a href="https://wa.me/918019466635">💬 WhatsApp Us</a>
     </div>
   </div>
@@ -596,8 +652,4 @@
     const email = document.getElementById('wlEmail').value.trim();
     if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
     document.getElementById('wbCount').innerHTML = '<strong>248 students</strong> on the waitlist — you\'re in! 🎉';
-    document.getElementById('wlEmail').value = '';
-    document.getElementById('wlEmail').placeholder = 'You\'re on the waitlist!';
-    document.getElementById('wlEmail').disabled = true;
-    document.querySelec
-<div class="playfair-headings-applied"></div>
+    docume

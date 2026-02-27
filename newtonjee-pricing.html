@@ -49,11 +49,12 @@
     padding: 0 48px; height: 64px;
     display: flex; align-items: center; justify-content: space-between;
   }
-  .logo {
-    display: flex;
+    .logo {
+    display: inline-flex;
     align-items: center;
     text-decoration: none;
     line-height: 1;
+    flex-shrink: 0;
   }
   nav { display: flex; align-items: center; gap: 28px; }
   nav a {
@@ -463,13 +464,26 @@
 
 <!-- HEADER -->
 <header>
-  <a href="newtonjee-homepage.html" class="logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 265 46" width="200" height="35">
-      <text x="2" y="36" font-family="'Arial Black', Impact, sans-serif" font-weight="900" font-size="34px" fill="#ffffff" letter-spacing="0px">NEWTON</text>
-      <rect x="185" y="2" width="78" height="40" rx="4" fill="#f5a623"/>
-      <rect x="185" y="2" width="78" height="9" rx="4" fill="rgba(255,255,255,0.22)"/>
-      <rect x="185" y="33" width="78" height="9" rx="0" fill="rgba(0,0,0,0.1)"/>
-      <text x="191" y="36" font-family="'Arial Black', Impact, sans-serif" font-weight="900" font-size="33px" fill="#1a1a1a" letter-spacing="-1px">JEE</text>
-    </svg></a>
+  <a href="newtonjee-homepage.html" class="logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 48" width="220" height="38" style="display:block;">
+  <!-- NEWTON letters -->
+  <text x="2" y="37"
+    font-family="Arial Black, Arial, Helvetica, sans-serif"
+    font-weight="900"
+    font-size="36px"
+    fill="#ffffff"
+    letter-spacing="1">NEWTON</text>
+  <!-- JEE amber block -->
+  <rect x="188" y="3" width="88" height="42" rx="5" fill="#f5a623"/>
+  <rect x="188" y="3" width="88" height="12" rx="5" fill="rgba(255,255,255,0.22)"/>
+  <rect x="188" y="35" width="88" height="10" rx="0" fill="rgba(0,0,0,0.12)"/>
+  <!-- JEE text -->
+  <text x="196" y="37"
+    font-family="Arial Black, Arial, Helvetica, sans-serif"
+    font-weight="900"
+    font-size="35px"
+    fill="#111111"
+    letter-spacing="-1">JEE</text>
+</svg></a>
     <nav>
     <a href="newtonjee-homepage.html#courses">Courses</a>
     <a href="certifications.html">Certifications</a>
@@ -1092,13 +1106,26 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 <footer style="background:#080c14;border-top:1px solid rgba(255,255,255,0.06);padding:48px 48px 32px;margin-top:0;">
   <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;flex-wrap:wrap;">
     <div>
-      <a href="newtonjee-homepage.html" style="text-decoration:none;display:inline-flex;align-items:center;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 265 46" width="200" height="35">
-      <text x="2" y="36" font-family="'Arial Black', Impact, sans-serif" font-weight="900" font-size="34px" fill="#ffffff" letter-spacing="0px">NEWTON</text>
-      <rect x="185" y="2" width="78" height="40" rx="4" fill="#f5a623"/>
-      <rect x="185" y="2" width="78" height="9" rx="4" fill="rgba(255,255,255,0.22)"/>
-      <rect x="185" y="33" width="78" height="9" rx="0" fill="rgba(0,0,0,0.1)"/>
-      <text x="191" y="36" font-family="'Arial Black', Impact, sans-serif" font-weight="900" font-size="33px" fill="#1a1a1a" letter-spacing="-1px">JEE</text>
-    </svg></a>
+      <a href="newtonjee-homepage.html" style="text-decoration:none;display:inline-flex;align-items:center;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 48" width="220" height="38" style="display:block;">
+  <!-- NEWTON letters -->
+  <text x="2" y="37"
+    font-family="Arial Black, Arial, Helvetica, sans-serif"
+    font-weight="900"
+    font-size="36px"
+    fill="#ffffff"
+    letter-spacing="1">NEWTON</text>
+  <!-- JEE amber block -->
+  <rect x="188" y="3" width="88" height="42" rx="5" fill="#f5a623"/>
+  <rect x="188" y="3" width="88" height="12" rx="5" fill="rgba(255,255,255,0.22)"/>
+  <rect x="188" y="35" width="88" height="10" rx="0" fill="rgba(0,0,0,0.12)"/>
+  <!-- JEE text -->
+  <text x="196" y="37"
+    font-family="Arial Black, Arial, Helvetica, sans-serif"
+    font-weight="900"
+    font-size="35px"
+    fill="#111111"
+    letter-spacing="-1">JEE</text>
+</svg></a>
       <p style="font-size:0.82rem;color:#5d7080;line-height:1.7;max-width:240px;">India's most elite AI &amp; Robotics career accelerator. Hyderabad, Telangana.</p>
     </div>
     <div>
