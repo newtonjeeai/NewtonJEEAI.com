@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pricing & Bundles — Newton JEE</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800;1,900&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0a0c12;
@@ -37,7 +37,7 @@
     content: '';
     position: fixed; inset: 0;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-    opacity: 0.022; pointer-events: none; z-index: 9999;
+    opacity: 0.022; pointer-events: none; z-index: 1;
   }
 
   /* ── HEADER ── */
@@ -50,20 +50,22 @@
     display: flex; align-items: center; justify-content: space-between;
   }
   .logo {
-    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem;
-    letter-spacing: -0.02em; display: flex; align-items: center; gap: 8px;
-    text-decoration: none; color: var(--text);
-  }
-  .logo .accent { color: var(--amber); }
-  .logo-icon {
-    width: 30px; height: 30px; background: var(--amber); border-radius: 6px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.9rem; color: #000; font-weight: 900;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    line-height: 1;
   }
   nav { display: flex; align-items: center; gap: 28px; }
-  nav a { font-size: 0.875rem; font-weight: 500; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
-  nav a:hover, nav a.active { color: var(--text); }
-  nav a.active { color: var(--amber); }
+  nav a {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--amber);
+    text-decoration: none;
+    transition: color 0.2s;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+  nav a:hover, nav a.active { color: var(--amber2); }
   .btn-enrol {
     background: var(--amber); color: #000;
     font-family: 'Syne', sans-serif; font-weight: 700;
@@ -71,12 +73,25 @@
     padding: 9px 18px; border-radius: 6px; text-decoration: none; transition: all 0.2s;
   }
   .btn-enrol:hover { background: var(--amber2); }
+  .btn-header {
+    background: var(--amber); color: #000;
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 0.75rem; letter-spacing: 0.07em; text-transform: uppercase;
+    padding: 8px 16px; border-radius: 6px; text-decoration: none;
+    border: none; cursor: pointer; transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .btn-header:hover { background: var(--amber2); }
 
   /* ── HERO ── */
   .page-hero {
     padding: 80px 48px 64px;
     position: relative; overflow: hidden;
     border-bottom: 1px solid var(--border);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   .hero-grid {
     position: absolute; inset: 0;
@@ -84,14 +99,14 @@
       linear-gradient(rgba(245,158,11,0.035) 1px, transparent 1px),
       linear-gradient(90deg, rgba(245,158,11,0.035) 1px, transparent 1px);
     background-size: 48px 48px;
-    mask-image: radial-gradient(ellipse 70% 100% at 30% 50%, black 0%, transparent 80%);
+    mask-image: radial-gradient(ellipse 100% 100% at 50% 50%, black 0%, transparent 80%);
   }
   .hero-glow {
-    position: absolute; top: -30%; left: 10%; width: 600px; height: 500px;
+    position: absolute; top: -30%; left: 50%; transform: translateX(-50%); width: 700px; height: 500px;
     background: radial-gradient(ellipse, rgba(245,158,11,0.1) 0%, transparent 65%);
     pointer-events: none;
   }
-  .hero-content { position: relative; max-width: 640px; animation: fadeUp 0.7s ease both; }
+  .hero-content { position: relative; max-width: 700px; margin: 0 auto; text-align: center; animation: fadeUp 0.7s ease both; }
   @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
 
   .page-label {
@@ -100,11 +115,11 @@
     color: var(--amber); margin-bottom: 14px;
   }
   .page-hero h1 {
-    font-family: 'Syne', sans-serif; font-size: clamp(2.4rem, 5vw, 4rem);
+    font-family: 'Playfair Display', serif; font-size: clamp(2.4rem, 5vw, 4rem);
     font-weight: 800; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 20px;
   }
   .page-hero h1 span { color: var(--amber); }
-  .page-hero p { font-size: 1.05rem; color: var(--text-muted); font-weight: 300; max-width: 480px; }
+  .page-hero p { font-size: 1.05rem; color: var(--text-muted); font-weight: 300; max-width: 580px; margin: 0 auto; }
 
   /* Tab nav */
   .tab-nav {
@@ -139,7 +154,7 @@
     letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber); margin-bottom: 10px;
   }
   .section-title {
-    font-family: 'Syne', sans-serif; font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+    font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem);
     font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 12px;
   }
   .section-sub { color: var(--text-muted); font-size: 0.95rem; font-weight: 300; max-width: 500px; margin-bottom: 52px; }
@@ -167,7 +182,7 @@
   .course-name-cell span { font-size: 0.78rem; color: var(--text-muted); }
 
   .level-badge {
-    display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.62rem;
+    display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.68rem;
     letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border-radius: 100px;
   }
   .level-badge.beginner { background: rgba(74,222,128,0.12); color: var(--green); }
@@ -207,11 +222,11 @@
     content: '★ MOST POPULAR';
     position: absolute; top: 18px; right: -26px;
     background: var(--amber); color: #000;
-    font-family: 'DM Mono', monospace; font-size: 0.6rem; font-weight: 500; letter-spacing: 0.1em;
+    font-family: 'DM Mono', monospace; font-size: 0.68rem; font-weight: 500; letter-spacing: 0.1em;
     padding: 5px 36px; transform: rotate(45deg); transform-origin: center;
   }
   .bundle-icon { font-size: 2rem; margin-bottom: 16px; display: block; }
-  .bundle-card h3 { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 800; margin-bottom: 6px; }
+  .bundle-card h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 800; margin-bottom: 6px; }
   .bundle-tagline { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 24px; }
 
   .bundle-courses { margin-bottom: 24px; }
@@ -273,7 +288,7 @@
     background: var(--bg3); border: 1px solid var(--border); border-radius: 16px; padding: 40px;
     position: sticky; top: 80px;
   }
-  .emi-result h4 { font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--text-muted); margin-bottom: 32px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .emi-result h4 { font-family: 'Playfair Display', serif; font-size: 0.9rem; font-weight: 700; color: var(--text-muted); margin-bottom: 32px; text-transform: uppercase; letter-spacing: 0.06em; }
 
   .emi-big {
     font-family: 'Syne', sans-serif; font-size: 3.2rem; font-weight: 800;
@@ -350,12 +365,12 @@
   /* result */
   .quiz-result { text-align: center; animation: fadeUp 0.5s ease both; }
   .result-badge { font-size: 3.5rem; margin-bottom: 16px; display: block; }
-  .quiz-result h3 { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; margin-bottom: 10px; }
+  .quiz-result h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 800; margin-bottom: 10px; }
   .quiz-result p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 32px; }
   .result-bundle-card {
     background: var(--bg2); border: 1px solid var(--amber); border-radius: 12px; padding: 28px; text-align: left; margin-bottom: 24px;
   }
-  .result-bundle-card h4 { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; margin-bottom: 6px; }
+  .result-bundle-card h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 800; margin-bottom: 6px; }
   .result-courses { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 16px; line-height: 1.7; }
   .result-price { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--amber); }
   .result-mrp { font-size: 0.82rem; color: var(--text-muted); text-decoration: line-through; margin-right: 8px; }
@@ -400,16 +415,18 @@
   }
   @keyframes floatBounce { 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(-5px) } }
 
-  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+  .reveal { opacity: 1 !important; transform: translateY(0); transition: opacity 0.6s ease, transform 0.6s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
   @media (max-width: 900px) {
+    header { flex-wrap: wrap; height: auto; padding: 12px 20px; gap: 8px; }
+    nav { gap: 14px; flex-wrap: wrap; }
     .emi-wrap { grid-template-columns: 1fr; }
     .tab-nav { padding: 0 20px; }
     .tab-panel { padding: 48px 20px; }
     .page-hero { padding: 60px 24px 48px; }
     header { padding: 0 20px; }
-    nav { display: none; }
+    nav { display: flex; overflow-x: auto; gap: 16px; font-size: 0.8rem; -ms-overflow-style: none; scrollbar-width: none; }
   }
   @media (max-width: 640px) {
     .bundles-grid { grid-template-columns: 1fr; }
@@ -417,21 +434,48 @@
     .courses-table th, .courses-table td { padding: 14px 12px; }
   }
 
+
+  /* ── PLAYFAIR HEADINGS — applied site-wide ── */
+  .section-title,
+  .courses-header h2,
+  .why-title,
+  section > .container > h2,
+  section h2.section-title,
+  .faq-list ~ h2,
+  .page-hero h2,
+  .cert-section h2,
+  .outcomes h2,
+  .demo-title,
+  .pricing-hero h2,
+  .intro-headline,
+  .hero-left h2,
+  .cert-info h3,
+  .cert-card h3,
+  .enrol-card-header h3,
+  .track-card h3 {
+    font-family: 'Playfair Display', serif !important;
+  }
+  /* marker class to avoid duplicate injection */
+  .playfair-headings-applied { display: none; }
 </style>
 </head>
 <body>
 
 <!-- HEADER -->
 <header>
-  <a href="newtonjee-homepage.html" class="logo">
-    <div class="logo-icon">N</div>
-    Newton<span class="accent">JEE</span>
-  </a>
-  <nav>
+  <a href="newtonjee-homepage.html" class="logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 265 46" width="200" height="35">
+      <text x="2" y="36" font-family="'Arial Black', Impact, sans-serif" font-weight="900" font-size="34px" fill="#ffffff" letter-spacing="0px">NEWTON</text>
+      <rect x="185" y="2" width="78" height="40" rx="4" fill="#f5a623"/>
+      <rect x="185" y="2" width="78" height="9" rx="4" fill="rgba(255,255,255,0.22)"/>
+      <rect x="185" y="33" width="78" height="9" rx="0" fill="rgba(0,0,0,0.1)"/>
+      <text x="191" y="36" font-family="'Arial Black', Impact, sans-serif" font-weight="900" font-size="33px" fill="#1a1a1a" letter-spacing="-1px">JEE</text>
+    </svg></a>
+    <nav>
     <a href="newtonjee-homepage.html#courses">Courses</a>
-    <a href="newtonjee-pricing.html" class="active">Pricing</a>
     <a href="certifications.html">Certifications</a>
+    <a href="newtonjee-pricing.html">Pricing</a>
     <a href="blog.html">Blog</a>
+    <a href="robotics-research.html">Robotics</a>
     <a href="contact.html">Contact</a>
   </nav>
   <a href="free-demo.html" class="btn-header">Book Free Demo →</a>
@@ -825,9 +869,9 @@
 </section>
 
 <!-- Floating WA -->
-<a href="https://wa.me/919XXXXXXXXX" class="wa-float" title="Chat on WhatsApp">💬</a>
+<a href="https://wa.me/918019466635" class="wa-float" title="Chat on WhatsApp">💬</a>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 /* ─── TABS ─────────────────────────── */
 const tabBtns = document.querySelectorAll('.tab-nav button');
 const tabPanels = document.querySelectorAll('.tab-panel');
@@ -1043,5 +1087,43 @@ const obs = new IntersectionObserver(entries => {
 }, { threshold: 0.06 });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
-</body>
-</html>
+
+<!-- ── SITE FOOTER ── -->
+<footer style="background:#080c14;border-top:1px solid rgba(255,255,255,0.06);padding:48px 48px 32px;margin-top:0;">
+  <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;flex-wrap:wrap;">
+    <div>
+      <a href="newtonjee-homepage.html" style="text-decoration:none;display:inline-flex;align-items:center;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 265 46" width="200" height="35">
+      <text x="2" y="36" font-family="'Arial Black', Impact, sans-serif" font-weight="900" font-size="34px" fill="#ffffff" letter-spacing="0px">NEWTON</text>
+      <rect x="185" y="2" width="78" height="40" rx="4" fill="#f5a623"/>
+      <rect x="185" y="2" width="78" height="9" rx="4" fill="rgba(255,255,255,0.22)"/>
+      <rect x="185" y="33" width="78" height="9" rx="0" fill="rgba(0,0,0,0.1)"/>
+      <text x="191" y="36" font-family="'Arial Black', Impact, sans-serif" font-weight="900" font-size="33px" fill="#1a1a1a" letter-spacing="-1px">JEE</text>
+    </svg></a>
+      <p style="font-size:0.82rem;color:#5d7080;line-height:1.7;max-width:240px;">India's most elite AI &amp; Robotics career accelerator. Hyderabad, Telangana.</p>
+    </div>
+    <div>
+      <h5 style="font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#5d7080;margin-bottom:16px;">Courses</h5>
+      <a href="course-python-for-ai.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Python for AI</a>
+      <a href="course-machine-learning.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Machine Learning</a>
+      <a href="course-generative-ai-llms.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Generative AI &amp; LLMs</a>
+      <a href="robotics-research.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">🤖 Robotics Research</a>
+      <a href="newtonjee-homepage.html#courses" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;">All Courses →</a>
+    </div>
+    <div>
+      <h5 style="font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#5d7080;margin-bottom:16px;">Platform</h5>
+      <a href="certifications.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Certifications</a>
+      <a href="success-stories.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Success Stories</a>
+      <a href="newtonjee-pricing.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Pricing</a>
+      <a href="blog.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Blog</a>
+    <a href="robotics-research.html">Robotics</a>
+      <a href="portal.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;">Student Portal</a>
+    </div>
+    <div>
+      <h5 style="font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#5d7080;margin-bottom:16px;">Contact</h5>
+      <a href="tel:+918019466635" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">📞 +91 80194 66635</a>
+      <a href="/cdn-cgi/l/email-protection#a0c3cfced4c1c3d4e0cec5d7d4cfcecac5c58ec3cfcd">✉ <span class="__cf_email__" data-cfemail="294a46475d484a5d69474c5e5d4647434c4c074a4644">[email&#160;protected]</span></a>
+      <a href="https://wa.me/918019466635" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">💬 WhatsApp Us</a>
+      <a href="contact.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;">📍 Mallampet, Hyderabad</a>
+    </div>
+  </div>
+  <div style="max-width:1200px;margin:28px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,0.05);display:fl

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Computer Vision & Image Processing — Newton JEE</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800;1,900&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0a0c12;
@@ -32,7 +32,7 @@
 
   /* HEADER */
   header { position: sticky; top: 0; z-index: 100; background: rgba(10,12,18,0.93); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 0 48px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
-  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; letter-spacing: -0.02em; display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); }
+  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; letter-spacing: -0.02em; display: flex; align-items: center; gap: 8px; text-decoration: none; color: #ffffff; }
   .logo .acc-c { color: var(--amber); }
   .logo-icon { width: 30px; height: 30px; background: var(--amber); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: #000; font-weight: 900; }
   nav { display: flex; align-items: center; gap: 28px; }
@@ -67,7 +67,7 @@
     animation: fadeUp 0.9s 0.4s ease both;
   }
   .channel-col { display: flex; flex-direction: column; gap: 4px; align-items: center; }
-  .channel-label { font-family: 'DM Mono', monospace; font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
+  .channel-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
   .channel-label.r { color: #f43f5e; }
   .channel-label.g { color: #4ade80; }
   .channel-label.b { color: #60a5fa; }
@@ -88,7 +88,7 @@
   .badge .dot      { width: 5px; height: 5px; border-radius: 50%; background: currentColor; animation: pulse 2s infinite; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
-  .course-hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 4.5vw, 3.4rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 18px; }
+  .course-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 4.5vw, 3.6rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 18px; }
   .course-hero h1 span { color: var(--acc); }
   .course-tagline { font-size: 1.05rem; color: var(--text-muted); font-weight: 300; max-width: 520px; margin-bottom: 32px; line-height: 1.7; }
 
@@ -130,7 +130,7 @@
   section.body-section { padding: 64px 0; border-bottom: 1px solid var(--border); }
   section.body-section:last-child { border-bottom: none; }
   .sec-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
-  .sec-title { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 24px; }
+  .sec-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 24px; }
 
   /* LEARN GRID */
   .learn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -147,9 +147,9 @@
   .ip-step::after { content: '→'; position: absolute; right: -10px; top: 50%; transform: translateY(-50%); color: var(--acc); font-size: 0.9rem; background: var(--bg3); border: 1px solid var(--acc-border); border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; z-index: 2; }
   .ip-step:last-child::after { display: none; }
   .ip-icon { font-size: 1.8rem; display: block; margin-bottom: 10px; }
-  .ip-step h4 { font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 700; margin-bottom: 5px; }
+  .ip-step h4 { font-family: 'Playfair Display', serif; font-size: 0.78rem; font-weight: 700; margin-bottom: 5px; }
   .ip-step p { font-size: 0.68rem; color: var(--text-muted); line-height: 1.4; }
-  .ip-tag { display: inline-block; margin-top: 8px; font-family: 'DM Mono', monospace; font-size: 0.58rem; background: var(--acc-glow); color: var(--acc); border: 1px solid var(--acc-border); border-radius: 100px; padding: 2px 7px; }
+  .ip-tag { display: inline-block; margin-top: 8px; font-family: 'DM Mono', monospace; font-size: 0.65rem; background: var(--acc-glow); color: var(--acc); border: 1px solid var(--acc-border); border-radius: 100px; padding: 2px 7px; }
 
   /* INDUSTRY DOMAINS (unique) */
   .domains-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
@@ -158,17 +158,17 @@
   .domain-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--acc), transparent); opacity: 0; transition: opacity 0.3s; }
   .domain-card:hover::before { opacity: 1; }
   .domain-icon { font-size: 1.8rem; margin-bottom: 10px; display: block; }
-  .domain-card h4 { font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 700; margin-bottom: 6px; }
+  .domain-card h4 { font-family: 'Playfair Display', serif; font-size: 0.88rem; font-weight: 700; margin-bottom: 6px; }
   .domain-card p { font-size: 0.75rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 10px; }
   .domain-tools { display: flex; flex-wrap: wrap; gap: 5px; }
-  .domain-tool { font-family: 'DM Mono', monospace; font-size: 0.58rem; background: var(--acc-glow); color: var(--acc); border: 1px solid var(--acc-border); padding: 2px 7px; border-radius: 3px; }
+  .domain-tool { font-family: 'DM Mono', monospace; font-size: 0.65rem; background: var(--acc-glow); color: var(--acc); border: 1px solid var(--acc-border); padding: 2px 7px; border-radius: 3px; }
 
   /* OPENCV vs PIL (unique comparison) */
   .compare-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .compare-box { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
   .compare-box-header { padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
-  .compare-box-title { font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 700; }
-  .compare-box-badge { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.08em; padding: 2px 8px; border-radius: 100px; }
+  .compare-box-title { font-family: 'Playfair Display', serif; font-size: 0.88rem; font-weight: 700; }
+  .compare-box-badge { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; padding: 2px 8px; border-radius: 100px; }
   .badge-primary { background: var(--acc-glow); color: var(--acc); border: 1px solid var(--acc-border); }
   .badge-secondary { background: rgba(255,255,255,0.05); color: var(--text-muted); border: 1px solid var(--border); }
   .compare-list { padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; }
@@ -182,7 +182,7 @@
   .outcome-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 22px; transition: all 0.2s; }
   .outcome-card:hover { border-color: var(--acc-border); }
   .outcome-icon { font-size: 1.5rem; margin-bottom: 10px; display: block; }
-  .outcome-card h4 { font-family: 'Syne', sans-serif; font-size: 0.92rem; font-weight: 700; margin-bottom: 4px; }
+  .outcome-card h4 { font-family: 'Playfair Display', serif; font-size: 0.92rem; font-weight: 700; margin-bottom: 4px; }
   .outcome-card p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; }
   .salary-badge { display: inline-flex; align-items: center; gap: 4px; background: var(--acc-glow); color: var(--acc); border: 1px solid var(--acc-border); border-radius: 100px; padding: 2px 10px; font-size: 0.68rem; font-family: 'DM Mono', monospace; margin-top: 8px; }
 
@@ -196,7 +196,7 @@
   .week-header { width: 100%; background: none; border: none; color: var(--text); padding: 18px 20px; cursor: pointer; display: flex; align-items: center; gap: 14px; text-align: left; transition: background 0.2s; }
   .week-header:hover { background: rgba(255,255,255,0.02); }
   .week-num { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; background: var(--acc-glow); color: var(--acc); padding: 3px 10px; border-radius: 100px; white-space: nowrap; flex-shrink: 0; }
-  .week-title { font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700; flex: 1; }
+  .week-title { font-family: 'Playfair Display', serif; font-size: 0.9rem; font-weight: 700; flex: 1; }
   .week-ch { color: var(--acc); transition: transform 0.3s; margin-left: auto; flex-shrink: 0; }
   .week-item.open .week-ch { transform: rotate(180deg); }
   .week-body { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
@@ -210,20 +210,20 @@
   .project-card:hover { border-color: var(--acc-border); transform: translateY(-3px); }
   .project-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, var(--acc), transparent); }
   .proj-number { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; color: var(--acc); margin-bottom: 12px; }
-  .project-card h4 { font-family: 'Syne', sans-serif; font-size: 0.92rem; font-weight: 700; margin-bottom: 8px; }
+  .project-card h4 { font-family: 'Playfair Display', serif; font-size: 0.92rem; font-weight: 700; margin-bottom: 8px; }
   .project-card p { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 14px; line-height: 1.5; }
   .tool-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-  .tool-tag { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.08em; background: rgba(255,255,255,0.05); border: 1px solid var(--border); padding: 3px 8px; border-radius: 4px; color: var(--text-muted); }
+  .tool-tag { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; background: rgba(255,255,255,0.05); border: 1px solid var(--border); padding: 3px 8px; border-radius: 4px; color: var(--text-muted); }
 
   /* CERT */
   .cert-showcase { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: center; }
   .cert-visual { background: linear-gradient(135deg, var(--bg3), #1a0c10); border: 1px solid rgba(251,191,36,0.3); border-radius: 14px; padding: 36px; text-align: center; position: relative; overflow: hidden; }
   .cert-visual::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at top, rgba(251,191,36,0.07), transparent 60%); }
   .cert-emoji { font-size: 3rem; display: block; margin-bottom: 12px; position: relative; }
-  .cert-visual h4 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; margin-bottom: 4px; position: relative; color: #fbbf24; }
+  .cert-visual h4 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 800; margin-bottom: 4px; position: relative; color: #fbbf24; }
   .cert-visual p { font-size: 0.78rem; color: var(--text-muted); position: relative; }
   .cert-li-badge { margin-top: 16px; display: inline-flex; align-items: center; gap: 6px; background: rgba(10,102,194,0.15); border: 1px solid rgba(10,102,194,0.3); border-radius: 100px; padding: 5px 14px; font-size: 0.72rem; color: #60a5fa; position: relative; }
-  .cert-info h4 { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; margin-bottom: 12px; }
+  .cert-info h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 800; margin-bottom: 12px; }
   .cert-info p { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 20px; line-height: 1.7; }
   .cert-steps { display: flex; flex-direction: column; gap: 12px; }
   .cert-step { display: flex; align-items: center; gap: 12px; font-size: 0.82rem; }
@@ -267,8 +267,8 @@
   .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   .related-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 22px; transition: all 0.25s; text-decoration: none; color: var(--text); display: block; }
   .related-card:hover { border-color: rgba(245,158,11,0.25); transform: translateY(-3px); }
-  .rel-tag { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; color: var(--amber); text-transform: uppercase; margin-bottom: 10px; display: block; }
-  .related-card h4 { font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700; margin-bottom: 8px; }
+  .rel-tag { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; color: var(--amber); text-transform: uppercase; margin-bottom: 10px; display: block; }
+  .related-card h4 { font-family: 'Playfair Display', serif; font-size: 0.9rem; font-weight: 700; margin-bottom: 8px; }
   .related-card p { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 14px; }
   .rel-price { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; color: var(--amber); }
   .rel-mrp { font-size: 0.75rem; color: var(--text-muted); text-decoration: line-through; margin-right: 6px; }
@@ -280,10 +280,10 @@
     border-radius: 14px; padding: 28px 32px;
     display: flex; align-items: center; gap: 24px; margin-bottom: 32px;
   }
-  .completion-banner h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; margin-bottom: 4px; }
+  .completion-banner h3 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 800; margin-bottom: 4px; }
   .completion-banner p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
   .badge-row-final { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
-  .final-badge { display: inline-flex; align-items: center; gap: 5px; font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.06em; padding: 4px 10px; border-radius: 100px; border: 1px solid; }
+  .final-badge { display: inline-flex; align-items: center; gap: 5px; font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.06em; padding: 4px 10px; border-radius: 100px; border: 1px solid; }
   .fb-bronze { background: rgba(180,83,9,0.12); color: #d97706; border-color: rgba(180,83,9,0.25); }
   .fb-silver { background: rgba(156,163,175,0.12); color: #9ca3af; border-color: rgba(156,163,175,0.25); }
   .fb-gold   { background: rgba(251,191,36,0.12); color: #fbbf24; border-color: rgba(251,191,36,0.25); }
@@ -318,6 +318,29 @@
     .ip-pipeline, .domains-grid, .schedule-grid { grid-template-columns: 1fr; }
   }
 
+
+  /* ── PLAYFAIR HEADINGS — applied site-wide ── */
+  .section-title,
+  .courses-header h2,
+  .why-title,
+  section > .container > h2,
+  section h2.section-title,
+  .faq-list ~ h2,
+  .page-hero h2,
+  .cert-section h2,
+  .outcomes h2,
+  .demo-title,
+  .pricing-hero h2,
+  .intro-headline,
+  .hero-left h2,
+  .cert-info h3,
+  .cert-card h3,
+  .enrol-card-header h3,
+  .track-card h3 {
+    font-family: 'Playfair Display', serif !important;
+  }
+  /* marker class to avoid duplicate injection */
+  .playfair-headings-applied { display: none; }
 </style>
 </head>
 <body>
@@ -325,7 +348,8 @@
 <!-- HEADER -->
 <header>
   <a href="newtonjee-homepage.html" class="logo"><div class="logo-icon">N</div>Newton<span class="acc-c">JEE</span></a>
-  <nav><a href="newtonjee-homepage.html#courses">Courses</a><a href="newtonjee-pricing.html">Pricing</a><a href="certifications.html">Certifications</a><a href="blog.html">Blog</a></nav>
+  <nav><a href="newtonjee-homepage.html#courses">Courses</a><a href="newtonjee-pricing.html">Pricing</a><a href="certifications.html">Certifications</a><a href="blog.html">Blog</a>
+    <a href="robotics-research.html" style="font-size:0.875rem;font-weight:500;color:#8892a4;text-decoration:none;">Robotics</a></nav>
   <button class="btn-header" onclick="document.getElementById('enrol-section').scrollIntoView({behavior:'smooth'})">Enrol Now →</button>
 </header>
 
@@ -977,7 +1001,7 @@
   </div>
 </div>
 
-<a href="https://wa.me/919XXXXXXXXX" class="wa-float">💬</a>
+<a href="https://wa.me/918019466635" class="wa-float">💬</a>
 
 <script>
   document.querySelectorAll('.week-header').forEach(btn => {
@@ -994,5 +1018,40 @@
   }, { threshold: 0.06 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
-</body>
-</html>
+
+<!-- ── SITE FOOTER ── -->
+<footer style="background:#080c14;border-top:1px solid rgba(255,255,255,0.06);padding:48px 48px 32px;margin-top:0;">
+  <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;flex-wrap:wrap;">
+    <div>
+      <a href="newtonjee-homepage.html" style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:#ffffff;text-decoration:none;display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+        <span style="width:28px;height:28px;background:#f59e0b;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:0.85rem;color:#000;font-weight:900;">N</span>
+        Newton<span style="color:#f59e0b;">JEE</span>
+      </a>
+      <p style="font-size:0.82rem;color:#5d7080;line-height:1.7;max-width:240px;">India's most elite AI &amp; Robotics career accelerator. Hyderabad, Telangana.</p>
+    </div>
+    <div>
+      <h5 style="font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#5d7080;margin-bottom:16px;">Courses</h5>
+      <a href="course-python-for-ai.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Python for AI</a>
+      <a href="course-machine-learning.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Machine Learning</a>
+      <a href="course-generative-ai-llms.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Generative AI &amp; LLMs</a>
+      <a href="robotics-research.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">🤖 Robotics Research</a>
+      <a href="newtonjee-homepage.html#courses" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;">All Courses →</a>
+    </div>
+    <div>
+      <h5 style="font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#5d7080;margin-bottom:16px;">Platform</h5>
+      <a href="certifications.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Certifications</a>
+      <a href="success-stories.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Success Stories</a>
+      <a href="newtonjee-pricing.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Pricing</a>
+      <a href="blog.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Blog</a>
+      <a href="portal.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;">Student Portal</a>
+    </div>
+    <div>
+      <h5 style="font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#5d7080;margin-bottom:16px;">Contact</h5>
+      <a href="tel:+918019466635" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">📞 +91 80194 66635</a>
+      <a href="/cdn-cgi/l/email-protection#1d75787171725d73786a697273777878337e7270" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">✉ <span class="__cf_email__" data-cfemail="8be3eee7e7e4cbe5eefcffe4e5e1eeeea5e8e4e6">[email&#160;protected]</span></a>
+      <a href="https://wa.me/918019466635" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">💬 WhatsApp Us</a>
+      <a href="contact.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;">📍 HITEC City, Hyderabad</a>
+    </div>
+  </div>
+  <div style="max-width:1200px;margin:28px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,0.05);display:flex;justify-content:space-between;font-size:0.72rem;color:#3d5060;">
+    <span>© 2025 NewtonJEEAI Technologies. All rights reserved.</span>

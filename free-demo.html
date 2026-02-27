@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Book a Free Demo — Newton JEE</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800;1,900&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0a0c12; --bg2: #0f1219; --bg3: #151b27;
@@ -16,15 +16,28 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.6; }
-  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.022; pointer-events: none; z-index: 9999; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.022; pointer-events: none; z-index: 1; }
 
   header { position: sticky; top: 0; z-index: 100; background: rgba(10,12,18,0.93); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 0 48px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
-  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; letter-spacing: -0.02em; display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); }
-  .logo .acc-c { color: var(--amber); }
-  .logo-icon { width: 30px; height: 30px; background: var(--amber); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: #000; font-weight: 900; }
+  .logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    line-height: 1;
+  }
+
   nav { display: flex; align-items: center; gap: 28px; }
-  nav a { font-size: 0.875rem; font-weight: 500; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
-  nav a:hover { color: var(--text); }
+  nav a {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--amber);
+    text-decoration: none;
+    transition: color 0.2s;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+  nav a:hover { color: var(--amber2); }
+  nav a.active { color: var(--amber2); }
   .trust-strip { display: flex; align-items: center; gap: 20px; }
   .trust-item { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; color: var(--text-muted); font-family: 'DM Mono', monospace; }
   .trust-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); }
@@ -39,11 +52,11 @@
   /* Unique: animated countdown ticker — showing scarcity honestly */
   .seat-ticker { position: absolute; bottom: 32px; right: 32px; background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); border-radius: 12px; padding: 16px 20px; text-align: center; }
   .ticker-num { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: #f87171; display: block; line-height: 1; }
-  .ticker-lbl { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; color: #f87171; opacity: 0.7; }
+  .ticker-lbl { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: #f87171; opacity: 0.7; }
   .ticker-sub { font-size: 0.68rem; color: var(--text-muted); margin-top: 4px; display: block; }
 
-  .page-left h1 { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 20px; }
-  .page-left h1 em { font-style: normal; color: var(--amber); }
+  .page-left h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 20px; }
+  .page-left h1 em { font-style: italic; color: var(--amber); }
   .page-left p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 40px; max-width: 420px; }
 
   /* What you get list */
@@ -65,7 +78,7 @@
 
   /* ── FORM ── */
   .form-wrap { max-width: 100%; }
-  .form-heading { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 6px; }
+  .form-heading { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 6px; }
   .form-subheading { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 32px; }
 
   /* Step indicator */
@@ -76,7 +89,7 @@
   .step-line { flex: 1; height: 1px; background: var(--border); margin: 0 8px; }
   .step-line.done { background: rgba(74,222,128,0.3); }
   .steps-labels { display: flex; justify-content: space-between; margin-bottom: 28px; }
-  .step-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); }
+  .step-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); }
   .step-label.active { color: var(--amber); }
 
   /* Form fields */
@@ -99,7 +112,7 @@
   .course-option.selected { border-color: var(--amber); background: var(--amber-glow); }
   .co-icon { font-size: 1.2rem; display: block; margin-bottom: 6px; }
   .co-name { font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700; line-height: 1.3; margin-bottom: 3px; }
-  .co-level { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); }
+  .co-level { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); }
 
   /* Time slot grid */
   .slot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
@@ -110,7 +123,7 @@
   .slot-date { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.8rem; display: block; margin-bottom: 3px; }
   .slot-time { font-size: 0.68rem; color: var(--text-muted); display: block; }
   .slot.selected .slot-time { color: var(--amber); opacity: 0.8; }
-  .slot-seats { display: block; font-size: 0.58rem; margin-top: 4px; }
+  .slot-seats { display: block; font-size: 0.65rem; margin-top: 4px; }
   .seats-low { color: #f87171; }
   .seats-ok { color: var(--green); }
 
@@ -124,7 +137,7 @@
   /* Success state */
   .form-success { display: none; text-align: center; padding: 24px 0; animation: fadeUp 0.5s ease both; }
   .success-icon { font-size: 3.5rem; display: block; margin-bottom: 16px; }
-  .success-title { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; margin-bottom: 10px; }
+  .success-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 800; margin-bottom: 10px; }
   .success-sub { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 28px; }
   .success-detail { background: var(--bg3); border: 1px solid rgba(74,222,128,0.25); border-radius: 12px; padding: 20px; text-align: left; margin-bottom: 24px; }
   .sd-row { display: flex; align-items: center; gap: 10px; font-size: 0.82rem; padding: 6px 0; border-bottom: 1px solid var(--border); }
@@ -146,18 +159,51 @@
   .rb-text strong { color: var(--green); }
 
   @media (max-width: 1100px) { .page-grid { grid-template-columns: 1fr; } .page-left { border-right: none; border-bottom: 1px solid var(--border); } .seat-ticker { position: static; margin-top: 40px; display: inline-block; } }
-  @media (max-width: 768px) { header { padding: 0 20px; } nav { display: none; } .trust-strip { display: none; } .page-right { padding: 36px 20px; } .page-left { padding: 48px 20px; } .course-select-grid { grid-template-columns: 1fr; } .slot-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 768px) {
+    header { flex-wrap: wrap; height: auto; padding: 12px 20px; gap: 8px; }
+    nav { gap: 14px; flex-wrap: wrap; } header { padding: 0 20px; } nav { display: flex; overflow-x: auto; gap: 16px; font-size: 0.8rem; -ms-overflow-style: none; scrollbar-width: none; } .trust-strip { display: none; } .page-right { padding: 36px 20px; } .page-left { padding: 48px 20px; } .course-select-grid { grid-template-columns: 1fr; } .slot-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  /* ── PLAYFAIR HEADINGS — applied site-wide ── */
+  .section-title,
+  .courses-header h2,
+  .why-title,
+  section > .container > h2,
+  section h2.section-title,
+  .faq-list ~ h2,
+  .page-hero h2,
+  .cert-section h2,
+  .outcomes h2,
+  .demo-title,
+  .pricing-hero h2,
+  .intro-headline,
+  .hero-left h2,
+  .cert-info h3,
+  .cert-card h3,
+  .enrol-card-header h3,
+  .track-card h3 {
+    font-family: 'Playfair Display', serif !important;
+  }
+  /* marker class to avoid duplicate injection */
+  .playfair-headings-applied { display: none; }
 </style>
 </head>
 <body>
 
 <header>
-  <a href="newtonjee-homepage.html" class="logo"><div class="logo-icon">N</div>Newton<span class="acc-c">JEE</span></a>
-  <nav>
+  <a href="newtonjee-homepage.html" class="logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 265 46" width="200" height="35">
+      <text x="2" y="36" font-family="'Arial Black', Impact, sans-serif" font-weight="900" font-size="34px" fill="#ffffff" letter-spacing="0px">NEWTON</text>
+      <rect x="185" y="2" width="78" height="40" rx="4" fill="#f5a623"/>
+      <rect x="185" y="2" width="78" height="9" rx="4" fill="rgba(255,255,255,0.22)"/>
+      <rect x="185" y="33" width="78" height="9" rx="0" fill="rgba(0,0,0,0.1)"/>
+      <text x="191" y="36" font-family="'Arial Black', Impact, sans-serif" font-weight="900" font-size="33px" fill="#1a1a1a" letter-spacing="-1px">JEE</text>
+    </svg></a>
+    <nav>
     <a href="newtonjee-homepage.html#courses">Courses</a>
-    <a href="newtonjee-pricing.html">Pricing</a>
     <a href="certifications.html">Certifications</a>
+    <a href="newtonjee-pricing.html">Pricing</a>
     <a href="blog.html">Blog</a>
+    <a href="robotics-research.html">Robotics</a>
+    <a href="contact.html">Contact</a>
   </nav>
   <div class="trust-strip">
     <div class="trust-item"><span class="trust-dot"></span> Free · No obligation</div>
@@ -208,7 +254,7 @@
       </div>
 
       <!-- SOCIAL PROOF -->
-      <div style="font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">// What people say after the demo</div>
+      <div style="font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">// What people say after the demo</div>
       <div class="social-proof">
         <div class="sp-card">
           <div class="sp-av" style="background:linear-gradient(135deg,#34d399,#059669);color:#000;">SA</div>
@@ -272,7 +318,7 @@
         </div>
         <div>
           <label class="field-label">Phone Number *</label>
-          <input class="field-input" type="tel" id="fphone" placeholder="+91 9XXXXXXXXX" autocomplete="tel">
+          <input class="field-input" type="tel" id="fphone" placeholder="+91 XXXXX XXXXX" autocomplete="tel">
         </div>
         <div>
           <label class="field-label">Email Address *</label>
@@ -415,7 +461,7 @@
           <div class="sd-row"><span class="sd-icon">👩‍🏫</span><span class="sd-label">Format</span><span class="sd-val">Live Zoom · 1 hour</span></div>
           <div class="sd-row"><span class="sd-icon">💬</span><span class="sd-label">Confirmation via</span><span class="sd-val">WhatsApp + Email</span></div>
         </div>
-        <a href="https://wa.me/919XXXXXXXXX" class="whatsapp-btn">💬 Reach us on WhatsApp</a>
+        <a href="https://wa.me/918019466635" class="whatsapp-btn">💬 Reach us on WhatsApp</a>
         <div class="trust-badges">
           <div class="trust-badge">🔒 Zero spam</div>
           <div class="trust-badge">📵 No sales pressure</div>
@@ -528,5 +574,43 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 </script>
-</body>
-</html>
+
+<!-- ── SITE FOOTER ── -->
+<footer style="background:#080c14;border-top:1px solid rgba(255,255,255,0.06);padding:48px 48px 32px;margin-top:0;">
+  <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;flex-wrap:wrap;">
+    <div>
+      <a href="newtonjee-homepage.html" style="text-decoration:none;display:inline-flex;align-items:center;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 265 46" width="200" height="35">
+      <text x="2" y="36" font-family="'Arial Black', Impact, sans-serif" font-weight="900" font-size="34px" fill="#ffffff" letter-spacing="0px">NEWTON</text>
+      <rect x="185" y="2" width="78" height="40" rx="4" fill="#f5a623"/>
+      <rect x="185" y="2" width="78" height="9" rx="4" fill="rgba(255,255,255,0.22)"/>
+      <rect x="185" y="33" width="78" height="9" rx="0" fill="rgba(0,0,0,0.1)"/>
+      <text x="191" y="36" font-family="'Arial Black', Impact, sans-serif" font-weight="900" font-size="33px" fill="#1a1a1a" letter-spacing="-1px">JEE</text>
+    </svg></a>
+      <p style="font-size:0.82rem;color:#5d7080;line-height:1.7;max-width:240px;">India's most elite AI &amp; Robotics career accelerator. Hyderabad, Telangana.</p>
+    </div>
+    <div>
+      <h5 style="font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#5d7080;margin-bottom:16px;">Courses</h5>
+      <a href="course-python-for-ai.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Python for AI</a>
+      <a href="course-machine-learning.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Machine Learning</a>
+      <a href="course-generative-ai-llms.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Generative AI &amp; LLMs</a>
+      <a href="robotics-research.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">🤖 Robotics Research</a>
+      <a href="newtonjee-homepage.html#courses" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;">All Courses →</a>
+    </div>
+    <div>
+      <h5 style="font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#5d7080;margin-bottom:16px;">Platform</h5>
+      <a href="certifications.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Certifications</a>
+      <a href="success-stories.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Success Stories</a>
+      <a href="newtonjee-pricing.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Pricing</a>
+      <a href="blog.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Blog</a>
+    <a href="robotics-research.html">Robotics</a>
+      <a href="portal.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;">Student Portal</a>
+    </div>
+    <div>
+      <h5 style="font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#5d7080;margin-bottom:16px;">Contact</h5>
+      <a href="tel:+918019466635" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">📞 +91 80194 66635</a>
+      <a href="/cdn-cgi/l/email-protection#82e1edecf6e3e1f6c2ece7f5f6edece8e7e7ace1edef">✉ <span class="__cf_email__" data-cfemail="9af9f5f4eefbf9eedaf4ffedeef5f4f0ffffb4f9f5f7">[email&#160;protected]</span></a>
+      <a href="https://wa.me/918019466635" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">💬 WhatsApp Us</a>
+      <a href="contact.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;">📍 Mallampet, Hyderabad</a>
+    </div>
+  </div>
+  <div style="max-width:1200px;margin:28px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,0.05);display:fl

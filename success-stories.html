@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Success Stories — Newton JEE</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800;1,900&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0a0c12; --bg2: #0f1219; --bg3: #151b27;
@@ -19,7 +19,7 @@
   body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.022; pointer-events: none; z-index: 9999; }
 
   header { position: sticky; top: 0; z-index: 100; background: rgba(10,12,18,0.93); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 0 48px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
-  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; letter-spacing: -0.02em; display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); }
+  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; letter-spacing: -0.02em; display: flex; align-items: center; gap: 8px; text-decoration: none; color: #ffffff; }
   .logo .acc-c { color: var(--amber); }
   .logo-icon { width: 30px; height: 30px; background: var(--amber); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: #000; font-weight: 900; }
   nav { display: flex; align-items: center; gap: 28px; }
@@ -30,7 +30,7 @@
 
   .container { max-width: 1160px; margin: 0 auto; padding: 0 48px; }
   .sec-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
-  .sec-title { font-family: 'Syne', sans-serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 16px; }
+  .sec-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 16px; }
   .sec-sub { font-size: 0.95rem; color: var(--text-muted); max-width: 580px; line-height: 1.8; margin-bottom: 48px; }
   section { padding: 80px 0; border-bottom: 1px solid var(--border); }
   section:last-of-type { border-bottom: none; }
@@ -41,15 +41,15 @@
   /* Unique: floating success metrics rising upward */
   .floating-metric { position: absolute; font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.06em; color: rgba(74,222,128,0.25); animation: floatUp 6s ease-in-out infinite; white-space: nowrap; }
   .fm1 { left: 8%; top: 70%; animation-delay: 0s; }
-  .fm2 { left: 20%; top: 80%; animation-delay: -1.5s; font-size: 0.6rem; color: rgba(245,158,11,0.2); }
+  .fm2 { left: 20%; top: 80%; animation-delay: -1.5s; font-size: 0.68rem; color: rgba(245,158,11,0.2); }
   .fm3 { right: 12%; top: 65%; animation-delay: -3s; }
-  .fm4 { right: 25%; top: 75%; animation-delay: -4.5s; font-size: 0.6rem; color: rgba(245,158,11,0.2); }
+  .fm4 { right: 25%; top: 75%; animation-delay: -4.5s; font-size: 0.68rem; color: rgba(245,158,11,0.2); }
   @keyframes floatUp { 0%{opacity:0;transform:translateY(0)} 20%{opacity:1} 80%{opacity:0.6} 100%{opacity:0;transform:translateY(-120px)} }
 
   .hero-content { position: relative; z-index: 2; animation: fadeUp 0.7s ease both; }
   @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
-  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 20px; }
-  .hero h1 em { font-style: normal; background: linear-gradient(135deg, var(--green), #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 20px; }
+  .hero h1 em { font-style: italic; background: linear-gradient(135deg, var(--green), #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
   .hero-sub { font-size: 1.05rem; color: var(--text-muted); max-width: 520px; margin: 0 auto 40px; line-height: 1.8; }
 
   /* ── STAT STRIP ── */
@@ -82,16 +82,16 @@
   .story-name { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 800; margin-bottom: 3px; }
   .story-transition { font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
   .transition-arrow { color: var(--green); font-weight: 700; }
-  .story-cert { display: inline-flex; align-items: center; gap: 5px; background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.2); color: var(--green); font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 10px; border-radius: 100px; margin-top: 6px; }
+  .story-cert { display: inline-flex; align-items: center; gap: 5px; background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.2); color: var(--green); font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 10px; border-radius: 100px; margin-top: 6px; }
   .story-quote { font-size: 0.88rem; color: var(--text); line-height: 1.75; font-style: italic; font-weight: 300; }
   .story-outcome { display: flex; gap: 12px; flex-wrap: wrap; }
   .outcome-pill { display: flex; align-items: center; gap: 6px; background: var(--card); border: 1px solid var(--border); border-radius: 100px; padding: 6px 12px; font-size: 0.75rem; }
   .outcome-pill .op-label { color: var(--text-muted); }
-  .outcome-pill .op-val { font-family: 'Syne', sans-serif; font-weight: 700; color: var(--text); }
+  .outcome-pill .op-val { font-family: 'Playfair Display', serif; font-weight: 700; color: var(--text); }
 
   /* Salary lift card */
   .salary-card { background: var(--bg3); border: 1px solid rgba(74,222,128,0.2); border-radius: 12px; padding: 20px; }
-  .sc-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+  .sc-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
   .sc-row { display: flex; align-items: center; justify-content: space-between; }
   .sc-before { font-size: 0.85rem; color: var(--text-muted); }
   .sc-after { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; color: var(--green); }
@@ -110,7 +110,7 @@
   /* ── TRANSITION TABLE ── */
   .transition-table { width: 100%; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
   .tt-header { display: grid; grid-template-columns: 1.5fr 1fr 1.5fr 1fr 1fr; padding: 14px 20px; background: var(--bg3); border-bottom: 1px solid var(--border); }
-  .tt-col-head { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+  .tt-col-head { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
   .tt-row { display: grid; grid-template-columns: 1.5fr 1fr 1.5fr 1fr 1fr; padding: 16px 20px; border-bottom: 1px solid var(--border); align-items: center; transition: background 0.2s; }
   .tt-row:last-child { border-bottom: none; }
   .tt-row:hover { background: rgba(255,255,255,0.01); }
@@ -118,7 +118,7 @@
   .tt-from { font-size: 0.8rem; color: var(--text-muted); }
   .tt-to { font-size: 0.8rem; color: var(--text); }
   .tt-company { font-size: 0.78rem; color: var(--amber); font-family: 'DM Mono', monospace; }
-  .tt-cert { display: inline-flex; align-items: center; gap: 4px; font-family: 'DM Mono', monospace; font-size: 0.6rem; padding: 2px 8px; border-radius: 100px; }
+  .tt-cert { display: inline-flex; align-items: center; gap: 4px; font-family: 'DM Mono', monospace; font-size: 0.68rem; padding: 2px 8px; border-radius: 100px; }
   .tc-b { background: rgba(205,127,50,0.1); color: #cd7f32; border: 1px solid rgba(205,127,50,0.2); }
   .tc-s { background: rgba(192,192,192,0.1); color: #c0c0c0; border: 1px solid rgba(192,192,192,0.2); }
   .tc-g { background: rgba(251,191,36,0.1); color: #fbbf24; border: 1px solid rgba(251,191,36,0.2); }
@@ -126,7 +126,7 @@
 
   /* ── CTA ── */
   .cta-bar { background: linear-gradient(135deg, rgba(74,222,128,0.08), rgba(74,222,128,0.02)); border: 1px solid rgba(74,222,128,0.2); border-radius: 20px; padding: 56px; text-align: center; }
-  .cta-bar h2 { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; margin-bottom: 12px; }
+  .cta-bar h2 { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 800; margin-bottom: 12px; }
   .cta-bar p { color: var(--text-muted); margin-bottom: 32px; }
   .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
   .btn-primary { background: var(--amber); color: #000; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.88rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 14px 28px; border-radius: 8px; border: none; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.2s; }
@@ -147,6 +147,29 @@
 
   @media (max-width: 960px) { .container { padding: 0 20px; } header { padding: 0 20px; } nav { display: none; } .stat-strip { grid-template-columns: 1fr 1fr; } .stories-grid { grid-template-columns: 1fr; } .story-featured { grid-template-columns: 1fr; } .sf-left { border-right: none; border-bottom: 1px solid var(--border); } .hero { padding: 72px 20px 56px; } section { padding: 56px 0; } .tt-header, .tt-row { grid-template-columns: 1fr 1fr; } .tt-col-head:nth-child(n+3), .tt-row > *:nth-child(n+3) { display: none; } .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; } }
   @media (max-width: 640px) { .ss-item { border-right: none; border-bottom: 1px solid var(--border); } .ss-item:last-child { border-bottom: none; } .stat-strip { grid-template-columns: 1fr; } .footer-grid { grid-template-columns: 1fr; } }
+
+  /* ── PLAYFAIR HEADINGS — applied site-wide ── */
+  .section-title,
+  .courses-header h2,
+  .why-title,
+  section > .container > h2,
+  section h2.section-title,
+  .faq-list ~ h2,
+  .page-hero h2,
+  .cert-section h2,
+  .outcomes h2,
+  .demo-title,
+  .pricing-hero h2,
+  .intro-headline,
+  .hero-left h2,
+  .cert-info h3,
+  .cert-card h3,
+  .enrol-card-header h3,
+  .track-card h3 {
+    font-family: 'Playfair Display', serif !important;
+  }
+  /* marker class to avoid duplicate injection */
+  .playfair-headings-applied { display: none; }
 </style>
 </head>
 <body>
@@ -158,6 +181,7 @@
     <a href="newtonjee-pricing.html">Pricing</a>
     <a href="certifications.html">Certifications</a>
     <a href="blog.html">Blog</a>
+    <a href="robotics-research.html" style="font-size:0.875rem;font-weight:500;color:#8892a4;text-decoration:none;">Robotics</a>
   </nav>
   <a href="free-demo.html" class="btn-header">Book Free Demo →</a>
 </header>
@@ -238,7 +262,7 @@
             <div class="sc-timeline">After completing all 9 courses · Platinum certified</div>
           </div>
           <div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:20px;">
-            <div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">Courses Completed</div>
+            <div style="font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">Courses Completed</div>
             <div style="display:flex;flex-direction:column;gap:6px;">
               <div style="font-size:0.8rem;color:var(--text-muted);display:flex;align-items:center;gap:8px;"><span style="color:var(--green)">✓</span> Python for AI · Statistics · Machine Learning</div>
               <div style="font-size:0.8rem;color:var(--text-muted);display:flex;align-items:center;gap:8px;"><span style="color:var(--green)">✓</span> Deep Learning · Generative AI · NLP</div>
@@ -511,10 +535,10 @@
     </div>
     <div class="footer-col">
       <h5>Contact</h5>
-      <a href="tel:+919XXXXXXXXX">📞 +91 9XXX XXXXXX</a>
-      <a href="mailto:hello@newtonjee.com">✉️ hello@newtonjee.com</a>
+      <a href="tel:+918019466635">📞 +91 80194 66635</a>
+      <a href="/cdn-cgi/l/email-protection#a6cec3cacac9e6c8c3d1d2c9c8ccc3c388c5c9cb">✉️ <span class="__cf_email__" data-cfemail="523a373e3e3d123c3725263d3c3837377c313d3f">[email&#160;protected]</span></a>
       <a href="newtonjee-homepage.html#contact">📍 Hyderabad, Telangana</a>
-      <a href="https://wa.me/919XXXXXXXXX">💬 WhatsApp Us</a>
+      <a href="https://wa.me/918019466635">💬 WhatsApp Us</a>
     </div>
   </div>
   <div class="footer-bottom">
@@ -523,18 +547,11 @@
   </div>
 </footer>
 
-<a href="https://wa.me/919XXXXXXXXX" style="position:fixed;bottom:28px;right:28px;width:52px;height:52px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 6px 28px rgba(37,211,102,0.4);text-decoration:none;z-index:200;animation:floatBounce 3s ease-in-out infinite;">💬</a>
+<a href="https://wa.me/918019466635" style="position:fixed;bottom:28px;right:28px;width:52px;height:52px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 6px 28px rgba(37,211,102,0.4);text-decoration:none;z-index:200;animation:floatBounce 3s ease-in-out infinite;">💬</a>
 <style>@keyframes floatBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}</style>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.06 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-  document.querySelectorAll('.filter-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-    });
-  });
-</script>
-</body>
-</html>
+  document.querySelectorA
+<div class="playfair-headings-applied"></div>

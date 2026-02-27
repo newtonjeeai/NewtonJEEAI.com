@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Certifications — Newton JEE</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800;1,900&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0a0c12; --bg2: #0f1219; --bg3: #151b27;
@@ -16,15 +16,26 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.6; }
-  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.022; pointer-events: none; z-index: 9999; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.022; pointer-events: none; z-index: 1; }
 
   /* ── HEADER ── */
   header { position: sticky; top: 0; z-index: 100; background: rgba(10,12,18,0.93); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 0 48px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
-  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; letter-spacing: -0.02em; display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); }
+  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; letter-spacing: -0.02em; display: flex; align-items: center; gap: 8px; text-decoration: none; color: #ffffff; }
   .logo .acc-c { color: var(--amber); }
   .logo-icon { width: 30px; height: 30px; background: var(--amber); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: #000; font-weight: 900; }
+
   nav { display: flex; align-items: center; gap: 28px; }
-  nav a { font-size: 0.875rem; font-weight: 500; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+  nav a {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--amber);
+    text-decoration: none;
+    transition: color 0.2s;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+  nav a:hover { color: var(--amber2); }
+  nav a.active { color: var(--amber2); }
   nav a:hover, nav a.active { color: var(--text); }
   .btn-header { background: var(--amber); color: #000; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 9px 18px; border-radius: 6px; border: none; cursor: pointer; text-decoration: none; transition: all 0.2s; }
   .btn-header:hover { background: var(--amber2); }
@@ -32,7 +43,7 @@
   /* ── PAGE ── */
   .container { max-width: 1160px; margin: 0 auto; padding: 0 48px; }
   .sec-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
-  .sec-title { font-family: 'Syne', sans-serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 16px; }
+  .sec-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 16px; }
   .sec-sub { font-size: 0.95rem; color: var(--text-muted); max-width: 580px; line-height: 1.8; margin-bottom: 48px; }
   section { padding: 80px 0; border-bottom: 1px solid var(--border); }
   section:last-of-type { border-bottom: none; }
@@ -60,8 +71,8 @@
 
   .hero-content { position: relative; z-index: 2; animation: fadeUp 0.7s ease both; }
   @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
-  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 20px; }
-  .hero h1 em { font-style: normal; background: linear-gradient(135deg, var(--amber), #fb923c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 20px; }
+  .hero h1 em { font-style: italic; background: linear-gradient(135deg, var(--amber), #fb923c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
   .hero-sub { font-size: 1.05rem; color: var(--text-muted); max-width: 520px; margin: 0 auto 40px; line-height: 1.8; }
   .hero-stats { display: inline-flex; gap: 0; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; background: var(--bg3); }
   .hst { padding: 20px 32px; border-right: 1px solid var(--border); text-align: center; }
@@ -99,14 +110,14 @@
 
   .tier-medal { font-size: 2.4rem; display: block; margin-bottom: 16px; }
   .tier-name { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; margin-bottom: 4px; }
-  .tier-badge-label { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; display: block; }
+  .tier-badge-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; display: block; }
   .tc-bronze .tier-badge-label { color: #cd7f32; }
   .tc-silver .tier-badge-label { color: #c0c0c0; }
   .tc-gold   .tier-badge-label { color: #fbbf24; }
   .tc-plat   .tier-badge-label { color: #22d3ee; }
   .tier-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; }
   .tier-courses { border-top: 1px solid var(--border); padding-top: 16px; }
-  .tier-courses h6 { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+  .tier-courses h6 { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
   .tc-course { display: flex; align-items: center; gap: 8px; font-size: 0.78rem; color: var(--text-muted); padding: 4px 0; }
   .tc-course::before { content: '→'; font-size: 0.65rem; flex-shrink: 0; }
   .tc-bronze .tc-course::before { color: #cd7f32; }
@@ -129,10 +140,10 @@
   .li-badge-text { flex: 1; }
   .li-badge-name { font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700; margin-bottom: 1px; }
   .li-badge-issuer { font-size: 0.68rem; color: rgba(255,255,255,0.4); font-family: 'DM Mono', monospace; }
-  .li-badge-date { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: rgba(255,255,255,0.3); text-align: right; }
+  .li-badge-date { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: rgba(255,255,255,0.3); text-align: right; }
   .li-badge.gold-active { border-color: rgba(251,191,36,0.3); background: rgba(251,191,36,0.05); }
   .li-badge.plat-active { border-color: rgba(34,211,238,0.3); background: rgba(34,211,238,0.05); }
-  .linkedin-badge-pulse { position: absolute; top: -8px; right: -8px; width: 20px; height: 20px; border-radius: 50%; background: #0077b5; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; color: #fff; font-weight: 900; animation: badgePop 2s ease-in-out infinite; }
+  .linkedin-badge-pulse { position: absolute; top: -8px; right: -8px; width: 20px; height: 20px; border-radius: 50%; background: #0077b5; display: flex; align-items: center; justify-content: center; font-size: 0.68rem; color: #fff; font-weight: 900; animation: badgePop 2s ease-in-out infinite; }
   @keyframes badgePop { 0%,100%{transform:scale(1)} 50%{transform:scale(1.2)} }
   .badge-info p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 24px; }
   .badge-steps { display: flex; flex-direction: column; gap: 14px; }
@@ -154,21 +165,21 @@
   .cert-border { position: absolute; inset: 12px; border: 1px solid rgba(245,158,11,0.08); border-radius: 10px; pointer-events: none; }
   .cert-watermark { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: 8rem; font-weight: 800; color: rgba(245,158,11,0.02); pointer-events: none; letter-spacing: -0.05em; }
   .cert-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1rem; color: var(--amber); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 32px; display: block; }
-  .cert-heading { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; }
+  .cert-heading { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; }
   .cert-name { font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; }
   .cert-has { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; }
   .cert-course { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; color: var(--amber); margin-bottom: 28px; }
   .cert-meta { display: flex; align-items: center; justify-content: center; gap: 32px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.06); }
   .cert-sig { text-align: center; }
   .cert-sig-line { width: 100px; height: 1px; background: rgba(255,255,255,0.15); margin: 0 auto 6px; }
-  .cert-sig-name { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.08em; color: var(--text-muted); }
+  .cert-sig-name { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; color: var(--text-muted); }
   .cert-badge { width: 56px; height: 56px; border-radius: 50%; background: rgba(251,191,36,0.12); border: 2px solid rgba(251,191,36,0.4); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; }
-  .cert-id { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--text-muted); margin-top: 20px; display: block; letter-spacing: 0.08em; }
+  .cert-id { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--text-muted); margin-top: 20px; display: block; letter-spacing: 0.08em; }
 
   /* ── VERIFICATION ── */
   .verify-box { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 40px; max-width: 560px; margin: 0 auto; text-align: center; }
   .verify-icon { font-size: 2.4rem; margin-bottom: 16px; display: block; }
-  .verify-box h3 { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 800; margin-bottom: 8px; }
+  .verify-box h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 800; margin-bottom: 8px; }
   .verify-box p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 24px; }
   .verify-input-row { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
   .verify-input { flex: 1; background: var(--bg3); border: none; color: var(--text); padding: 14px 18px; font-family: 'DM Mono', monospace; font-size: 0.85rem; outline: none; letter-spacing: 0.05em; }
@@ -183,11 +194,11 @@
   .path-step { padding: 28px 16px; text-align: center; border-right: 1px solid var(--border); position: relative; transition: background 0.2s; }
   .path-step:last-child { border-right: none; }
   .path-step:hover { background: rgba(245,158,11,0.03); }
-  .ps-num { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 10px; }
+  .ps-num { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 10px; }
   .ps-medal { font-size: 1.6rem; display: block; margin-bottom: 8px; }
   .ps-name { font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px; }
   .ps-courses { font-size: 0.68rem; color: var(--text-muted); font-family: 'DM Mono', monospace; }
-  .ps-arrow { position: absolute; right: -10px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; border-radius: 50%; background: var(--bg3); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.6rem; color: var(--amber); z-index: 2; }
+  .ps-arrow { position: absolute; right: -10px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; border-radius: 50%; background: var(--bg3); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.68rem; color: var(--amber); z-index: 2; }
   .path-step:last-child .ps-arrow { display: none; }
 
   /* ── FAQ ── */
@@ -202,7 +213,7 @@
 
   /* ── CTA ── */
   .cta-bar { background: linear-gradient(135deg, rgba(245,158,11,0.1), rgba(251,146,60,0.05)); border: 1px solid rgba(245,158,11,0.2); border-radius: 20px; padding: 56px; text-align: center; }
-  .cta-bar h2 { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; margin-bottom: 12px; }
+  .cta-bar h2 { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 800; margin-bottom: 12px; }
   .cta-bar p { color: var(--text-muted); margin-bottom: 32px; }
   .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
   .btn-primary { background: var(--amber); color: #000; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.88rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 14px 28px; border-radius: 8px; border: none; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.2s; }
@@ -219,22 +230,49 @@
   .footer-col a:hover { color: var(--amber); }
   .footer-bottom { max-width: 1160px; margin: 32px auto 0; padding-top: 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; color: var(--text-muted); }
 
-  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+  .reveal { opacity: 1 !important; transform: translateY(0); transition: opacity 0.6s ease, transform 0.6s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  @media (max-width: 960px) { .container { padding: 0 20px; } header { padding: 0 20px; } nav { display: none; } .tier-grid { grid-template-columns: 1fr 1fr; } .badge-showcase { grid-template-columns: 1fr; } .path-flow { grid-template-columns: 1fr 1fr; } .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; } section { padding: 56px 0; } .hero { padding: 72px 20px 56px; } }
+  @media (max-width: 960px) {
+    header { flex-wrap: wrap; height: auto; padding: 12px 20px; gap: 8px; }
+    nav { gap: 14px; flex-wrap: wrap; } .container { padding: 0 20px; } header { padding: 0 20px; } nav { display: flex; overflow-x: auto; gap: 16px; font-size: 0.8rem; -ms-overflow-style: none; scrollbar-width: none; } .tier-grid { grid-template-columns: 1fr 1fr; } .badge-showcase { grid-template-columns: 1fr; } .path-flow { grid-template-columns: 1fr 1fr; } .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; } section { padding: 56px 0; } .hero { padding: 72px 20px 56px; } }
   @media (max-width: 640px) { .tier-grid { grid-template-columns: 1fr; } .hero-stats { flex-direction: column; width: 100%; } .path-flow { grid-template-columns: 1fr; } .hst { border-right: none; border-bottom: 1px solid var(--border); } .hst:last-child { border-bottom: none; } .footer-grid { grid-template-columns: 1fr; } .cta-btns { flex-direction: column; align-items: center; } }
+
+  /* ── PLAYFAIR HEADINGS — applied site-wide ── */
+  .section-title,
+  .courses-header h2,
+  .why-title,
+  section > .container > h2,
+  section h2.section-title,
+  .faq-list ~ h2,
+  .page-hero h2,
+  .cert-section h2,
+  .outcomes h2,
+  .demo-title,
+  .pricing-hero h2,
+  .intro-headline,
+  .hero-left h2,
+  .cert-info h3,
+  .cert-card h3,
+  .enrol-card-header h3,
+  .track-card h3 {
+    font-family: 'Playfair Display', serif !important;
+  }
+  /* marker class to avoid duplicate injection */
+  .playfair-headings-applied { display: none; }
 </style>
 </head>
 <body>
 
 <header>
   <a href="newtonjee-homepage.html" class="logo"><div class="logo-icon">N</div>Newton<span class="acc-c">JEE</span></a>
-  <nav>
+    <nav>
     <a href="newtonjee-homepage.html#courses">Courses</a>
+    <a href="certifications.html">Certifications</a>
     <a href="newtonjee-pricing.html">Pricing</a>
-    <a href="certifications.html" class="active">Certifications</a>
     <a href="blog.html">Blog</a>
+    <a href="robotics-research.html">Robotics</a>
+    <a href="contact.html">Contact</a>
   </nav>
   <a href="free-demo.html" class="btn-header">Book Free Demo →</a>
 </header>
@@ -552,14 +590,15 @@
       <a href="certifications.html">Certifications</a>
       <a href="success-stories.html">Success Stories</a>
       <a href="blog.html">Blog</a>
+    <a href="robotics-research.html">Robotics</a>
       <a href="newtonjee-homepage.html#contact">Contact</a>
     </div>
     <div class="footer-col">
       <h5>Contact</h5>
-      <a href="tel:+919XXXXXXXXX">📞 +91 9XXX XXXXXX</a>
-      <a href="mailto:hello@newtonjee.com">✉️ hello@newtonjee.com</a>
+      <a href="tel:+918019466635">📞 +91 80194 66635</a>
+      <a href="/cdn-cgi/l/email-protection#f99a96978d989a8db9979c8e8d9697939c9cd79a9694">✉ <span class="__cf_email__" data-cfemail="42212d2c36232136022c2735362d2c2827276c212d2f">[email&#160;protected]</span></a>
       <a href="newtonjee-homepage.html#contact">📍 Hyderabad, Telangana</a>
-      <a href="https://wa.me/919XXXXXXXXX">💬 WhatsApp Us</a>
+      <a href="https://wa.me/918019466635">💬 WhatsApp Us</a>
     </div>
   </div>
   <div class="footer-bottom">
@@ -568,10 +607,10 @@
   </div>
 </footer>
 
-<a href="https://wa.me/919XXXXXXXXX" style="position:fixed;bottom:28px;right:28px;width:52px;height:52px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 6px 28px rgba(37,211,102,0.4);text-decoration:none;z-index:200;animation:floatBounce 3s ease-in-out infinite;">💬</a>
+<a href="https://wa.me/918019466635" style="position:fixed;bottom:28px;right:28px;width:52px;height:52px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 6px 28px rgba(37,211,102,0.4);text-decoration:none;z-index:200;animation:floatBounce 3s ease-in-out infinite;">💬</a>
 <style>@keyframes floatBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}</style>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   document.querySelectorAll('.faq-q').forEach(btn => {
     btn.addEventListener('click', () => {
       const item = btn.parentElement;
@@ -585,14 +624,4 @@
 
   function verifyDemo() {
     const val = document.getElementById('certIdInput').value.trim();
-    const res = document.getElementById('verifyResult');
-    if (val.length > 4) {
-      res.className = 'verify-result success';
-      res.style.display = 'block';
-      res.innerHTML = `✓ Certificate <strong>${val}</strong> is valid · Issued to <strong>Priya Raghunathan</strong> · Generative AI & LLMs · 14 March 2025`;
-    }
-  }
-  document.getElementById('certIdInput').addEventListener('keydown', e => { if(e.key==='Enter') verifyDemo(); });
-</script>
-</body>
-</html>
+    const res = document.getElemen
