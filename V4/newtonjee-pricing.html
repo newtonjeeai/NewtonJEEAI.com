@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pricing & Bundles — Newton JEE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800;1,900&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.022; pointer-events: none; z-index: 1;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,12,18,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 48px; height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+    .logo {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  nav { display: flex; align-items: center; gap: 28px; }
+  nav a {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--amber);
+    text-decoration: none;
+    transition: color 0.2s;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+  nav a:hover, nav a.active { color: var(--amber2); }
+  .btn-enrol {
+    background: var(--amber); color: #000;
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 9px 18px; border-radius: 6px; text-decoration: none; transition: all 0.2s;
+  }
+  .btn-enrol:hover { background: var(--amber2); }
+  .btn-header {
+    background: var(--amber); color: #000;
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 0.75rem; letter-spacing: 0.07em; text-transform: uppercase;
+    padding: 8px 16px; border-radius: 6px; text-decoration: none;
+    border: none; cursor: pointer; transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .btn-header:hover { background: var(--amber2); }
+
+  /* ── HERO ── */
+  .page-hero {
+    padding: 80px 48px 64px;
+    position: relative; overflow: hidden;
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(245,158,11,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245,158,11,0.035) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse 100% 100% at 50% 50%, black 0%, transparent 80%);
+  }
+  .hero-glow {
+    position: absolute; top: -30%; left: 50%; transform: translateX(-50%); width: 700px; height: 500px;
+    background: radial-gradient(ellipse, rgba(245,158,11,0.1) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-content { position: relative; max-width: 700px; margin: 0 auto; text-align: center; animation: fadeUp 0.7s ease both; }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+
+  .page-label {
+    font-family: 'DM Mono', monospace; font-size: 0.7rem;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--amber); margin-bottom: 14px;
+  }
+  .page-hero h1 {
+    font-family: 'Playfair Display', serif; font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 800; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 20px;
+  }
+  .page-hero h1 span { color: var(--amber); }
+  .page-hero p { font-size: 1.05rem; color: var(--text-muted); font-weight: 300; max-width: 580px; margin: 0 auto; }
+
+  /* Tab nav */
+  .tab-nav {
+    display: flex; gap: 0;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+    padding: 0 48px;
+    overflow-x: auto;
+  }
+  .tab-nav button {
+    background: none; border: none; color: var(--text-muted);
+    font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.85rem;
+    padding: 18px 28px; cursor: pointer; position: relative;
+    transition: color 0.2s; white-space: nowrap; letter-spacing: 0.02em;
+  }
+  .tab-nav button::after {
+    content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
+    height: 2px; background: var(--amber); transform: scaleX(0); transition: transform 0.25s;
+  }
+  .tab-nav button.active { color: var(--text); }
+  .tab-nav button.active::after { transform: scaleX(1); }
+  .tab-nav button:hover { color: var(--text); }
+
+  /* ── SECTIONS ── */
+  .tab-panel { display: none; padding: 72px 48px; }
+  .tab-panel.active { display: block; animation: fadeUp 0.5s ease both; }
+
+  .container { max-width: 1160px; margin: 0 auto; }
+
+  .section-label {
+    font-family: 'DM Mono', monospace; font-size: 0.7rem;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber); margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 12px;
+  }
+  .section-sub { color: var(--text-muted); font-size: 0.95rem; font-weight: 300; max-width: 500px; margin-bottom: 52px; }
+
+  /* ── INDIVIDUAL COURSES TABLE ── */
+  .courses-table {
+    width: 100%; border-collapse: collapse;
+    border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
+  }
+  .courses-table thead tr { background: var(--bg3); }
+  .courses-table th {
+    font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--text-muted); font-weight: 500;
+    padding: 16px 20px; text-align: left; border-bottom: 1px solid var(--border);
+  }
+  .courses-table tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+  .courses-table tbody tr:last-child { border-bottom: none; }
+  .courses-table tbody tr:hover { background: rgba(245,158,11,0.03); }
+  .courses-table td { padding: 20px; font-size: 0.875rem; vertical-align: middle; }
+
+  .course-name-cell strong { font-family: 'Syne', sans-serif; font-size: 0.92rem; font-weight: 700; display: block; margin-bottom: 4px; }
+  .course-name-cell span { font-size: 0.78rem; color: var(--text-muted); }
+
+  .level-badge {
+    display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.68rem;
+    letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border-radius: 100px;
+  }
+  .level-badge.beginner { background: rgba(74,222,128,0.12); color: var(--green); }
+  .level-badge.intermediate { background: rgba(245,158,11,0.12); color: var(--amber); }
+  .level-badge.advanced { background: rgba(239,68,68,0.12); color: #f87171; }
+  .level-badge.capstone { background: rgba(34,211,238,0.12); color: var(--cyan); }
+
+  .price-strike { text-decoration: line-through; color: var(--text-muted); font-size: 0.8rem; display: block; }
+  .price-fee { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--text); }
+  .savings-pill {
+    display: inline-block; background: rgba(74,222,128,0.12); color: var(--green);
+    font-size: 0.7rem; font-weight: 600; padding: 2px 8px; border-radius: 100px; margin-top: 3px;
+  }
+  .btn-enrol-sm {
+    background: transparent; border: 1px solid var(--border); color: var(--text);
+    font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase; padding: 8px 16px;
+    border-radius: 6px; cursor: pointer; transition: all 0.2s; white-space: nowrap;
+  }
+  .btn-enrol-sm:hover { background: var(--amber); border-color: var(--amber); color: #000; }
+
+  /* ── BUNDLES ── */
+  .bundles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .bundle-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+    padding: 32px; position: relative; overflow: hidden; transition: all 0.25s;
+  }
+  .bundle-card:hover { border-color: var(--border-hover); transform: translateY(-4px); }
+  .bundle-card.featured {
+    border-color: var(--amber); background: rgba(245,158,11,0.05);
+  }
+  .bundle-card.featured::before {
+    content: '★ MOST POPULAR';
+    position: absolute; top: 18px; right: -26px;
+    background: var(--amber); color: #000;
+    font-family: 'DM Mono', monospace; font-size: 0.68rem; font-weight: 500; letter-spacing: 0.1em;
+    padding: 5px 36px; transform: rotate(45deg); transform-origin: center;
+  }
+  .bundle-icon { font-size: 2rem; margin-bottom: 16px; display: block; }
+  .bundle-card h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 800; margin-bottom: 6px; }
+  .bundle-tagline { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 24px; }
+
+  .bundle-courses { margin-bottom: 24px; }
+  .bundle-courses li {
+    list-style: none; display: flex; align-items: center; gap: 10px;
+    font-size: 0.82rem; color: var(--text-muted); padding: 7px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .bundle-courses li:last-child { border-bottom: none; }
+  .bundle-courses li .ck { color: var(--green); font-size: 0.85rem; flex-shrink: 0; }
+
+  .bundle-pricing { margin-bottom: 24px; }
+  .bundle-mrp { font-size: 0.82rem; color: var(--text-muted); text-decoration: line-through; }
+  .bundle-fee { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; line-height: 1.1; }
+  .bundle-fee sup { font-size: 1rem; vertical-align: top; margin-top: 6px; margin-right: 2px; }
+  .bundle-savings {
+    display: inline-block; margin-top: 6px;
+    background: rgba(74,222,128,0.12); color: var(--green);
+    font-size: 0.75rem; font-weight: 600; padding: 3px 10px; border-radius: 100px;
+  }
+  .bundle-emi { font-size: 0.78rem; color: var(--text-muted); margin-top: 6px; }
+
+  .btn-bundle {
+    width: 100%; padding: 13px; border-radius: 8px; cursor: pointer;
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.85rem;
+    letter-spacing: 0.05em; text-transform: uppercase; border: none; transition: all 0.2s;
+  }
+  .btn-bundle.primary { background: var(--amber); color: #000; }
+  .btn-bundle.primary:hover { background: var(--amber2); transform: translateY(-1px); box-shadow: 0 6px 30px rgba(245,158,11,0.3); }
+  .btn-bundle.secondary { background: transparent; border: 1px solid var(--border); color: var(--text); }
+  .btn-bundle.secondary:hover { border-color: var(--amber); color: var(--amber); }
+
+  /* ── EMI CALCULATOR ── */
+  .emi-wrap {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start;
+  }
+  .emi-form { background: var(--bg3); border: 1px solid var(--border); border-radius: 16px; padding: 40px; }
+  .form-group { margin-bottom: 24px; }
+  .form-group label {
+    display: block; font-family: 'DM Mono', monospace; font-size: 0.68rem;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px;
+  }
+  .form-group select, .form-group input {
+    width: 100%; background: var(--bg2); border: 1px solid var(--border); color: var(--text);
+    padding: 13px 16px; border-radius: 8px; font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem; outline: none; transition: border-color 0.2s; appearance: none;
+  }
+  .form-group select:focus, .form-group input:focus { border-color: var(--amber); }
+
+  .emi-toggle { display: flex; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .emi-toggle button {
+    flex: 1; background: none; border: none; color: var(--text-muted);
+    font-family: 'Syne', sans-serif; font-size: 0.82rem; font-weight: 700;
+    padding: 11px; cursor: pointer; transition: all 0.2s;
+  }
+  .emi-toggle button.active { background: var(--amber); color: #000; }
+
+  .emi-result {
+    background: var(--bg3); border: 1px solid var(--border); border-radius: 16px; padding: 40px;
+    position: sticky; top: 80px;
+  }
+  .emi-result h4 { font-family: 'Playfair Display', serif; font-size: 0.9rem; font-weight: 700; color: var(--text-muted); margin-bottom: 32px; text-transform: uppercase; letter-spacing: 0.06em; }
+
+  .emi-big {
+    font-family: 'Syne', sans-serif; font-size: 3.2rem; font-weight: 800;
+    color: var(--amber); line-height: 1; margin-bottom: 6px;
+  }
+  .emi-big sup { font-size: 1.4rem; vertical-align: top; margin-top: 10px; }
+  .emi-label { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 36px; }
+
+  .emi-breakdown { border-top: 1px solid var(--border); padding-top: 28px; }
+  .emi-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem;
+  }
+  .emi-row:last-child { border-bottom: none; }
+  .emi-row .key { color: var(--text-muted); }
+  .emi-row .val { font-family: 'Syne', sans-serif; font-weight: 700; }
+  .emi-row .val.savings { color: var(--green); }
+  .emi-row .val.fee { color: var(--amber); }
+
+  .btn-pay {
+    width: 100%; margin-top: 28px; padding: 15px; background: var(--amber); color: #000;
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.9rem;
+    letter-spacing: 0.06em; text-transform: uppercase; border: none; border-radius: 10px;
+    cursor: pointer; transition: all 0.2s;
+    box-shadow: 0 0 40px rgba(245,158,11,0.2);
+  }
+  .btn-pay:hover { background: var(--amber2); transform: translateY(-2px); box-shadow: 0 8px 40px rgba(245,158,11,0.35); }
+
+  .razorpay-note {
+    text-align: center; margin-top: 14px; font-size: 0.75rem; color: var(--text-muted);
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+
+  /* ── QUIZ ── */
+  .quiz-wrap { max-width: 680px; margin: 0 auto; }
+  .quiz-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 16px; padding: 48px; }
+
+  .quiz-progress { margin-bottom: 36px; }
+  .quiz-progress-bar { height: 3px; background: var(--border); border-radius: 2px; margin-top: 8px; }
+  .quiz-progress-fill { height: 100%; background: var(--amber); border-radius: 2px; transition: width 0.4s ease; }
+  .quiz-step-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); }
+
+  .quiz-question { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 700; line-height: 1.35; margin-bottom: 28px; }
+
+  .quiz-options { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+  .quiz-option {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px 20px;
+    display: flex; align-items: center; gap: 14px;
+    cursor: pointer; transition: all 0.2s; font-size: 0.9rem;
+  }
+  .quiz-option:hover { border-color: var(--border-hover); background: rgba(245,158,11,0.04); }
+  .quiz-option.selected { border-color: var(--amber); background: rgba(245,158,11,0.08); }
+  .quiz-option .opt-icon { font-size: 1.3rem; flex-shrink: 0; }
+  .quiz-option .opt-text strong { display: block; font-weight: 600; margin-bottom: 2px; }
+  .quiz-option .opt-text span { font-size: 0.78rem; color: var(--text-muted); }
+
+  .quiz-nav { display: flex; justify-content: space-between; align-items: center; }
+  .btn-quiz-back {
+    background: none; border: 1px solid var(--border); color: var(--text-muted);
+    font-family: 'Syne', sans-serif; font-size: 0.82rem; font-weight: 700;
+    padding: 10px 20px; border-radius: 8px; cursor: pointer; transition: all 0.2s;
+  }
+  .btn-quiz-back:hover { border-color: var(--text-muted); color: var(--text); }
+  .btn-quiz-next {
+    background: var(--amber); color: #000; border: none;
+    font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 800;
+    padding: 12px 28px; border-radius: 8px; cursor: pointer; transition: all 0.2s;
+    letter-spacing: 0.04em; text-transform: uppercase;
+  }
+  .btn-quiz-next:hover { background: var(--amber2); }
+  .btn-quiz-next:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* result */
+  .quiz-result { text-align: center; animation: fadeUp 0.5s ease both; }
+  .result-badge { font-size: 3.5rem; margin-bottom: 16px; display: block; }
+  .quiz-result h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 800; margin-bottom: 10px; }
+  .quiz-result p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 32px; }
+  .result-bundle-card {
+    background: var(--bg2); border: 1px solid var(--amber); border-radius: 12px; padding: 28px; text-align: left; margin-bottom: 24px;
+  }
+  .result-bundle-card h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 800; margin-bottom: 6px; }
+  .result-courses { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 16px; line-height: 1.7; }
+  .result-price { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--amber); }
+  .result-mrp { font-size: 0.82rem; color: var(--text-muted); text-decoration: line-through; margin-right: 8px; }
+  .btn-result {
+    width: 100%; padding: 14px; background: var(--amber); color: #000;
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.88rem;
+    letter-spacing: 0.05em; text-transform: uppercase; border: none; border-radius: 8px;
+    cursor: pointer; transition: all 0.2s; margin-bottom: 12px;
+  }
+  .btn-result:hover { background: var(--amber2); }
+  .btn-retake {
+    background: none; border: none; color: var(--text-muted); font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem; cursor: pointer; text-decoration: underline; transition: color 0.2s;
+  }
+  .btn-retake:hover { color: var(--text); }
+
+  /* ── FAQ ── */
+  .faq-list { max-width: 720px; margin: 0 auto; }
+  .faq-item { border-bottom: 1px solid var(--border); }
+  .faq-q {
+    width: 100%; background: none; border: none; color: var(--text);
+    font-family: 'Syne', sans-serif; font-size: 0.92rem; font-weight: 600;
+    text-align: left; padding: 22px 0; cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  }
+  .faq-q:hover { color: var(--amber); }
+  .faq-q .ch { color: var(--amber); transition: transform 0.3s; flex-shrink: 0; }
+  .faq-item.open .ch { transform: rotate(180deg); }
+  .faq-a {
+    font-size: 0.875rem; color: var(--text-muted); line-height: 1.7;
+    max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.3s;
+  }
+  .faq-item.open .faq-a { max-height: 300px; padding-bottom: 22px; }
+
+  /* floating wa */
+  .wa-float {
+    position: fixed; bottom: 28px; right: 28px;
+    width: 52px; height: 52px; background: #25d366; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+    box-shadow: 0 6px 28px rgba(37,211,102,0.4); text-decoration: none; z-index: 200;
+    animation: floatBounce 3s ease-in-out infinite;
+  }
+  @keyframes floatBounce { 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(-5px) } }
+
+  .reveal { opacity: 1 !important; transform: translateY(0); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    header { flex-wrap: wrap; height: auto; padding: 12px 20px; gap: 8px; }
+    nav { gap: 14px; flex-wrap: wrap; }
+    .emi-wrap { grid-template-columns: 1fr; }
+    .tab-nav { padding: 0 20px; }
+    .tab-panel { padding: 48px 20px; }
+    .page-hero { padding: 60px 24px 48px; }
+    header { padding: 0 20px; }
+    nav { display: flex; overflow-x: auto; gap: 16px; font-size: 0.8rem; -ms-overflow-style: none; scrollbar-width: none; }
+  }
+  @media (max-width: 640px) {
+    .bundles-grid { grid-template-columns: 1fr; }
+    .courses-table { font-size: 0.8rem; }
+    .courses-table th, .courses-table td { padding: 14px 12px; }
+  }
+
+
+  /* ── PLAYFAIR HEADINGS — applied site-wide ── */
+  .section-title,
+  .courses-header h2,
+  .why-title,
+  section > .container > h2,
+  section h2.section-title,
+  .faq-list ~ h2,
+  .page-hero h2,
+  .cert-section h2,
+  .outcomes h2,
+  .demo-title,
+  .pricing-hero h2,
+  .intro-headline,
+  .hero-left h2,
+  .cert-info h3,
+  .cert-card h3,
+  .enrol-card-header h3,
+  .track-card h3 {
+    font-family: 'Playfair Display', serif !important;
+  }
+  /* marker class to avoid duplicate injection */
+  .playfair-headings-applied { display: none; }
+</style>
+
+<link rel="stylesheet" href="theme.css">
+<script src="theme.js"></script>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="newtonjee-homepage.html" class="logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 48" width="220" height="38" style="display:block;">
+  <!-- NEWTON letters -->
+  <text x="2" y="37"
+    font-family="Arial Black, Arial, Helvetica, sans-serif"
+    font-weight="900"
+    font-size="36px"
+    fill="#ffffff"
+    letter-spacing="1">NEWTON</text>
+  <!-- JEE amber block -->
+  <rect x="188" y="3" width="88" height="42" rx="5" fill="#f5a623"/>
+  <rect x="188" y="3" width="88" height="12" rx="5" fill="rgba(255,255,255,0.22)"/>
+  <rect x="188" y="35" width="88" height="10" rx="0" fill="rgba(0,0,0,0.12)"/>
+  <!-- JEE text -->
+  <text x="196" y="37"
+    font-family="Arial Black, Arial, Helvetica, sans-serif"
+    font-weight="900"
+    font-size="35px"
+    fill="#111111"
+    letter-spacing="-1">JEE</text>
+</svg></a>
+    <nav>
+    <a href="newtonjee-homepage.html#courses">Courses</a>
+    <a href="certifications.html">Certifications</a>
+    <a href="newtonjee-pricing.html">Pricing</a>
+    <a href="blog.html">Blog</a>
+    <a href="robotics-research.html">Robotics</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <a href="free-demo.html" class="btn-header">Book Free Demo →</a>
+<div class="header-right" style="display:flex; align-items:center; gap:12px;">
+    <button class="theme-toggle" onclick="toggleTheme()"><span class="toggle-icon">☀️</span><span class="toggle-label">Light</span></button>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="page-label">// Pricing & Bundles</div>
+    <h1>Invest in Skills That<br><span>Actually Pay Off</span></h1>
+    <p>Transparent pricing. No hidden fees. EMI available on every course and bundle. Pick individual courses or save up to 45% with a bundle.</p>
+  </div>
+</div>
+
+<!-- TAB NAV -->
+<div class="tab-nav">
+  <button class="active" data-tab="courses">Individual Courses</button>
+  <button data-tab="bundles">Bundle Packages</button>
+  <button data-tab="emi">EMI Calculator</button>
+  <button data-tab="quiz">Find My Bundle</button>
+</div>
+
+<!-- ══ TAB: INDIVIDUAL COURSES ══ -->
+<div class="tab-panel active" id="tab-courses">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">// All 8 Courses</div>
+      <h2 class="section-title">Course-by-Course Pricing</h2>
+      <p class="section-sub">Every course includes live sessions, project work, a LinkedIn-verified badge, and lifetime access to recordings.</p>
+    </div>
+    <div class="reveal" style="overflow-x:auto; margin-top: 0;">
+      <table class="courses-table">
+        <thead>
+          <tr>
+            <th>Course</th>
+            <th>Level</th>
+            <th>Duration</th>
+            <th>Certificate</th>
+            <th>Fee</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="course-name-cell"><strong>Python for AI & Data Science</strong><span>NumPy, Pandas, Matplotlib, Scikit-learn basics</span></td>
+            <td><span class="level-badge beginner">Beginner</span></td>
+            <td>4 wks · 12 sessions</td>
+            <td>🥉 Bronze</td>
+            <td>
+              <span class="price-strike">₹8,000</span>
+              <span class="price-fee">₹4,999</span>
+              <span class="savings-pill">Save ₹3,001</span>
+            </td>
+            <td><button class="btn-enrol-sm">Enrol</button></td>
+          </tr>
+          <tr>
+            <td class="course-name-cell"><strong>Statistics & Math for ML</strong><span>Linear algebra, probability, hypothesis testing</span></td>
+            <td><span class="level-badge beginner">Beginner</span></td>
+            <td>3 wks · 9 sessions</td>
+            <td>🥉 Bronze</td>
+            <td>
+              <span class="price-strike">₹7,000</span>
+              <span class="price-fee">₹3,999</span>
+              <span class="savings-pill">Save ₹3,001</span>
+            </td>
+            <td><button class="btn-enrol-sm">Enrol</button></td>
+          </tr>
+          <tr>
+            <td class="course-name-cell"><strong>Machine Learning Mastery</strong><span>Regression, classification, clustering, model evaluation</span></td>
+            <td><span class="level-badge intermediate">Intermediate</span></td>
+            <td>6 wks · 18 sessions</td>
+            <td>🥈 Silver</td>
+            <td>
+              <span class="price-strike">₹14,000</span>
+              <span class="price-fee">₹7,999</span>
+              <span class="savings-pill">Save ₹6,001</span>
+            </td>
+            <td><button class="btn-enrol-sm">Enrol</button></td>
+          </tr>
+          <tr>
+            <td class="course-name-cell"><strong>Deep Learning & Computer Vision</strong><span>CNNs, object detection, transfer learning, PyTorch</span></td>
+            <td><span class="level-badge intermediate">Intermediate</span></td>
+            <td>6 wks · 18 sessions</td>
+            <td>🥈 Silver</td>
+            <td>
+              <span class="price-strike">₹14,000</span>
+              <span class="price-fee">₹7,999</span>
+              <span class="savings-pill">Save ₹6,001</span>
+            </td>
+            <td><button class="btn-enrol-sm">Enrol</button></td>
+          </tr>
+          <tr>
+            <td class="course-name-cell"><strong>NLP & Text Mining</strong><span>Tokenisation, transformers, sentiment analysis, BERT</span></td>
+            <td><span class="level-badge intermediate">Intermediate</span></td>
+            <td>5 wks · 15 sessions</td>
+            <td>🥇 Gold</td>
+            <td>
+              <span class="price-strike">₹12,000</span>
+              <span class="price-fee">₹6,999</span>
+              <span class="savings-pill">Save ₹5,001</span>
+            </td>
+            <td><button class="btn-enrol-sm">Enrol</button></td>
+          </tr>
+          <tr>
+            <td class="course-name-cell"><strong>Generative AI & LLMs</strong><span>Prompt engineering, RAG, LangChain, fine-tuning</span></td>
+            <td><span class="level-badge advanced">Advanced</span></td>
+            <td>6 wks · 18 sessions</td>
+            <td>🥇 Gold</td>
+            <td>
+              <span class="price-strike">₹16,000</span>
+              <span class="price-fee">₹8,999</span>
+              <span class="savings-pill">Save ₹7,001</span>
+            </td>
+            <td><button class="btn-enrol-sm">Enrol</button></td>
+          </tr>
+          <tr>
+            <td class="course-name-cell"><strong>MLOps & Deployment</strong><span>Docker, FastAPI, CI/CD, MLflow, cloud deployment</span></td>
+            <td><span class="level-badge advanced">Advanced</span></td>
+            <td>5 wks · 15 sessions</td>
+            <td>💎 Platinum</td>
+            <td>
+              <span class="price-strike">₹12,000</span>
+              <span class="price-fee">₹6,999</span>
+              <span class="savings-pill">Save ₹5,001</span>
+            </td>
+            <td><button class="btn-enrol-sm">Enrol</button></td>
+          </tr>
+          <tr>
+            <td class="course-name-cell"><strong>AI Capstone Project</strong><span>End-to-end project with mentor guidance & review</span></td>
+            <td><span class="level-badge capstone">Capstone</span></td>
+            <td>8 wks · project-based</td>
+            <td>💎 Platinum</td>
+            <td>
+              <span class="price-strike">₹18,000</span>
+              <span class="price-fee">₹9,999</span>
+              <span class="savings-pill">Save ₹8,001</span>
+            </td>
+            <td><button class="btn-enrol-sm">Enrol</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- included callout -->
+    <div class="reveal" style="margin-top: 32px; background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 24px 28px; display: flex; flex-wrap: wrap; gap: 28px; align-items: center;">
+      <span style="font-family:'Syne',sans-serif; font-size:0.85rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted);">Every course includes</span>
+      <div style="display:flex; gap:20px; flex-wrap:wrap;">
+        <span style="font-size:0.82rem; color:var(--text);">✅ Live sessions + recordings</span>
+        <span style="font-size:0.82rem; color:var(--text);">✅ Real-world projects</span>
+        <span style="font-size:0.82rem; color:var(--text);">✅ LinkedIn-verified badge</span>
+        <span style="font-size:0.82rem; color:var(--text);">✅ Mentor support</span>
+        <span style="font-size:0.82rem; color:var(--text);">✅ Placement assistance</span>
+        <span style="font-size:0.82rem; color:var(--text);">✅ No-cost EMI</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TAB: BUNDLES ══ -->
+<div class="tab-panel" id="tab-bundles">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">// Bundle Packages</div>
+      <h2 class="section-title">Save More, Learn More</h2>
+      <p class="section-sub">Bundles are pre-sequenced, career-targeted course collections. Save up to 45% compared to buying individually.</p>
+    </div>
+    <div class="bundles-grid reveal">
+
+      <!-- Foundation -->
+      <div class="bundle-card">
+        <span class="bundle-icon">🌱</span>
+        <h3>Foundation Bundle</h3>
+        <p class="bundle-tagline">The perfect launchpad for anyone starting from zero.</p>
+        <ul class="bundle-courses">
+          <li><span class="ck">✓</span> Python for AI & Data Science</li>
+          <li><span class="ck">✓</span> Statistics & Math for ML</li>
+        </ul>
+        <div class="bundle-pricing">
+          <div class="bundle-mrp">MRP: ₹15,000</div>
+          <div class="bundle-fee"><sup>₹</sup>7,999</div>
+          <div class="bundle-savings">Save ₹7,001 — 47% OFF</div>
+          <div class="bundle-emi">As low as ₹667/month on 12-month EMI</div>
+        </div>
+        <button class="btn-bundle secondary" onclick="switchToEmi('Foundation Bundle', 7999)">Enrol Now</button>
+      </div>
+
+      <!-- ML Track -->
+      <div class="bundle-card">
+        <span class="bundle-icon">🤖</span>
+        <h3>ML Track</h3>
+        <p class="bundle-tagline">Core machine learning skills from foundations to deployment-ready models.</p>
+        <ul class="bundle-courses">
+          <li><span class="ck">✓</span> Python for AI & Data Science</li>
+          <li><span class="ck">✓</span> Statistics & Math for ML</li>
+          <li><span class="ck">✓</span> Machine Learning Mastery</li>
+        </ul>
+        <div class="bundle-pricing">
+          <div class="bundle-mrp">MRP: ₹29,000</div>
+          <div class="bundle-fee"><sup>₹</sup>14,999</div>
+          <div class="bundle-savings">Save ₹14,001 — 48% OFF</div>
+          <div class="bundle-emi">As low as ₹1,250/month on 12-month EMI</div>
+        </div>
+        <button class="btn-bundle secondary" onclick="switchToEmi('ML Track', 14999)">Enrol Now</button>
+      </div>
+
+      <!-- Data Science -->
+      <div class="bundle-card featured">
+        <span class="bundle-icon">📊</span>
+        <h3>Data Science Bundle</h3>
+        <p class="bundle-tagline">The complete path from Python to advanced ML & NLP.</p>
+        <ul class="bundle-courses">
+          <li><span class="ck">✓</span> Python for AI & Data Science</li>
+          <li><span class="ck">✓</span> Statistics & Math for ML</li>
+          <li><span class="ck">✓</span> Machine Learning Mastery</li>
+          <li><span class="ck">✓</span> NLP & Text Mining</li>
+        </ul>
+        <div class="bundle-pricing">
+          <div class="bundle-mrp">MRP: ₹41,000</div>
+          <div class="bundle-fee"><sup>₹</sup>19,999</div>
+          <div class="bundle-savings">Save ₹21,001 — 51% OFF</div>
+          <div class="bundle-emi">As low as ₹1,667/month on 12-month EMI</div>
+        </div>
+        <button class="btn-bundle primary" onclick="switchToEmi('Data Science Bundle', 19999)">Enrol Now</button>
+      </div>
+
+      <!-- GenAI -->
+      <div class="bundle-card">
+        <span class="bundle-icon">✨</span>
+        <h3>GenAI Bundle</h3>
+        <p class="bundle-tagline">Master modern AI — NLP, LLMs, and production-grade GenAI apps.</p>
+        <ul class="bundle-courses">
+          <li><span class="ck">✓</span> Machine Learning Mastery</li>
+          <li><span class="ck">✓</span> NLP & Text Mining</li>
+          <li><span class="ck">✓</span> Generative AI & LLMs</li>
+        </ul>
+        <div class="bundle-pricing">
+          <div class="bundle-mrp">MRP: ₹42,000</div>
+          <div class="bundle-fee"><sup>₹</sup>21,999</div>
+          <div class="bundle-savings">Save ₹20,001 — 48% OFF</div>
+          <div class="bundle-emi">As low as ₹1,833/month on 12-month EMI</div>
+        </div>
+        <button class="btn-bundle secondary" onclick="switchToEmi('GenAI Bundle', 21999)">Enrol Now</button>
+      </div>
+
+      <!-- Full Stack AI -->
+      <div class="bundle-card" style="border-color: rgba(34,211,238,0.3); background: rgba(34,211,238,0.03);">
+        <span class="bundle-icon">💎</span>
+        <h3>Full Stack AI Engineer</h3>
+        <p class="bundle-tagline">Every course. Every badge. Complete transformation from beginner to AI Engineer.</p>
+        <ul class="bundle-courses">
+          <li><span class="ck">✓</span> All 8 Courses (Bronze → Platinum)</li>
+          <li><span class="ck">✓</span> 4 LinkedIn Badges</li>
+          <li><span class="ck">✓</span> Priority placement support</li>
+          <li><span class="ck">✓</span> 1:1 Career coaching session</li>
+        </ul>
+        <div class="bundle-pricing">
+          <div class="bundle-mrp">MRP: ₹1,01,000</div>
+          <div class="bundle-fee"><sup>₹</sup>54,999</div>
+          <div class="bundle-savings">Save ₹46,001 — 46% OFF</div>
+          <div class="bundle-emi">As low as ₹4,583/month on 12-month EMI</div>
+        </div>
+        <button class="btn-bundle primary" style="background: var(--cyan); color:#000;" onclick="switchToEmi('Full Stack AI Engineer', 54999)">Enrol Now</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ TAB: EMI CALCULATOR ══ -->
+<div class="tab-panel" id="tab-emi">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">// EMI Calculator</div>
+      <h2 class="section-title">Break It Down Monthly</h2>
+      <p class="section-sub">No-cost EMI on all major bank cards. Zero processing fees when you pay through Razorpay.</p>
+    </div>
+    <div class="emi-wrap reveal">
+      <div class="emi-form">
+        <div class="form-group">
+          <label>Select Course or Bundle</label>
+          <select id="emi-course">
+            <optgroup label="Individual Courses">
+              <option value="4999">Python for AI & Data Science — ₹4,999</option>
+              <option value="3999">Statistics & Math for ML — ₹3,999</option>
+              <option value="7999">Machine Learning Mastery — ₹7,999</option>
+              <option value="7999b">Deep Learning & Computer Vision — ₹7,999</option>
+              <option value="6999">NLP & Text Mining — ₹6,999</option>
+              <option value="8999">Generative AI & LLMs — ₹8,999</option>
+              <option value="6999b">MLOps & Deployment — ₹6,999</option>
+              <option value="9999">AI Capstone Project — ₹9,999</option>
+            </optgroup>
+            <optgroup label="Bundles">
+              <option value="7999c">Foundation Bundle — ₹7,999</option>
+              <option value="14999">ML Track — ₹14,999</option>
+              <option value="19999">Data Science Bundle — ₹19,999</option>
+              <option value="21999">GenAI Bundle — ₹21,999</option>
+              <option value="54999">Full Stack AI Engineer — ₹54,999</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>EMI Duration</label>
+          <div class="emi-toggle">
+            <button class="active" data-months="3">3 Months</button>
+            <button data-months="6">6 Months</button>
+            <button data-months="9">9 Months</button>
+            <button data-months="12">12 Months</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" placeholder="Enter your full name">
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" placeholder="+91 XXXXX XXXXX">
+        </div>
+      </div>
+
+      <div class="emi-result">
+        <h4>Your EMI Breakdown</h4>
+        <div class="emi-big"><sup>₹</sup><span id="emi-monthly">1,666</span></div>
+        <div class="emi-label">per month for <span id="emi-months-label">3</span> months</div>
+        <div class="emi-breakdown">
+          <div class="emi-row"><span class="key">Course / Bundle</span><span class="val" id="emi-name-display">Python for AI</span></div>
+          <div class="emi-row"><span class="key">Total Fee</span><span class="val fee" id="emi-total-display">₹4,999</span></div>
+          <div class="emi-row"><span class="key">MRP</span><span class="val" id="emi-mrp-display">₹8,000</span></div>
+          <div class="emi-row"><span class="key">You Save</span><span class="val savings" id="emi-savings-display">₹3,001</span></div>
+          <div class="emi-row"><span class="key">Interest</span><span class="val" style="color:var(--green)">₹0 (No-cost EMI)</span></div>
+          <div class="emi-row"><span class="key">Monthly Instalment</span><span class="val fee" id="emi-monthly2">₹1,666</span></div>
+        </div>
+        <button class="btn-pay">⚡ Pay Now via Razorpay</button>
+        <div class="razorpay-note">🔒 Secured by Razorpay · UPI · Cards · Net Banking</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TAB: QUIZ ══ -->
+<div class="tab-panel" id="tab-quiz">
+  <div class="container">
+    <div class="reveal" style="text-align:center; margin-bottom: 48px;">
+      <div class="section-label">// Bundle Recommender</div>
+      <h2 class="section-title">Find Your Perfect Bundle</h2>
+      <p class="section-sub" style="margin: 0 auto;">3 quick questions. We'll match you with the right learning path.</p>
+    </div>
+    <div class="quiz-wrap reveal">
+      <div class="quiz-card" id="quiz-container">
+        <!-- JS renders quiz here -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PAYMENT FAQ ══ -->
+<section style="padding: 72px 48px; background: var(--bg2);">
+  <div class="container">
+    <div class="reveal" style="text-align:center; margin-bottom: 0;">
+      <div class="section-label">// FAQ</div>
+      <h2 class="section-title">Payment Questions</h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item open">
+        <button class="faq-q">Is there a free trial or demo before paying? <span class="ch">▼</span></button>
+        <div class="faq-a">Yes — all prospective students can attend one free 1-hour live session before enrolling. Book your demo from the Free Demo page. No credit card required.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What EMI options are available? <span class="ch">▼</span></button>
+        <div class="faq-a">We offer 3, 6, 9, and 12-month no-cost EMI through Razorpay. This is available on all major Indian bank credit cards (HDFC, ICICI, SBI, Axis, Kotak) and select debit cards. Zero processing fees and zero interest for EMI plans.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What is the refund policy? <span class="ch">▼</span></button>
+        <div class="faq-a">Full refund within 48 hours of payment if no sessions attended. 100% refund if you're unsatisfied after attending up to 2 live sessions. After that, a prorated refund is issued based on the sessions remaining. Refunds are processed within 7 business days.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can I upgrade from a single course to a bundle? <span class="ch">▼</span></button>
+        <div class="faq-a">Absolutely. If you've already paid for individual courses, we'll credit those fees toward a bundle upgrade. Contact us at <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="660e030a0a09260803111209080c03034805090b">[email&#160;protected]</a> or WhatsApp us within 30 days of your purchase to arrange an upgrade.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Are there discounts for students or groups? <span class="ch">▼</span></button>
+        <div class="faq-a">We offer group discounts for 3 or more students enrolling together (additional 5–10% off). College partnerships and bulk institutional enrollments are available — email us at <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a3d3c2d1d7cdc6d1d0cbcad3d0e3cdc6d4d7cccdc9c6c68dc0ccce">[email&#160;protected]</a>.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What payment methods do you accept? <span class="ch">▼</span></button>
+        <div class="faq-a">We accept UPI (PhonePe, GPay, Paytm), credit & debit cards (Visa, Mastercard, Rupay), net banking, and EMI. All payments are processed securely through Razorpay.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Floating WA -->
+<a href="https://wa.me/918019466635" class="wa-float" title="Chat on WhatsApp">💬</a>
+
+<script>
+/* ─── TABS ─────────────────────────── */
+const tabBtns = document.querySelectorAll('.tab-nav button');
+const tabPanels = document.querySelectorAll('.tab-panel');
+tabBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    tabBtns.forEach(b => b.classList.remove('active'));
+    tabPanels.forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    // re-trigger reveals in the newly shown tab
+    document.querySelectorAll('#tab-' + btn.dataset.tab + ' .reveal').forEach(el => {
+      setTimeout(() => el.classList.add('visible'), 50);
+    });
+  });
+});
+
+/* ─── EMI CALCULATOR ───────────────── */
+const courseData = {
+  '4999':  { name: 'Python for AI', fee: 4999, mrp: 8000 },
+  '3999':  { name: 'Statistics & Math for ML', fee: 3999, mrp: 7000 },
+  '7999':  { name: 'Machine Learning Mastery', fee: 7999, mrp: 14000 },
+  '7999b': { name: 'Deep Learning & CV', fee: 7999, mrp: 14000 },
+  '6999':  { name: 'NLP & Text Mining', fee: 6999, mrp: 12000 },
+  '8999':  { name: 'Generative AI & LLMs', fee: 8999, mrp: 16000 },
+  '6999b': { name: 'MLOps & Deployment', fee: 6999, mrp: 12000 },
+  '9999':  { name: 'AI Capstone Project', fee: 9999, mrp: 18000 },
+  '7999c': { name: 'Foundation Bundle', fee: 7999, mrp: 15000 },
+  '14999': { name: 'ML Track Bundle', fee: 14999, mrp: 29000 },
+  '19999': { name: 'Data Science Bundle', fee: 19999, mrp: 41000 },
+  '21999': { name: 'GenAI Bundle', fee: 21999, mrp: 42000 },
+  '54999': { name: 'Full Stack AI Engineer', fee: 54999, mrp: 101000 },
+};
+
+let selectedMonths = 3;
+
+function fmt(n) { return n.toLocaleString('en-IN'); }
+
+function updateEmi() {
+  const key = document.getElementById('emi-course').value;
+  const data = courseData[key];
+  const monthly = Math.ceil(data.fee / selectedMonths);
+
+  document.getElementById('emi-monthly').textContent = fmt(monthly);
+  document.getElementById('emi-months-label').textContent = selectedMonths;
+  document.getElementById('emi-name-display').textContent = data.name;
+  document.getElementById('emi-total-display').textContent = '₹' + fmt(data.fee);
+  document.getElementById('emi-mrp-display').textContent = '₹' + fmt(data.mrp);
+  document.getElementById('emi-savings-display').textContent = '₹' + fmt(data.mrp - data.fee);
+  document.getElementById('emi-monthly2').textContent = '₹' + fmt(monthly);
+}
+
+document.getElementById('emi-course').addEventListener('change', updateEmi);
+
+document.querySelectorAll('.emi-toggle button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.emi-toggle button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    selectedMonths = parseInt(btn.dataset.months);
+    updateEmi();
+  });
+});
+
+updateEmi();
+
+// switch to EMI tab from bundle buttons
+function switchToEmi(name, fee) {
+  // find closest matching key
+  const key = Object.keys(courseData).find(k => courseData[k].fee === fee && courseData[k].name.toLowerCase().includes(name.split(' ')[0].toLowerCase()))
+    || Object.keys(courseData).find(k => courseData[k].fee === fee);
+  if (key) document.getElementById('emi-course').value = key;
+  updateEmi();
+  tabBtns.forEach(b => b.classList.remove('active'));
+  tabPanels.forEach(p => p.classList.remove('active'));
+  document.querySelector('[data-tab="emi"]').classList.add('active');
+  document.getElementById('tab-emi').classList.add('active');
+  window.scrollTo({ top: document.querySelector('.tab-nav').offsetTop - 70, behavior: 'smooth' });
+}
+
+/* ─── QUIZ ──────────────────────────── */
+const questions = [
+  {
+    q: "What's your current background?",
+    opts: [
+      { icon: '🎓', label: 'B.Tech Student', sub: 'Currently in 2nd, 3rd, or final year', val: 'student' },
+      { icon: '💼', label: 'Working Professional', sub: 'IT or software role, want to upskill', val: 'pro_it' },
+      { icon: '🔧', label: 'Non-IT Professional', sub: 'Mechanical, civil, or other domain', val: 'pro_nonit' },
+      { icon: '🌱', label: 'Complete Beginner', sub: 'No prior technical background', val: 'beginner' },
+    ]
+  },
+  {
+    q: "What's your primary goal?",
+    opts: [
+      { icon: '🤖', label: 'Become an ML / AI Engineer', sub: 'Build and deploy ML systems', val: 'ml' },
+      { icon: '📊', label: 'Become a Data Scientist', sub: 'Analyse data, build predictive models', val: 'ds' },
+      { icon: '✨', label: 'Work with GenAI & LLMs', sub: 'Build apps with ChatGPT, LangChain, RAG', val: 'genai' },
+      { icon: '⚙️', label: 'Move into MLOps / DevOps for AI', sub: 'Production deployment, CI/CD for ML', val: 'mlops' },
+    ]
+  },
+  {
+    q: "How soon do you need to be job-ready?",
+    opts: [
+      { icon: '⚡', label: 'ASAP — within 3 months', sub: "I need skills fast", val: 'fast' },
+      { icon: '📅', label: '3–6 months', sub: 'Structured but not rushed', val: 'medium' },
+      { icon: '🏗️', label: '6–12 months', sub: 'Full deep-dive, end-to-end', val: 'long' },
+    ]
+  }
+];
+
+const results = {
+  ml:    { name: 'ML Track Bundle', emoji: '🤖', desc: 'Python → Stats → ML → Deep Learning. The most direct path to an ML Engineer role.', courses: 'Python for AI · Statistics & Math · Machine Learning', fee: 14999, mrp: 29000 },
+  ds:    { name: 'Data Science Bundle', emoji: '📊', desc: 'Python to ML to NLP. Covers the full toolkit hiring managers look for in Data Scientists.', courses: 'Python for AI · Stats · ML · NLP & Text Mining', fee: 19999, mrp: 41000 },
+  genai: { name: 'GenAI Bundle', emoji: '✨', desc: 'ML to NLP to LLMs. The perfect path for building modern AI-powered applications.', courses: 'Machine Learning · NLP · Generative AI & LLMs', fee: 21999, mrp: 42000 },
+  mlops: { name: 'Full Stack AI Engineer', emoji: '💎', desc: 'Complete path including MLOps & Capstone. Build and ship real AI systems end-to-end.', courses: 'All 8 courses · 4 LinkedIn Badges · 1:1 Career coaching', fee: 54999, mrp: 101000 },
+};
+
+let answers = [];
+let currentQ = 0;
+
+function renderQuiz() {
+  const container = document.getElementById('quiz-container');
+  if (currentQ >= questions.length) {
+    renderResult(container); return;
+  }
+  const q = questions[currentQ];
+  const progress = Math.round(((currentQ) / questions.length) * 100);
+  container.innerHTML = `
+    <div class="quiz-progress">
+      <div class="quiz-step-label">Question ${currentQ + 1} of ${questions.length}</div>
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" style="width:${progress}%"></div></div>
+    </div>
+    <div class="quiz-question">${q.q}</div>
+    <div class="quiz-options">
+      ${q.opts.map((o, i) => `
+        <div class="quiz-option" data-val="${o.val}" data-idx="${i}">
+          <span class="opt-icon">${o.icon}</span>
+          <div class="opt-text"><strong>${o.label}</strong><span>${o.sub}</span></div>
+        </div>
+      `).join('')}
+    </div>
+    <div class="quiz-nav">
+      ${currentQ > 0 ? '<button class="btn-quiz-back" id="quiz-back">← Back</button>' : '<span></span>'}
+      <button class="btn-quiz-next" id="quiz-next" disabled>Continue →</button>
+    </div>
+  `;
+
+  let selected = null;
+  container.querySelectorAll('.quiz-option').forEach(el => {
+    el.addEventListener('click', () => {
+      container.querySelectorAll('.quiz-option').forEach(e => e.classList.remove('selected'));
+      el.classList.add('selected');
+      selected = el.dataset.val;
+      document.getElementById('quiz-next').disabled = false;
+    });
+  });
+
+  document.getElementById('quiz-next')?.addEventListener('click', () => {
+    if (!selected) return;
+    answers[currentQ] = selected;
+    currentQ++;
+    renderQuiz();
+  });
+
+  document.getElementById('quiz-back')?.addEventListener('click', () => {
+    currentQ--;
+    renderQuiz();
+  });
+}
+
+function renderResult(container) {
+  // determine bundle from answers
+  const goal = answers[1] || 'ds';
+  const r = results[goal] || results.ds;
+
+  container.innerHTML = `
+    <div class="quiz-result">
+      <span class="result-badge">${r.emoji}</span>
+      <h3>We recommend the<br>${r.name}</h3>
+      <p>${r.desc}</p>
+      <div class="result-bundle-card">
+        <h4>${r.name}</h4>
+        <div class="result-courses">${r.courses}</div>
+        <div>
+          <span class="result-mrp">₹${fmt(r.mrp)}</span>
+          <span class="result-price">₹${fmt(r.fee)}</span>
+        </div>
+        <div style="font-size:0.78rem;color:var(--text-muted);margin-top:6px;">Save ₹${fmt(r.mrp - r.fee)} · No-cost EMI available</div>
+      </div>
+      <button class="btn-result" onclick="switchToEmi('${r.name}', ${r.fee})">View EMI Options →</button>
+      <br>
+      <button class="btn-retake" onclick="resetQuiz()">← Retake Quiz</button>
+    </div>
+  `;
+}
+
+function resetQuiz() {
+  answers = []; currentQ = 0; renderQuiz();
+}
+
+renderQuiz();
+
+/* ─── FAQ ──────────────────────────── */
+document.querySelectorAll('.faq-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  });
+})
+/* ─── Scroll reveal ─── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.06 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+<!-- ── SITE FOOTER ── -->
+<footer style="background:#080c14;border-top:1px solid rgba(255,255,255,0.06);padding:48px 48px 32px;margin-top:0;">
+  <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;flex-wrap:wrap;">
+    <div>
+      <a href="newtonjee-homepage.html" style="text-decoration:none;display:inline-flex;align-items:center;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 48" width="220" height="38" style="display:block;">
+  <!-- NEWTON letters -->
+  <text x="2" y="37"
+    font-family="Arial Black, Arial, Helvetica, sans-serif"
+    font-weight="900"
+    font-size="36px"
+    fill="#ffffff"
+    letter-spacing="1">NEWTON</text>
+  <!-- JEE amber block -->
+  <rect x="188" y="3" width="88" height="42" rx="5" fill="#f5a623"/>
+  <rect x="188" y="3" width="88" height="12" rx="5" fill="rgba(255,255,255,0.22)"/>
+  <rect x="188" y="35" width="88" height="10" rx="0" fill="rgba(0,0,0,0.12)"/>
+  <!-- JEE text -->
+  <text x="196" y="37"
+    font-family="Arial Black, Arial, Helvetica, sans-serif"
+    font-weight="900"
+    font-size="35px"
+    fill="#111111"
+    letter-spacing="-1">JEE</text>
+</svg></a>
+      <p style="font-size:0.82rem;color:#5d7080;line-height:1.7;max-width:240px;">India's most elite AI &amp; Robotics career accelerator. Hyderabad, Telangana.</p>
+    </div>
+    <div>
+      <h5 style="font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#5d7080;margin-bottom:16px;">Courses</h5>
+      <a href="course-python-for-ai.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Python for AI</a>
+      <a href="course-machine-learning.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Machine Learning</a>
+      <a href="course-generative-ai-llms.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Generative AI &amp; LLMs</a>
+      <a href="robotics-research.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">🤖 Robotics Research</a>
+      <a href="newtonjee-homepage.html#courses" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;">All Courses →</a>
+    </div>
+    <div>
+      <h5 style="font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#5d7080;margin-bottom:16px;">Platform</h5>
+      <a href="certifications.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Certifications</a>
+      <a href="success-stories.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Success Stories</a>
+      <a href="newtonjee-pricing.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Pricing</a>
+      <a href="blog.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Blog</a>
+    <a href="robotics-research.html">Robotics</a>
+      <a href="portal.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;">Student Portal</a>
+    </div>
+    <div>
+      <h5 style="font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#5d7080;margin-bottom:16px;">Contact</h5>
+      <a href="tel:+918019466635" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">📞 +91 80194 66635</a>
+      <a href="/cdn-cgi/l/email-protection#a0c3cfced4c1c3d4e0cec5d7d4cfcecac5c58ec3cfcd">✉ <span class="__cf_email__" data-cfemail="294a46475d484a5d69474c5e5d4647434c4c074a4644">[email&#160;protected]</span></a>
+      <a href="https://wa.me/918019466635" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">💬 WhatsApp Us</a>
+      <a href="contact.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;">📍 Mallampet, Hyderabad</a>
+    </div>
+  </div>
+  <div style="max-width:1200px;margin:28px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,0.05);display:fl

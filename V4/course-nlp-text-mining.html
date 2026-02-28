@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NLP & Text Mining — Newton JEE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800;1,900&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.6; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.022; pointer-events: none; z-index: 9999; }
+
+  /* HEADER */
+  header { position: sticky; top: 0; z-index: 100; background: rgba(10,12,18,0.93); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 0 48px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; letter-spacing: -0.02em; display: flex; align-items: center; gap: 8px; text-decoration: none; color: #ffffff; }
+  .logo .acc-c { color: var(--amber); }
+  .logo-icon { width: 30px; height: 30px; background: var(--amber); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: #000; font-weight: 900; }
+  nav { display: flex; align-items: center; gap: 28px; }
+  nav a { font-size: 0.875rem; font-weight: 500; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+  nav a:hover { color: var(--text); }
+  .btn-header { background: var(--amber); color: #000; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 9px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 0.2s; }
+  .btn-header:hover { background: var(--amber2); }
+
+  /* BREADCRUMB */
+  .breadcrumb { padding: 14px 48px; background: var(--bg2); border-bottom: 1px solid var(--border); font-size: 0.78rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
+  .breadcrumb a { color: var(--text-muted); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--amber); }
+  .breadcrumb .sep { opacity: 0.4; }
+  .breadcrumb .current { color: var(--text); }
+
+  /* HERO */
+  .course-hero { position: relative; padding: 72px 48px 0; overflow: hidden; background: var(--bg2); border-bottom: 1px solid var(--border); }
+
+  /* Unique: flowing text-wave pattern — language/words feel */
+  .hero-text-bg {
+    position: absolute; inset: 0; pointer-events: none;
+    overflow: hidden;
+    opacity: 0.055;
+  }
+  .hero-text-bg span {
+    position: absolute;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--acc);
+    white-space: nowrap;
+    animation: drift linear infinite;
+  }
+  @keyframes drift { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  .hero-glow { position: absolute; top: -10%; right: 5%; width: 560px; height: 460px; background: radial-gradient(ellipse, rgba(251,146,60,0.09), transparent 65%); pointer-events: none; }
+
+  .hero-layout { position: relative; display: grid; grid-template-columns: 1fr 360px; gap: 48px; max-width: 1160px; margin: 0 auto; align-items: start; }
+  .hero-left { padding-bottom: 72px; animation: fadeUp 0.7s ease both; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+
+  .course-badge-row { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+  .badge { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; }
+  .badge.intermediate { background: rgba(245,158,11,0.12); color: var(--amber); border: 1px solid rgba(245,158,11,0.2); }
+  .badge.gold         { background: rgba(251,191,36,0.12); color: var(--amber2); border: 1px solid rgba(251,191,36,0.25); }
+  .badge.transformers { background: var(--acc-glow); color: var(--acc); border: 1px solid var(--acc-border); }
+  .badge.live         { background: rgba(239,68,68,0.12); color: #f87171; border: 1px solid rgba(239,68,68,0.2); }
+  .badge .dot         { width: 5px; height: 5px; border-radius: 50%; background: currentColor; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  .course-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 4.5vw, 3.6rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 18px; }
+  .course-hero h1 span { color: var(--acc); }
+  .course-tagline { font-size: 1.05rem; color: var(--text-muted); font-weight: 300; max-width: 520px; margin-bottom: 32px; line-height: 1.7; }
+
+  .meta-pills { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 36px; }
+  .meta-pill { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-muted); }
+  .meta-pill strong { color: var(--text); font-weight: 600; }
+
+  .hero-stats { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .hstat { flex: 1; padding: 20px; border-right: 1px solid var(--border); text-align: center; }
+  .hstat:last-child { border-right: none; }
+  .hstat .num { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--acc); display: block; }
+  .hstat .lbl { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; font-family: 'DM Mono', monospace; }
+
+  /* ENROL CARD */
+  .enrol-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 16px; padding: 32px; position: sticky; top: 80px; animation: fadeUp 0.6s 0.2s ease both; }
+  .enrol-fee { font-family: 'Syne', sans-serif; font-size: 2.4rem; font-weight: 800; line-height: 1; }
+  .enrol-fee sup { font-size: 1.1rem; vertical-align: top; margin-top: 8px; }
+  .enrol-mrp { font-size: 0.85rem; color: var(--text-muted); text-decoration: line-through; margin-left: 8px; }
+  .enrol-save { display: inline-block; background: rgba(74,222,128,0.12); color: var(--green); font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 100px; margin: 6px 0; }
+  .enrol-emi { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 24px; }
+  .btn-enrol-main { width: 100%; padding: 15px; background: var(--amber); color: #000; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.92rem; letter-spacing: 0.05em; text-transform: uppercase; border: none; border-radius: 10px; cursor: pointer; transition: all 0.2s; margin-bottom: 12px; box-shadow: 0 0 40px rgba(245,158,11,0.18); }
+  .btn-enrol-main:hover { background: var(--amber2); transform: translateY(-2px); box-shadow: 0 8px 40px rgba(245,158,11,0.32); }
+  .btn-demo-sm { width: 100%; padding: 12px; background: transparent; border: 1px solid var(--border); color: var(--text); font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; border-radius: 10px; cursor: pointer; transition: all 0.2s; margin-bottom: 20px; }
+  .btn-demo-sm:hover { border-color: var(--amber); color: var(--amber); }
+  .card-includes { border-top: 1px solid var(--border); padding-top: 20px; }
+  .card-includes h5 { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+  .include-row { display: flex; align-items: center; gap: 10px; font-size: 0.82rem; color: var(--text-muted); padding: 6px 0; }
+  .include-row .ck { color: var(--green); font-size: 0.85rem; flex-shrink: 0; }
+  .next-batch { margin-top: 20px; background: var(--amber-glow); border: 1px solid rgba(245,158,11,0.2); border-radius: 8px; padding: 12px 16px; font-size: 0.8rem; }
+  .next-batch strong { color: var(--amber); display: block; margin-bottom: 2px; font-family: 'Syne', sans-serif; }
+  .next-batch span { color: var(--text-muted); }
+
+  /* PAGE BODY */
+  .page-body { max-width: 1160px; margin: 0 auto; padding: 0 48px; }
+  .content-grid { display: grid; grid-template-columns: 1fr 360px; gap: 64px; align-items: start; }
+  .content-main { min-width: 0; }
+  .content-side { position: sticky; top: 80px; }
+
+  section.body-section { padding: 64px 0; border-bottom: 1px solid var(--border); }
+  section.body-section:last-child { border-bottom: none; }
+  .sec-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+  .sec-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 24px; }
+
+  /* LEARN GRID */
+  .learn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .learn-item { display: flex; align-items: flex-start; gap: 12px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; font-size: 0.85rem; transition: border-color 0.2s; }
+  .learn-item:hover { border-color: var(--acc-border); }
+  .learn-item .li-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+  .learn-item .li-text strong { display: block; font-weight: 600; font-size: 0.85rem; margin-bottom: 2px; }
+  .learn-item .li-text span { font-size: 0.75rem; color: var(--text-muted); }
+
+  /* NLP PIPELINE VISUAL (unique) */
+  .pipeline-wrap { overflow-x: auto; padding-bottom: 8px; }
+  .pipeline { display: flex; align-items: stretch; gap: 0; min-width: 680px; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+  .pipe-step { flex: 1; padding: 24px 18px; border-right: 1px solid var(--border); position: relative; transition: background 0.2s; cursor: default; }
+  .pipe-step:last-child { border-right: none; }
+  .pipe-step:hover { background: rgba(251,146,60,0.04); }
+  .pipe-num { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; color: var(--acc); text-transform: uppercase; margin-bottom: 10px; }
+  .pipe-step h4 { font-family: 'Playfair Display', serif; font-size: 0.82rem; font-weight: 700; margin-bottom: 8px; line-height: 1.3; }
+  .pipe-step p { font-size: 0.72rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 10px; }
+  .pipe-tags { display: flex; flex-direction: column; gap: 4px; }
+  .pipe-tag { font-family: 'DM Mono', monospace; font-size: 0.68rem; background: var(--acc-glow); color: var(--acc); border: 1px solid var(--acc-border); padding: 2px 7px; border-radius: 3px; display: inline-block; width: fit-content; }
+  .pipe-arrow { position: absolute; right: -10px; top: 50%; transform: translateY(-50%); background: var(--bg3); border: 1px solid var(--acc-border); color: var(--acc); border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; z-index: 2; }
+  .pipe-step:last-child .pipe-arrow { display: none; }
+
+  /* TRANSFORMER EVOLUTION (unique) */
+  .transformer-timeline { position: relative; padding-left: 24px; }
+  .transformer-timeline::before { content: ''; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(to bottom, var(--acc), transparent); border-radius: 1px; }
+  .tl-item { position: relative; margin-bottom: 28px; padding-left: 24px; }
+  .tl-item:last-child { margin-bottom: 0; }
+  .tl-dot { position: absolute; left: -17px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--acc); border: 2px solid var(--bg); box-shadow: 0 0 8px rgba(251,146,60,0.5); }
+  .tl-year { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; color: var(--acc); margin-bottom: 4px; }
+  .tl-item h4 { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 700; margin-bottom: 5px; }
+  .tl-item p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.55; }
+  .tl-taught { display: inline-block; margin-top: 8px; font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; background: var(--acc-glow); color: var(--acc); border: 1px solid var(--acc-border); border-radius: 100px; padding: 2px 10px; }
+
+  /* OUTCOMES */
+  .outcomes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
+  .outcome-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 22px; transition: all 0.2s; }
+  .outcome-card:hover { border-color: var(--acc-border); }
+  .outcome-icon { font-size: 1.5rem; margin-bottom: 10px; display: block; }
+  .outcome-card h4 { font-family: 'Playfair Display', serif; font-size: 0.92rem; font-weight: 700; margin-bottom: 4px; }
+  .outcome-card p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; }
+  .salary-badge { display: inline-flex; align-items: center; gap: 4px; background: var(--acc-glow); color: var(--acc); border: 1px solid var(--acc-border); border-radius: 100px; padding: 2px 10px; font-size: 0.68rem; font-family: 'DM Mono', monospace; margin-top: 8px; }
+
+  .who-for { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-top: 20px; }
+  .who-for h4 { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+  .who-row { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; padding: 6px 0; border-bottom: 1px solid var(--border); }
+  .who-row:last-child { border-bottom: none; }
+
+  /* CURRICULUM */
+  .week-item { border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px; overflow: hidden; }
+  .week-header { width: 100%; background: none; border: none; color: var(--text); padding: 18px 20px; cursor: pointer; display: flex; align-items: center; gap: 14px; text-align: left; transition: background 0.2s; }
+  .week-header:hover { background: rgba(255,255,255,0.02); }
+  .week-num { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; background: var(--acc-glow); color: var(--acc); padding: 3px 10px; border-radius: 100px; white-space: nowrap; flex-shrink: 0; }
+  .week-title { font-family: 'Playfair Display', serif; font-size: 0.9rem; font-weight: 700; flex: 1; }
+  .week-ch { color: var(--acc); transition: transform 0.3s; margin-left: auto; flex-shrink: 0; }
+  .week-item.open .week-ch { transform: rotate(180deg); }
+  .week-body { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  .week-item.open .week-body { max-height: 500px; border-top: 1px solid var(--border); }
+  .week-body ul { padding: 16px 20px 16px 44px; }
+  .week-body li { font-size: 0.85rem; color: var(--text-muted); padding: 5px 0; list-style: disc; }
+
+  /* PROJECTS */
+  .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .project-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 24px; position: relative; overflow: hidden; transition: all 0.25s; }
+  .project-card:hover { border-color: var(--acc-border); transform: translateY(-3px); }
+  .project-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, var(--acc), transparent); }
+  .proj-number { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; color: var(--acc); margin-bottom: 12px; }
+  .project-card h4 { font-family: 'Playfair Display', serif; font-size: 0.92rem; font-weight: 700; margin-bottom: 8px; }
+  .project-card p { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 14px; line-height: 1.5; }
+  .tool-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tool-tag { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; background: rgba(255,255,255,0.05); border: 1px solid var(--border); padding: 3px 8px; border-radius: 4px; color: var(--text-muted); }
+
+  /* CERT */
+  .cert-showcase { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: center; }
+  .cert-visual { background: linear-gradient(135deg, var(--bg3), #1c140a); border: 1px solid rgba(251,191,36,0.3); border-radius: 14px; padding: 36px; text-align: center; position: relative; overflow: hidden; }
+  .cert-visual::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at top, rgba(251,191,36,0.07), transparent 60%); }
+  .cert-emoji { font-size: 3rem; display: block; margin-bottom: 12px; position: relative; }
+  .cert-visual h4 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 800; margin-bottom: 4px; position: relative; color: var(--amber2); }
+  .cert-visual p { font-size: 0.78rem; color: var(--text-muted); position: relative; }
+  .cert-li-badge { margin-top: 16px; display: inline-flex; align-items: center; gap: 6px; background: rgba(10,102,194,0.15); border: 1px solid rgba(10,102,194,0.3); border-radius: 100px; padding: 5px 14px; font-size: 0.72rem; color: #60a5fa; position: relative; }
+  .cert-info h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 800; margin-bottom: 12px; }
+  .cert-info p { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 20px; line-height: 1.7; }
+  .cert-steps { display: flex; flex-direction: column; gap: 12px; }
+  .cert-step { display: flex; align-items: center; gap: 12px; font-size: 0.82rem; }
+  .cert-step .cs-num { width: 24px; height: 24px; background: var(--amber-glow); border: 1px solid rgba(245,158,11,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--amber); flex-shrink: 0; }
+  .cert-step span { color: var(--text-muted); }
+
+  /* INSTRUCTOR */
+  .instructor-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 14px; padding: 32px; display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start; }
+  .instructor-avatar { width: 88px; height: 88px; border-radius: 50%; background: linear-gradient(135deg, var(--acc), var(--acc-dark)); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; color: #000; flex-shrink: 0; border: 3px solid var(--acc-border); }
+  .instructor-name { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; margin-bottom: 4px; }
+  .instructor-role { font-size: 0.8rem; color: var(--acc); margin-bottom: 12px; font-weight: 500; }
+  .instructor-bio { font-size: 0.875rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 16px; }
+  .instructor-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .inst-tag { font-size: 0.72rem; background: var(--card); border: 1px solid var(--border); padding: 4px 10px; border-radius: 6px; color: var(--text-muted); }
+
+  /* SCHEDULE */
+  .schedule-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .schedule-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 22px; transition: border-color 0.2s; }
+  .schedule-card:hover { border-color: var(--acc-border); }
+  .sch-batch { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; color: var(--acc); text-transform: uppercase; margin-bottom: 10px; }
+  .sch-date { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; margin-bottom: 4px; }
+  .sch-time { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px; }
+  .sch-seats { display: inline-flex; align-items: center; gap: 5px; font-size: 0.72rem; color: var(--text-muted); }
+  .seat-dot { width: 7px; height: 7px; border-radius: 50%; }
+  .seat-dot.open { background: var(--green); }
+  .seat-dot.low  { background: var(--amber); }
+  .sch-btn { width: 100%; margin-top: 14px; padding: 9px; border-radius: 7px; cursor: pointer; font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; transition: all 0.2s; border: 1px solid var(--border); background: transparent; color: var(--text); }
+  .sch-btn:hover { background: var(--amber); border-color: var(--amber); color: #000; }
+
+  /* REVIEWS */
+  .reviews-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .review-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+  .review-stars { color: var(--amber); font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 12px; }
+  .review-card blockquote { font-size: 0.85rem; color: var(--text); line-height: 1.7; font-style: italic; font-weight: 300; margin-bottom: 16px; }
+  .reviewer { display: flex; align-items: center; gap: 10px; }
+  .rev-avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 800; flex-shrink: 0; }
+  .rev-name { font-family: 'Syne', sans-serif; font-size: 0.82rem; font-weight: 700; }
+  .rev-role { font-size: 0.72rem; color: var(--text-muted); }
+
+  /* RELATED */
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .related-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 22px; transition: all 0.25s; text-decoration: none; color: var(--text); display: block; }
+  .related-card:hover { border-color: rgba(245,158,11,0.25); transform: translateY(-3px); }
+  .rel-tag { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; color: var(--amber); text-transform: uppercase; margin-bottom: 10px; display: block; }
+  .related-card h4 { font-family: 'Playfair Display', serif; font-size: 0.9rem; font-weight: 700; margin-bottom: 8px; }
+  .related-card p { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 14px; }
+  .rel-price { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; color: var(--amber); }
+  .rel-mrp { font-size: 0.75rem; color: var(--text-muted); text-decoration: line-through; margin-right: 6px; }
+
+  /* MOBILE */
+  .sticky-bottom { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: rgba(10,12,18,0.97); backdrop-filter: blur(16px); border-top: 1px solid var(--border); padding: 14px 20px; z-index: 200; gap: 12px; align-items: center; }
+  .sticky-price { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; }
+
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  .wa-float { position: fixed; bottom: 28px; right: 28px; width: 52px; height: 52px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: 0 6px 28px rgba(37,211,102,0.4); text-decoration: none; z-index: 200; animation: floatBounce 3s ease-in-out infinite; }
+  @keyframes floatBounce { 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(-5px) } }
+
+  @media (max-width: 960px) {
+    .hero-layout, .content-grid { grid-template-columns: 1fr; }
+    .enrol-card { position: static; display: none; }
+    .content-side { display: none; }
+    .sticky-bottom { display: flex; }
+    .course-hero, .page-body { padding-left: 24px; padding-right: 24px; }
+    header, .breadcrumb { padding-left: 24px; padding-right: 24px; }
+    nav { display: none; }
+    .learn-grid, .outcomes-grid, .projects-grid, .cert-showcase, .reviews-grid { grid-template-columns: 1fr; }
+    .schedule-grid { grid-template-columns: 1fr 1fr; }
+    .related-grid { grid-template-columns: 1fr; }
+    .hero-left { padding-bottom: 40px; }
+  }
+  @media (max-width: 580px) {
+    .schedule-grid { grid-template-columns: 1fr; }
+    .pipeline { min-width: 520px; }
+  }
+
+
+  /* ── PLAYFAIR HEADINGS — applied site-wide ── */
+  .section-title,
+  .courses-header h2,
+  .why-title,
+  section > .container > h2,
+  section h2.section-title,
+  .faq-list ~ h2,
+  .page-hero h2,
+  .cert-section h2,
+  .outcomes h2,
+  .demo-title,
+  .pricing-hero h2,
+  .intro-headline,
+  .hero-left h2,
+  .cert-info h3,
+  .cert-card h3,
+  .enrol-card-header h3,
+  .track-card h3 {
+    font-family: 'Playfair Display', serif !important;
+  }
+  /* marker class to avoid duplicate injection */
+  .playfair-headings-applied { display: none; }
+</style>
+
+<link rel="stylesheet" href="theme.css">
+<script src="theme.js"></script>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="newtonjee-homepage.html" class="logo"><div class="logo-icon">N</div>Newton<span class="acc-c">JEE</span></a>
+  <nav><a href="newtonjee-homepage.html#courses">Courses</a><a href="newtonjee-pricing.html">Pricing</a><a href="certifications.html">Certifications</a><a href="blog.html">Blog</a>
+    <a href="robotics-research.html" style="font-size:0.875rem;font-weight:500;color:var(--text-muted);text-decoration:none;">Robotics</a></nav>
+  <div class="header-right" style="display:flex; align-items:center; gap:12px;">
+    <button class="theme-toggle" onclick="toggleTheme()"><span class="toggle-icon">☀️</span><span class="toggle-label">Light</span></button>
+    <button class="btn-header" onclick="document.getElementById('enrol-section').scrollIntoView({behavior:'smooth'})">Enrol Now →</button>
+  </div>
+</header>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="newtonjee-homepage.html">Home</a><span class="sep">›</span>
+  <a href="newtonjee-homepage.html#courses">Courses</a><span class="sep">›</span>
+  <span class="current">NLP & Text Mining</span>
+</div>
+
+<!-- HERO -->
+<div class="course-hero">
+  <!-- Drifting NLP tokens in background -->
+  <div class="hero-text-bg" aria-hidden="true">
+    <span style="top:12%;animation-duration:28s;animation-delay:0s;">tokenize → embed → encode → attend → decode → generate → classify → extract → summarize → tokenize → embed → encode →</span>
+    <span style="top:28%;animation-duration:34s;animation-delay:-8s;">BERT · GPT · attention · transformer · softmax · embedding · LSTM · tokenizer · NER · POS · TF-IDF · cosine similarity ·</span>
+    <span style="top:44%;animation-duration:25s;animation-delay:-4s;">sentiment · entity · intent · summarisation · translation · Q&amp;A · chatbot · RAG · HuggingFace · spaCy · NLTK ·</span>
+    <span style="top:60%;animation-duration:32s;animation-delay:-12s;">precision · recall · F1 · perplexity · BLEU · ROUGE · BERTScore · zero-shot · few-shot · fine-tune · prompt ·</span>
+    <span style="top:76%;animation-duration:29s;animation-delay:-6s;">word2vec · GloVe · fastText · sub-word · BPE · WordPiece · SentencePiece · [CLS] · [SEP] · [MASK] ·</span>
+  </div>
+  <div class="hero-glow"></div>
+  <div class="hero-layout">
+    <div class="hero-left">
+      <div class="course-badge-row">
+        <span class="badge intermediate">⚡ Intermediate</span>
+        <span class="badge gold">🥇 Gold Certificate</span>
+        <span class="badge transformers">🤗 HuggingFace · BERT</span>
+        <span class="badge live"><span class="dot"></span> Live Sessions</span>
+      </div>
+      <h1>NLP &<br><span>Text Mining</span></h1>
+      <p class="course-tagline">From bag-of-words to BERT. Learn how machines read, understand, and generate human language — and build real applications that companies actually ship.</p>
+      <div class="meta-pills">
+        <div class="meta-pill">⏱ <strong>5 Weeks</strong></div>
+        <div class="meta-pill">📺 <strong>15 Live Sessions</strong></div>
+        <div class="meta-pill">👥 <strong>Max 15 students</strong></div>
+        <div class="meta-pill">🤗 <strong>HuggingFace Throughout</strong></div>
+        <div class="meta-pill">🗣️ <strong>English + Telugu</strong></div>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><span class="num">260+</span><span class="lbl">Enrolled</span></div>
+        <div class="hstat"><span class="num">4.9★</span><span class="lbl">Rating</span></div>
+        <div class="hstat"><span class="num">4</span><span class="lbl">Projects</span></div>
+        <div class="hstat"><span class="num">91%</span><span class="lbl">Completion</span></div>
+      </div>
+    </div>
+    <!-- ENROL CARD -->
+    <div class="enrol-card">
+      <div><span class="enrol-fee"><sup>₹</sup>6,999</span><span class="enrol-mrp">₹12,000</span></div>
+      <div><span class="enrol-save">You save ₹5,001 — 42% OFF</span></div>
+      <div class="enrol-emi">or ₹583/month · 12-month no-cost EMI</div>
+      <button class="btn-enrol-main">⚡ Enrol Now</button>
+      <button class="btn-demo-sm">📅 Book Free Demo</button>
+      <div class="card-includes">
+        <h5>What's Included</h5>
+        <div class="include-row"><span class="ck">✓</span> 15 live sessions (2hrs each)</div>
+        <div class="include-row"><span class="ck">✓</span> Lifetime recording access</div>
+        <div class="include-row"><span class="ck">✓</span> 4 real-world NLP projects</div>
+        <div class="include-row"><span class="ck">✓</span> LinkedIn Gold badge</div>
+        <div class="include-row"><span class="ck">✓</span> HuggingFace model zoo guide</div>
+        <div class="include-row"><span class="ck">✓</span> NLP interview prep sheet</div>
+        <div class="include-row"><span class="ck">✓</span> Mentor office hours</div>
+        <div class="include-row"><span class="ck">✓</span> Placement assistance</div>
+      </div>
+      <div class="next-batch">
+        <strong>🗓 Next Batch: Apr 19, 2025</strong>
+        <span>Sat & Sun · 2:00 PM – 4:00 PM IST</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="page-body">
+  <div class="content-grid">
+    <div class="content-main">
+
+      <!-- WHAT YOU'LL LEARN -->
+      <section class="body-section reveal">
+        <div class="sec-label">// Curriculum Highlights</div>
+        <div class="sec-title">What You'll Learn</div>
+        <div class="learn-grid">
+          <div class="learn-item"><span class="li-icon">✂️</span><div class="li-text"><strong>Text Preprocessing</strong><span>Tokenisation, stemming, lemmatisation, stopword removal, regex patterns</span></div></div>
+          <div class="learn-item"><span class="li-icon">🔢</span><div class="li-text"><strong>Classical Text Features</strong><span>Bag-of-Words, TF-IDF, n-grams — when they still beat transformers</span></div></div>
+          <div class="learn-item"><span class="li-icon">🗺️</span><div class="li-text"><strong>Word Embeddings</strong><span>Word2Vec, GloVe, fastText — dense representations and analogies</span></div></div>
+          <div class="learn-item"><span class="li-icon">😊</span><div class="li-text"><strong>Sentiment Analysis</strong><span>Rule-based → ML → BERT fine-tuning on product review datasets</span></div></div>
+          <div class="learn-item"><span class="li-icon">🏷️</span><div class="li-text"><strong>Named Entity Recognition</strong><span>spaCy NER, custom entity training, sequence labelling with CRF</span></div></div>
+          <div class="learn-item"><span class="li-icon">🤗</span><div class="li-text"><strong>Transformers & BERT</strong><span>Attention mechanism, encoder-only models, fine-tuning on downstream tasks</span></div></div>
+          <div class="learn-item"><span class="li-icon">📋</span><div class="li-text"><strong>Text Classification</strong><span>Multi-class, multi-label, hierarchical — from spam to intent detection</span></div></div>
+          <div class="learn-item"><span class="li-icon">📝</span><div class="li-text"><strong>Text Summarisation</strong><span>Extractive (TextRank) and abstractive (T5, BART) summarisation pipelines</span></div></div>
+          <div class="learn-item"><span class="li-icon">❓</span><div class="li-text"><strong>Question Answering</strong><span>Span extraction with BERT, retrieval-augmented QA, SQuAD benchmarking</span></div></div>
+          <div class="learn-item"><span class="li-icon">📊</span><div class="li-text"><strong>NLP Evaluation Metrics</strong><span>BLEU, ROUGE, BERTScore, perplexity — what they measure and when to use them</span></div></div>
+        </div>
+      </section>
+
+      <!-- NLP PIPELINE VISUAL -->
+      <section class="body-section reveal">
+        <div class="sec-label">// The Full NLP Pipeline</div>
+        <div class="sec-title">Raw Text → Working Application</div>
+        <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:24px;line-height:1.7;max-width:560px;">Every NLP project follows the same fundamental flow. You'll build each stage from scratch before assembling them into production-ready applications.</p>
+        <div class="pipeline-wrap">
+          <div class="pipeline">
+            <div class="pipe-step">
+              <div class="pipe-num">01</div>
+              <h4>Raw Text Input</h4>
+              <p>Unstructured text from any source — reviews, tweets, docs, PDFs.</p>
+              <div class="pipe-tags"><span class="pipe-tag">CSV / JSON</span><span class="pipe-tag">APIs</span><span class="pipe-tag">PDFs</span></div>
+              <div class="pipe-arrow">›</div>
+            </div>
+            <div class="pipe-step">
+              <div class="pipe-num">02</div>
+              <h4>Preprocessing</h4>
+              <p>Clean, normalise, tokenise, remove noise.</p>
+              <div class="pipe-tags"><span class="pipe-tag">spaCy</span><span class="pipe-tag">NLTK</span><span class="pipe-tag">regex</span></div>
+              <div class="pipe-arrow">›</div>
+            </div>
+            <div class="pipe-step">
+              <div class="pipe-num">03</div>
+              <h4>Representation</h4>
+              <p>Convert text to numbers a model can use.</p>
+              <div class="pipe-tags"><span class="pipe-tag">TF-IDF</span><span class="pipe-tag">BERT tokens</span><span class="pipe-tag">Embeddings</span></div>
+              <div class="pipe-arrow">›</div>
+            </div>
+            <div class="pipe-step">
+              <div class="pipe-num">04</div>
+              <h4>Model</h4>
+              <p>Train or fine-tune the right model for the task.</p>
+              <div class="pipe-tags"><span class="pipe-tag">BERT</span><span class="pipe-tag">T5</span><span class="pipe-tag">spaCy NER</span></div>
+              <div class="pipe-arrow">›</div>
+            </div>
+            <div class="pipe-step">
+              <div class="pipe-num">05</div>
+              <h4>Evaluation</h4>
+              <p>Measure with the right metric for the task.</p>
+              <div class="pipe-tags"><span class="pipe-tag">F1</span><span class="pipe-tag">ROUGE</span><span class="pipe-tag">BERTScore</span></div>
+              <div class="pipe-arrow">›</div>
+            </div>
+            <div class="pipe-step">
+              <div class="pipe-num">06</div>
+              <h4>Deployment</h4>
+              <p>Serve predictions via API endpoint.</p>
+              <div class="pipe-tags"><span class="pipe-tag">FastAPI</span><span class="pipe-tag">HuggingFace Hub</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TRANSFORMER EVOLUTION -->
+      <section class="body-section reveal">
+        <div class="sec-label">// Evolution of NLP</div>
+        <div class="sec-title">From Rules to Transformers</div>
+        <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:32px;line-height:1.7;max-width:560px;">You'll understand each era of NLP — not just the latest models. Knowing where each approach fails is what separates engineers who debug well from those who don't.</p>
+        <div class="transformer-timeline">
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-year">Pre-2013 · Classical Era</div>
+            <h4>Bag-of-Words & TF-IDF</h4>
+            <p>Simple frequency-based representations. Still fast, interpretable, and surprisingly effective for short-text classification tasks with small datasets.</p>
+            <span class="tl-taught">✓ Taught in Week 1</span>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-year">2013–2017 · Embedding Era</div>
+            <h4>Word2Vec, GloVe & fastText</h4>
+            <p>Dense vector representations that capture semantic relationships. The first time "king − man + woman ≈ queen" worked mathematically. Introduced contextual meaning to NLP.</p>
+            <span class="tl-taught">✓ Taught in Week 2</span>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-year">2017–2018 · Seq2Seq Era</div>
+            <h4>LSTMs, GRUs & Attention</h4>
+            <p>Recurrent models for sequential text. Attention mechanisms let models focus on relevant parts of input — the crucial precursor to transformers.</p>
+            <span class="tl-taught">✓ Conceptual coverage in Week 3</span>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-year">2018 · The Transformer Revolution</div>
+            <h4>BERT — Bidirectional Transformer</h4>
+            <p>Pre-trained on masked language modelling. Fine-tunable on any downstream task with minimal data. Still the workhorse of production NLP in Indian companies.</p>
+            <span class="tl-taught">✓ Deep dive + fine-tuning in Week 3–4</span>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-year">2019–2023 · Specialised Models</div>
+            <h4>T5, BART, RoBERTa, DistilBERT</h4>
+            <p>Task-specific and efficiency-optimised variants. T5 and BART for generation tasks (summarisation, translation). DistilBERT for faster inference with minimal accuracy loss.</p>
+            <span class="tl-taught">✓ Taught in Week 4–5</span>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-year">2023–Present · Bridge to GenAI</div>
+            <h4>Sentence Transformers & RAG Foundations</h4>
+            <p>Sentence-level embeddings for semantic search and retrieval. The direct foundation for RAG pipelines covered in the Generative AI course.</p>
+            <span class="tl-taught">✓ Taught in Week 5 (bridge to GenAI course)</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- CAREER OUTCOMES -->
+      <section class="body-section reveal">
+        <div class="sec-label">// After This Course</div>
+        <div class="sec-title">Career Outcomes</div>
+        <div class="outcomes-grid">
+          <div class="outcome-card">
+            <span class="outcome-icon">💬</span>
+            <h4>NLP Engineer</h4>
+            <p>Dedicated NLP roles at conversational AI, legal tech, and fintech companies building text intelligence products.</p>
+            <span class="salary-badge">₹12–24 LPA fresher range</span>
+          </div>
+          <div class="outcome-card">
+            <span class="outcome-icon">🤖</span>
+            <h4>Conversational AI Developer</h4>
+            <p>Build intent classifiers, NER pipelines, and dialogue systems for chatbot and virtual assistant products.</p>
+            <span class="salary-badge">₹10–20 LPA fresher range</span>
+          </div>
+          <div class="outcome-card">
+            <span class="outcome-icon">🔍</span>
+            <h4>Search & Relevance Engineer</h4>
+            <p>Semantic search using sentence transformers. E-commerce, legal, and enterprise search are all hot markets.</p>
+            <span class="salary-badge">₹14–26 LPA range</span>
+          </div>
+          <div class="outcome-card">
+            <span class="outcome-icon">✨</span>
+            <h4>GenAI Engineer (foundation)</h4>
+            <p>NLP is the prerequisite for GenAI work. This course + the GenAI course = a powerful two-badge combination for LLM roles.</p>
+            <span class="salary-badge">Bridge to Gold + GenAI path</span>
+          </div>
+        </div>
+        <div class="who-for">
+          <h4>// This course is for</h4>
+          <div class="who-row"><span>🐍</span> Those comfortable with Python and basic ML (Scikit-learn level)</div>
+          <div class="who-row"><span>🎓</span> B.Tech/M.Tech students interested in language AI, chatbots, or search</div>
+          <div class="who-row"><span>💼</span> ML engineers adding NLP as a specialisation to existing skills</div>
+          <div class="who-row"><span>❌</span> Not for: absolute beginners — Python + ML basics required</div>
+        </div>
+      </section>
+
+      <!-- CURRICULUM -->
+      <section class="body-section reveal">
+        <div class="sec-label">// Week by Week</div>
+        <div class="sec-title">Full Curriculum — 5 Weeks</div>
+
+        <div class="week-item open">
+          <button class="week-header"><span class="week-num">WEEK 1</span><span class="week-title">Text Preprocessing, Classical NLP & Feature Engineering</span><span class="week-ch">▼</span></button>
+          <div class="week-body"><ul>
+            <li>NLP task taxonomy: classification, generation, extraction, retrieval</li>
+            <li>Text cleaning: lowercasing, punctuation, HTML stripping, unicode normalisation</li>
+            <li>Tokenisation: word, sentence, sub-word (BPE preview)</li>
+            <li>Stemming vs lemmatisation — tradeoffs in practice</li>
+            <li>Stopwords: when removing them helps (and when it hurts)</li>
+            <li>Bag-of-Words and TF-IDF with Scikit-learn</li>
+            <li>N-gram features, character-level features</li>
+            <li>Project kick-off: spam detection with classical features</li>
+          </ul></div>
+        </div>
+
+        <div class="week-item">
+          <button class="week-header"><span class="week-num">WEEK 2</span><span class="week-title">Word Embeddings & Semantic Representations</span><span class="week-ch">▼</span></button>
+          <div class="week-body"><ul>
+            <li>Word2Vec: skip-gram vs CBOW, negative sampling</li>
+            <li>Training your own Word2Vec with Gensim on domain data</li>
+            <li>GloVe: global co-occurrence matrix approach</li>
+            <li>fastText: sub-word embeddings for morphology-rich languages</li>
+            <li>Word analogy tasks: king − man + woman ≈ queen</li>
+            <li>Visualising embeddings with t-SNE</li>
+            <li>Sentence embeddings: averaging, weighted TF-IDF vectors</li>
+            <li>Using pretrained embeddings in Scikit-learn pipelines</li>
+          </ul></div>
+        </div>
+
+        <div class="week-item">
+          <button class="week-header"><span class="week-num">WEEK 3</span><span class="week-title">Transformers & BERT — Theory + Fine-Tuning</span><span class="week-ch">▼</span></button>
+          <div class="week-body"><ul>
+            <li>Attention mechanism: query, key, value — intuition and maths</li>
+            <li>Self-attention and multi-head attention</li>
+            <li>Positional encoding: why order matters and how to encode it</li>
+            <li>BERT architecture: encoder-only, masked LM, next sentence prediction</li>
+            <li>Tokenisation: WordPiece, [CLS], [SEP], [MASK] special tokens</li>
+            <li>HuggingFace Transformers: AutoTokenizer, AutoModel, Trainer</li>
+            <li>Fine-tuning BERT for sentiment classification on IMDb</li>
+            <li>DistilBERT: 40% smaller, 60% faster, 97% of BERT quality</li>
+          </ul></div>
+        </div>
+
+        <div class="week-item">
+          <button class="week-header"><span class="week-num">WEEK 4</span><span class="week-title">NER, Summarisation & Question Answering</span><span class="week-ch">▼</span></button>
+          <div class="week-body"><ul>
+            <li>Named Entity Recognition: spaCy pipeline, custom entity training</li>
+            <li>Sequence labelling: BIO tagging, CRF layer</li>
+            <li>Text summarisation: extractive (TextRank, LexRank)</li>
+            <li>Abstractive summarisation: T5, BART via HuggingFace pipeline</li>
+            <li>ROUGE score evaluation for summarisation</li>
+            <li>Extractive QA: BERT on SQuAD, span prediction</li>
+            <li>Zero-shot classification with BART-MNLI</li>
+            <li>Multi-label text classification: sigmoid head, threshold tuning</li>
+          </ul></div>
+        </div>
+
+        <div class="week-item">
+          <button class="week-header"><span class="week-num">WEEK 5</span><span class="week-title">Semantic Search, Sentence Transformers & Capstone</span><span class="week-ch">▼</span></button>
+          <div class="week-body"><ul>
+            <li>Sentence Transformers (SBERT): sentence-level dense embeddings</li>
+            <li>Cosine similarity for semantic search and deduplication</li>
+            <li>FAISS: fast nearest-neighbour search over embedding stores</li>
+            <li>Building a semantic document search engine from scratch</li>
+            <li>BERTScore: embedding-based generation evaluation</li>
+            <li>Bridge to RAG: retrieval-augmented generation preview</li>
+            <li>Model deployment: HuggingFace Spaces + Gradio demo</li>
+            <li>Capstone: end-to-end NLP application of your choice</li>
+          </ul></div>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section class="body-section reveal">
+        <div class="sec-label">// Hands-on Work</div>
+        <div class="sec-title">4 Real NLP Applications</div>
+        <div class="projects-grid">
+          <div class="project-card">
+            <div class="proj-number">PROJECT 01</div>
+            <h4>Flipkart Review Sentiment Analyser</h4>
+            <p>Build a three-stage pipeline: TF-IDF → Word2Vec → BERT fine-tuned on 50k Flipkart product reviews. Compare all three approaches and present results.</p>
+            <div class="tool-tags"><span class="tool-tag">BERT</span><span class="tool-tag">HuggingFace</span><span class="tool-tag">Gensim</span><span class="tool-tag">Scikit-learn</span></div>
+          </div>
+          <div class="project-card">
+            <div class="proj-number">PROJECT 02</div>
+            <h4>Legal Document NER System</h4>
+            <p>Train a custom spaCy NER model to extract parties, dates, clauses, and jurisdiction from Indian legal documents. Evaluate with entity-level F1.</p>
+            <div class="tool-tags"><span class="tool-tag">spaCy</span><span class="tool-tag">Custom NER</span><span class="tool-tag">BIO Tags</span><span class="tool-tag">Prodigy</span></div>
+          </div>
+          <div class="project-card">
+            <div class="proj-number">PROJECT 03</div>
+            <h4>News Article Summariser</h4>
+            <p>Combine extractive (TextRank) and abstractive (T5) summarisation. Build a Gradio app that accepts any news URL and returns a one-paragraph summary.</p>
+            <div class="tool-tags"><span class="tool-tag">T5</span><span class="tool-tag">TextRank</span><span class="tool-tag">ROUGE</span><span class="tool-tag">Gradio</span></div>
+          </div>
+          <div class="project-card">
+            <div class="proj-number">PROJECT 04 — CAPSTONE</div>
+            <h4>Semantic Job Search Engine</h4>
+            <p>Index 10k+ job descriptions using SBERT embeddings + FAISS. Build a search interface where a query like "ML engineer with PyTorch" surfaces semantically relevant jobs — not just keyword matches.</p>
+            <div class="tool-tags"><span class="tool-tag">SBERT</span><span class="tool-tag">FAISS</span><span class="tool-tag">FastAPI</span><span class="tool-tag">Gradio</span><span class="tool-tag">HuggingFace Hub</span></div>
+          </div>
+        </div>
+
+        <div style="margin-top:20px; background:var(--acc-glow); border:1px solid var(--acc-border); border-radius:12px; padding:22px 24px; display:flex; align-items:center; gap:18px;">
+          <span style="font-size:2rem;flex-shrink:0;">🤗</span>
+          <div>
+            <div style="font-family:'Syne',sans-serif;font-weight:700;margin-bottom:4px;color:var(--acc);">HuggingFace Model Zoo Guide Included</div>
+            <div style="font-size:0.82rem;color:var(--text-muted);">A curated reference guide covering 30+ HuggingFace models: when to use each, memory requirements, inference speed, and which tasks each model excels at. Yours to keep and use on every future NLP project.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CERTIFICATE -->
+      <section class="body-section reveal">
+        <div class="sec-label">// Your Credential</div>
+        <div class="sec-title">Gold Certificate Awarded</div>
+        <div class="cert-showcase">
+          <div class="cert-visual">
+            <span class="cert-emoji">🥇</span>
+            <h4>Newton JEE Gold Badge</h4>
+            <p>NLP & GenAI Specialist — NLP & Text Mining</p>
+            <div class="cert-li-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#60a5fa"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H6.5v-7H9V17zm-1.25-8.5c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25zM18 17h-2.5v-3.5c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5V17H10v-7h2.5v1c.46-.69 1.23-1 2-1 1.66 0 3 1.34 3 3V17z"/></svg>
+              Appears on your LinkedIn profile
+            </div>
+          </div>
+          <div class="cert-info">
+            <h4>The First of Two Gold Badges</h4>
+            <p>The Gold tier badge signals NLP & GenAI specialisation — the most in-demand AI skill cluster of 2025. This NLP course earns the first Gold badge; completing the Generative AI & LLMs course earns the second. Together they make a uniquely powerful credential combination on LinkedIn.</p>
+            <div class="cert-steps">
+              <div class="cert-step"><div class="cs-num">1</div><span>Complete all 5 weeks and 4 projects</span></div>
+              <div class="cert-step"><div class="cs-num">2</div><span>Deploy your capstone app to HuggingFace Spaces</span></div>
+              <div class="cert-step"><div class="cs-num">3</div><span>Mentor reviews and approves the capstone</span></div>
+              <div class="cert-step"><div class="cs-num">4</div><span>Gold badge credential link issued within 48hrs</span></div>
+              <div class="cert-step"><div class="cs-num">5</div><span>One-click publish to LinkedIn Certifications</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- INSTRUCTOR -->
+      <section class="body-section reveal">
+        <div class="sec-label">// Your Mentor</div>
+        <div class="sec-title">Meet Your Instructor</div>
+        <div class="instructor-card">
+          <div class="instructor-avatar">AA</div>
+          <div>
+            <div class="instructor-name">Arjun Anand</div>
+            <div class="instructor-role">NLP Research Engineer · Ex-Microsoft Research India & ShareChat</div>
+            <div class="instructor-bio">7 years building NLP systems at scale — multilingual intent detection at ShareChat (handling 10+ Indian languages) and conversational AI research at Microsoft Research India. Arjun's biggest insight from industry: most NLP engineers know how to call a HuggingFace model, but very few know how to choose the right one, debug predictions, or handle edge cases at production scale. That gap is exactly what this course closes.</div>
+            <div class="instructor-tags">
+              <span class="inst-tag">Transformers</span><span class="inst-tag">Multilingual NLP</span><span class="inst-tag">spaCy</span><span class="inst-tag">Information Retrieval</span><span class="inst-tag">IIT Delhi M.Tech</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCHEDULE -->
+      <section class="body-section reveal">
+        <div class="sec-label">// Upcoming Batches</div>
+        <div class="sec-title">Pick Your Batch</div>
+        <div class="schedule-grid">
+          <div class="schedule-card">
+            <div class="sch-batch">Batch #13</div>
+            <div class="sch-date">Apr 19, 2025</div>
+            <div class="sch-time">Sat & Sun · 2:00–4:00 PM IST</div>
+            <div class="sch-seats"><span class="seat-dot low"></span> 4 seats left</div>
+            <button class="sch-btn">Reserve Seat →</button>
+          </div>
+          <div class="schedule-card">
+            <div class="sch-batch">Batch #14</div>
+            <div class="sch-date">May 10, 2025</div>
+            <div class="sch-time">Sat & Sun · 10:00 AM–12:00 PM IST</div>
+            <div class="sch-seats"><span class="seat-dot open"></span> 11 seats open</div>
+            <button class="sch-btn">Reserve Seat →</button>
+          </div>
+          <div class="schedule-card">
+            <div class="sch-batch">Batch #15</div>
+            <div class="sch-date">May 31, 2025</div>
+            <div class="sch-time">Sat & Sun · 2:00–4:00 PM IST</div>
+            <div class="sch-seats"><span class="seat-dot open"></span> 15 seats open</div>
+            <button class="sch-btn">Reserve Seat →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ENROL -->
+      <section class="body-section reveal" id="enrol-section">
+        <div class="sec-label">// Ready to Start?</div>
+        <div class="sec-title">Enrol in This Course</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;">
+          <div>
+            <div style="font-family:'Syne',sans-serif;font-size:2.8rem;font-weight:800;line-height:1;">
+              <sup style="font-size:1.2rem;vertical-align:top;margin-top:10px;">₹</sup>6,999
+              <span style="font-size:1rem;color:var(--text-muted);text-decoration:line-through;font-weight:400;margin-left:10px;">₹12,000</span>
+            </div>
+            <div style="margin:10px 0 6px;display:inline-block;background:rgba(74,222,128,0.12);color:var(--green);font-size:0.78rem;font-weight:700;padding:4px 12px;border-radius:100px;">Save ₹5,001 · 42% OFF</div>
+            <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:28px;">or ₹583/month · 12-month no-cost EMI</div>
+            <div style="display:flex;flex-direction:column;gap:10px;max-width:340px;">
+              <button class="btn-enrol-main" style="max-width:100%">⚡ Enrol Now — Pay ₹6,999</button>
+              <button class="btn-demo-sm" style="max-width:100%">📅 Book Free Demo First</button>
+            </div>
+            <div style="margin-top:16px;font-size:0.75rem;color:var(--text-muted);">🔒 Secured by Razorpay · 100% refund after 2 sessions if unsatisfied</div>
+          </div>
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:24px;">
+            <div style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">Everything included</div>
+            <div class="include-row"><span class="ck">✓</span> 15 live sessions · 30 hrs total</div>
+            <div class="include-row"><span class="ck">✓</span> Lifetime recording access</div>
+            <div class="include-row"><span class="ck">✓</span> 4 real-world NLP projects</div>
+            <div class="include-row"><span class="ck">✓</span> HuggingFace model zoo guide</div>
+            <div class="include-row"><span class="ck">✓</span> LinkedIn-verified Gold badge</div>
+            <div class="include-row"><span class="ck">✓</span> NLP interview prep sheet</div>
+            <div class="include-row"><span class="ck">✓</span> Mentor office hours (1hr/week)</div>
+            <div class="include-row"><span class="ck">✓</span> Resume & LinkedIn review</div>
+            <div class="include-row"><span class="ck">✓</span> Placement referral support</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- REVIEWS -->
+      <section class="body-section reveal">
+        <div class="sec-label">// Alumni Feedback</div>
+        <div class="sec-title">What Students Say</div>
+        <div class="reviews-grid">
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote>The transformer timeline section in week 3 was the clearest explanation of attention I've ever encountered. I had tried to understand BERT from three different sources before this — Arjun explained it in one session and it fully clicked. The fine-tuning project is now my most-viewed GitHub repo.</blockquote>
+            <div class="reviewer">
+              <div class="rev-avatar" style="background:linear-gradient(135deg,var(--acc),var(--acc-dark));color:#000;">NK</div>
+              <div><div class="rev-name">Nikhil Kumar</div><div class="rev-role">B.Tech CSE → NLP Engineer · Sarvam AI</div></div>
+            </div>
+          </div>
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote>The legal NER project was unlike anything I'd done before. Building a custom spaCy model for Indian legal documents felt like real work — not a tutorial. An Advocate friend saw the demo and asked if he could use it. That's when I knew this course was the real deal.</blockquote>
+            <div class="reviewer">
+              <div class="rev-avatar" style="background:linear-gradient(135deg,#a78bfa,#7c3aed);color:#fff;">PK</div>
+              <div><div class="rev-name">Priya Krishnan</div><div class="rev-role">LLB + B.Tech → Legal AI Engineer · Leegality</div></div>
+            </div>
+          </div>
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote>I came in knowing Python and basic ML. By week 5 I had a semantic search engine deployed on HuggingFace Spaces. The jump from TF-IDF to BERT to SBERT embeddings was taught in a way that made every transition feel logical, not magical.</blockquote>
+            <div class="reviewer">
+              <div class="rev-avatar" style="background:linear-gradient(135deg,#34d399,#059669);color:#000;">RB</div>
+              <div><div class="rev-name">Riya Bose</div><div class="rev-role">Software Eng → NLP Engineer · ShareChat</div></div>
+            </div>
+          </div>
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote>Arjun shared a "NLP debugging checklist" in week 4 that saved me hours on the capstone. Things like checking your tokeniser's vocabulary for domain terms, verifying label alignment, and using BERTScore for qualitative evaluation. That checklist is pinned in my notes app permanently.</blockquote>
+            <div class="reviewer">
+              <div class="rev-avatar" style="background:linear-gradient(135deg,#38bdf8,#0284c7);color:#000;">VM</div>
+              <div><div class="rev-name">Vijay Mohan</div><div class="rev-role">Data Analyst → NLP Engineer · Freshworks</div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RELATED -->
+      <section class="body-section reveal">
+        <div class="sec-label">// What's Next</div>
+        <div class="sec-title">Students Also Take</div>
+        <div class="related-grid">
+          <a href="course-generative-ai-llms.html" class="related-card">
+            <span class="rel-tag">Advanced · Natural Next Step</span>
+            <h4>Generative AI & LLMs</h4>
+            <p>NLP is the foundation. GenAI is the frontier. Together they earn both Gold badges — the most valued credential combination.</p>
+            <div><span class="rel-mrp">₹16,000</span><span class="rel-price">₹8,999</span></div>
+          </a>
+          <a href="course-machine-learning.html" class="related-card">
+            <span class="rel-tag">Intermediate · Strengthens NLP</span>
+            <h4>Machine Learning Mastery</h4>
+            <p>Prerequisite-level ML knowledge. If you haven't done this yet, it directly strengthens your NLP model evaluation skills.</p>
+            <div><span class="rel-mrp">₹14,000</span><span class="rel-price">₹7,999</span></div>
+          </a>
+          <a href="newtonjee-pricing.html#bundles" class="related-card">
+            <span class="rel-tag">Bundle · Best Value</span>
+            <h4>GenAI Bundle</h4>
+            <p>ML + NLP + GenAI — the complete language AI path for ₹21,999. Save ₹20,001 vs buying separately.</p>
+            <div><span class="rel-mrp">₹42,000</span><span class="rel-price">₹21,999</span></div>
+          </a>
+        </div>
+      </section>
+
+    </div><!-- end content-main -->
+
+    <!-- SIDEBAR -->
+    <div class="content-side">
+      <div class="enrol-card" style="display:block;">
+        <div><span class="enrol-fee"><sup>₹</sup>6,999</span><span class="enrol-mrp">₹12,000</span></div>
+        <div><span class="enrol-save">You save ₹5,001 — 42% OFF</span></div>
+        <div class="enrol-emi">or ₹583/month · 12-month no-cost EMI</div>
+        <button class="btn-enrol-main">⚡ Enrol Now</button>
+        <button class="btn-demo-sm">📅 Book Free Demo</button>
+        <div class="card-includes">
+          <h5>What's Included</h5>
+          <div class="include-row"><span class="ck">✓</span> 15 live sessions (2hrs each)</div>
+          <div class="include-row"><span class="ck">✓</span> Lifetime recording access</div>
+          <div class="include-row"><span class="ck">✓</span> 4 real-world NLP projects</div>
+          <div class="include-row"><span class="ck">✓</span> LinkedIn Gold badge</div>
+          <div class="include-row"><span class="ck">✓</span> HuggingFace model guide</div>
+          <div class="include-row"><span class="ck">✓</span> NLP interview prep sheet</div>
+          <div class="include-row"><span class="ck">✓</span> Mentor office hours</div>
+          <div class="include-row"><span class="ck">✓</span> Placement assistance</div>
+        </div>
+        <div class="next-batch">
+          <strong>🗓 Next Batch: Apr 19, 2025</strong>
+          <span>Sat & Sun · 2:00 PM – 4:00 PM IST</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MOBILE BAR -->
+<div class="sticky-bottom">
+  <div><div class="sticky-price">₹6,999</div><div style="font-size:0.72rem;color:var(--text-muted);">₹583/mo EMI</div></div>
+  <div style="display:flex;gap:10px;flex:1;justify-content:flex-end;">
+    <button class="btn-demo-sm" style="padding:10px 16px;font-size:0.78rem;">Demo</button>
+    <button class="btn-enrol-main" style="padding:10px 20px;font-size:0.82rem;margin-bottom:0;width:auto;">Enrol →</button>
+  </div>
+</div>
+
+<a href="https://wa.me/918019466635" class="wa-float">💬</a>
+
+<script>
+  document.querySelectorAll('.week-header').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.week-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.06 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+<!-- ── SITE FOOTER ── -->
+<footer style="background:#080c14;border-top:1px solid rgba(255,255,255,0.06);padding:48px 48px 32px;margin-top:0;">
+  <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;flex-wrap:wrap;">
+    <div>
+      <a href="newtonjee-homepage.html" style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:#ffffff;text-decoration:none;display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+        <span style="width:28px;height:28px;background:var(--amber);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:0.85rem;color:#000;font-weight:900;">N</span>
+        Newton<span style="color:var(--amber);">JEE</span>
+      </a>
+      <p style="font-size:0.82rem;color:#5d7080;line-height:1.7;max-width:240px;">India's most elite AI &amp; Robotics career accelerator. Hyderabad, Telangana.</p>
+    </div>
+    <div>
+      <h5 style="font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#5d7080;margin-bottom:16px;">Courses</h5>
+      <a href="course-python-for-ai.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Python for AI</a>
+      <a href="course-machine-learning.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Machine Learning</a>
+      <a href="course-generative-ai-llms.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Generative AI &amp; LLMs</a>
+      <a href="robotics-research.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">🤖 Robotics Research</a>
+      <a href="newtonjee-homepage.html#courses" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;">All Courses →</a>
+    </div>
+    <div>
+      <h5 style="font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#5d7080;margin-bottom:16px;">Platform</h5>
+      <a href="certifications.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Certifications</a>
+      <a href="success-stories.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Success Stories</a>
+      <a href="newtonjee-pricing.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Pricing</a>
+      <a href="blog.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Blog</a>
+      <a href="portal.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;">Student Portal</a>
+    </div>
+    <div>
+      <h5 style="font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#5d7080;margin-bottom:16px;">Contact</h5>
+      <a href="tel:+918019466635" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">📞 +91 80194 66635</a>
+      <a href="/cdn-cgi/l/email-protection#ee868b828281ae808b999a8180848b8bc08d8183" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">✉ <span class="__cf_email__" data-cfemail="3b535e5757547b555e4c4f5455515e5e15585456">[email&#160;protected]</span></a>
+      <a href="https://wa.me/918019466635" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">💬 WhatsApp Us</a>
+      <a href="contact.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;">📍 HITEC City, Hyderabad</a>
+    </div>
+  </div>
+  <div style="max-width:1200px;margin:28px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,0.05);display:flex;justify-content:space-between;font-size:0.72rem;color:#3d5060;">
+    <span>© 2025 NewtonJEEAI Technologies. All rights reserved.</span>
