@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MLOps & AI Engineering — Newton JEE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800;1,900&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
+  body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:0.022;pointer-events:none;z-index:9999}
+  header{position:sticky;top:0;z-index:100;background:rgba(10,12,18,0.93);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 48px;height:64px;display:flex;align-items:center;justify-content:space-between}
+  .logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;letter-spacing:-0.02em;display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--text)}
+  .logo .acc-c{color:var(--amber)}
+  .logo-icon{width:30px;height:30px;background:var(--amber);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;color:#000;font-weight:900}
+  nav{display:flex;align-items:center;gap:28px}
+  nav a{font-size:0.875rem;font-weight:500;color:var(--text-muted);text-decoration:none;transition:color 0.2s}
+  nav a:hover{color:var(--text)}
+  .btn-header{background:var(--amber);color:#000;font-family:'Syne',sans-serif;font-weight:700;font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;padding:9px 18px;border-radius:6px;border:none;cursor:pointer;transition:all 0.2s}
+  .btn-header:hover{background:var(--amber2)}
+  .breadcrumb{padding:14px 48px;background:var(--bg2);border-bottom:1px solid var(--border);font-size:0.78rem;color:var(--text-muted);display:flex;align-items:center;gap:8px}
+  .breadcrumb a{color:var(--text-muted);text-decoration:none}
+  .breadcrumb a:hover{color:var(--amber)}
+  .breadcrumb .sep{opacity:0.4}
+  .breadcrumb .current{color:var(--text)}
+  .course-hero{position:relative;padding:72px 48px 0;overflow:hidden;background:var(--bg2);border-bottom:1px solid var(--border)}
+  .hero-grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(45,212,191,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(45,212,191,0.04) 1px,transparent 1px);background-size:36px 36px;mask-image:radial-gradient(ellipse 60% 85% at 85% 45%,black,transparent 70%)}
+  .hero-glow{position:absolute;top:-15%;right:5%;width:580px;height:500px;background:radial-gradient(ellipse,rgba(45,212,191,0.09),transparent 65%);pointer-events:none}
+  .hero-layout{position:relative;display:grid;grid-template-columns:1fr 360px;gap:48px;max-width:1160px;margin:0 auto;align-items:start}
+  .hero-left{padding-bottom:72px;animation:fadeUp 0.7s ease both}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+  .course-badge-row{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+  .badge{display:inline-flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;padding:4px 12px;border-radius:100px}
+  .badge.advanced{background:var(--acc-glow);color:var(--acc);border:1px solid var(--acc-border)}
+  .badge.platinum{background:rgba(226,232,240,0.1);color:#e2e8f0;border:1px solid rgba(226,232,240,0.25)}
+  .badge.capstone{background:rgba(245,158,11,0.12);color:var(--amber);border:1px solid rgba(245,158,11,0.2)}
+  .badge.live{background:rgba(239,68,68,0.12);color:#f87171;border:1px solid rgba(239,68,68,0.2)}
+  .badge .dot{width:5px;height:5px;border-radius:50%;background:currentColor;animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+  .course-hero h1{font-family: 'Playfair Display', serif;font-size:clamp(2.2rem, 4.5vw, 3.6rem);font-weight:800;letter-spacing:-0.04em;line-height:1.1;margin-bottom:18px}
+  .course-hero h1 span{color:var(--acc)}
+  .course-tagline{font-size:1.05rem;color:var(--text-muted);font-weight:300;max-width:520px;margin-bottom:32px;line-height:1.7}
+  .meta-pills{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:36px}
+  .meta-pill{display:flex;align-items:center;gap:8px;font-size:0.85rem;color:var(--text-muted)}
+  .meta-pill strong{color:var(--text);font-weight:600}
+  .hero-stats{display:flex;gap:0;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+  .hstat{flex:1;padding:20px;border-right:1px solid var(--border);text-align:center}
+  .hstat:last-child{border-right:none}
+  .hstat .num{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:var(--acc);display:block}
+  .hstat .lbl{font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;font-family:'DM Mono',monospace}
+  .enrol-card{background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:32px;position:sticky;top:80px;animation:fadeUp 0.6s 0.2s ease both}
+  .enrol-fee{font-family:'Syne',sans-serif;font-size:2.4rem;font-weight:800;line-height:1}
+  .enrol-fee sup{font-size:1.1rem;vertical-align:top;margin-top:8px}
+  .enrol-mrp{font-size:0.85rem;color:var(--text-muted);text-decoration:line-through;margin-left:8px}
+  .enrol-save{display:inline-block;background:rgba(74,222,128,0.12);color:var(--green);font-size:0.72rem;font-weight:700;padding:3px 10px;border-radius:100px;margin:6px 0}
+  .enrol-emi{font-size:0.78rem;color:var(--text-muted);margin-bottom:24px}
+  .btn-enrol-main{width:100%;padding:15px;background:var(--amber);color:#000;font-family:'Syne',sans-serif;font-weight:800;font-size:0.92rem;letter-spacing:0.05em;text-transform:uppercase;border:none;border-radius:10px;cursor:pointer;transition:all 0.2s;margin-bottom:12px;box-shadow:0 0 40px rgba(245,158,11,0.18)}
+  .btn-enrol-main:hover{background:var(--amber2);transform:translateY(-2px)}
+  .btn-demo-sm{width:100%;padding:12px;background:transparent;border:1px solid var(--border);color:var(--text);font-family:'Syne',sans-serif;font-weight:700;font-size:0.82rem;letter-spacing:0.04em;text-transform:uppercase;border-radius:10px;cursor:pointer;transition:all 0.2s;margin-bottom:20px}
+  .btn-demo-sm:hover{border-color:var(--amber);color:var(--amber)}
+  .card-includes{border-top:1px solid var(--border);padding-top:20px}
+  .card-includes h5{font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px}
+  .include-row{display:flex;align-items:center;gap:10px;font-size:0.82rem;color:var(--text-muted);padding:6px 0}
+  .include-row .ck{color:var(--green);font-size:0.85rem;flex-shrink:0}
+  .next-batch{margin-top:20px;background:var(--amber-glow);border:1px solid rgba(245,158,11,0.2);border-radius:8px;padding:12px 16px;font-size:0.8rem}
+  .next-batch strong{color:var(--amber);display:block;margin-bottom:2px;font-family:'Syne',sans-serif}
+  .next-batch span{color:var(--text-muted)}
+  .page-body{max-width:1160px;margin:0 auto;padding:0 48px}
+  .content-grid{display:grid;grid-template-columns:1fr 360px;gap:64px;align-items:start}
+  .content-main{min-width:0}
+  .content-side{position:sticky;top:80px}
+  section.body-section{padding:64px 0;border-bottom:1px solid var(--border)}
+  section.body-section:last-child{border-bottom:none}
+  .sec-label{font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--amber);margin-bottom:8px}
+  .sec-title{font-family: 'Playfair Display', serif;font-size:1.5rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:24px}
+  .learn-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .learn-item{display:flex;align-items:flex-start;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px;font-size:0.85rem;transition:border-color 0.2s}
+  .learn-item:hover{border-color:var(--acc-border)}
+  .learn-item .li-icon{font-size:1.1rem;flex-shrink:0;margin-top:1px}
+  .learn-item .li-text strong{display:block;font-weight:600;font-size:0.85rem;margin-bottom:2px}
+  .learn-item .li-text span{font-size:0.75rem;color:var(--text-muted)}
+  .mlops-loop{position:relative;background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:32px;overflow:hidden}
+  .mlops-loop::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(45,212,191,0.05),transparent 70%);pointer-events:none}
+  .loop-title{font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--acc);margin-bottom:24px}
+  .loop-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
+  .loop-grid::before{content:'';position:absolute;top:28px;left:10%;right:10%;height:2px;background:linear-gradient(90deg,var(--acc),rgba(45,212,191,0.2));z-index:0}
+  .loop-step{position:relative;z-index:1;text-align:center;padding:0 8px}
+  .loop-icon{width:56px;height:56px;border-radius:50%;background:var(--bg);border:2px solid var(--acc-border);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin:0 auto 12px;transition:all 0.2s}
+  .loop-step:hover .loop-icon{border-color:var(--acc);box-shadow:0 0 16px var(--acc-glow)}
+  .loop-step h4{font-family: 'Playfair Display', serif;font-size:0.82rem;font-weight:700;margin-bottom:4px}
+  .loop-step p{font-size:0.7rem;color:var(--text-muted);line-height:1.4}
+  .loop-tools{margin-top:28px;padding-top:20px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:8px}
+  .loop-tool{font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.08em;background:var(--acc-glow);color:var(--acc);border:1px solid var(--acc-border);padding:3px 10px;border-radius:4px}
+  .stack-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .stack-card{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:20px;transition:border-color 0.2s}
+  .stack-card:hover{border-color:var(--acc-border)}
+  .stack-cat{font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;color:var(--acc);text-transform:uppercase;margin-bottom:10px}
+  .stack-card h4{font-family: 'Playfair Display', serif;font-size:0.9rem;font-weight:700;margin-bottom:6px}
+  .stack-card p{font-size:0.78rem;color:var(--text-muted);line-height:1.5;margin-bottom:10px}
+  .stack-tools{display:flex;flex-wrap:wrap;gap:6px}
+  .stack-tool{font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.06em;background:rgba(255,255,255,0.05);border:1px solid var(--border);padding:2px 8px;border-radius:4px;color:var(--text-muted)}
+  .outcomes-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px}
+  .outcome-card{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:22px;transition:all 0.2s}
+  .outcome-card:hover{border-color:var(--acc-border)}
+  .outcome-icon{font-size:1.5rem;margin-bottom:10px;display:block}
+  .outcome-card h4{font-family: 'Playfair Display', serif;font-size:0.92rem;font-weight:700;margin-bottom:4px}
+  .outcome-card p{font-size:0.78rem;color:var(--text-muted);line-height:1.5}
+  .salary-badge{display:inline-flex;align-items:center;gap:4px;background:var(--acc-glow);color:var(--acc);border:1px solid var(--acc-border);border-radius:100px;padding:2px 10px;font-size:0.68rem;font-family:'DM Mono',monospace;margin-top:8px}
+  .who-for{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:24px;margin-top:20px}
+  .who-for h4{font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px}
+  .who-row{display:flex;align-items:center;gap:10px;font-size:0.85rem;padding:6px 0;border-bottom:1px solid var(--border)}
+  .who-row:last-child{border-bottom:none}
+  .week-item{border:1px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden}
+  .week-header{width:100%;background:none;border:none;color:var(--text);padding:18px 20px;cursor:pointer;display:flex;align-items:center;gap:14px;text-align:left;transition:background 0.2s}
+  .week-header:hover{background:rgba(255,255,255,0.02)}
+  .week-num{font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;background:var(--acc-glow);color:var(--acc);padding:3px 10px;border-radius:100px;white-space:nowrap;flex-shrink:0}
+  .week-title{font-family: 'Playfair Display', serif;font-size:0.9rem;font-weight:700;flex:1}
+  .week-ch{color:var(--acc);transition:transform 0.3s;margin-left:auto;flex-shrink:0}
+  .week-item.open .week-ch{transform:rotate(180deg)}
+  .week-body{max-height:0;overflow:hidden;transition:max-height 0.35s ease}
+  .week-item.open .week-body{max-height:500px;border-top:1px solid var(--border)}
+  .week-body ul{padding:16px 20px 16px 44px}
+  .week-body li{font-size:0.85rem;color:var(--text-muted);padding:5px 0;list-style:disc}
+  .projects-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .project-card{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:24px;position:relative;overflow:hidden;transition:all 0.25s}
+  .project-card:hover{border-color:var(--acc-border);transform:translateY(-3px)}
+  .project-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,var(--acc),transparent)}
+  .proj-number{font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;color:var(--acc);margin-bottom:12px}
+  .project-card h4{font-family: 'Playfair Display', serif;font-size:0.92rem;font-weight:700;margin-bottom:8px}
+  .project-card p{font-size:0.8rem;color:var(--text-muted);margin-bottom:14px;line-height:1.5}
+  .tool-tags{display:flex;flex-wrap:wrap;gap:6px}
+  .tool-tag{font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.08em;background:rgba(255,255,255,0.05);border:1px solid var(--border);padding:3px 8px;border-radius:4px;color:var(--text-muted)}
+  .badges-row{display:flex;gap:16px;margin-bottom:28px;flex-wrap:wrap}
+  .badge-showcase{flex:1;min-width:120px;background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;transition:border-color 0.2s}
+  .badge-showcase:hover{border-color:var(--acc-border)}
+  .bs-emoji{font-size:2rem;display:block;margin-bottom:8px}
+  .bs-name{font-family:'Syne',sans-serif;font-size:0.78rem;font-weight:700;margin-bottom:2px}
+  .bs-tier{font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--text-muted)}
+  .cert-showcase{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
+  .cert-visual{background:linear-gradient(135deg,var(--bg3),#0d1a1e);border:1px solid rgba(226,232,240,0.3);border-radius:14px;padding:36px;text-align:center;position:relative;overflow:hidden}
+  .cert-visual::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top,rgba(45,212,191,0.08),transparent 60%)}
+  .cert-emoji{font-size:3rem;display:block;margin-bottom:12px;position:relative}
+  .cert-visual h4{font-family: 'Playfair Display', serif;font-size:1rem;font-weight:800;margin-bottom:4px;position:relative;color:#e2e8f0}
+  .cert-visual p{font-size:0.78rem;color:var(--text-muted);position:relative}
+  .cert-li-badge{margin-top:16px;display:inline-flex;align-items:center;gap:6px;background:rgba(10,102,194,0.15);border:1px solid rgba(10,102,194,0.3);border-radius:100px;padding:5px 14px;font-size:0.72rem;color:#60a5fa;position:relative}
+  .cert-info h4{font-family: 'Playfair Display', serif;font-size:1.1rem;font-weight:800;margin-bottom:12px}
+  .cert-info p{font-size:0.875rem;color:var(--text-muted);margin-bottom:20px;line-height:1.7}
+  .cert-steps{display:flex;flex-direction:column;gap:12px}
+  .cert-step{display:flex;align-items:center;gap:12px;font-size:0.82rem}
+  .cert-step .cs-num{width:24px;height:24px;background:var(--amber-glow);border:1px solid rgba(245,158,11,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--amber);flex-shrink:0}
+  .cert-step span{color:var(--text-muted)}
+  .instructor-card{background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:32px;display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:start}
+  .instructor-avatar{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,var(--acc),var(--acc2));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;color:#000;flex-shrink:0;border:3px solid var(--acc-border)}
+  .instructor-name{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;margin-bottom:4px}
+  .instructor-role{font-size:0.8rem;color:var(--acc);margin-bottom:12px;font-weight:500}
+  .instructor-bio{font-size:0.875rem;color:var(--text-muted);line-height:1.7;margin-bottom:16px}
+  .instructor-tags{display:flex;flex-wrap:wrap;gap:8px}
+  .inst-tag{font-size:0.72rem;background:var(--card);border:1px solid var(--border);padding:4px 10px;border-radius:6px;color:var(--text-muted)}
+  .schedule-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .schedule-card{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:22px;transition:border-color 0.2s}
+  .schedule-card:hover{border-color:var(--acc-border)}
+  .sch-batch{font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;color:var(--acc);text-transform:uppercase;margin-bottom:10px}
+  .sch-date{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;margin-bottom:4px}
+  .sch-time{font-size:0.8rem;color:var(--text-muted);margin-bottom:12px}
+  .sch-seats{display:inline-flex;align-items:center;gap:5px;font-size:0.72rem;color:var(--text-muted)}
+  .seat-dot{width:7px;height:7px;border-radius:50%}
+  .seat-dot.open{background:var(--green)}
+  .seat-dot.low{background:var(--amber)}
+  .sch-btn{width:100%;margin-top:14px;padding:9px;border-radius:7px;cursor:pointer;font-family:'Syne',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;transition:all 0.2s;border:1px solid var(--border);background:transparent;color:var(--text)}
+  .sch-btn:hover{background:var(--amber);border-color:var(--amber);color:#000}
+  .reviews-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .review-card{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:24px}
+  .review-stars{color:var(--amber);font-size:0.85rem;letter-spacing:2px;margin-bottom:12px}
+  .review-card blockquote{font-size:0.85rem;color:var(--text);line-height:1.7;font-style:italic;font-weight:300;margin-bottom:16px}
+  .reviewer{display:flex;align-items:center;gap:10px}
+  .rev-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:0.8rem;font-weight:800;flex-shrink:0}
+  .rev-name{font-family:'Syne',sans-serif;font-size:0.82rem;font-weight:700}
+  .rev-role{font-size:0.72rem;color:var(--text-muted)}
+  .related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .related-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px;transition:all 0.25s;text-decoration:none;color:var(--text);display:block}
+  .related-card:hover{border-color:rgba(245,158,11,0.25);transform:translateY(-3px)}
+  .rel-tag{font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;color:var(--amber);text-transform:uppercase;margin-bottom:10px;display:block}
+  .related-card h4{font-family: 'Playfair Display', serif;font-size:0.9rem;font-weight:700;margin-bottom:8px}
+  .related-card p{font-size:0.78rem;color:var(--text-muted);margin-bottom:14px}
+  .rel-price{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;color:var(--amber)}
+  .rel-mrp{font-size:0.75rem;color:var(--text-muted);text-decoration:line-through;margin-right:6px}
+  .sticky-bottom{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(10,12,18,0.97);backdrop-filter:blur(16px);border-top:1px solid var(--border);padding:14px 20px;z-index:200;gap:12px;align-items:center}
+  .sticky-price{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800}
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.55s ease,transform 0.55s ease}
+  .reveal.visible{opacity:1;transform:translateY(0)}
+  .wa-float{position:fixed;bottom:28px;right:28px;width:52px;height:52px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 6px 28px rgba(37,211,102,0.4);text-decoration:none;z-index:200;animation:floatBounce 3s ease-in-out infinite}
+  @keyframes floatBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+  @media(max-width:960px){
+    .hero-layout,.content-grid{grid-template-columns:1fr}
+    .enrol-card{position:static;display:none}
+    .content-side{display:none}
+    .sticky-bottom{display:flex}
+    .course-hero,.page-body{padding-left:24px;padding-right:24px}
+    header,.breadcrumb{padding-left:24px;padding-right:24px}
+    nav{display:none}
+    .learn-grid,.outcomes-grid,.projects-grid,.cert-showcase,.reviews-grid,.stack-grid{grid-template-columns:1fr}
+    .loop-grid{grid-template-columns:1fr 1fr}
+    .schedule-grid{grid-template-columns:1fr 1fr}
+    .related-grid{grid-template-columns:1fr}
+    .hero-left{padding-bottom:40px}
+  }
+  @media(max-width:580px){.loop-grid,.schedule-grid{grid-template-columns:1fr}.badges-row{flex-direction:column}}
+
+
+  /* ── PLAYFAIR HEADINGS — applied site-wide ── */
+  .section-title,
+  .courses-header h2,
+  .why-title,
+  section > .container > h2,
+  section h2.section-title,
+  .faq-list ~ h2,
+  .page-hero h2,
+  .cert-section h2,
+  .outcomes h2,
+  .demo-title,
+  .pricing-hero h2,
+  .intro-headline,
+  .hero-left h2,
+  .cert-info h3,
+  .cert-card h3,
+  .enrol-card-header h3,
+  .track-card h3 {
+    font-family: 'Playfair Display', serif !important;
+  }
+  /* marker class to avoid duplicate injection */
+  .playfair-headings-applied { display: none; }
+</style>
+
+<link rel="stylesheet" href="theme.css">
+<script src="theme.js"></script>
+</head>
+<body>
+
+<header>
+  <a href="newtonjee-homepage.html" class="logo"><div class="logo-icon">N</div>Newton<span class="acc-c">JEE</span></a>
+  <nav><a href="newtonjee-homepage.html#courses">Courses</a><a href="newtonjee-pricing.html">Pricing</a><a href="certifications.html">Certifications</a><a href="blog.html">Blog</a>
+    <a href="robotics-research.html" style="font-size:0.875rem;font-weight:500;color:var(--text-muted);text-decoration:none;">Robotics</a></nav>
+  <div class="header-right" style="display:flex; align-items:center; gap:12px;">
+    <button class="theme-toggle" onclick="toggleTheme()"><span class="toggle-icon">☀️</span><span class="toggle-label">Light</span></button>
+    <button class="btn-header" onclick="document.getElementById('enrol-section').scrollIntoView({behavior:'smooth'})">Enrol Now</button>
+  </div>
+</header>
+
+<div class="breadcrumb">
+  <a href="newtonjee-homepage.html">Home</a><span class="sep">&#8250;</span>
+  <a href="newtonjee-homepage.html#courses">Courses</a><span class="sep">&#8250;</span>
+  <span class="current">MLOps &amp; AI Engineering</span>
+</div>
+
+<div class="course-hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-layout">
+    <div class="hero-left">
+      <div class="course-badge-row">
+        <span class="badge advanced">&#9881; Advanced</span>
+        <span class="badge platinum">&#127942; Platinum Certificate</span>
+        <span class="badge capstone">&#127894; Capstone Course</span>
+        <span class="badge live"><span class="dot"></span> Live Sessions</span>
+      </div>
+      <h1>MLOps &amp;<br><span>AI Engineering</span></h1>
+      <p class="course-tagline">Building models is 20% of the job. This course covers the other 80% &#8212; shipping, monitoring, scaling, and maintaining ML systems that actually work in production.</p>
+      <div class="meta-pills">
+        <div class="meta-pill">&#9201; <strong>6 Weeks</strong></div>
+        <div class="meta-pill">&#128250; <strong>18 Live Sessions</strong></div>
+        <div class="meta-pill">&#128101; <strong>Max 15 students</strong></div>
+        <div class="meta-pill">&#9729; <strong>Cloud Labs Included</strong></div>
+        <div class="meta-pill">&#128483;&#65039; <strong>English + Telugu</strong></div>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><span class="num">180+</span><span class="lbl">Enrolled</span></div>
+        <div class="hstat"><span class="num">4.9&#9733;</span><span class="lbl">Rating</span></div>
+        <div class="hstat"><span class="num">4</span><span class="lbl">Projects</span></div>
+        <div class="hstat"><span class="num">91%</span><span class="lbl">Completion</span></div>
+      </div>
+    </div>
+    <div class="enrol-card">
+      <div><span class="enrol-fee"><sup>&#8377;</sup>7,999</span><span class="enrol-mrp">&#8377;14,000</span></div>
+      <div><span class="enrol-save">You save &#8377;6,001 &#8212; 43% OFF</span></div>
+      <div class="enrol-emi">or &#8377;667/month &middot; 12-month no-cost EMI</div>
+      <button class="btn-enrol-main">&#9889; Enrol Now</button>
+      <button class="btn-demo-sm">&#128197; Book Free Demo</button>
+      <div class="card-includes">
+        <h5>What's Included</h5>
+        <div class="include-row"><span class="ck">&#10003;</span> 18 live sessions (2hrs each)</div>
+        <div class="include-row"><span class="ck">&#10003;</span> Lifetime recording access</div>
+        <div class="include-row"><span class="ck">&#10003;</span> 4 end-to-end system projects</div>
+        <div class="include-row"><span class="ck">&#10003;</span> LinkedIn Platinum badge</div>
+        <div class="include-row"><span class="ck">&#10003;</span> Cloud lab credits (AWS/GCP)</div>
+        <div class="include-row"><span class="ck">&#10003;</span> MLOps tool stack guide</div>
+        <div class="include-row"><span class="ck">&#10003;</span> Mentor office hours</div>
+        <div class="include-row"><span class="ck">&#10003;</span> Placement assistance</div>
+      </div>
+      <div class="next-batch">
+        <strong>&#128197; Next Batch: May 31, 2025</strong>
+        <span>Sat &amp; Sun &middot; 10:00 AM &#8211; 12:00 PM IST</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-body">
+  <div class="content-grid">
+    <div class="content-main">
+
+      <section class="body-section reveal">
+        <div class="sec-label">// Curriculum Highlights</div>
+        <div class="sec-title">What You'll Learn</div>
+        <div class="learn-grid">
+          <div class="learn-item"><span class="li-icon">&#128300;</span><div class="li-text"><strong>Experiment Tracking with MLflow</strong><span>Log params, metrics, artefacts; compare runs; register model versions</span></div></div>
+          <div class="learn-item"><span class="li-icon">&#127959;</span><div class="li-text"><strong>ML Pipelines with Metaflow &amp; Prefect</strong><span>Orchestrate multi-step training workflows with retries, parallelism, and caching</span></div></div>
+          <div class="learn-item"><span class="li-icon">&#128051;</span><div class="li-text"><strong>Docker &amp; Containerisation</strong><span>Package models with all dependencies; build reproducible ML containers</span></div></div>
+          <div class="learn-item"><span class="li-icon">&#9889;</span><div class="li-text"><strong>Model Serving with FastAPI &amp; Triton</strong><span>REST APIs, gRPC inference, batching, async serving, latency SLAs</span></div></div>
+          <div class="learn-item"><span class="li-icon">&#9729;</span><div class="li-text"><strong>Cloud Deployment (AWS + GCP)</strong><span>SageMaker endpoints, Vertex AI, Cloud Run &#8212; real multi-cloud exposure</span></div></div>
+          <div class="learn-item"><span class="li-icon">&#128260;</span><div class="li-text"><strong>CI/CD for ML with GitHub Actions</strong><span>Automated test, train, evaluate, and deploy pipelines triggered on code push</span></div></div>
+          <div class="learn-item"><span class="li-icon">&#128202;</span><div class="li-text"><strong>Model Monitoring &amp; Data Drift</strong><span>Evidently, Grafana dashboards, alerting on prediction drift and data skew</span></div></div>
+          <div class="learn-item"><span class="li-icon">&#127981;</span><div class="li-text"><strong>Feature Stores</strong><span>Feast: define, compute, and serve features consistently across train and serve</span></div></div>
+          <div class="learn-item"><span class="li-icon">&#128274;</span><div class="li-text"><strong>ML System Design</strong><span>Design end-to-end ML systems for scale &#8212; the interview topic most ML engineers fail</span></div></div>
+          <div class="learn-item"><span class="li-icon">&#128257;</span><div class="li-text"><strong>Continuous Training (CT)</strong><span>Trigger retraining on drift or schedule; automate the full CT loop end-to-end</span></div></div>
+        </div>
+      </section>
+
+      <section class="body-section reveal">
+        <div class="sec-label">// The Full ML Lifecycle</div>
+        <div class="sec-title">CI/CD/CT &#8212; The MLOps Loop</div>
+        <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:28px;line-height:1.7;max-width:560px;">Every concept in this course maps to one stage of the production ML loop. You'll build each stage, connect them, and run the full pipeline end-to-end in the capstone.</p>
+        <div class="mlops-loop">
+          <div class="loop-title">// Production ML Pipeline &#8212; Complete Loop</div>
+          <div class="loop-grid">
+            <div class="loop-step"><div class="loop-icon">&#128300;</div><h4>Experiment</h4><p>Track runs, compare metrics, register models in MLflow</p></div>
+            <div class="loop-step"><div class="loop-icon">&#127959;</div><h4>Train &amp; Pipeline</h4><p>Orchestrate training with Metaflow/Prefect + Feature Store</p></div>
+            <div class="loop-step"><div class="loop-icon">&#128640;</div><h4>Serve</h4><p>Docker &#8594; FastAPI &#8594; Kubernetes &#8594; Cloud endpoint</p></div>
+            <div class="loop-step"><div class="loop-icon">&#128202;</div><h4>Monitor &amp; Retrain</h4><p>Drift detection &#8594; alert &#8594; trigger CT &#8594; close the loop</p></div>
+          </div>
+          <div class="loop-tools">
+            <span class="loop-tool">MLflow</span><span class="loop-tool">Metaflow</span><span class="loop-tool">Prefect</span>
+            <span class="loop-tool">FastAPI</span><span class="loop-tool">Docker</span><span class="loop-tool">Kubernetes</span>
+            <span class="loop-tool">GitHub Actions</span><span class="loop-tool">AWS SageMaker</span><span class="loop-tool">GCP Vertex AI</span>
+            <span class="loop-tool">Feast</span><span class="loop-tool">Evidently</span><span class="loop-tool">Grafana</span><span class="loop-tool">Prometheus</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="body-section reveal">
+        <div class="sec-label">// Tools You'll Master</div>
+        <div class="sec-title">The Production MLOps Stack</div>
+        <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:24px;line-height:1.7;max-width:560px;">Not a survey course. Every tool is used on a real project. By the end you'll have hands-on experience with the exact tools in job descriptions for ML Engineering and MLOps roles.</p>
+        <div class="stack-grid">
+          <div class="stack-card"><div class="stack-cat">Experiment &amp; Registry</div><h4>MLflow</h4><p>Log params, metrics, and artefacts. Compare runs. Register and version models. Serve predictions from the registry.</p><div class="stack-tools"><span class="stack-tool">mlflow.log_metric</span><span class="stack-tool">Model Registry</span><span class="stack-tool">MLflow UI</span></div></div>
+          <div class="stack-card"><div class="stack-cat">Pipeline Orchestration</div><h4>Metaflow + Prefect</h4><p>Define multi-step training DAGs. Handle retries, parallelism, compute backends. Schedule and trigger on events.</p><div class="stack-tools"><span class="stack-tool">@step</span><span class="stack-tool">@retry</span><span class="stack-tool">Prefect Flow</span></div></div>
+          <div class="stack-card"><div class="stack-cat">Containerisation &amp; Serving</div><h4>Docker + FastAPI + Triton</h4><p>Package models in containers. Build high-performance REST and gRPC inference servers. Handle batching and auth.</p><div class="stack-tools"><span class="stack-tool">Dockerfile</span><span class="stack-tool">docker-compose</span><span class="stack-tool">tritonserver</span></div></div>
+          <div class="stack-card"><div class="stack-cat">Cloud &amp; Kubernetes</div><h4>AWS SageMaker + GCP Vertex</h4><p>Deploy models to managed cloud endpoints. Auto-scale on traffic. A/B test model versions. Real multi-cloud hands-on.</p><div class="stack-tools"><span class="stack-tool">sagemaker.deploy()</span><span class="stack-tool">Vertex Endpoint</span><span class="stack-tool">kubectl</span></div></div>
+          <div class="stack-card"><div class="stack-cat">CI/CD</div><h4>GitHub Actions</h4><p>Automated test &#8594; train &#8594; evaluate &#8594; deploy pipeline triggered on PR. Model quality gates blocking bad deployments.</p><div class="stack-tools"><span class="stack-tool">workflow.yml</span><span class="stack-tool">matrix builds</span><span class="stack-tool">model gates</span></div></div>
+          <div class="stack-card"><div class="stack-cat">Monitoring</div><h4>Evidently + Grafana</h4><p>Generate data drift reports. Detect feature and prediction drift. Visualise in Grafana. Alert on Slack/PagerDuty.</p><div class="stack-tools"><span class="stack-tool">DataDriftReport</span><span class="stack-tool">Prometheus</span><span class="stack-tool">Grafana panels</span></div></div>
+        </div>
+      </section>
+
+      <section class="body-section reveal">
+        <div class="sec-label">// After This Course</div>
+        <div class="sec-title">Career Outcomes</div>
+        <div class="outcomes-grid">
+          <div class="outcome-card"><span class="outcome-icon">&#9881;</span><h4>ML Engineer (Production)</h4><p>The role that bridges data science and software engineering. The most hired profile at product companies building AI at scale.</p><span class="salary-badge">&#8377;15&#8211;30 LPA fresher range</span></div>
+          <div class="outcome-card"><span class="outcome-icon">&#128295;</span><h4>MLOps Engineer</h4><p>Dedicated MLOps roles are growing fastest in large enterprises. Pipeline, monitoring, and infra skills are directly applicable.</p><span class="salary-badge">&#8377;18&#8211;35 LPA range</span></div>
+          <div class="outcome-card"><span class="outcome-icon">&#9729;</span><h4>AI Platform Engineer</h4><p>Build the internal platforms that data scientists use. High leverage, high salary, and rare skillset at Indian tech firms.</p><span class="salary-badge">&#8377;20&#8211;40 LPA range</span></div>
+          <div class="outcome-card"><span class="outcome-icon">&#127959;</span><h4>Senior ML Engineer / Tech Lead</h4><p>MLOps knowledge is the differentiator that takes ML engineers from junior to senior. System design fluency opens leadership tracks.</p><span class="salary-badge">Accelerates promotion timeline</span></div>
+        </div>
+        <div class="who-for">
+          <h4>// This course is for</h4>
+          <div class="who-row"><span>&#129302;</span> ML engineers who know how to build models but not ship them reliably</div>
+          <div class="who-row"><span>&#128188;</span> Software engineers transitioning into ML who want the full picture</div>
+          <div class="who-row"><span>&#127894;</span> Those who completed 2+ Newton JEE courses and want the capstone</div>
+          <div class="who-row"><span>&#10060;</span> Not for: beginners &#8212; requires solid Python + at least basic ML experience</div>
+        </div>
+      </section>
+
+      <section class="body-section reveal">
+        <div class="sec-label">// Week by Week</div>
+        <div class="sec-title">Full Curriculum &#8212; 6 Weeks</div>
+        <div class="week-item open">
+          <button class="week-header"><span class="week-num">WEEK 1</span><span class="week-title">Experiment Tracking, Model Registry &amp; Feature Stores</span><span class="week-ch">&#9660;</span></button>
+          <div class="week-body"><ul>
+            <li>Why MLOps exists: the ML engineering debt problem</li>
+            <li>MLflow: tracking server setup, logging runs, artefacts</li>
+            <li>Model registry: versioning, stage transitions (Staging &#8594; Production)</li>
+            <li>MLflow Model Serving: serve registered models as REST endpoints</li>
+            <li>Feature stores: what they are and why they matter at scale</li>
+            <li>Feast: define feature views, materialise, retrieve online features</li>
+            <li>Avoiding training-serving skew &#8212; the #1 production bug</li>
+          </ul></div>
+        </div>
+        <div class="week-item">
+          <button class="week-header"><span class="week-num">WEEK 2</span><span class="week-title">ML Pipelines &amp; Workflow Orchestration</span><span class="week-ch">&#9660;</span></button>
+          <div class="week-body"><ul>
+            <li>From notebooks to reproducible pipelines &#8212; why scripts aren't enough</li>
+            <li>Metaflow: DAG-style ML workflows, @step, @retry, @batch</li>
+            <li>Prefect: flows, tasks, deployments, schedules, error handling</li>
+            <li>Data versioning with DVC &#8212; track datasets like Git tracks code</li>
+            <li>Pipeline testing: unit testing transforms, integration testing pipelines</li>
+            <li>Parameterised pipeline runs &#8212; grid search at pipeline level</li>
+            <li>Build: end-to-end training pipeline from raw data to registered model</li>
+          </ul></div>
+        </div>
+        <div class="week-item">
+          <button class="week-header"><span class="week-num">WEEK 3</span><span class="week-title">Containerisation &amp; Model Serving</span><span class="week-ch">&#9660;</span></button>
+          <div class="week-body"><ul>
+            <li>Docker fundamentals: images, layers, volumes, networking</li>
+            <li>Dockerising an ML model: base image selection, dependency management</li>
+            <li>FastAPI: build a production-grade prediction API with validation</li>
+            <li>Async serving: concurrent requests, thread pools, async def endpoints</li>
+            <li>NVIDIA Triton Inference Server: batching, model ensembles, gRPC</li>
+            <li>Docker Compose: multi-service ML stacks (API + model + monitoring)</li>
+            <li>Benchmarking latency and throughput: locust load testing</li>
+          </ul></div>
+        </div>
+        <div class="week-item">
+          <button class="week-header"><span class="week-num">WEEK 4</span><span class="week-title">Cloud Deployment &#8212; AWS &amp; GCP</span><span class="week-ch">&#9660;</span></button>
+          <div class="week-body"><ul>
+            <li>AWS SageMaker: training jobs, managed endpoints, auto-scaling</li>
+            <li>SageMaker Pipelines: cloud-native ML workflow orchestration</li>
+            <li>GCP Vertex AI: custom training, prediction endpoints, batch jobs</li>
+            <li>Cloud Run: serverless container deployment for lighter workloads</li>
+            <li>Kubernetes basics: pods, deployments, services, HPA</li>
+            <li>A/B testing model versions: traffic splitting on cloud endpoints</li>
+            <li>Cost optimisation: spot instances, autoscaling, request batching</li>
+          </ul></div>
+        </div>
+        <div class="week-item">
+          <button class="week-header"><span class="week-num">WEEK 5</span><span class="week-title">CI/CD for ML &amp; Automated Testing</span><span class="week-ch">&#9660;</span></button>
+          <div class="week-body"><ul>
+            <li>CI/CD fundamentals applied to ML: what changes versus regular software</li>
+            <li>GitHub Actions: workflow triggers, matrix strategies, secrets</li>
+            <li>ML-specific CI: data validation, model quality gates, eval metric thresholds</li>
+            <li>Automated retraining trigger: push &#8594; test &#8594; train &#8594; evaluate &#8594; gate &#8594; deploy</li>
+            <li>Model cards: documenting intended use, limitations, fairness evaluation</li>
+            <li>Blue-green and canary deployments for ML models</li>
+            <li>Security: model signing, artefact provenance, SBOM for ML</li>
+          </ul></div>
+        </div>
+        <div class="week-item">
+          <button class="week-header"><span class="week-num">WEEK 6</span><span class="week-title">Monitoring, Drift Detection &amp; Capstone</span><span class="week-ch">&#9660;</span></button>
+          <div class="week-body"><ul>
+            <li>What can go wrong in production: data drift, concept drift, upstream changes</li>
+            <li>Evidently: generate HTML drift reports, data quality checks</li>
+            <li>Prometheus: custom ML metrics, scraping prediction endpoints</li>
+            <li>Grafana: dashboards for model performance, drift alerts, business KPIs</li>
+            <li>Continuous training (CT): drift alert &#8594; retrain trigger &#8594; pipeline &#8594; deploy</li>
+            <li>ML system design patterns: two-tower, near-real-time, batch serving</li>
+            <li>Capstone: build and deploy a complete ML system with full CI/CD/CT loop</li>
+          </ul></div>
+        </div>
+      </section>
+
+      <section class="body-section reveal">
+        <div class="sec-label">// Hands-on Work</div>
+        <div class="sec-title">4 End-to-End System Projects</div>
+        <div class="projects-grid">
+          <div class="project-card"><div class="proj-number">PROJECT 01</div><h4>Experiment Tracking Dashboard</h4><p>Instrument an existing ML project with MLflow. Compare 12 experiment runs across 3 algorithms. Register the winning model and serve it via MLflow's built-in server.</p><div class="tool-tags"><span class="tool-tag">MLflow</span><span class="tool-tag">Feast</span><span class="tool-tag">Pandas</span><span class="tool-tag">Scikit-learn</span></div></div>
+          <div class="project-card"><div class="proj-number">PROJECT 02</div><h4>Production Prediction API</h4><p>Dockerise a fraud detection model. Build a FastAPI service with input validation, auth, and health checks. Load test with Locust, benchmark p95 latency, hit &lt;50ms SLA.</p><div class="tool-tags"><span class="tool-tag">FastAPI</span><span class="tool-tag">Docker</span><span class="tool-tag">Pydantic</span><span class="tool-tag">Locust</span></div></div>
+          <div class="project-card"><div class="proj-number">PROJECT 03</div><h4>Automated ML Pipeline on AWS</h4><p>GitHub push triggers GitHub Actions: data validation &#8594; Prefect training pipeline &#8594; MLflow evaluation &#8594; quality gate &#8594; SageMaker deployment. Zero human steps after push.</p><div class="tool-tags"><span class="tool-tag">GitHub Actions</span><span class="tool-tag">Prefect</span><span class="tool-tag">SageMaker</span><span class="tool-tag">MLflow</span></div></div>
+          <div class="project-card"><div class="proj-number">PROJECT 04 &#8212; CAPSTONE</div><h4>Complete ML System with CI/CD/CT</h4><p>Feature store &#8594; training pipeline &#8594; Docker serving &#8594; cloud endpoint &#8594; Evidently drift monitoring &#8594; automated retraining on drift. The complete loop, fully yours.</p><div class="tool-tags"><span class="tool-tag">Full Stack</span><span class="tool-tag">Evidently</span><span class="tool-tag">Grafana</span><span class="tool-tag">Vertex AI</span><span class="tool-tag">GitHub Actions</span></div></div>
+        </div>
+        <div style="margin-top:20px;background:var(--acc-glow);border:1px solid var(--acc-border);border-radius:12px;padding:22px 24px;display:flex;align-items:center;gap:18px;">
+          <span style="font-size:2rem;flex-shrink:0;">&#9729;</span>
+          <div><div style="font-family:'Syne',sans-serif;font-weight:700;margin-bottom:4px;color:var(--acc);">Cloud Lab Credits Included</div><div style="font-size:0.82rem;color:var(--text-muted);">AWS and GCP cloud lab credits are included so you can deploy real endpoints without paying for cloud usage. You work in real cloud environments &#8212; not local simulations.</div></div>
+        </div>
+      </section>
+
+      <section class="body-section reveal">
+        <div class="sec-label">// Your Credential</div>
+        <div class="sec-title">Platinum Certificate &#8212; The Capstone Badge</div>
+        <div style="margin-bottom:28px;"><p style="font-size:0.9rem;color:var(--text-muted);line-height:1.7;max-width:640px;">MLOps &amp; AI Engineering is the capstone course &#8212; the final badge in the Newton JEE certification path. Completing it alongside other courses unlocks the full 4-badge collection.</p></div>
+        <div class="badges-row">
+          <div class="badge-showcase"><span class="bs-emoji">&#129353;</span><div class="bs-name">Bronze</div><div class="bs-tier">Foundation &middot; 2 courses</div></div>
+          <div class="badge-showcase"><span class="bs-emoji">&#129352;</span><div class="bs-name">Silver</div><div class="bs-tier">Practitioner &middot; 2 courses</div></div>
+          <div class="badge-showcase"><span class="bs-emoji">&#129351;</span><div class="bs-name">Gold</div><div class="bs-tier">Specialist &middot; 2 courses</div></div>
+          <div class="badge-showcase" style="border-color:var(--acc-border);"><span class="bs-emoji">&#127942;</span><div class="bs-name" style="color:var(--acc);">Platinum</div><div class="bs-tier" style="color:var(--acc);">Capstone &middot; This course</div></div>
+        </div>
+        <div class="cert-showcase">
+          <div class="cert-visual">
+            <span class="cert-emoji">&#127942;</span>
+            <h4>Newton JEE Platinum Badge</h4>
+            <p>Full-Stack AI Engineer &#8212; MLOps &amp; AI Engineering</p>
+            <div class="cert-li-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#60a5fa"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H6.5v-7H9V17zm-1.25-8.5c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25zM18 17h-2.5v-3.5c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5V17H10v-7h2.5v1c.46-.69 1.23-1 2-1 1.66 0 3 1.34 3 3V17z"/></svg>
+              Appears on your LinkedIn profile
+            </div>
+          </div>
+          <div class="cert-info">
+            <h4>The Rarest Badge in the Stack</h4>
+            <p>Only students who complete the full capstone course earn the Platinum badge. It signals something very specific to recruiters: you don't just build models &#8212; you ship, monitor, and maintain AI systems in production. That distinction is worth real money at senior levels.</p>
+            <div class="cert-steps">
+              <div class="cert-step"><div class="cs-num">1</div><span>Complete all 6 weeks and 4 system projects</span></div>
+              <div class="cert-step"><div class="cs-num">2</div><span>Deploy and demo full CI/CD/CT capstone system</span></div>
+              <div class="cert-step"><div class="cs-num">3</div><span>Mentor reviews system architecture and code quality</span></div>
+              <div class="cert-step"><div class="cs-num">4</div><span>Platinum badge credential link issued within 48hrs</span></div>
+              <div class="cert-step"><div class="cs-num">5</div><span>One-click publish to LinkedIn Certifications</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="body-section reveal">
+        <div class="sec-label">// Your Mentor</div>
+        <div class="sec-title">Meet Your Instructor</div>
+        <div class="instructor-card">
+          <div class="instructor-avatar">VB</div>
+          <div>
+            <div class="instructor-name">Venkat Balasubramanian</div>
+            <div class="instructor-role">Principal ML Engineer &middot; Ex-Swiggy AI &amp; Myntra</div>
+            <div class="instructor-bio">11 years building and operating ML systems at scale &#8212; Swiggy's real-time delivery ETA model (serving 5M+ predictions/day), Myntra's visual search infrastructure, and now consulting for Series B/C startups setting up their MLOps foundations. Venkat has reviewed 300+ ML engineering interviews and knows exactly what the gap is between candidates who can build models and candidates who can maintain them. This course closes that gap in 6 weeks.</div>
+            <div class="instructor-tags">
+              <span class="inst-tag">MLflow</span><span class="inst-tag">Kubernetes</span><span class="inst-tag">AWS SageMaker</span><span class="inst-tag">System Design</span><span class="inst-tag">BITS Pilani B.Tech</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="body-section reveal">
+        <div class="sec-label">// Upcoming Batches</div>
+        <div class="sec-title">Pick Your Batch</div>
+        <div class="schedule-grid">
+          <div class="schedule-card"><div class="sch-batch">Batch #06</div><div class="sch-date">May 31, 2025</div><div class="sch-time">Sat &amp; Sun &middot; 10:00&#8211;12:00 PM IST</div><div class="sch-seats"><span class="seat-dot low"></span> 4 seats left</div><button class="sch-btn">Reserve Seat</button></div>
+          <div class="schedule-card"><div class="sch-batch">Batch #07</div><div class="sch-date">Jun 21, 2025</div><div class="sch-time">Sat &amp; Sun &middot; 2:00&#8211;4:00 PM IST</div><div class="sch-seats"><span class="seat-dot open"></span> 12 seats open</div><button class="sch-btn">Reserve Seat</button></div>
+          <div class="schedule-card"><div class="sch-batch">Batch #08</div><div class="sch-date">Jul 12, 2025</div><div class="sch-time">Sat &amp; Sun &middot; 10:00&#8211;12:00 PM IST</div><div class="sch-seats"><span class="seat-dot open"></span> 15 seats open</div><button class="sch-btn">Reserve Seat</button></div>
+        </div>
+      </section>
+
+      <section class="body-section reveal" id="enrol-section">
+        <div class="sec-label">// Ready to Start?</div>
+        <div class="sec-title">Enrol in This Course</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;">
+          <div>
+            <div style="font-family:'Syne',sans-serif;font-size:2.8rem;font-weight:800;line-height:1;"><sup style="font-size:1.2rem;vertical-align:top;margin-top:10px;">&#8377;</sup>7,999<span style="font-size:1rem;color:var(--text-muted);text-decoration:line-through;font-weight:400;margin-left:10px;">&#8377;14,000</span></div>
+            <div style="margin:10px 0 6px;display:inline-block;background:rgba(74,222,128,0.12);color:var(--green);font-size:0.78rem;font-weight:700;padding:4px 12px;border-radius:100px;">Save &#8377;6,001 &middot; 43% OFF</div>
+            <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:28px;">or &#8377;667/month &middot; 12-month no-cost EMI</div>
+            <div style="display:flex;flex-direction:column;gap:10px;max-width:340px;">
+              <button class="btn-enrol-main" style="max-width:100%">&#9889; Enrol Now &#8212; Pay &#8377;7,999</button>
+              <button class="btn-demo-sm" style="max-width:100%">&#128197; Book Free Demo First</button>
+            </div>
+            <div style="margin-top:16px;font-size:0.75rem;color:var(--text-muted);">&#128274; Secured by Razorpay &middot; 100% refund after 2 sessions if unsatisfied</div>
+          </div>
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:24px;">
+            <div style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">Everything included</div>
+            <div class="include-row"><span class="ck">&#10003;</span> 18 live sessions &middot; 36 hrs total</div>
+            <div class="include-row"><span class="ck">&#10003;</span> Lifetime recording access</div>
+            <div class="include-row"><span class="ck">&#10003;</span> 4 end-to-end system projects</div>
+            <div class="include-row"><span class="ck">&#10003;</span> Cloud lab credits (AWS + GCP)</div>
+            <div class="include-row"><span class="ck">&#10003;</span> LinkedIn-verified Platinum badge</div>
+            <div class="include-row"><span class="ck">&#10003;</span> MLOps tool stack reference guide</div>
+            <div class="include-row"><span class="ck">&#10003;</span> ML system design interview prep</div>
+            <div class="include-row"><span class="ck">&#10003;</span> Mentor office hours (1hr/week)</div>
+            <div class="include-row"><span class="ck">&#10003;</span> Placement referral support</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="body-section reveal">
+        <div class="sec-label">// Alumni Feedback</div>
+        <div class="sec-title">What Students Say</div>
+        <div class="reviews-grid">
+          <div class="review-card"><div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><blockquote>I had been building ML models for 2 years and thought I was good. Then Venkat showed us a real production incident from Swiggy's ETA model &#8212; data drift that took down prediction quality for 3 hours because nobody had monitoring. That session alone changed how I think about ML engineering.</blockquote><div class="reviewer"><div class="rev-avatar" style="background:linear-gradient(135deg,var(--acc),var(--acc2));color:#000;">RK</div><div><div class="rev-name">Rohan Kapoor</div><div class="rev-role">Data Scientist &#8594; ML Engineer &middot; Swiggy</div></div></div></div>
+          <div class="review-card"><div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><blockquote>The CI/CD for ML week was the hardest and the most valuable. Building a GitHub Actions pipeline that automatically tests, trains, evaluates, gates on metrics, and deploys to SageMaker &#8212; and having it actually work on my first PR &#8212; was one of the most satisfying engineering moments of my career.</blockquote><div class="reviewer"><div class="rev-avatar" style="background:linear-gradient(135deg,#a78bfa,#7c3aed);color:#fff;">LS</div><div><div class="rev-name">Lavanya Srinivasan</div><div class="rev-role">SDE-1 &#8594; MLOps Engineer &middot; Zepto</div></div></div></div>
+          <div class="review-card"><div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><blockquote>The ML system design sessions were what I needed most. I had three system design interviews where I kept failing. After Venkat's framework &#8212; data pipeline, feature store, model serving, monitoring, retraining loop &#8212; I cleared the next two in a row. The difference was night and day.</blockquote><div class="reviewer"><div class="rev-avatar" style="background:linear-gradient(135deg,#fb923c,#ea580c);color:#000;">PD</div><div><div class="rev-name">Pranav Desai</div><div class="rev-role">B.Tech CSE &#8594; ML Engineer &middot; Flipkart</div></div></div></div>
+          <div class="review-card"><div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><blockquote>The Platinum badge is real. When a recruiter at Amazon saw it on my LinkedIn, she specifically asked about it in the screening call. I walked her through the capstone system and she fast-tracked me to the final round.</blockquote><div class="reviewer"><div class="rev-avatar" style="background:linear-gradient(135deg,#34d399,#059669);color:#000;">SN</div><div><div class="rev-name">Shruti Nair</div><div class="rev-role">Data Analyst &#8594; Senior ML Engineer &middot; Amazon</div></div></div></div>
+        </div>
+      </section>
+
+      <section class="body-section reveal">
+        <div class="sec-label">// What's Next</div>
+        <div class="sec-title">Complete the Badge Collection</div>
+        <div class="related-grid">
+          <a href="course-generative-ai-llms.html" class="related-card"><span class="rel-tag">Advanced &middot; Gold Badge</span><h4>Generative AI &amp; LLMs</h4><p>The most in-demand course. Pair GenAI skills with MLOps to become a truly complete AI engineer.</p><div><span class="rel-mrp">&#8377;16,000</span><span class="rel-price">&#8377;8,999</span></div></a>
+          <a href="course-machine-learning.html" class="related-card"><span class="rel-tag">Intermediate &middot; Silver Badge</span><h4>Machine Learning Mastery</h4><p>If you haven't built your Silver badge yet, ML Mastery + MLOps is the most powerful two-course combination.</p><div><span class="rel-mrp">&#8377;14,000</span><span class="rel-price">&#8377;7,999</span></div></a>
+          <a href="newtonjee-pricing.html#bundles" class="related-card"><span class="rel-tag">Bundle &middot; All 4 Badges</span><h4>Full Stack AI Engineer</h4><p>All 8 courses for &#8377;54,999 &#8212; all 4 LinkedIn badges in one bundle. Save &#8377;46,001 vs individual.</p><div><span class="rel-mrp">&#8377;1,01,000</span><span class="rel-price">&#8377;54,999</span></div></a>
+        </div>
+      </section>
+
+    </div>
+
+    <div class="content-side">
+      <div class="enrol-card" style="display:block;">
+        <div><span class="enrol-fee"><sup>&#8377;</sup>7,999</span><span class="enrol-mrp">&#8377;14,000</span></div>
+        <div><span class="enrol-save">You save &#8377;6,001 &#8212; 43% OFF</span></div>
+        <div class="enrol-emi">or &#8377;667/month &middot; 12-month no-cost EMI</div>
+        <button class="btn-enrol-main">&#9889; Enrol Now</button>
+        <button class="btn-demo-sm">&#128197; Book Free Demo</button>
+        <div class="card-includes">
+          <h5>What's Included</h5>
+          <div class="include-row"><span class="ck">&#10003;</span> 18 live sessions (2hrs each)</div>
+          <div class="include-row"><span class="ck">&#10003;</span> Lifetime recording access</div>
+          <div class="include-row"><span class="ck">&#10003;</span> 4 end-to-end system projects</div>
+          <div class="include-row"><span class="ck">&#10003;</span> LinkedIn Platinum badge</div>
+          <div class="include-row"><span class="ck">&#10003;</span> Cloud lab credits (AWS/GCP)</div>
+          <div class="include-row"><span class="ck">&#10003;</span> MLOps tool stack guide</div>
+          <div class="include-row"><span class="ck">&#10003;</span> Mentor office hours</div>
+          <div class="include-row"><span class="ck">&#10003;</span> Placement assistance</div>
+        </div>
+        <div class="next-batch">
+          <strong>&#128197; Next Batch: May 31, 2025</strong>
+          <span>Sat &amp; Sun &middot; 10:00 AM &#8211; 12:00 PM IST</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sticky-bottom">
+  <div><div class="sticky-price">&#8377;7,999</div><div style="font-size:0.72rem;color:var(--text-muted);">&#8377;667/mo EMI</div></div>
+  <div style="display:flex;gap:10px;flex:1;justify-content:flex-end;">
+    <button class="btn-demo-sm" style="padding:10px 16px;font-size:0.78rem;">Demo</button>
+    <button class="btn-enrol-main" style="padding:10px 20px;font-size:0.82rem;margin-bottom:0;width:auto;">Enrol</button>
+  </div>
+</div>
+
+<a href="https://wa.me/918019466635" class="wa-float">&#128172;</a>
+
+<script>
+  document.querySelectorAll('.week-header').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.week-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.06 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+<!-- ── SITE FOOTER ── -->
+<footer style="background:#080c14;border-top:1px solid rgba(255,255,255,0.06);padding:48px 48px 32px;margin-top:0;">
+  <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;flex-wrap:wrap;">
+    <div>
+      <a href="newtonjee-homepage.html" style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:#ffffff;text-decoration:none;display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+        <span style="width:28px;height:28px;background:var(--amber);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:0.85rem;color:#000;font-weight:900;">N</span>
+        Newton<span style="color:var(--amber);">JEE</span>
+      </a>
+      <p style="font-size:0.82rem;color:#5d7080;line-height:1.7;max-width:240px;">India's most elite AI &amp; Robotics career accelerator. Hyderabad, Telangana.</p>
+    </div>
+    <div>
+      <h5 style="font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#5d7080;margin-bottom:16px;">Courses</h5>
+      <a href="course-python-for-ai.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Python for AI</a>
+      <a href="course-machine-learning.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Machine Learning</a>
+      <a href="course-generative-ai-llms.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Generative AI &amp; LLMs</a>
+      <a href="robotics-research.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">🤖 Robotics Research</a>
+      <a href="newtonjee-homepage.html#courses" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;">All Courses →</a>
+    </div>
+    <div>
+      <h5 style="font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#5d7080;margin-bottom:16px;">Platform</h5>
+      <a href="certifications.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Certifications</a>
+      <a href="success-stories.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Success Stories</a>
+      <a href="newtonjee-pricing.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Pricing</a>
+      <a href="blog.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Blog</a>
+      <a href="portal.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;">Student Portal</a>
+    </div>
+    <div>
+      <h5 style="font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#5d7080;margin-bottom:16px;">Contact</h5>
+      <a href="tel:+918019466635" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">📞 +91 80194 66635</a>
+      <a href="/cdn-cgi/l/email-protection#deb6bbb2b2b19eb0bba9aab1b0b4bbbbf0bdb1b3" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">✉ <span class="__cf_email__" data-cfemail="b7dfd2dbdbd8f7d9d2c0c3d8d9ddd2d299d4d8da">[email&#160;protected]</span></a>
+      <a href="https://wa.me/918019466635" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">💬 WhatsApp Us</a>
+      <a href="contact.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;">📍 HITEC City, Hyderabad</a>
+    </div>
+  </div>
+  <div style="max-width:1200px;margin:28px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,0.05);display:flex;justify-content:space-between;font-size:0.72rem;color:#3d5060;">
+    <span>© 2025 NewtonJEEAI Technologies. All rights reserved.</span>

@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Machine Learning Mastery — Newton JEE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800;1,900&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.022; pointer-events: none; z-index: 1;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,12,18,0.92); backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 48px; height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem;
+    letter-spacing: -0.02em; display: flex; align-items: center; gap: 8px;
+    text-decoration: none; color: #ffffff;
+  }
+  .logo .acc-c { color: var(--amber); }
+  .logo-icon {
+    width: 30px; height: 30px; background: var(--amber); border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem; color: #000; font-weight: 900;
+  }
+
+  nav { display: flex; align-items: center; gap: 28px; }
+  nav a {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--amber);
+    text-decoration: none;
+    transition: color 0.2s;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+  nav a:hover { color: var(--amber2); }
+  nav a.active { color: var(--amber2); }
+  .btn-header {
+    background: var(--amber); color: #000;
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.78rem;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 9px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 0.2s;
+  }
+  .btn-header:hover { background: var(--amber2); }
+
+  /* ── BREADCRUMB ── */
+  .breadcrumb {
+    padding: 14px 48px; background: var(--bg2); border-bottom: 1px solid var(--border);
+    font-size: 0.78rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px;
+  }
+  .breadcrumb a { color: var(--text-muted); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--amber); }
+  .breadcrumb .sep { opacity: 0.4; }
+  .breadcrumb .current { color: var(--text); }
+
+  /* ── COURSE HERO ── */
+  .course-hero {
+    position: relative; padding: 72px 48px 0;
+    overflow: hidden; background: var(--bg2); border-bottom: 1px solid var(--border);
+  
+    text-align: center;}
+  /* Unique: diagonal stripe pattern for "systematic" ML feel */
+  .hero-stripes {
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      -55deg,
+      transparent,
+      transparent 40px,
+      rgba(52,211,153,0.025) 40px,
+      rgba(52,211,153,0.025) 41px
+    );
+    mask-image: linear-gradient(to right, transparent 40%, black 100%);
+    pointer-events: none;
+  }
+  .hero-glow {
+    position: absolute; top: -10%; right: 5%; width: 560px; height: 480px;
+    background: radial-gradient(ellipse, rgba(52,211,153,0.09), transparent 65%);
+    pointer-events: none;
+  }
+  .hero-layout {
+    position: relative; display: grid;
+    grid-template-columns: 1fr 360px; gap: 48px;
+    max-width: 1160px; margin: 0 auto; align-items: start;}
+  .hero-left { padding-bottom: 72px; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+
+  .course-badge-row { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'DM Mono', monospace; font-size: 0.65rem;
+    letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 12px; border-radius: 100px;
+  }
+  .badge.intermediate { background: rgba(245,158,11,0.12); color: var(--amber); border: 1px solid rgba(245,158,11,0.2); }
+  .badge.silver       { background: rgba(156,163,175,0.12); color: #9ca3af; border: 1px solid rgba(156,163,175,0.25); }
+  .badge.popular      { background: var(--acc-glow); color: var(--acc); border: 1px solid var(--acc-border); }
+  .badge.live         { background: rgba(239,68,68,0.12); color: #f87171; border: 1px solid rgba(239,68,68,0.2); }
+  .badge .dot         { width: 5px; height: 5px; border-radius: 50%; background: currentColor; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  .course-hero h1 {
+    font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+    font-weight: 800; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 18px;
+  }
+  .course-hero h1 span { color: var(--acc); }
+  .course-tagline { font-size: 1.05rem; color: var(--text-muted); font-weight: 300; max-width: 520px; margin-bottom: 32px; line-height: 1.7; 
+    text-align: center; margin-left: auto; margin-right: auto;}
+
+  .meta-pills { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 36px; justify-content: center; }
+  .meta-pill { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-muted); }
+  .meta-pill strong { color: var(--text); font-weight: 600; }
+
+  .hero-stats { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .hstat { flex: 1; padding: 20px; border-right: 1px solid var(--border); text-align: center; }
+  .hstat:last-child { border-right: none; }
+  .hstat .num { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--acc); display: block; }
+  .hstat .lbl { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; font-family: 'DM Mono', monospace; }
+
+  /* ── ENROL CARD ── */
+  .enrol-card {
+    background: var(--bg3); border: 1px solid var(--border); border-radius: 16px;
+    padding: 32px; position: sticky; top: 80px; animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .enrol-fee { font-family: 'Syne', sans-serif; font-size: 2.4rem; font-weight: 800; line-height: 1; }
+  .enrol-fee sup { font-size: 1.1rem; vertical-align: top; margin-top: 8px; }
+  .enrol-mrp { font-size: 0.85rem; color: var(--text-muted); text-decoration: line-through; margin-left: 8px; }
+  .enrol-save { display: inline-block; background: rgba(74,222,128,0.12); color: var(--green); font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 100px; margin: 6px 0; }
+  .enrol-emi { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 24px; }
+  .btn-enrol-main {
+    width: 100%; padding: 15px; background: var(--amber); color: #000;
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.92rem;
+    letter-spacing: 0.05em; text-transform: uppercase; border: none;
+    border-radius: 10px; cursor: pointer; transition: all 0.2s; margin-bottom: 12px;
+    box-shadow: 0 0 40px rgba(245,158,11,0.18);
+  }
+  .btn-enrol-main:hover { background: var(--amber2); transform: translateY(-2px); box-shadow: 0 8px 40px rgba(245,158,11,0.32); }
+  .btn-demo-sm {
+    width: 100%; padding: 12px; background: transparent; border: 1px solid var(--border); color: var(--text);
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.82rem;
+    letter-spacing: 0.04em; text-transform: uppercase; border-radius: 10px; cursor: pointer;
+    transition: all 0.2s; margin-bottom: 20px;
+  }
+  .btn-demo-sm:hover { border-color: var(--amber); color: var(--amber); }
+  .card-includes { border-top: 1px solid var(--border); padding-top: 20px; }
+  .card-includes h5 { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+  .include-row { display: flex; align-items: center; gap: 10px; font-size: 0.82rem; color: var(--text-muted); padding: 6px 0; }
+  .include-row .ck { color: var(--green); font-size: 0.85rem; flex-shrink: 0; }
+  .next-batch { margin-top: 20px; background: var(--amber-glow); border: 1px solid rgba(245,158,11,0.2); border-radius: 8px; padding: 12px 16px; font-size: 0.8rem; }
+  .next-batch strong { color: var(--amber); display: block; margin-bottom: 2px; font-family: 'Syne', sans-serif; }
+  .next-batch span { color: var(--text-muted); }
+
+  /* ── PAGE BODY ── */
+  .page-body { max-width: 1160px; margin: 0 auto; padding: 0 48px; }
+  .content-grid { display: grid; grid-template-columns: 1fr 360px; gap: 64px; align-items: start; }
+  .content-main { min-width: 0; }
+  .content-side { position: sticky; top: 80px; }
+
+  section.body-section { padding: 64px 0; border-bottom: 1px solid var(--border); }
+  section.body-section:last-child { border-bottom: none; }
+  .sec-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+  .sec-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 24px; }
+
+  /* ── LEARN GRID ── */
+  .learn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .learn-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 16px; font-size: 0.85rem; transition: border-color 0.2s;
+  }
+  .learn-item:hover { border-color: var(--acc-border); }
+  .learn-item .li-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+  .learn-item .li-text strong { display: block; font-weight: 600; font-size: 0.85rem; margin-bottom: 2px; }
+  .learn-item .li-text span { font-size: 0.75rem; color: var(--text-muted); }
+
+  /* ── ALGORITHM SHOWCASE (unique) ── */
+  .algo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .algo-card {
+    background: var(--bg3); border: 1px solid var(--border); border-radius: 12px;
+    padding: 22px; position: relative; overflow: hidden; transition: all 0.25s; cursor: default;
+  }
+  .algo-card:hover { border-color: var(--acc-border); transform: translateY(-3px); }
+  .algo-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--acc), transparent); opacity: 0; transition: opacity 0.3s;
+  }
+  .algo-card:hover::before { opacity: 1; }
+  .algo-type { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; color: var(--acc); text-transform: uppercase; margin-bottom: 8px; }
+  .algo-card h4 { font-family: 'Playfair Display', serif; font-size: 0.88rem; font-weight: 700; margin-bottom: 6px; }
+  .algo-card p { font-size: 0.75rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 10px; }
+  .algo-usecase { font-size: 0.7rem; background: var(--acc-glow); color: var(--acc); border: 1px solid var(--acc-border); border-radius: 100px; padding: 3px 10px; display: inline-block; font-family: 'DM Mono', monospace; }
+
+  /* ── SKILL PROGRESSION (unique) ── */
+  .skill-track {
+    background: var(--bg3); border: 1px solid var(--border); border-radius: 14px; padding: 32px;
+    margin-bottom: 0;
+  }
+  .skill-track h4 { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 700; margin-bottom: 24px; }
+  .skill-row { margin-bottom: 18px; }
+  .skill-row:last-child { margin-bottom: 0; }
+  .skill-label { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.82rem; }
+  .skill-label span { color: var(--text-muted); }
+  .skill-label strong { color: var(--text); font-weight: 600; }
+  .skill-bar-bg { height: 6px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; }
+  .skill-bar-fill { height: 100%; background: linear-gradient(90deg, var(--acc), var(--cyan)); border-radius: 3px; transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1); width: 0; }
+
+  /* ── OUTCOMES ── */
+  .outcomes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
+  .outcome-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 22px; transition: all 0.2s; }
+  .outcome-card:hover { border-color: var(--acc-border); }
+  .outcome-icon { font-size: 1.5rem; margin-bottom: 10px; display: block; }
+  .outcome-card h4 { font-family: 'Playfair Display', serif; font-size: 0.92rem; font-weight: 700; margin-bottom: 4px; }
+  .outcome-card p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; }
+  .salary-badge { display: inline-flex; align-items: center; gap: 4px; background: var(--acc-glow); color: var(--acc); border: 1px solid var(--acc-border); border-radius: 100px; padding: 2px 10px; font-size: 0.68rem; font-family: 'DM Mono', monospace; margin-top: 8px; }
+
+  .who-for { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-top: 20px; }
+  .who-for h4 { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+  .who-row { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; padding: 6px 0; border-bottom: 1px solid var(--border); }
+  .who-row:last-child { border-bottom: none; }
+
+  /* ── CURRICULUM ── */
+  .week-item { border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px; overflow: hidden; }
+  .week-header {
+    width: 100%; background: none; border: none; color: var(--text);
+    padding: 18px 20px; cursor: pointer; display: flex; align-items: center; gap: 14px;
+    text-align: left; transition: background 0.2s;
+  }
+  .week-header:hover { background: rgba(255,255,255,0.02); }
+  .week-num { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; background: var(--acc-glow); color: var(--acc); padding: 3px 10px; border-radius: 100px; white-space: nowrap; flex-shrink: 0; }
+  .week-title { font-family: 'Playfair Display', serif; font-size: 0.9rem; font-weight: 700; flex: 1; }
+  .week-ch { color: var(--acc); transition: transform 0.3s; margin-left: auto; flex-shrink: 0; }
+  .week-item.open .week-ch { transform: rotate(180deg); }
+  .week-body { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  .week-item.open .week-body { max-height: 500px; border-top: 1px solid var(--border); }
+  .week-body ul { padding: 16px 20px 16px 44px; }
+  .week-body li { font-size: 0.85rem; color: var(--text-muted); padding: 5px 0; list-style: disc; }
+
+  /* ── PROJECTS ── */
+  .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .project-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 24px; position: relative; overflow: hidden; transition: all 0.25s; }
+  .project-card:hover { border-color: var(--acc-border); transform: translateY(-3px); }
+  .project-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, var(--acc), transparent); }
+  .proj-number { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; color: var(--acc); margin-bottom: 12px; }
+  .project-card h4 { font-family: 'Playfair Display', serif; font-size: 0.92rem; font-weight: 700; margin-bottom: 8px; }
+  .project-card p { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 14px; line-height: 1.5; }
+  .tool-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tool-tag { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; background: rgba(255,255,255,0.05); border: 1px solid var(--border); padding: 3px 8px; border-radius: 4px; color: var(--text-muted); }
+
+  /* ── HIRING INTEL (unique) ── */
+  .hiring-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .hiring-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
+  .hiring-company { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px; }
+  .hiring-card ul { padding-left: 16px; }
+  .hiring-card li { font-size: 0.8rem; color: var(--text-muted); padding: 3px 0; list-style: disc; }
+  .hiring-card li strong { color: var(--text); font-weight: 600; }
+
+  /* ── CERTIFICATE ── */
+  .cert-showcase { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: center; }
+  .cert-visual { background: linear-gradient(135deg, var(--bg3), #0f1f1a); border: 1px solid rgba(156,163,175,0.3); border-radius: 14px; padding: 36px; text-align: center; position: relative; overflow: hidden; }
+  .cert-visual::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at top, rgba(156,163,175,0.07), transparent 60%); }
+  .cert-emoji { font-size: 3rem; display: block; margin-bottom: 12px; position: relative; }
+  .cert-visual h4 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 800; margin-bottom: 4px; position: relative; color: #9ca3af; }
+  .cert-visual p { font-size: 0.78rem; color: var(--text-muted); position: relative; }
+  .cert-li-badge { margin-top: 16px; display: inline-flex; align-items: center; gap: 6px; background: rgba(10,102,194,0.15); border: 1px solid rgba(10,102,194,0.3); border-radius: 100px; padding: 5px 14px; font-size: 0.72rem; color: #60a5fa; position: relative; }
+  .cert-info h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 800; margin-bottom: 12px; }
+  .cert-info p { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 20px; line-height: 1.7; }
+  .cert-steps { display: flex; flex-direction: column; gap: 12px; }
+  .cert-step { display: flex; align-items: center; gap: 12px; font-size: 0.82rem; }
+  .cert-step .cs-num { width: 24px; height: 24px; background: var(--amber-glow); border: 1px solid rgba(245,158,11,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--amber); flex-shrink: 0; }
+  .cert-step span { color: var(--text-muted); }
+
+  /* ── INSTRUCTOR ── */
+  .instructor-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 14px; padding: 32px; display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start; }
+  .instructor-avatar { width: 88px; height: 88px; border-radius: 50%; background: linear-gradient(135deg, var(--acc), #059669); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; color: #000; flex-shrink: 0; border: 3px solid var(--acc-border); }
+  .instructor-name { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; margin-bottom: 4px; }
+  .instructor-role { font-size: 0.8rem; color: var(--acc); margin-bottom: 12px; font-weight: 500; }
+  .instructor-bio { font-size: 0.875rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 16px; }
+  .instructor-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .inst-tag { font-size: 0.72rem; background: var(--card); border: 1px solid var(--border); padding: 4px 10px; border-radius: 6px; color: var(--text-muted); }
+
+  /* ── SCHEDULE ── */
+  .schedule-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .schedule-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 22px; transition: border-color 0.2s; }
+  .schedule-card:hover { border-color: var(--acc-border); }
+  .sch-batch { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; color: var(--acc); text-transform: uppercase; margin-bottom: 10px; }
+  .sch-date { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; margin-bottom: 4px; }
+  .sch-time { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px; }
+  .sch-seats { display: inline-flex; align-items: center; gap: 5px; font-size: 0.72rem; color: var(--text-muted); }
+  .seat-dot { width: 7px; height: 7px; border-radius: 50%; }
+  .seat-dot.open { background: var(--green); }
+  .seat-dot.low  { background: var(--amber); }
+  .sch-btn { width: 100%; margin-top: 14px; padding: 9px; border-radius: 7px; cursor: pointer; font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; transition: all 0.2s; border: 1px solid var(--border); background: transparent; color: var(--text); }
+  .sch-btn:hover { background: var(--amber); border-color: var(--amber); color: #000; }
+
+  /* ── REVIEWS ── */
+  .reviews-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .review-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+  .review-stars { color: var(--amber); font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 12px; }
+  .review-card blockquote { font-size: 0.85rem; color: var(--text); line-height: 1.7; font-style: italic; font-weight: 300; margin-bottom: 16px; }
+  .reviewer { display: flex; align-items: center; gap: 10px; }
+  .rev-avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 800; flex-shrink: 0; }
+  .rev-name { font-family: 'Syne', sans-serif; font-size: 0.82rem; font-weight: 700; }
+  .rev-role { font-size: 0.72rem; color: var(--text-muted); }
+
+  /* ── RELATED ── */
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .related-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 22px; transition: all 0.25s; text-decoration: none; color: var(--text); display: block; }
+  .related-card:hover { border-color: rgba(245,158,11,0.25); transform: translateY(-3px); }
+  .rel-tag { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; color: var(--amber); text-transform: uppercase; margin-bottom: 10px; display: block; }
+  .related-card h4 { font-family: 'Playfair Display', serif; font-size: 0.9rem; font-weight: 700; margin-bottom: 8px; }
+  .related-card p { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 14px; }
+  .rel-price { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; color: var(--amber); }
+  .rel-mrp { font-size: 0.75rem; color: var(--text-muted); text-decoration: line-through; margin-right: 6px; }
+
+  /* ── MOBILE ── */
+  .sticky-bottom { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: rgba(10,12,18,0.97); backdrop-filter: blur(16px); border-top: 1px solid var(--border); padding: 14px 20px; z-index: 200; gap: 12px; align-items: center; }
+  .sticky-price { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; }
+
+  .reveal { opacity: 1 !important; transform: translateY(0); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  .wa-float { position: fixed; bottom: 28px; right: 28px; width: 52px; height: 52px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: 0 6px 28px rgba(37,211,102,0.4); text-decoration: none; z-index: 200; animation: floatBounce 3s ease-in-out infinite; }
+  @keyframes floatBounce { 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(-5px) } }
+
+  @media (max-width: 960px) {
+    header { flex-wrap: wrap; height: auto; padding: 12px 20px; gap: 8px; }
+    nav { gap: 14px; flex-wrap: wrap; }
+    .hero-layout, .content-grid { grid-template-columns: 1fr; }
+    .enrol-card { position: static; display: none; }
+    .content-side { display: none; }
+    .sticky-bottom { display: flex; }
+    .course-hero, .page-body { padding-left: 24px; padding-right: 24px; }
+    header, .breadcrumb { padding-left: 24px; padding-right: 24px; }
+    nav { display: flex; overflow-x: auto; gap: 16px; font-size: 0.8rem; -ms-overflow-style: none; scrollbar-width: none; }
+    .learn-grid, .outcomes-grid, .projects-grid, .cert-showcase, .reviews-grid, .hiring-grid { grid-template-columns: 1fr; }
+    .algo-grid, .schedule-grid { grid-template-columns: 1fr 1fr; }
+    .related-grid { grid-template-columns: 1fr; }
+    .hero-left { padding-bottom: 72px; }
+  }
+  @media (max-width: 580px) {
+    .algo-grid, .schedule-grid { grid-template-columns: 1fr; }
+  }
+
+
+  /* ── PLAYFAIR HEADINGS — applied site-wide ── */
+  .section-title,
+  .courses-header h2,
+  .why-title,
+  section > .container > h2,
+  section h2.section-title,
+  .faq-list ~ h2,
+  .page-hero h2,
+  .cert-section h2,
+  .outcomes h2,
+  .demo-title,
+  .pricing-hero h2,
+  .intro-headline,
+  .hero-left h2,
+  .cert-info h3,
+  .cert-card h3,
+  .enrol-card-header h3,
+  .track-card h3 {
+    font-family: 'Playfair Display', serif !important;
+  }
+  /* marker class to avoid duplicate injection */
+  .playfair-headings-applied { display: none; }
+</style>
+
+<link rel="stylesheet" href="theme.css">
+<script src="theme.js"></script>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="newtonjee-homepage.html" class="logo"><div class="logo-icon">N</div>Newton<span class="acc-c">JEE</span></a>
+    <nav>
+    <a href="newtonjee-homepage.html#courses">Courses</a>
+    <a href="certifications.html">Certifications</a>
+    <a href="newtonjee-pricing.html">Pricing</a>
+    <a href="blog.html">Blog</a>
+    <a href="robotics-research.html">Robotics</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="header-right" style="display:flex; align-items:center; gap:12px;">
+    <button class="theme-toggle" onclick="toggleTheme()"><span class="toggle-icon">☀️</span><span class="toggle-label">Light</span></button>
+    <button class="btn-header" onclick="document.getElementById('enrol-section').scrollIntoView({behavior:'smooth'})">Enrol Now →</button>
+  </div>
+</header>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="newtonjee-homepage.html">Home</a><span class="sep">›</span>
+  <a href="newtonjee-homepage.html#courses">Courses</a><span class="sep">›</span>
+  <span class="current">Machine Learning Mastery</span>
+</div>
+
+<!-- HERO -->
+<div class="course-hero">
+  <div class="hero-stripes"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-layout">
+    <div class="hero-left">
+      <div class="course-badge-row">
+        <span class="badge intermediate">⚡ Intermediate</span>
+        <span class="badge silver">🥈 Silver Certificate</span>
+        <span class="badge popular"><span class="dot"></span> Most Popular</span>
+        <span class="badge live"><span class="dot"></span> Live Sessions</span>
+      </div>
+      <h1>Machine<br><span>Learning</span> Mastery</h1>
+      <p class="course-tagline">From linear regression to gradient boosting — build, tune, and evaluate 8 production-quality ML models. The course hiring managers actually test you on.</p>
+      <div class="meta-pills">
+        <div class="meta-pill">⏱ <strong>6 Weeks</strong></div>
+        <div class="meta-pill">📺 <strong>18 Live Sessions</strong></div>
+        <div class="meta-pill">👥 <strong>Max 15 students</strong></div>
+        <div class="meta-pill">🌐 <strong>Online · Weekend</strong></div>
+        <div class="meta-pill">🗣️ <strong>English + Telugu</strong></div>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><span class="num">410+</span><span class="lbl">Enrolled</span></div>
+        <div class="hstat"><span class="num">4.9★</span><span class="lbl">Rating</span></div>
+        <div class="hstat"><span class="num">5</span><span class="lbl">Projects</span></div>
+        <div class="hstat"><span class="num">92%</span><span class="lbl">Completion</span></div>
+      </div>
+    </div>
+    <!-- ENROL CARD -->
+    <div class="enrol-card">
+      <div><span class="enrol-fee"><sup>₹</sup>7,999</span><span class="enrol-mrp">₹14,000</span></div>
+      <div><span class="enrol-save">You save ₹6,001 — 43% OFF</span></div>
+      <div class="enrol-emi">or ₹667/month · 12-month no-cost EMI</div>
+      <button class="btn-enrol-main">⚡ Enrol Now</button>
+      <button class="btn-demo-sm">📅 Book Free Demo</button>
+      <div class="card-includes">
+        <h5>What's Included</h5>
+        <div class="include-row"><span class="ck">✓</span> 18 live sessions (2hrs each)</div>
+        <div class="include-row"><span class="ck">✓</span> Lifetime recording access</div>
+        <div class="include-row"><span class="ck">✓</span> 5 hands-on projects</div>
+        <div class="include-row"><span class="ck">✓</span> LinkedIn Silver badge</div>
+        <div class="include-row"><span class="ck">✓</span> Model evaluation cheat-sheet</div>
+        <div class="include-row"><span class="ck">✓</span> Kaggle competition walkthroughs</div>
+        <div class="include-row"><span class="ck">✓</span> Mentor office hours</div>
+        <div class="include-row"><span class="ck">✓</span> Placement assistance</div>
+      </div>
+      <div class="next-batch">
+        <strong>🗓 Next Batch: Mar 22, 2025</strong>
+        <span>Sat & Sun · 10:00 AM – 12:00 PM IST</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="page-body">
+  <div class="content-grid">
+    <div class="content-main">
+
+      <!-- WHAT YOU'LL LEARN -->
+      <section class="body-section reveal">
+        <div class="sec-label">// Curriculum Highlights</div>
+        <div class="sec-title">What You'll Learn</div>
+        <div class="learn-grid">
+          <div class="learn-item"><span class="li-icon">📉</span><div class="li-text"><strong>Linear & Logistic Regression</strong><span>From OLS derivation to regularisation (Ridge, Lasso, ElasticNet)</span></div></div>
+          <div class="learn-item"><span class="li-icon">🌳</span><div class="li-text"><strong>Decision Trees & Random Forests</strong><span>Entropy, information gain, bagging, feature importance</span></div></div>
+          <div class="learn-item"><span class="li-icon">🚀</span><div class="li-text"><strong>Gradient Boosting & XGBoost</strong><span>The algorithm behind most Kaggle winners — built from intuition up</span></div></div>
+          <div class="learn-item"><span class="li-icon">🎯</span><div class="li-text"><strong>SVMs & Kernel Trick</strong><span>Maximum margin classifiers, RBF kernels, multi-class strategies</span></div></div>
+          <div class="learn-item"><span class="li-icon">🔵</span><div class="li-text"><strong>Clustering: K-Means & DBSCAN</strong><span>Unsupervised segmentation for real customer & document datasets</span></div></div>
+          <div class="learn-item"><span class="li-icon">📐</span><div class="li-text"><strong>Dimensionality Reduction (PCA)</strong><span>Eigendecomposition, explained variance, visualising high-d data</span></div></div>
+          <div class="learn-item"><span class="li-icon">⚙️</span><div class="li-text"><strong>Model Selection & Tuning</strong><span>Cross-validation, GridSearchCV, RandomizedSearchCV, Optuna basics</span></div></div>
+          <div class="learn-item"><span class="li-icon">🔬</span><div class="li-text"><strong>Feature Engineering</strong><span>Encoding, scaling, imputation, interaction terms, feature selection</span></div></div>
+          <div class="learn-item"><span class="li-icon">📊</span><div class="li-text"><strong>Model Evaluation Deep Dive</strong><span>ROC-AUC, precision-recall, confusion matrix, calibration</span></div></div>
+          <div class="learn-item"><span class="li-icon">🏗️</span><div class="li-text"><strong>Pipelines with Scikit-learn</strong><span>Production-ready ML workflows with Pipeline & ColumnTransformer</span></div></div>
+        </div>
+      </section>
+
+      <!-- ALGORITHM SHOWCASE -->
+      <section class="body-section reveal">
+        <div class="sec-label">// 8 Algorithms You'll Master</div>
+        <div class="sec-title">From Classic to Cutting-Edge</div>
+        <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:28px;line-height:1.7;max-width:560px;">Every algorithm is taught the same way: intuition first, maths second, code third, real dataset fourth. By the end you'll know when to use each one — and why.</p>
+        <div class="algo-grid">
+          <div class="algo-card"><div class="algo-type">Regression</div><h4>Linear Regression</h4><p>OLS, gradient descent derivation, Ridge & Lasso regularisation.</p><span class="algo-usecase">House prices · Salary prediction</span></div>
+          <div class="algo-card"><div class="algo-type">Classification</div><h4>Logistic Regression</h4><p>Sigmoid, log-loss, binary & multi-class, decision boundaries.</p><span class="algo-usecase">Churn · Fraud detection</span></div>
+          <div class="algo-card"><div class="algo-type">Tree-Based</div><h4>Decision Trees</h4><p>Gini impurity, entropy, pruning, overfitting control.</p><span class="algo-usecase">Medical diagnosis · Loan approval</span></div>
+          <div class="algo-card"><div class="algo-type">Ensemble</div><h4>Random Forest</h4><p>Bagging, feature randomness, OOB error, feature importance.</p><span class="algo-usecase">Tabular data · Feature ranking</span></div>
+          <div class="algo-card"><div class="algo-type">Boosting</div><h4>XGBoost / LightGBM</h4><p>Sequential weak learners, learning rate, early stopping, SHAP.</p><span class="algo-usecase">Kaggle competitions · FinTech</span></div>
+          <div class="algo-card"><div class="algo-type">Kernel Methods</div><h4>Support Vector Machine</h4><p>Maximum margin, kernel trick, soft margin, multi-class SVC.</p><span class="algo-usecase">Text classification · Image data</span></div>
+          <div class="algo-card"><div class="algo-type">Unsupervised</div><h4>K-Means Clustering</h4><p>Inertia, elbow method, silhouette score, initialisation strategies.</p><span class="algo-usecase">Customer segmentation</span></div>
+          <div class="algo-card"><div class="algo-type">Dimensionality</div><h4>PCA</h4><p>Eigendecomposition, explained variance ratio, scree plots, 2D viz.</p><span class="algo-usecase">Face recognition · EDA</span></div>
+          <!-- filler placeholder -->
+          <div class="algo-card" style="border-style:dashed;display:flex;align-items:center;justify-content:center;text-align:center;">
+            <div><div style="font-size:1.5rem;margin-bottom:8px;">+</div><div style="font-size:0.8rem;color:var(--text-muted);">Naive Bayes, KNN, and more covered in bonus sessions</div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SKILL PROGRESSION -->
+      <section class="body-section reveal">
+        <div class="sec-label">// What You'll Be Able to Do</div>
+        <div class="sec-title">Skills You'll Walk Away With</div>
+        <div class="skill-track">
+          <h4>Proficiency Level by End of Course</h4>
+          <div class="skill-row">
+            <div class="skill-label"><strong>Build & train supervised models</strong><span>Expert</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="92"></div></div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-label"><strong>Feature engineering & preprocessing</strong><span>Advanced</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="85"></div></div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-label"><strong>Model evaluation & diagnostics</strong><span>Advanced</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="88"></div></div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-label"><strong>Hyperparameter tuning</strong><span>Intermediate</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="72"></div></div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-label"><strong>Kaggle & competitive ML</strong><span>Intermediate</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="68"></div></div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-label"><strong>Scikit-learn Pipelines</strong><span>Advanced</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="80"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CAREER OUTCOMES -->
+      <section class="body-section reveal">
+        <div class="sec-label">// After This Course</div>
+        <div class="sec-title">Career Outcomes</div>
+        <div class="outcomes-grid">
+          <div class="outcome-card">
+            <span class="outcome-icon">🤖</span>
+            <h4>Machine Learning Engineer</h4>
+            <p>The core job title for this skillset. Building, testing, and deploying models at tech companies.</p>
+            <span class="salary-badge">₹8–18 LPA fresher range</span>
+          </div>
+          <div class="outcome-card">
+            <span class="outcome-icon">📊</span>
+            <h4>Data Scientist</h4>
+            <p>DS roles at Indian startups and MNCs heavily overlap with ML Engineering. This covers both.</p>
+            <span class="salary-badge">₹10–22 LPA fresher range</span>
+          </div>
+          <div class="outcome-card">
+            <span class="outcome-icon">🏆</span>
+            <h4>Kaggle Competitor</h4>
+            <p>Enough tree-based and boosting knowledge to participate seriously in structured prediction competitions.</p>
+            <span class="salary-badge">Portfolio builder</span>
+          </div>
+          <div class="outcome-card">
+            <span class="outcome-icon">🔬</span>
+            <h4>Research / Applied Scientist Intern</h4>
+            <p>Top internship roles at Amazon, Google, and Microsoft expect end-to-end ML pipeline experience.</p>
+            <span class="salary-badge">₹60–120k/month stipend</span>
+          </div>
+        </div>
+        <div class="who-for">
+          <h4>// This course is for</h4>
+          <div class="who-row"><span>🐍</span> Those who know Python & basic stats (or completed our first two courses)</div>
+          <div class="who-row"><span>🎓</span> B.Tech CSE/IT/ECE students who want to go beyond theory</div>
+          <div class="who-row"><span>💼</span> Software engineers pivoting into ML roles</div>
+          <div class="who-row"><span>❌</span> Not for: complete beginners with no Python experience</div>
+        </div>
+      </section>
+
+      <!-- WHAT COMPANIES TEST -->
+      <section class="body-section reveal">
+        <div class="sec-label">// Interview Intelligence</div>
+        <div class="sec-title">What Companies Actually Test</div>
+        <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:24px;max-width:540px;line-height:1.7;">We analysed 200+ ML interview reports from Indian companies. Every topic in this course maps directly to what's being tested. Here's the breakdown by company type:</p>
+        <div class="hiring-grid">
+          <div class="hiring-card">
+            <div class="hiring-company">Product Startups (Zepto, Swiggy, Meesho)</div>
+            <ul>
+              <li><strong>XGBoost</strong> end-to-end on tabular data</li>
+              <li><strong>Feature engineering</strong> from raw logs</li>
+              <li>Evaluation: <strong>precision/recall tradeoffs</strong></li>
+              <li><strong>Scikit-learn Pipelines</strong> for production</li>
+            </ul>
+          </div>
+          <div class="hiring-card">
+            <div class="hiring-company">MNCs (Amazon, Microsoft, Flipkart)</div>
+            <ul>
+              <li>Explain <strong>bias-variance tradeoff</strong></li>
+              <li>How <strong>Random Forest</strong> reduces overfitting</li>
+              <li><strong>Cross-validation</strong> strategy choices</li>
+              <li><strong>ROC-AUC vs accuracy</strong> — when and why</li>
+            </ul>
+          </div>
+          <div class="hiring-card">
+            <div class="hiring-company">AI/ML Startups (Sarvam, Krutrim, etc.)</div>
+            <ul>
+              <li>Build a model <strong>from scratch in NumPy</strong></li>
+              <li><strong>PCA</strong> for dimensionality reduction</li>
+              <li>Explain <strong>SHAP values</strong> intuitively</li>
+              <li><strong>Hyperparameter tuning</strong> with Optuna</li>
+            </ul>
+          </div>
+          <div class="hiring-card">
+            <div class="hiring-company">Research Labs & PSUs</div>
+            <ul>
+              <li>Derive <strong>gradient descent</strong> step by step</li>
+              <li>Difference between <strong>SVM kernels</strong></li>
+              <li>When to use <strong>clustering vs classification</strong></li>
+              <li><strong>Regularisation</strong>: L1 vs L2 intuition</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- CURRICULUM -->
+      <section class="body-section reveal">
+        <div class="sec-label">// Week by Week</div>
+        <div class="sec-title">Full Curriculum — 6 Weeks</div>
+
+        <div class="week-item open">
+          <button class="week-header"><span class="week-num">WEEK 1</span><span class="week-title">Foundations: Regression & Preprocessing</span><span class="week-ch">▼</span></button>
+          <div class="week-body"><ul>
+            <li>ML pipeline refresher: data → model → evaluation</li>
+            <li>Linear Regression: OLS, gradient descent implementation</li>
+            <li>Ridge, Lasso, ElasticNet regularisation — intuition + code</li>
+            <li>Feature scaling: StandardScaler, MinMaxScaler, RobustScaler</li>
+            <li>Encoding categorical variables: one-hot, ordinal, target encoding</li>
+            <li>Train/validation/test split strategy & data leakage prevention</li>
+          </ul></div>
+        </div>
+
+        <div class="week-item">
+          <button class="week-header"><span class="week-num">WEEK 2</span><span class="week-title">Classification: Logistic Regression & SVMs</span><span class="week-ch">▼</span></button>
+          <div class="week-body"><ul>
+            <li>Logistic Regression: sigmoid, log-loss, decision boundary</li>
+            <li>Multi-class: OvR and softmax strategies</li>
+            <li>Evaluation deep dive: accuracy, precision, recall, F1, ROC-AUC</li>
+            <li>Imbalanced datasets: SMOTE, class weights, threshold tuning</li>
+            <li>SVMs: maximum margin, support vectors, kernel trick</li>
+            <li>RBF, polynomial kernels — when to use which</li>
+          </ul></div>
+        </div>
+
+        <div class="week-item">
+          <button class="week-header"><span class="week-num">WEEK 3</span><span class="week-title">Tree-Based Models: Decision Trees & Random Forests</span><span class="week-ch">▼</span></button>
+          <div class="week-body"><ul>
+            <li>Decision Trees: Gini impurity, entropy, information gain</li>
+            <li>Depth, min_samples, pruning — controlling overfitting</li>
+            <li>Bagging intuition: why averaging reduces variance</li>
+            <li>Random Forest: feature randomness, OOB error</li>
+            <li>Feature importance: MDI vs permutation importance</li>
+            <li>ExtraTrees: when it beats Random Forest</li>
+          </ul></div>
+        </div>
+
+        <div class="week-item">
+          <button class="week-header"><span class="week-num">WEEK 4</span><span class="week-title">Boosting: XGBoost, LightGBM & Hyperparameter Tuning</span><span class="week-ch">▼</span></button>
+          <div class="week-body"><ul>
+            <li>Gradient Boosting intuition: sequential residual fitting</li>
+            <li>XGBoost: tree structure, regularisation, early stopping</li>
+            <li>LightGBM: leaf-wise growth, categorical feature handling</li>
+            <li>SHAP values: model interpretability for real interviews</li>
+            <li>Hyperparameter tuning: GridSearchCV, RandomizedSearchCV, Optuna</li>
+            <li>Kaggle walkthrough: top-5 submission on Titanic & House Prices</li>
+          </ul></div>
+        </div>
+
+        <div class="week-item">
+          <button class="week-header"><span class="week-num">WEEK 5</span><span class="week-title">Unsupervised Learning & Dimensionality Reduction</span><span class="week-ch">▼</span></button>
+          <div class="week-body"><ul>
+            <li>K-Means: algorithm, inertia, elbow method, k-means++</li>
+            <li>DBSCAN: density-based clustering, epsilon, min_samples</li>
+            <li>Hierarchical clustering & dendrograms</li>
+            <li>PCA: eigendecomposition, explained variance ratio, scree plot</li>
+            <li>t-SNE for 2D visualisation of high-dimensional data</li>
+            <li>Silhouette score, Davies-Bouldin for cluster evaluation</li>
+          </ul></div>
+        </div>
+
+        <div class="week-item">
+          <button class="week-header"><span class="week-num">WEEK 6</span><span class="week-title">Pipelines, Feature Engineering & Capstone</span><span class="week-ch">▼</span></button>
+          <div class="week-body"><ul>
+            <li>Scikit-learn Pipeline & ColumnTransformer — production patterns</li>
+            <li>Advanced feature engineering: polynomial, interaction, binning</li>
+            <li>Feature selection: recursive elimination, SelectKBest, Boruta</li>
+            <li>Model calibration: Platt scaling, isotonic regression</li>
+            <li>Capstone: end-to-end ML system on a real business dataset</li>
+            <li>Code review, portfolio submission, Silver badge issuance</li>
+          </ul></div>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section class="body-section reveal">
+        <div class="sec-label">// Hands-on Work</div>
+        <div class="sec-title">5 Portfolio-Quality Projects</div>
+        <div class="projects-grid">
+          <div class="project-card">
+            <div class="proj-number">PROJECT 01</div>
+            <h4>Credit Default Prediction</h4>
+            <p>Build a binary classifier on financial data. Handle severe class imbalance, engineer features from transaction history, and optimise for recall over accuracy.</p>
+            <div class="tool-tags"><span class="tool-tag">Scikit-learn</span><span class="tool-tag">SMOTE</span><span class="tool-tag">Logistic Reg</span><span class="tool-tag">ROC-AUC</span></div>
+          </div>
+          <div class="project-card">
+            <div class="proj-number">PROJECT 02</div>
+            <h4>E-commerce Customer Segmentation</h4>
+            <p>Use K-Means and RFM analysis to segment 100k+ customers into actionable groups for marketing personalisation.</p>
+            <div class="tool-tags"><span class="tool-tag">K-Means</span><span class="tool-tag">PCA</span><span class="tool-tag">t-SNE</span><span class="tool-tag">Pandas</span></div>
+          </div>
+          <div class="project-card">
+            <div class="proj-number">PROJECT 03</div>
+            <h4>Kaggle: House Price Prediction</h4>
+            <p>Full Kaggle submission pipeline — feature engineering, stacking models, hyperparameter tuning targeting top-10% leaderboard position.</p>
+            <div class="tool-tags"><span class="tool-tag">XGBoost</span><span class="tool-tag">LightGBM</span><span class="tool-tag">Optuna</span><span class="tool-tag">Stacking</span></div>
+          </div>
+          <div class="project-card">
+            <div class="proj-number">PROJECT 04</div>
+            <h4>Employee Attrition Predictor</h4>
+            <p>A Random Forest pipeline on IBM HR data with SHAP explanations — exactly the kind of interpretable ML that enterprise analytics teams ask for in interviews.</p>
+            <div class="tool-tags"><span class="tool-tag">Random Forest</span><span class="tool-tag">SHAP</span><span class="tool-tag">Pipeline</span><span class="tool-tag">GridSearchCV</span></div>
+          </div>
+        </div>
+
+        <!-- capstone callout -->
+        <div style="margin-top: 16px; background: var(--acc-glow); border: 1px solid var(--acc-border); border-radius: 12px; padding: 24px; display: flex; align-items: flex-start; gap: 18px;">
+          <span style="font-size:2rem;flex-shrink:0;">🏆</span>
+          <div>
+            <div style="font-family:'Syne',sans-serif;font-weight:700;margin-bottom:6px;color:var(--acc);">Project 05 — Capstone: Open Business Problem</div>
+            <div style="font-size:0.85rem;color:var(--text-muted);line-height:1.6;">In week 6, you choose a real-world dataset and business problem. You scope, engineer, model, evaluate, and present a full ML system. Mentor reviews your code and presentation. This becomes your portfolio centrepiece — and the project you talk about in every interview.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CERTIFICATE -->
+      <section class="body-section reveal">
+        <div class="sec-label">// Your Credential</div>
+        <div class="sec-title">Silver Certificate Awarded</div>
+        <div class="cert-showcase">
+          <div class="cert-visual">
+            <span class="cert-emoji">🥈</span>
+            <h4>Newton JEE Silver Badge</h4>
+            <p>ML Practitioner — Machine Learning Mastery</p>
+            <div class="cert-li-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#60a5fa"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H6.5v-7H9V17zm-1.25-8.5c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25zM18 17h-2.5v-3.5c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5V17H10v-7h2.5v1c.46-.69 1.23-1 2-1 1.66 0 3 1.34 3 3V17z"/></svg>
+              Appears on your LinkedIn profile
+            </div>
+          </div>
+          <div class="cert-info">
+            <h4>The Silver Badge — Your First Major Milestone</h4>
+            <p>The Silver badge signals to recruiters that you can build real ML models end-to-end — not just run Scikit-learn demos. It's the first badge that directly unlocks ML Engineering and Data Science interview calls from mid-to-senior hiring managers.</p>
+            <div class="cert-steps">
+              <div class="cert-step"><div class="cs-num">1</div><span>Complete all 6 weeks & submit 5 projects</span></div>
+              <div class="cert-step"><div class="cs-num">2</div><span>Mentor approves your open capstone project</span></div>
+              <div class="cert-step"><div class="cs-num">3</div><span>Attend Silver badge presentation session</span></div>
+              <div class="cert-step"><div class="cs-num">4</div><span>Receive LinkedIn credential link within 48hrs</span></div>
+              <div class="cert-step"><div class="cs-num">5</div><span>One-click publish to LinkedIn under Certifications</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- INSTRUCTOR -->
+      <section class="body-section reveal">
+        <div class="sec-label">// Your Mentor</div>
+        <div class="sec-title">Meet Your Instructor</div>
+        <div class="instructor-card">
+          <div class="instructor-avatar">SK</div>
+          <div>
+            <div class="instructor-name">Siddharth Kumar</div>
+            <div class="instructor-role">Lead ML Engineer · Ex-Uber India & PhonePe</div>
+            <div class="instructor-bio">9 years building production ML systems — Uber's surge pricing models, PhonePe's fraud detection pipeline, and most recently leading ML at a Series B fintech. Siddharth is Newton JEE's most requested mentor. His teaching philosophy: every algorithm must be understood deeply enough that you can explain it to a non-technical stakeholder, debug it at 2am, and extend it to a new domain — in that order.</div>
+            <div class="instructor-tags">
+              <span class="inst-tag">XGBoost</span><span class="inst-tag">Scikit-learn</span><span class="inst-tag">Feature Engineering</span><span class="inst-tag">Fraud Detection</span><span class="inst-tag">IIT Bombay B.Tech</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCHEDULE -->
+      <section class="body-section reveal">
+        <div class="sec-label">// Upcoming Batches</div>
+        <div class="sec-title">Pick Your Batch</div>
+        <div class="schedule-grid">
+          <div class="schedule-card">
+            <div class="sch-batch">Batch #18</div>
+            <div class="sch-date">Mar 22, 2025</div>
+            <div class="sch-time">Sat & Sun · 10:00–12:00 PM IST</div>
+            <div class="sch-seats"><span class="seat-dot low"></span> 2 seats left</div>
+            <button class="sch-btn">Reserve Seat →</button>
+          </div>
+          <div class="schedule-card">
+            <div class="sch-batch">Batch #19</div>
+            <div class="sch-date">Apr 12, 2025</div>
+            <div class="sch-time">Sat & Sun · 2:00–4:00 PM IST</div>
+            <div class="sch-seats"><span class="seat-dot open"></span> 10 seats open</div>
+            <button class="sch-btn">Reserve Seat →</button>
+          </div>
+          <div class="schedule-card">
+            <div class="sch-batch">Batch #20</div>
+            <div class="sch-date">Apr 26, 2025</div>
+            <div class="sch-time">Sat & Sun · 10:00–12:00 PM IST</div>
+            <div class="sch-seats"><span class="seat-dot open"></span> 15 seats open</div>
+            <button class="sch-btn">Reserve Seat →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ENROL BLOCK -->
+      <section class="body-section reveal" id="enrol-section">
+        <div class="sec-label">// Ready to Start?</div>
+        <div class="sec-title">Enrol in This Course</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;">
+          <div>
+            <div style="font-family:'Syne',sans-serif;font-size:2.8rem;font-weight:800;line-height:1;">
+              <sup style="font-size:1.2rem;vertical-align:top;margin-top:10px;">₹</sup>7,999
+              <span style="font-size:1rem;color:var(--text-muted);text-decoration:line-through;font-weight:400;margin-left:10px;">₹14,000</span>
+            </div>
+            <div style="margin:10px 0 6px;display:inline-block;background:rgba(74,222,128,0.12);color:var(--green);font-size:0.78rem;font-weight:700;padding:4px 12px;border-radius:100px;">Save ₹6,001 · 43% OFF</div>
+            <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:28px;">or ₹667/month · 12-month no-cost EMI</div>
+            <div style="display:flex;flex-direction:column;gap:10px;max-width:340px;">
+              <button class="btn-enrol-main" style="max-width:100%">⚡ Enrol Now — Pay ₹7,999</button>
+              <button class="btn-demo-sm" style="max-width:100%">📅 Book Free Demo First</button>
+            </div>
+            <div style="margin-top:16px;font-size:0.75rem;color:var(--text-muted);">🔒 Secured by Razorpay · 100% refund after 2 sessions if unsatisfied</div>
+          </div>
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:24px;">
+            <div style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">Everything included</div>
+            <div class="include-row"><span class="ck">✓</span> 18 live sessions (2hrs each) · 36 hrs total</div>
+            <div class="include-row"><span class="ck">✓</span> Lifetime recording access</div>
+            <div class="include-row"><span class="ck">✓</span> 5 projects incl. open capstone</div>
+            <div class="include-row"><span class="ck">✓</span> LinkedIn-verified Silver badge</div>
+            <div class="include-row"><span class="ck">✓</span> Model evaluation cheat-sheet</div>
+            <div class="include-row"><span class="ck">✓</span> Kaggle competition walkthroughs</div>
+            <div class="include-row"><span class="ck">✓</span> Mentor office hours (1hr/week)</div>
+            <div class="include-row"><span class="ck">✓</span> Resume & LinkedIn profile review</div>
+            <div class="include-row"><span class="ck">✓</span> Placement referral support</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- REVIEWS -->
+      <section class="body-section reveal">
+        <div class="sec-label">// Alumni Feedback</div>
+        <div class="sec-title">What Students Say</div>
+        <div class="reviews-grid">
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote>Siddharth's XGBoost session alone was worth the entire course fee. He showed us exactly how to tune it for a Kaggle dataset and I ended up in the top 8%. That result is on my resume now and every interviewer asks about it.</blockquote>
+            <div class="reviewer">
+              <div class="rev-avatar" style="background:linear-gradient(135deg,var(--acc),#059669);color:#000;">RT</div>
+              <div><div class="rev-name">Rahul Tripathi</div><div class="rev-role">B.Tech CSE → ML Engineer · Zepto</div></div>
+            </div>
+          </div>
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote>I had done two online ML courses before this. Neither of them taught me how to actually debug a model or explain predictions. The SHAP session and interview prep sections made Newton JEE a completely different tier of learning.</blockquote>
+            <div class="reviewer">
+              <div class="rev-avatar" style="background:linear-gradient(135deg,var(--violet),#6366f1);color:#fff;">KP</div>
+              <div><div class="rev-name">Kavya Pillai</div><div class="rev-role">Software Eng → Data Scientist · Meesho</div></div>
+            </div>
+          </div>
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote>The open capstone project is where everything clicked. I built a loan default prediction system for an NBFC dataset, presented it to the mentor and batch, and that presentation turned into a portfolio piece that got me 4 interview calls in one week.</blockquote>
+            <div class="reviewer">
+              <div class="rev-avatar" style="background:linear-gradient(135deg,var(--amber),#f97316);color:#000;">VN</div>
+              <div><div class="rev-name">Vikram Nair</div><div class="rev-role">Mech Engg → ML Engineer · PhonePe</div></div>
+            </div>
+          </div>
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote>The "What Companies Test" section they shared mid-course was eerily accurate. I had an Amazon interview the week after the SVM session and they asked almost exactly what Siddharth had warned us about. Cleared the ML round for the first time.</blockquote>
+            <div class="reviewer">
+              <div class="rev-avatar" style="background:linear-gradient(135deg,var(--cyan),#0891b2);color:#000;">AS</div>
+              <div><div class="rev-name">Akshata Sawant</div><div class="rev-role">B.Tech IT → Applied Scientist · Amazon</div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RELATED -->
+      <section class="body-section reveal">
+        <div class="sec-label">// What's Next</div>
+        <div class="sec-title">Students Also Take</div>
+        <div class="related-grid">
+          <a href="course-deep-learning-cv.html" class="related-card">
+            <span class="rel-tag">Intermediate · Natural Next Step</span>
+            <h4>Deep Learning & Computer Vision</h4>
+            <p>Extend ML into neural networks, CNNs, and object detection with PyTorch.</p>
+            <div><span class="rel-mrp">₹14,000</span><span class="rel-price">₹7,999</span></div>
+          </a>
+          <a href="course-nlp-text-mining.html" class="related-card">
+            <span class="rel-tag">Intermediate · High Demand</span>
+            <h4>NLP & Text Mining</h4>
+            <p>Apply ML to language data — transformers, BERT, sentiment analysis, document classification.</p>
+            <div><span class="rel-mrp">₹12,000</span><span class="rel-price">₹6,999</span></div>
+          </a>
+          <a href="newtonjee-pricing.html#bundles" class="related-card">
+            <span class="rel-tag">Bundle · Best Value</span>
+            <h4>Data Science Bundle</h4>
+            <p>Python + Stats + ML + NLP — the full data science path for ₹19,999. Save ₹21,001.</p>
+            <div><span class="rel-mrp">₹41,000</span><span class="rel-price">₹19,999</span></div>
+          </a>
+        </div>
+      </section>
+
+    </div><!-- end content-main -->
+
+    <!-- SIDEBAR -->
+    <div class="content-side">
+      <div class="enrol-card" style="display:block;">
+        <div><span class="enrol-fee"><sup>₹</sup>7,999</span><span class="enrol-mrp">₹14,000</span></div>
+        <div><span class="enrol-save">You save ₹6,001 — 43% OFF</span></div>
+        <div class="enrol-emi">or ₹667/month · 12-month no-cost EMI</div>
+        <button class="btn-enrol-main">⚡ Enrol Now</button>
+        <button class="btn-demo-sm">📅 Book Free Demo</button>
+        <div class="card-includes">
+          <h5>What's Included</h5>
+          <div class="include-row"><span class="ck">✓</span> 18 live sessions (2hrs each)</div>
+          <div class="include-row"><span class="ck">✓</span> Lifetime recording access</div>
+          <div class="include-row"><span class="ck">✓</span> 5 hands-on projects</div>
+          <div class="include-row"><span class="ck">✓</span> LinkedIn Silver badge</div>
+          <div class="include-row"><span class="ck">✓</span> Model evaluation cheat-sheet</div>
+          <div class="include-row"><span class="ck">✓</span> Kaggle walkthroughs</div>
+          <div class="include-row"><span class="ck">✓</span> Mentor office hours</div>
+          <div class="include-row"><span class="ck">✓</span> Placement assistance</div>
+        </div>
+        <div class="next-batch">
+          <strong>🗓 Next Batch: Mar 22, 2025</strong>
+          <span>Sat & Sun · 10:00 AM – 12:00 PM IST</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MOBILE BAR -->
+<div class="sticky-bottom">
+  <div><div class="sticky-price">₹7,999</div><div style="font-size:0.72rem;color:var(--text-muted);">₹667/mo EMI</div></div>
+  <div style="display:flex;gap:10px;flex:1;justify-content:flex-end;">
+    <button class="btn-demo-sm" style="padding:10px 16px;font-size:0.78rem;">Demo</button>
+    <button class="btn-enrol-main" style="padding:10px 20px;font-size:0.82rem;margin-bottom:0;width:auto;">Enrol →</button>
+  </div>
+</div>
+
+<a href="https://wa.me/918019466635" class="wa-float">💬</a>
+
+<script>
+  // Curriculum accordion
+  document.querySelectorAll('.week-header').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.week-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  // Scroll reveal + skill bar animation
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        // animate skill bars inside this element
+        e.target.querySelectorAll('.skill-bar-fill').forEach(bar => {
+          const w = bar.dataset.width;
+          setTimeout(() => { bar.style.width = w + '%'; }, 200);
+        });
+      }
+    });
+  }, { threshold: 0.06 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+<!-- ── SITE FOOTER ── -->
+<footer style="background:#080c14;border-top:1px solid rgba(255,255,255,0.06);padding:48px 48px 32px;margin-top:0;">
+  <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;flex-wrap:wrap;">
+    <div>
+      <a href="newtonjee-homepage.html" style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:#ffffff;text-decoration:none;display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+        <span style="width:28px;height:28px;background:var(--amber);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:0.85rem;color:#000;font-weight:900;">N</span>
+        Newton<span style="color:var(--amber);">JEE</span>
+      </a>
+      <p style="font-size:0.82rem;color:#5d7080;line-height:1.7;max-width:240px;">India's most elite AI &amp; Robotics career accelerator. Hyderabad, Telangana.</p>
+    </div>
+    <div>
+      <h5 style="font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#5d7080;margin-bottom:16px;">Courses</h5>
+      <a href="course-python-for-ai.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Python for AI</a>
+      <a href="course-machine-learning.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Machine Learning</a>
+      <a href="course-generative-ai-llms.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Generative AI &amp; LLMs</a>
+      <a href="robotics-research.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">🤖 Robotics Research</a>
+      <a href="newtonjee-homepage.html#courses" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;">All Courses →</a>
+    </div>
+    <div>
+      <h5 style="font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#5d7080;margin-bottom:16px;">Platform</h5>
+      <a href="certifications.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Certifications</a>
+      <a href="success-stories.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Success Stories</a>
+      <a href="newtonjee-pricing.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Pricing</a>
+      <a href="blog.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Blog</a>
+    <a href="robotics-research.html">Robotics</a>
+      <a href="portal.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;">Student Portal</a>
+    </div>
+    <div>
+      <h5 style="font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#5d7080;margin-bottom:16px;">Contact</h5>
+      <a href="tel:+918019466635" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">📞 +91 80194 66635</a>
+      <a href="/cdn-cgi/l/email-protection#d5b6babba1b4b6a195bbb0a2a1babbbfb0b0fbb6bab8">✉ <span class="__cf_email__" data-cfemail="20434f4e54414354604e4557544f4e4a45450e434f4d">[email&#160;protected]</span></a>
+      <a href="https://wa.me/918019466635" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">💬 WhatsApp Us</a>
+      <a href="contact.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;">📍 Mallampet, Hyderabad</a>
+    </div>
+  </div>
+  <div style="max-width:1200px;margin:28px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,0.05);display:fl

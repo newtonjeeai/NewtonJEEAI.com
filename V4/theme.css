@@ -1,0 +1,71 @@
+
+/* ── BASE THEME VARIABLES ── */
+:root {
+  --bg: #0a0c12;
+  --bg2: #0f1219;
+  --bg3: #151b27;
+  --amber: #f59e0b;
+  --amber2: #fbbf24;
+  --amber-glow: rgba(245,158,11,0.15);
+  --cyan: #22d3ee;
+  --green: #4ade80;
+  --text: #e8eaf0;
+  --text-muted: #8892a4;
+  --border: rgba(255,255,255,0.07);
+  --card-bg: rgba(255,255,255,0.03);
+  --card: rgba(255,255,255,0.03);
+  
+  /* Additional variables from course pages */
+  --accent: #f59e0b;
+  --border-hover: rgba(245,158,11,0.25);
+}
+
+[data-theme="light"] {
+  --bg: #f0f4fa;
+  --bg2: #e4ecf7;
+  --bg3: #dce6f4;
+  --amber: #d97706;
+  --amber2: #b45309;
+  --amber-glow: rgba(217,119,6,0.12);
+  --cyan: #0369a1;
+  --green: #16a34a;
+  --text: #0a1628;
+  --text-muted: #425570;
+  --border: rgba(10,22,40,0.09);
+  --card-bg: #ffffff;
+  --card: #ffffff;
+  --border-hover: rgba(217,119,6,0.25);
+}
+
+/* ── LIGHT MODE OVERRIDES ── */
+[data-theme="light"] header { background: rgba(248,250,253,0.97); border-bottom-color: rgba(10,22,40,0.09); }
+[data-theme="light"] footer { background: var(--bg2) !important; border-top-color: rgba(10,22,40,0.09) !important; }
+[data-theme="light"] .hero { background: var(--bg2); }
+[data-theme="light"] .course-card,
+[data-theme="light"] .why-tile,
+[data-theme="light"] .path-card,
+[data-theme="light"] .testi-card,
+[data-theme="light"] .cert-step,
+[data-theme="light"] .faq-item,
+[data-theme="light"] .learn-item,
+[data-theme="light"] .outcome-card,
+[data-theme="light"] .who-for,
+[data-theme="light"] .project-card,
+[data-theme="light"] .cert-visual,
+[data-theme="light"] .instructor-card,
+[data-theme="light"] .schedule-card,
+[data-theme="light"] .review-card,
+[data-theme="light"] .related-card,
+[data-theme="light"] .enrol-card { 
+    background: var(--card-bg); 
+    border-color: rgba(10,22,40,0.09); 
+    box-shadow: 0 2px 12px rgba(10,22,40,0.06); 
+}
+[data-theme="light"] .course-hero { background: var(--bg2); }
+[data-theme="light"] .why-section,
+[data-theme="light"] .path-section,
+[data-theme="light"] .faq-section { background: var(--bg3); }
+[data-theme="light"] .logo svg text:first-child { fill: #0a1628 !important; }
+[data-theme="light"] nav a { color: var(--amber); }
+[data-theme="light"] h1, [data-theme="light"] h2, [data-theme="light"] h3, [data-theme="light"] .week-header, [data-theme="light"] .text-white { color: var(--text); }
+[data-theme="light"] .sticky-bottom { background: rgba(248,250,253,0.97); }

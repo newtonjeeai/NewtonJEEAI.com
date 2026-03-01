@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deep Learning & Computer Vision — Newton JEE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800;1,900&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.022; pointer-events: none; z-index: 9999;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,12,18,0.93); backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 48px; height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; letter-spacing: -0.02em; display: flex; align-items: center; gap: 8px; text-decoration: none; color: #ffffff; }
+  .logo .acc-c { color: var(--amber); }
+  .logo-icon { width: 30px; height: 30px; background: var(--amber); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: #000; font-weight: 900; }
+  nav { display: flex; align-items: center; gap: 28px; }
+  nav a { font-size: 0.875rem; font-weight: 500; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+  nav a:hover { color: var(--text); }
+  .btn-header { background: var(--amber); color: #000; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 9px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 0.2s; }
+  .btn-header:hover { background: var(--amber2); }
+
+  /* ── BREADCRUMB ── */
+  .breadcrumb { padding: 14px 48px; background: var(--bg2); border-bottom: 1px solid var(--border); font-size: 0.78rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
+  .breadcrumb a { color: var(--text-muted); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--amber); }
+  .breadcrumb .sep { opacity: 0.4; }
+  .breadcrumb .current { color: var(--text); }
+
+  /* ── HERO ── */
+  .course-hero { position: relative; padding: 72px 48px 0; overflow: hidden; background: var(--bg2); border-bottom: 1px solid var(--border); }
+
+  /* Unique: neural-net node grid SVG-inspired background */
+  .hero-neural {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      radial-gradient(circle, rgba(56,189,248,0.22) 1.5px, transparent 1.5px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse 55% 80% at 85% 45%, black, transparent 70%);
+  }
+  /* Connection lines overlay */
+  .hero-neural::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(56,189,248,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56,189,248,0.06) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse 55% 80% at 85% 45%, black, transparent 70%);
+  }
+  .hero-glow { position: absolute; top: -15%; right: 8%; width: 580px; height: 500px; background: radial-gradient(ellipse, rgba(56,189,248,0.1), transparent 65%); pointer-events: none; }
+
+  .hero-layout { position: relative; display: grid; grid-template-columns: 1fr 360px; gap: 48px; max-width: 1160px; margin: 0 auto; align-items: start; }
+  .hero-left { padding-bottom: 72px; animation: fadeUp 0.7s ease both; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+
+  .course-badge-row { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+  .badge { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; }
+  .badge.intermediate { background: rgba(245,158,11,0.12); color: var(--amber); border: 1px solid rgba(245,158,11,0.2); }
+  .badge.silver       { background: rgba(156,163,175,0.12); color: #9ca3af; border: 1px solid rgba(156,163,175,0.25); }
+  .badge.pytorch      { background: var(--acc-glow); color: var(--acc); border: 1px solid var(--acc-border); }
+  .badge.live         { background: rgba(239,68,68,0.12); color: #f87171; border: 1px solid rgba(239,68,68,0.2); }
+  .badge .dot         { width: 5px; height: 5px; border-radius: 50%; background: currentColor; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  .course-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 4.5vw, 3.6rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 18px; }
+  .course-hero h1 span { color: var(--acc); }
+  .course-tagline { font-size: 1.05rem; color: var(--text-muted); font-weight: 300; max-width: 520px; margin-bottom: 32px; line-height: 1.7; }
+
+  .meta-pills { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 36px; }
+  .meta-pill { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-muted); }
+  .meta-pill strong { color: var(--text); font-weight: 600; }
+
+  .hero-stats { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .hstat { flex: 1; padding: 20px; border-right: 1px solid var(--border); text-align: center; }
+  .hstat:last-child { border-right: none; }
+  .hstat .num { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--acc); display: block; }
+  .hstat .lbl { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; font-family: 'DM Mono', monospace; }
+
+  /* ── ENROL CARD ── */
+  .enrol-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 16px; padding: 32px; position: sticky; top: 80px; animation: fadeUp 0.6s 0.2s ease both; }
+  .enrol-fee { font-family: 'Syne', sans-serif; font-size: 2.4rem; font-weight: 800; line-height: 1; }
+  .enrol-fee sup { font-size: 1.1rem; vertical-align: top; margin-top: 8px; }
+  .enrol-mrp { font-size: 0.85rem; color: var(--text-muted); text-decoration: line-through; margin-left: 8px; }
+  .enrol-save { display: inline-block; background: rgba(74,222,128,0.12); color: var(--green); font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 100px; margin: 6px 0; }
+  .enrol-emi { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 24px; }
+  .btn-enrol-main { width: 100%; padding: 15px; background: var(--amber); color: #000; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.92rem; letter-spacing: 0.05em; text-transform: uppercase; border: none; border-radius: 10px; cursor: pointer; transition: all 0.2s; margin-bottom: 12px; box-shadow: 0 0 40px rgba(245,158,11,0.18); }
+  .btn-enrol-main:hover { background: var(--amber2); transform: translateY(-2px); box-shadow: 0 8px 40px rgba(245,158,11,0.32); }
+  .btn-demo-sm { width: 100%; padding: 12px; background: transparent; border: 1px solid var(--border); color: var(--text); font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; border-radius: 10px; cursor: pointer; transition: all 0.2s; margin-bottom: 20px; }
+  .btn-demo-sm:hover { border-color: var(--amber); color: var(--amber); }
+  .card-includes { border-top: 1px solid var(--border); padding-top: 20px; }
+  .card-includes h5 { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+  .include-row { display: flex; align-items: center; gap: 10px; font-size: 0.82rem; color: var(--text-muted); padding: 6px 0; }
+  .include-row .ck { color: var(--green); font-size: 0.85rem; flex-shrink: 0; }
+  .next-batch { margin-top: 20px; background: var(--amber-glow); border: 1px solid rgba(245,158,11,0.2); border-radius: 8px; padding: 12px 16px; font-size: 0.8rem; }
+  .next-batch strong { color: var(--amber); display: block; margin-bottom: 2px; font-family: 'Syne', sans-serif; }
+  .next-batch span { color: var(--text-muted); }
+
+  /* ── PAGE BODY ── */
+  .page-body { max-width: 1160px; margin: 0 auto; padding: 0 48px; }
+  .content-grid { display: grid; grid-template-columns: 1fr 360px; gap: 64px; align-items: start; }
+  .content-main { min-width: 0; }
+  .content-side { position: sticky; top: 80px; }
+
+  section.body-section { padding: 64px 0; border-bottom: 1px solid var(--border); }
+  section.body-section:last-child { border-bottom: none; }
+  .sec-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+  .sec-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 24px; }
+
+  /* ── LEARN GRID ── */
+  .learn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .learn-item { display: flex; align-items: flex-start; gap: 12px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; font-size: 0.85rem; transition: border-color 0.2s; }
+  .learn-item:hover { border-color: var(--acc-border); }
+  .learn-item .li-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+  .learn-item .li-text strong { display: block; font-weight: 600; font-size: 0.85rem; margin-bottom: 2px; }
+  .learn-item .li-text span { font-size: 0.75rem; color: var(--text-muted); }
+
+  /* ── NETWORK ARCHITECTURE VISUAL (unique) ── */
+  .arch-section { }
+  .arch-tabs { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 20px; }
+  .arch-tab { flex: 1; background: none; border: none; color: var(--text-muted); font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.8rem; padding: 12px; cursor: pointer; transition: all 0.2s; border-right: 1px solid var(--border); letter-spacing: 0.03em; }
+  .arch-tab:last-child { border-right: none; }
+  .arch-tab.active { background: var(--acc-glow); color: var(--acc); }
+  .arch-panel { display: none; }
+  .arch-panel.active { display: block; animation: fadeUp 0.3s ease; }
+
+  .arch-card { background: var(--bg3); border: 1px solid var(--acc-border); border-radius: 14px; padding: 28px; }
+  .arch-card-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
+  .arch-icon { font-size: 2.2rem; flex-shrink: 0; }
+  .arch-card-header h4 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 800; margin-bottom: 4px; }
+  .arch-card-header p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+  .arch-specs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+  .arch-spec { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 12px; text-align: center; }
+  .arch-spec .as-val { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; color: var(--acc); display: block; }
+  .arch-spec .as-lbl { font-size: 0.68rem; color: var(--text-muted); font-family: 'DM Mono', monospace; text-transform: uppercase; letter-spacing: 0.06em; }
+  .arch-usecases { display: flex; flex-wrap: wrap; gap: 8px; }
+  .arch-tag { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; background: var(--acc-glow); color: var(--acc); border: 1px solid var(--acc-border); padding: 4px 10px; border-radius: 100px; }
+
+  /* ── OUTCOMES ── */
+  .outcomes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
+  .outcome-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 22px; transition: all 0.2s; }
+  .outcome-card:hover { border-color: var(--acc-border); }
+  .outcome-icon { font-size: 1.5rem; margin-bottom: 10px; display: block; }
+  .outcome-card h4 { font-family: 'Playfair Display', serif; font-size: 0.92rem; font-weight: 700; margin-bottom: 4px; }
+  .outcome-card p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; }
+  .salary-badge { display: inline-flex; align-items: center; gap: 4px; background: var(--acc-glow); color: var(--acc); border: 1px solid var(--acc-border); border-radius: 100px; padding: 2px 10px; font-size: 0.68rem; font-family: 'DM Mono', monospace; margin-top: 8px; }
+
+  .who-for { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-top: 20px; }
+  .who-for h4 { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+  .who-row { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; padding: 6px 0; border-bottom: 1px solid var(--border); }
+  .who-row:last-child { border-bottom: none; }
+
+  /* ── CURRICULUM ── */
+  .week-item { border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px; overflow: hidden; }
+  .week-header { width: 100%; background: none; border: none; color: var(--text); padding: 18px 20px; cursor: pointer; display: flex; align-items: center; gap: 14px; text-align: left; transition: background 0.2s; }
+  .week-header:hover { background: rgba(255,255,255,0.02); }
+  .week-num { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; background: var(--acc-glow); color: var(--acc); padding: 3px 10px; border-radius: 100px; white-space: nowrap; flex-shrink: 0; }
+  .week-title { font-family: 'Playfair Display', serif; font-size: 0.9rem; font-weight: 700; flex: 1; }
+  .week-ch { color: var(--acc); transition: transform 0.3s; margin-left: auto; flex-shrink: 0; }
+  .week-item.open .week-ch { transform: rotate(180deg); }
+  .week-body { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  .week-item.open .week-body { max-height: 500px; border-top: 1px solid var(--border); }
+  .week-body ul { padding: 16px 20px 16px 44px; }
+  .week-body li { font-size: 0.85rem; color: var(--text-muted); padding: 5px 0; list-style: disc; }
+
+  /* ── PROJECTS ── */
+  .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .project-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 24px; position: relative; overflow: hidden; transition: all 0.25s; }
+  .project-card:hover { border-color: var(--acc-border); transform: translateY(-3px); }
+  .project-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, var(--acc), transparent); }
+  .proj-number { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; color: var(--acc); margin-bottom: 12px; }
+  .project-card h4 { font-family: 'Playfair Display', serif; font-size: 0.92rem; font-weight: 700; margin-bottom: 8px; }
+  .project-card p { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 14px; line-height: 1.5; }
+  .tool-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tool-tag { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; background: rgba(255,255,255,0.05); border: 1px solid var(--border); padding: 3px 8px; border-radius: 4px; color: var(--text-muted); }
+
+  /* ── PYTORCH vs TF COMPARISON (unique) ── */
+  .compare-table { width: 100%; border-collapse: collapse; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .compare-table th { background: var(--bg3); font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); padding: 14px 18px; text-align: left; border-bottom: 1px solid var(--border); }
+  .compare-table th.highlight { color: var(--acc); }
+  .compare-table td { padding: 14px 18px; font-size: 0.85rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table td:first-child { color: var(--text-muted); font-weight: 500; font-size: 0.82rem; }
+  .compare-table td.pytorch-col { color: var(--acc); font-weight: 600; }
+  .compare-table td.tf-col { color: var(--text-muted); }
+  .compare-table tr:hover td { background: rgba(255,255,255,0.015); }
+  .win-badge { display: inline-block; background: var(--acc-glow); color: var(--acc); border: 1px solid var(--acc-border); border-radius: 4px; padding: 1px 6px; font-size: 0.65rem; font-family: 'DM Mono', monospace; margin-left: 6px; }
+
+  /* ── CERTIFICATE ── */
+  .cert-showcase { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: center; }
+  .cert-visual { background: linear-gradient(135deg, var(--bg3), #0c1a24); border: 1px solid rgba(156,163,175,0.3); border-radius: 14px; padding: 36px; text-align: center; position: relative; overflow: hidden; }
+  .cert-visual::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at top, rgba(56,189,248,0.07), transparent 60%); }
+  .cert-emoji { font-size: 3rem; display: block; margin-bottom: 12px; position: relative; }
+  .cert-visual h4 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 800; margin-bottom: 4px; position: relative; color: #9ca3af; }
+  .cert-visual p { font-size: 0.78rem; color: var(--text-muted); position: relative; }
+  .cert-li-badge { margin-top: 16px; display: inline-flex; align-items: center; gap: 6px; background: rgba(10,102,194,0.15); border: 1px solid rgba(10,102,194,0.3); border-radius: 100px; padding: 5px 14px; font-size: 0.72rem; color: #60a5fa; position: relative; }
+  .cert-info h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 800; margin-bottom: 12px; }
+  .cert-info p { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 20px; line-height: 1.7; }
+  .cert-steps { display: flex; flex-direction: column; gap: 12px; }
+  .cert-step { display: flex; align-items: center; gap: 12px; font-size: 0.82rem; }
+  .cert-step .cs-num { width: 24px; height: 24px; background: var(--amber-glow); border: 1px solid rgba(245,158,11,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--amber); flex-shrink: 0; }
+  .cert-step span { color: var(--text-muted); }
+
+  /* ── INSTRUCTOR ── */
+  .instructor-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 14px; padding: 32px; display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start; }
+  .instructor-avatar { width: 88px; height: 88px; border-radius: 50%; background: linear-gradient(135deg, var(--acc), #0284c7); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; color: #000; flex-shrink: 0; border: 3px solid var(--acc-border); }
+  .instructor-name { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; margin-bottom: 4px; }
+  .instructor-role { font-size: 0.8rem; color: var(--acc); margin-bottom: 12px; font-weight: 500; }
+  .instructor-bio { font-size: 0.875rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 16px; }
+  .instructor-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .inst-tag { font-size: 0.72rem; background: var(--card); border: 1px solid var(--border); padding: 4px 10px; border-radius: 6px; color: var(--text-muted); }
+
+  /* ── SCHEDULE ── */
+  .schedule-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .schedule-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 22px; transition: border-color 0.2s; }
+  .schedule-card:hover { border-color: var(--acc-border); }
+  .sch-batch { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; color: var(--acc); text-transform: uppercase; margin-bottom: 10px; }
+  .sch-date { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; margin-bottom: 4px; }
+  .sch-time { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px; }
+  .sch-seats { display: inline-flex; align-items: center; gap: 5px; font-size: 0.72rem; color: var(--text-muted); }
+  .seat-dot { width: 7px; height: 7px; border-radius: 50%; }
+  .seat-dot.open { background: var(--green); }
+  .seat-dot.low  { background: var(--amber); }
+  .sch-btn { width: 100%; margin-top: 14px; padding: 9px; border-radius: 7px; cursor: pointer; font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; transition: all 0.2s; border: 1px solid var(--border); background: transparent; color: var(--text); }
+  .sch-btn:hover { background: var(--amber); border-color: var(--amber); color: #000; }
+
+  /* ── REVIEWS ── */
+  .reviews-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .review-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+  .review-stars { color: var(--amber); font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 12px; }
+  .review-card blockquote { font-size: 0.85rem; color: var(--text); line-height: 1.7; font-style: italic; font-weight: 300; margin-bottom: 16px; }
+  .reviewer { display: flex; align-items: center; gap: 10px; }
+  .rev-avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 800; flex-shrink: 0; }
+  .rev-name { font-family: 'Syne', sans-serif; font-size: 0.82rem; font-weight: 700; }
+  .rev-role { font-size: 0.72rem; color: var(--text-muted); }
+
+  /* ── RELATED ── */
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .related-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 22px; transition: all 0.25s; text-decoration: none; color: var(--text); display: block; }
+  .related-card:hover { border-color: rgba(245,158,11,0.25); transform: translateY(-3px); }
+  .rel-tag { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; color: var(--amber); text-transform: uppercase; margin-bottom: 10px; display: block; }
+  .related-card h4 { font-family: 'Playfair Display', serif; font-size: 0.9rem; font-weight: 700; margin-bottom: 8px; }
+  .related-card p { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 14px; }
+  .rel-price { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; color: var(--amber); }
+  .rel-mrp { font-size: 0.75rem; color: var(--text-muted); text-decoration: line-through; margin-right: 6px; }
+
+  /* sticky mobile */
+  .sticky-bottom { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: rgba(10,12,18,0.97); backdrop-filter: blur(16px); border-top: 1px solid var(--border); padding: 14px 20px; z-index: 200; gap: 12px; align-items: center; }
+  .sticky-price { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; }
+
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  .wa-float { position: fixed; bottom: 28px; right: 28px; width: 52px; height: 52px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: 0 6px 28px rgba(37,211,102,0.4); text-decoration: none; z-index: 200; animation: floatBounce 3s ease-in-out infinite; }
+  @keyframes floatBounce { 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(-5px) } }
+
+  @media (max-width: 960px) {
+    .hero-layout, .content-grid { grid-template-columns: 1fr; }
+    .enrol-card { position: static; display: none; }
+    .content-side { display: none; }
+    .sticky-bottom { display: flex; }
+    .course-hero, .page-body { padding-left: 24px; padding-right: 24px; }
+    header, .breadcrumb { padding-left: 24px; padding-right: 24px; }
+    nav { display: none; }
+    .learn-grid, .outcomes-grid, .projects-grid, .cert-showcase, .reviews-grid { grid-template-columns: 1fr; }
+    .arch-specs { grid-template-columns: 1fr 1fr; }
+    .schedule-grid { grid-template-columns: 1fr 1fr; }
+    .related-grid { grid-template-columns: 1fr; }
+    .hero-left { padding-bottom: 40px; }
+    .arch-tabs { flex-wrap: wrap; }
+  }
+  @media (max-width: 580px) {
+    .schedule-grid, .arch-specs { grid-template-columns: 1fr; }
+  }
+
+
+  /* ── PLAYFAIR HEADINGS — applied site-wide ── */
+  .section-title,
+  .courses-header h2,
+  .why-title,
+  section > .container > h2,
+  section h2.section-title,
+  .faq-list ~ h2,
+  .page-hero h2,
+  .cert-section h2,
+  .outcomes h2,
+  .demo-title,
+  .pricing-hero h2,
+  .intro-headline,
+  .hero-left h2,
+  .cert-info h3,
+  .cert-card h3,
+  .enrol-card-header h3,
+  .track-card h3 {
+    font-family: 'Playfair Display', serif !important;
+  }
+  /* marker class to avoid duplicate injection */
+  .playfair-headings-applied { display: none; }
+</style>
+
+<link rel="stylesheet" href="theme.css">
+<script src="theme.js"></script>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="newtonjee-homepage.html" class="logo"><div class="logo-icon">N</div>Newton<span class="acc-c">JEE</span></a>
+  <nav><a href="newtonjee-homepage.html#courses">Courses</a><a href="newtonjee-pricing.html">Pricing</a><a href="certifications.html">Certifications</a><a href="blog.html">Blog</a>
+    <a href="robotics-research.html" style="font-size:0.875rem;font-weight:500;color:var(--text-muted);text-decoration:none;">Robotics</a></nav>
+  <div class="header-right" style="display:flex; align-items:center; gap:12px;">
+    <button class="theme-toggle" onclick="toggleTheme()"><span class="toggle-icon">☀️</span><span class="toggle-label">Light</span></button>
+    <button class="btn-header" onclick="document.getElementById('enrol-section').scrollIntoView({behavior:'smooth'})">Enrol Now →</button>
+  </div>
+</header>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="newtonjee-homepage.html">Home</a><span class="sep">›</span>
+  <a href="newtonjee-homepage.html#courses">Courses</a><span class="sep">›</span>
+  <span class="current">Deep Learning & Computer Vision</span>
+</div>
+
+<!-- HERO -->
+<div class="course-hero">
+  <div class="hero-neural"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-layout">
+    <div class="hero-left">
+      <div class="course-badge-row">
+        <span class="badge intermediate">⚡ Intermediate</span>
+        <span class="badge silver">🥈 Silver Certificate</span>
+        <span class="badge pytorch">🔥 PyTorch-First</span>
+        <span class="badge live"><span class="dot"></span> Live Sessions</span>
+      </div>
+      <h1>Deep Learning &<br><span>Computer Vision</span></h1>
+      <p class="course-tagline">Build neural networks from a single perceptron to ResNet. Master CNNs, object detection, and transfer learning — with PyTorch, on real image datasets.</p>
+      <div class="meta-pills">
+        <div class="meta-pill">⏱ <strong>6 Weeks</strong></div>
+        <div class="meta-pill">📺 <strong>18 Live Sessions</strong></div>
+        <div class="meta-pill">👥 <strong>Max 15 students</strong></div>
+        <div class="meta-pill">🖥️ <strong>GPU-enabled Colab</strong></div>
+        <div class="meta-pill">🗣️ <strong>English + Telugu</strong></div>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><span class="num">290+</span><span class="lbl">Enrolled</span></div>
+        <div class="hstat"><span class="num">4.9★</span><span class="lbl">Rating</span></div>
+        <div class="hstat"><span class="num">4</span><span class="lbl">Projects</span></div>
+        <div class="hstat"><span class="num">89%</span><span class="lbl">Completion</span></div>
+      </div>
+    </div>
+    <!-- ENROL CARD -->
+    <div class="enrol-card">
+      <div><span class="enrol-fee"><sup>₹</sup>7,999</span><span class="enrol-mrp">₹14,000</span></div>
+      <div><span class="enrol-save">You save ₹6,001 — 43% OFF</span></div>
+      <div class="enrol-emi">or ₹667/month · 12-month no-cost EMI</div>
+      <button class="btn-enrol-main">⚡ Enrol Now</button>
+      <button class="btn-demo-sm">📅 Book Free Demo</button>
+      <div class="card-includes">
+        <h5>What's Included</h5>
+        <div class="include-row"><span class="ck">✓</span> 18 live sessions (2hrs each)</div>
+        <div class="include-row"><span class="ck">✓</span> Lifetime recording access</div>
+        <div class="include-row"><span class="ck">✓</span> 4 GPU-accelerated projects</div>
+        <div class="include-row"><span class="ck">✓</span> LinkedIn Silver badge</div>
+        <div class="include-row"><span class="ck">✓</span> Pre-configured Colab notebooks</div>
+        <div class="include-row"><span class="ck">✓</span> Architecture cheat-sheets</div>
+        <div class="include-row"><span class="ck">✓</span> Mentor office hours</div>
+        <div class="include-row"><span class="ck">✓</span> Placement assistance</div>
+      </div>
+      <div class="next-batch">
+        <strong>🗓 Next Batch: Apr 5, 2025</strong>
+        <span>Sat & Sun · 10:00 AM – 12:00 PM IST</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="page-body">
+  <div class="content-grid">
+    <div class="content-main">
+
+      <!-- WHAT YOU'LL LEARN -->
+      <section class="body-section reveal">
+        <div class="sec-label">// Curriculum Highlights</div>
+        <div class="sec-title">What You'll Learn</div>
+        <div class="learn-grid">
+          <div class="learn-item"><span class="li-icon">🧠</span><div class="li-text"><strong>Neural Networks from Scratch</strong><span>Perceptrons, activation functions, forward & backprop — built in NumPy first</span></div></div>
+          <div class="learn-item"><span class="li-icon">🔥</span><div class="li-text"><strong>PyTorch Fundamentals</strong><span>Tensors, autograd, nn.Module, DataLoader — the framework used in industry & research</span></div></div>
+          <div class="learn-item"><span class="li-icon">🏗️</span><div class="li-text"><strong>Convolutional Neural Networks</strong><span>Conv layers, pooling, stride, receptive field, batch normalisation</span></div></div>
+          <div class="learn-item"><span class="li-icon">🏆</span><div class="li-text"><strong>Famous Architectures</strong><span>LeNet → AlexNet → VGG → ResNet — why each innovation mattered</span></div></div>
+          <div class="learn-item"><span class="li-icon">🔄</span><div class="li-text"><strong>Transfer Learning</strong><span>Fine-tune pretrained ResNet50/EfficientNet on custom datasets in hours, not weeks</span></div></div>
+          <div class="learn-item"><span class="li-icon">🎯</span><div class="li-text"><strong>Object Detection</strong><span>YOLO architecture, bounding boxes, anchor-based detection on real images</span></div></div>
+          <div class="learn-item"><span class="li-icon">🖼️</span><div class="li-text"><strong>Image Segmentation</strong><span>U-Net, semantic vs instance segmentation, medical imaging applications</span></div></div>
+          <div class="learn-item"><span class="li-icon">⚡</span><div class="li-text"><strong>Training at Scale</strong><span>GPU training on Colab, learning rate schedulers, mixed precision, early stopping</span></div></div>
+          <div class="learn-item"><span class="li-icon">🔍</span><div class="li-text"><strong>Explainability (Grad-CAM)</strong><span>Visualise what your CNN actually looks at — essential for medical & safety-critical use</span></div></div>
+          <div class="learn-item"><span class="li-icon">📦</span><div class="li-text"><strong>Model Export & Deployment</strong><span>ONNX export, TorchScript, serve predictions via FastAPI</span></div></div>
+        </div>
+      </section>
+
+      <!-- ARCHITECTURE EXPLORER (unique section) -->
+      <section class="body-section arch-section reveal">
+        <div class="sec-label">// Architecture Deep Dives</div>
+        <div class="sec-title">4 Architectures You'll Build</div>
+        <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:24px;line-height:1.7;max-width:560px;">You don't just use pretrained weights — you understand why each architecture was designed. Click each to explore.</p>
+        <div class="arch-tabs">
+          <button class="arch-tab active" data-panel="cnn">Simple CNN</button>
+          <button class="arch-tab" data-panel="resnet">ResNet</button>
+          <button class="arch-tab" data-panel="yolo">YOLOv5</button>
+          <button class="arch-tab" data-panel="unet">U-Net</button>
+        </div>
+
+        <div class="arch-panel active" id="panel-cnn">
+          <div class="arch-card">
+            <div class="arch-card-header">
+              <span class="arch-icon">🏗️</span>
+              <div>
+                <h4>Simple CNN — Image Classification</h4>
+                <p>Your first convolutional network built from scratch in PyTorch. Every layer placed intentionally: why 3×3 kernels, why max-pool, why ReLU over sigmoid in hidden layers.</p>
+              </div>
+            </div>
+            <div class="arch-specs">
+              <div class="arch-spec"><span class="as-val">3</span><span class="as-lbl">Conv Blocks</span></div>
+              <div class="arch-spec"><span class="as-val">~95%</span><span class="as-lbl">CIFAR-10 Acc</span></div>
+              <div class="arch-spec"><span class="as-val">Week 2</span><span class="as-lbl">Built In</span></div>
+            </div>
+            <div class="arch-usecases">
+              <span class="arch-tag">Image Classification</span>
+              <span class="arch-tag">CIFAR-10</span>
+              <span class="arch-tag">Custom Datasets</span>
+              <span class="arch-tag">PyTorch nn.Module</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch-panel" id="panel-resnet">
+          <div class="arch-card">
+            <div class="arch-card-header">
+              <span class="arch-icon">🔄</span>
+              <div>
+                <h4>ResNet-50 with Transfer Learning</h4>
+                <p>Fine-tune a pretrained ResNet-50 on a custom image dataset (plant disease, product defects, or your own choice). Understand skip connections, why they solve vanishing gradients, and how to replace the classifier head.</p>
+              </div>
+            </div>
+            <div class="arch-specs">
+              <div class="arch-spec"><span class="as-val">50</span><span class="as-lbl">Layers</span></div>
+              <div class="arch-spec"><span class="as-val">~97%</span><span class="as-lbl">Fine-tuned Acc</span></div>
+              <div class="arch-spec"><span class="as-val">Week 4</span><span class="as-lbl">Built In</span></div>
+            </div>
+            <div class="arch-usecases">
+              <span class="arch-tag">Transfer Learning</span>
+              <span class="arch-tag">Custom Dataset</span>
+              <span class="arch-tag">Skip Connections</span>
+              <span class="arch-tag">torchvision</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch-panel" id="panel-yolo">
+          <div class="arch-card">
+            <div class="arch-card-header">
+              <span class="arch-icon">🎯</span>
+              <div>
+                <h4>YOLOv5 — Real-Time Object Detection</h4>
+                <p>Run and fine-tune YOLOv5 on a custom object detection dataset. Understand anchor boxes, IoU, NMS, and how to label your own data with Roboflow. Build a live webcam demo.</p>
+              </div>
+            </div>
+            <div class="arch-specs">
+              <div class="arch-spec"><span class="as-val">~45 FPS</span><span class="as-lbl">Inference Speed</span></div>
+              <div class="arch-spec"><span class="as-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="adc0ecfded9d8398">[email&#160;protected]</a></span><span class="as-lbl">Metric Used</span></div>
+              <div class="arch-spec"><span class="as-val">Week 5</span><span class="as-lbl">Built In</span></div>
+            </div>
+            <div class="arch-usecases">
+              <span class="arch-tag">Object Detection</span>
+              <span class="arch-tag">Custom Labels</span>
+              <span class="arch-tag">Roboflow</span>
+              <span class="arch-tag">Real-time Inference</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch-panel" id="panel-unet">
+          <div class="arch-card">
+            <div class="arch-card-header">
+              <span class="arch-icon">🖼️</span>
+              <div>
+                <h4>U-Net — Image Segmentation</h4>
+                <p>Build U-Net from scratch for semantic segmentation. Applied to a medical imaging dataset (chest X-ray lung segmentation). Understand encoder-decoder architecture and skip connections for pixel-wise prediction.</p>
+              </div>
+            </div>
+            <div class="arch-specs">
+              <div class="arch-spec"><span class="as-val">Dice ~0.89</span><span class="as-lbl">Metric</span></div>
+              <div class="arch-spec"><span class="as-val">Pixel-wise</span><span class="as-lbl">Prediction</span></div>
+              <div class="arch-spec"><span class="as-val">Week 6</span><span class="as-lbl">Capstone</span></div>
+            </div>
+            <div class="arch-usecases">
+              <span class="arch-tag">Segmentation</span>
+              <span class="arch-tag">Medical Imaging</span>
+              <span class="arch-tag">Encoder-Decoder</span>
+              <span class="arch-tag">Dice Loss</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PYTORCH vs TF -->
+      <section class="body-section reveal">
+        <div class="sec-label">// Why PyTorch?</div>
+        <div class="sec-title">PyTorch-First — Here's Why</div>
+        <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:24px;line-height:1.7;max-width:560px;">We teach PyTorch exclusively. This is a deliberate choice based on where the industry and research community has moved. Here's the full picture:</p>
+        <div style="overflow-x:auto;">
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th>Dimension</th>
+                <th class="highlight">PyTorch ✓ (taught here)</th>
+                <th>TensorFlow / Keras</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Research adoption</td>
+                <td class="pytorch-col">~80% of ML papers use PyTorch <span class="win-badge">Winner</span></td>
+                <td class="tf-col">Declining in research</td>
+              </tr>
+              <tr>
+                <td>Industry (AI startups)</td>
+                <td class="pytorch-col">Default choice at most AI startups <span class="win-badge">Winner</span></td>
+                <td class="tf-col">Used in legacy systems</td>
+              </tr>
+              <tr>
+                <td>Debugging experience</td>
+                <td class="pytorch-col">Python-native, easy to step through <span class="win-badge">Winner</span></td>
+                <td class="tf-col">Graph mode harder to debug</td>
+              </tr>
+              <tr>
+                <td>Dynamic computation</td>
+                <td class="pytorch-col">Dynamic by default — intuitive <span class="win-badge">Winner</span></td>
+                <td class="tf-col">Static graph (Keras helps)</td>
+              </tr>
+              <tr>
+                <td>HuggingFace / LLMs</td>
+                <td class="pytorch-col">Near-universal PyTorch backend <span class="win-badge">Winner</span></td>
+                <td class="tf-col">Limited support</td>
+              </tr>
+              <tr>
+                <td>Interview signal</td>
+                <td class="pytorch-col">Expected at most AI interviews <span class="win-badge">Winner</span></td>
+                <td class="tf-col">Acceptable but secondary</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- CAREER OUTCOMES -->
+      <section class="body-section reveal">
+        <div class="sec-label">// After This Course</div>
+        <div class="sec-title">Career Outcomes</div>
+        <div class="outcomes-grid">
+          <div class="outcome-card">
+            <span class="outcome-icon">👁️</span>
+            <h4>Computer Vision Engineer</h4>
+            <p>CV engineers are in high demand at autonomous vehicle, surveillance, medtech, and manufacturing companies.</p>
+            <span class="salary-badge">₹12–24 LPA fresher range</span>
+          </div>
+          <div class="outcome-card">
+            <span class="outcome-icon">🤖</span>
+            <h4>Deep Learning Engineer</h4>
+            <p>Roles at AI labs, product startups, and R&D divisions of large tech firms building neural-network-powered products.</p>
+            <span class="salary-badge">₹14–28 LPA fresher range</span>
+          </div>
+          <div class="outcome-card">
+            <span class="outcome-icon">🏥</span>
+            <h4>AI in Healthcare / MedTech</h4>
+            <p>Medical imaging AI is one of the fastest-growing CV application areas. U-Net and segmentation skills are directly applicable.</p>
+            <span class="salary-badge">High growth sector</span>
+          </div>
+          <div class="outcome-card">
+            <span class="outcome-icon">🔬</span>
+            <h4>Research Engineer / Intern</h4>
+            <p>Top research internships (IISc, IITB, CMU remote) require PyTorch fluency and an understanding of CNN architectures.</p>
+            <span class="salary-badge">₹60–150k/month stipend</span>
+          </div>
+        </div>
+        <div class="who-for">
+          <h4>// This course is for</h4>
+          <div class="who-row"><span>🤖</span> Those who completed ML Mastery or have strong Scikit-learn experience</div>
+          <div class="who-row"><span>🎓</span> B.Tech/M.Tech students interested in computer vision research or industry</div>
+          <div class="who-row"><span>💼</span> ML engineers looking to add DL & CV specialisation to their skill set</div>
+          <div class="who-row"><span>❌</span> Not for: beginners — this requires Python fluency and ML fundamentals</div>
+        </div>
+      </section>
+
+      <!-- CURRICULUM -->
+      <section class="body-section reveal">
+        <div class="sec-label">// Week by Week</div>
+        <div class="sec-title">Full Curriculum — 6 Weeks</div>
+
+        <div class="week-item open">
+          <button class="week-header"><span class="week-num">WEEK 1</span><span class="week-title">Neural Networks from Scratch & PyTorch Intro</span><span class="week-ch">▼</span></button>
+          <div class="week-body"><ul>
+            <li>Perceptron → MLP: forward pass, weights, biases</li>
+            <li>Activation functions: ReLU, sigmoid, tanh, GELU — when to use each</li>
+            <li>Backpropagation: chain rule, gradient flow, vanishing gradients</li>
+            <li>NumPy MLP from scratch on MNIST</li>
+            <li>PyTorch: tensors, autograd, nn.Module, optim</li>
+            <li>Training loop: forward → loss → backward → step</li>
+            <li>GPU setup on Google Colab — move tensors to CUDA</li>
+          </ul></div>
+        </div>
+
+        <div class="week-item">
+          <button class="week-header"><span class="week-num">WEEK 2</span><span class="week-title">Convolutional Neural Networks</span><span class="week-ch">▼</span></button>
+          <div class="week-body"><ul>
+            <li>Convolution: kernels, stride, padding, receptive field</li>
+            <li>Pooling: max vs average, global average pooling</li>
+            <li>Batch Normalisation: why it works, where to place it</li>
+            <li>Dropout: regularisation for deep networks</li>
+            <li>Build LeNet → AlexNet → VGG in PyTorch step by step</li>
+            <li>DataLoader, transforms, augmentation with torchvision</li>
+            <li>Train on CIFAR-10: reach 93%+ accuracy</li>
+          </ul></div>
+        </div>
+
+        <div class="week-item">
+          <button class="week-header"><span class="week-num">WEEK 3</span><span class="week-title">Famous Architectures & Training Techniques</span><span class="week-ch">▼</span></button>
+          <div class="week-body"><ul>
+            <li>ResNet: skip connections, residual blocks, why depth works now</li>
+            <li>EfficientNet: compound scaling, MobileNet-style efficiency</li>
+            <li>Learning rate schedulers: StepLR, CosineAnnealing, OneCycleLR</li>
+            <li>Mixed precision training (torch.cuda.amp) — 2x speed on Colab</li>
+            <li>Data augmentation: RandomCrop, Cutout, MixUp</li>
+            <li>Grad-CAM: visualise what the network attends to</li>
+            <li>TensorBoard logging for training diagnostics</li>
+          </ul></div>
+        </div>
+
+        <div class="week-item">
+          <button class="week-header"><span class="week-num">WEEK 4</span><span class="week-title">Transfer Learning on Custom Datasets</span><span class="week-ch">▼</span></button>
+          <div class="week-body"><ul>
+            <li>Transfer learning: feature extraction vs fine-tuning</li>
+            <li>Load pretrained ResNet-50 via torchvision.models</li>
+            <li>Replace classifier head for custom number of classes</li>
+            <li>Freeze/unfreeze layers — progressive unfreezing strategy</li>
+            <li>Custom ImageFolder dataset: organise, load, augment</li>
+            <li>Project: plant disease classification (38 classes, 87k images)</li>
+            <li>Confusion matrix, per-class accuracy, misclassification analysis</li>
+          </ul></div>
+        </div>
+
+        <div class="week-item">
+          <button class="week-header"><span class="week-num">WEEK 5</span><span class="week-title">Object Detection with YOLOv5</span><span class="week-ch">▼</span></button>
+          <div class="week-body"><ul>
+            <li>Object detection fundamentals: bounding boxes, IoU, NMS</li>
+            <li>Two-stage (R-CNN) vs one-stage (YOLO) detectors</li>
+            <li>Anchor boxes: intuition and design</li>
+            <li>YOLOv5 architecture walkthrough and configuration</li>
+            <li>Label custom data with Roboflow (free tier)</li>
+            <li>Fine-tune YOLOv5 on custom dataset</li>
+            <li><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="731e322333435d46">[email&#160;protected]</a> evaluation, precision-recall curves</li>
+            <li>Live inference: webcam demo in OpenCV</li>
+          </ul></div>
+        </div>
+
+        <div class="week-item">
+          <button class="week-header"><span class="week-num">WEEK 6</span><span class="week-title">Segmentation, Deployment & Capstone</span><span class="week-ch">▼</span></button>
+          <div class="week-body"><ul>
+            <li>Semantic vs instance vs panoptic segmentation</li>
+            <li>U-Net architecture: encoder-decoder, skip connections</li>
+            <li>Dice loss, IoU loss for segmentation tasks</li>
+            <li>Project: chest X-ray lung segmentation</li>
+            <li>ONNX export: framework-agnostic model format</li>
+            <li>TorchScript: serialise for production</li>
+            <li>FastAPI endpoint for image inference</li>
+            <li>Capstone: end-to-end CV system of your choice</li>
+          </ul></div>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section class="body-section reveal">
+        <div class="sec-label">// Hands-on Work</div>
+        <div class="sec-title">4 GPU-Powered Projects</div>
+        <div class="projects-grid">
+          <div class="project-card">
+            <div class="proj-number">PROJECT 01</div>
+            <h4>CIFAR-10 CNN Classifier</h4>
+            <p>Build a custom CNN from scratch in PyTorch. Beat 90% accuracy, visualise filters, and interpret predictions with Grad-CAM heatmaps.</p>
+            <div class="tool-tags"><span class="tool-tag">PyTorch</span><span class="tool-tag">torchvision</span><span class="tool-tag">Grad-CAM</span><span class="tool-tag">TensorBoard</span></div>
+          </div>
+          <div class="project-card">
+            <div class="proj-number">PROJECT 02</div>
+            <h4>Plant Disease Detection</h4>
+            <p>Fine-tune ResNet-50 on 87k plant disease images across 38 categories. Deploy as a FastAPI endpoint that accepts image uploads.</p>
+            <div class="tool-tags"><span class="tool-tag">ResNet-50</span><span class="tool-tag">Transfer Learning</span><span class="tool-tag">FastAPI</span><span class="tool-tag">ONNX</span></div>
+          </div>
+          <div class="project-card">
+            <div class="proj-number">PROJECT 03</div>
+            <h4>Custom Object Detector</h4>
+            <p>Label your own dataset (any object: vehicles, products, defects), train YOLOv5, and run real-time inference on a video stream. Fully deployable demo.</p>
+            <div class="tool-tags"><span class="tool-tag">YOLOv5</span><span class="tool-tag">Roboflow</span><span class="tool-tag">OpenCV</span><span class="tool-tag">mAP</span></div>
+          </div>
+          <div class="project-card">
+            <div class="proj-number">PROJECT 04 — CAPSTONE</div>
+            <h4>End-to-End CV System</h4>
+            <p>Pick your domain: medical imaging, retail, agriculture, or satellite imagery. Build a full pipeline from data collection → model training → Grad-CAM interpretability → FastAPI serving.</p>
+            <div class="tool-tags"><span class="tool-tag">PyTorch</span><span class="tool-tag">U-Net or YOLO</span><span class="tool-tag">FastAPI</span><span class="tool-tag">Grad-CAM</span><span class="tool-tag">ONNX</span></div>
+          </div>
+        </div>
+
+        <div style="margin-top:20px; background:var(--acc-glow); border:1px solid var(--acc-border); border-radius:12px; padding:22px 24px; display:flex; align-items:center; gap:18px;">
+          <span style="font-size:2rem;flex-shrink:0;">💻</span>
+          <div>
+            <div style="font-family:'Syne',sans-serif;font-weight:700;margin-bottom:4px;color:var(--acc);">Pre-Configured Colab Notebooks Included</div>
+            <div style="font-size:0.82rem;color:var(--text-muted);">Every session comes with a ready-to-run GPU-enabled Colab notebook. No CUDA setup headaches. Open, run, and follow along from minute one. All notebooks stay yours permanently.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CERTIFICATE -->
+      <section class="body-section reveal">
+        <div class="sec-label">// Your Credential</div>
+        <div class="sec-title">Silver Certificate Awarded</div>
+        <div class="cert-showcase">
+          <div class="cert-visual">
+            <span class="cert-emoji">🥈</span>
+            <h4>Newton JEE Silver Badge</h4>
+            <p>ML Practitioner — Deep Learning & Computer Vision</p>
+            <div class="cert-li-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#60a5fa"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H6.5v-7H9V17zm-1.25-8.5c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25zM18 17h-2.5v-3.5c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5V17H10v-7h2.5v1c.46-.69 1.23-1 2-1 1.66 0 3 1.34 3 3V17z"/></svg>
+              Appears on your LinkedIn profile
+            </div>
+          </div>
+          <div class="cert-info">
+            <h4>Silver Badge — The Deep Learning Signal</h4>
+            <p>The Silver badge in Deep Learning & CV tells recruiters something specific: you can build, train, and deploy vision models end-to-end with PyTorch. It's a verifiable credential that sits alongside your ML Mastery Silver badge as a two-badge cluster that opens CV/DL interview doors.</p>
+            <div class="cert-steps">
+              <div class="cert-step"><div class="cs-num">1</div><span>Complete all 6 weeks and 4 projects</span></div>
+              <div class="cert-step"><div class="cs-num">2</div><span>Present capstone CV system to mentor</span></div>
+              <div class="cert-step"><div class="cs-num">3</div><span>Mentor approves and signs off on the project</span></div>
+              <div class="cert-step"><div class="cs-num">4</div><span>LinkedIn credential link issued within 48hrs</span></div>
+              <div class="cert-step"><div class="cs-num">5</div><span>One-click publish to LinkedIn Certifications</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- INSTRUCTOR -->
+      <section class="body-section reveal">
+        <div class="sec-label">// Your Mentor</div>
+        <div class="sec-title">Meet Your Instructor</div>
+        <div class="instructor-card">
+          <div class="instructor-avatar">DM</div>
+          <div>
+            <div class="instructor-name">Divya Menon</div>
+            <div class="instructor-role">Computer Vision Researcher · Ex-NVIDIA India & Ola Electric</div>
+            <div class="instructor-bio">6 years in CV research and production — building lane detection systems at Ola Electric's autonomous division and optimising inference pipelines at NVIDIA India. Divya holds an M.Tech from IIT Madras in Signal Processing and has co-authored 4 papers on efficient neural architectures. She designed this course specifically for students who want to go from "I understand ML" to "I can build real vision systems" — with zero padding and maximum signal.</div>
+            <div class="instructor-tags">
+              <span class="inst-tag">PyTorch</span><span class="inst-tag">Object Detection</span><span class="inst-tag">Autonomous Vehicles</span><span class="inst-tag">Medical Imaging</span><span class="inst-tag">IIT Madras M.Tech</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCHEDULE -->
+      <section class="body-section reveal">
+        <div class="sec-label">// Upcoming Batches</div>
+        <div class="sec-title">Pick Your Batch</div>
+        <div class="schedule-grid">
+          <div class="schedule-card">
+            <div class="sch-batch">Batch #11</div>
+            <div class="sch-date">Apr 5, 2025</div>
+            <div class="sch-time">Sat & Sun · 10:00–12:00 PM IST</div>
+            <div class="sch-seats"><span class="seat-dot low"></span> 5 seats left</div>
+            <button class="sch-btn">Reserve Seat →</button>
+          </div>
+          <div class="schedule-card">
+            <div class="sch-batch">Batch #12</div>
+            <div class="sch-date">Apr 26, 2025</div>
+            <div class="sch-time">Sat & Sun · 2:00–4:00 PM IST</div>
+            <div class="sch-seats"><span class="seat-dot open"></span> 13 seats open</div>
+            <button class="sch-btn">Reserve Seat →</button>
+          </div>
+          <div class="schedule-card">
+            <div class="sch-batch">Batch #13</div>
+            <div class="sch-date">May 17, 2025</div>
+            <div class="sch-time">Sat & Sun · 10:00–12:00 PM IST</div>
+            <div class="sch-seats"><span class="seat-dot open"></span> 15 seats open</div>
+            <button class="sch-btn">Reserve Seat →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ENROL -->
+      <section class="body-section reveal" id="enrol-section">
+        <div class="sec-label">// Ready to Start?</div>
+        <div class="sec-title">Enrol in This Course</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;">
+          <div>
+            <div style="font-family:'Syne',sans-serif;font-size:2.8rem;font-weight:800;line-height:1;">
+              <sup style="font-size:1.2rem;vertical-align:top;margin-top:10px;">₹</sup>7,999
+              <span style="font-size:1rem;color:var(--text-muted);text-decoration:line-through;font-weight:400;margin-left:10px;">₹14,000</span>
+            </div>
+            <div style="margin:10px 0 6px;display:inline-block;background:rgba(74,222,128,0.12);color:var(--green);font-size:0.78rem;font-weight:700;padding:4px 12px;border-radius:100px;">Save ₹6,001 · 43% OFF</div>
+            <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:28px;">or ₹667/month · 12-month no-cost EMI</div>
+            <div style="display:flex;flex-direction:column;gap:10px;max-width:340px;">
+              <button class="btn-enrol-main" style="max-width:100%">⚡ Enrol Now — Pay ₹7,999</button>
+              <button class="btn-demo-sm" style="max-width:100%">📅 Book Free Demo First</button>
+            </div>
+            <div style="margin-top:16px;font-size:0.75rem;color:var(--text-muted);">🔒 Secured by Razorpay · 100% refund after 2 sessions if unsatisfied</div>
+          </div>
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:24px;">
+            <div style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">Everything included</div>
+            <div class="include-row"><span class="ck">✓</span> 18 live sessions · 36 hrs total</div>
+            <div class="include-row"><span class="ck">✓</span> Lifetime recording access</div>
+            <div class="include-row"><span class="ck">✓</span> 4 GPU-accelerated projects</div>
+            <div class="include-row"><span class="ck">✓</span> Pre-configured Colab notebooks</div>
+            <div class="include-row"><span class="ck">✓</span> LinkedIn-verified Silver badge</div>
+            <div class="include-row"><span class="ck">✓</span> Architecture cheat-sheets</div>
+            <div class="include-row"><span class="ck">✓</span> Mentor office hours (1hr/week)</div>
+            <div class="include-row"><span class="ck">✓</span> Resume & LinkedIn review</div>
+            <div class="include-row"><span class="ck">✓</span> Placement referral support</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- REVIEWS -->
+      <section class="body-section reveal">
+        <div class="sec-label">// Alumni Feedback</div>
+        <div class="sec-title">What Students Say</div>
+        <div class="reviews-grid">
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote>The YOLOv5 session was insane. We labelled our own data using Roboflow and had a working object detector running on a webcam by end of session. I showed the demo in my interview at a robotics startup and got the offer on the spot.</blockquote>
+            <div class="reviewer">
+              <div class="rev-avatar" style="background:linear-gradient(135deg,var(--acc),#0284c7);color:#000;">AP</div>
+              <div><div class="rev-name">Aryan Patel</div><div class="rev-role">B.Tech ECE → CV Engineer · Ati Motors</div></div>
+            </div>
+          </div>
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote>Divya is the best instructor I've had — in any medium. She explains skip connections in ResNet using a metaphor that made me understand in 30 seconds what three YouTube videos couldn't explain in three hours. The Grad-CAM session changed how I think about model debugging.</blockquote>
+            <div class="reviewer">
+              <div class="rev-avatar" style="background:linear-gradient(135deg,var(--violet),#7c3aed);color:#fff;">SR</div>
+              <div><div class="rev-name">Sneha Reddy</div><div class="rev-role">M.Tech CSE → Research Intern · IISc</div></div>
+            </div>
+          </div>
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote>I was worried about GPU access but the pre-configured Colab notebooks removed every barrier. From session one I was training on GPUs. The plant disease project alone took my portfolio from zero to something I'm actually proud to show.</blockquote>
+            <div class="reviewer">
+              <div class="rev-avatar" style="background:linear-gradient(135deg,var(--amber),#f97316);color:#000;">KG</div>
+              <div><div class="rev-name">Karthik Gowda</div><div class="rev-role">B.Tech Agri Engg → CV Engineer · AgNext</div></div>
+            </div>
+          </div>
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <blockquote>The medical imaging capstone was genuinely hard — and I mean that as a compliment. Building a chest X-ray segmentation model and presenting it to Divya for review pushed me to a level I wouldn't have reached alone. It's now my top portfolio piece.</blockquote>
+            <div class="reviewer">
+              <div class="rev-avatar" style="background:linear-gradient(135deg,var(--green),#059669);color:#000;">TN</div>
+              <div><div class="rev-name">Tanvi Nambiar</div><div class="rev-role">MBBS + B.Tech → Medical AI Researcher</div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RELATED -->
+      <section class="body-section reveal">
+        <div class="sec-label">// What's Next</div>
+        <div class="sec-title">Students Also Take</div>
+        <div class="related-grid">
+          <a href="course-nlp-text-mining.html" class="related-card">
+            <span class="rel-tag">Intermediate · Complementary</span>
+            <h4>NLP & Text Mining</h4>
+            <p>Pair CV with NLP — together they cover the two most powerful modalities in modern AI.</p>
+            <div><span class="rel-mrp">₹12,000</span><span class="rel-price">₹6,999</span></div>
+          </a>
+          <a href="course-generative-ai-llms.html" class="related-card">
+            <span class="rel-tag">Advanced · Natural Next Step</span>
+            <h4>Generative AI & LLMs</h4>
+            <p>Multimodal AI (vision + language) is the frontier. This course sets up your LLM foundations.</p>
+            <div><span class="rel-mrp">₹16,000</span><span class="rel-price">₹8,999</span></div>
+          </a>
+          <a href="newtonjee-pricing.html#bundles" class="related-card">
+            <span class="rel-tag">Bundle · Best Value</span>
+            <h4>Full Stack AI Engineer</h4>
+            <p>All 8 courses including this one — earn all 4 LinkedIn badges for ₹54,999. Save ₹46,001.</p>
+            <div><span class="rel-mrp">₹1,01,000</span><span class="rel-price">₹54,999</span></div>
+          </a>
+        </div>
+      </section>
+
+    </div><!-- end content-main -->
+
+    <!-- SIDEBAR -->
+    <div class="content-side">
+      <div class="enrol-card" style="display:block;">
+        <div><span class="enrol-fee"><sup>₹</sup>7,999</span><span class="enrol-mrp">₹14,000</span></div>
+        <div><span class="enrol-save">You save ₹6,001 — 43% OFF</span></div>
+        <div class="enrol-emi">or ₹667/month · 12-month no-cost EMI</div>
+        <button class="btn-enrol-main">⚡ Enrol Now</button>
+        <button class="btn-demo-sm">📅 Book Free Demo</button>
+        <div class="card-includes">
+          <h5>What's Included</h5>
+          <div class="include-row"><span class="ck">✓</span> 18 live sessions (2hrs each)</div>
+          <div class="include-row"><span class="ck">✓</span> Lifetime recording access</div>
+          <div class="include-row"><span class="ck">✓</span> 4 GPU-accelerated projects</div>
+          <div class="include-row"><span class="ck">✓</span> LinkedIn Silver badge</div>
+          <div class="include-row"><span class="ck">✓</span> Pre-configured Colab notebooks</div>
+          <div class="include-row"><span class="ck">✓</span> Architecture cheat-sheets</div>
+          <div class="include-row"><span class="ck">✓</span> Mentor office hours</div>
+          <div class="include-row"><span class="ck">✓</span> Placement assistance</div>
+        </div>
+        <div class="next-batch">
+          <strong>🗓 Next Batch: Apr 5, 2025</strong>
+          <span>Sat & Sun · 10:00 AM – 12:00 PM IST</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MOBILE BAR -->
+<div class="sticky-bottom">
+  <div><div class="sticky-price">₹7,999</div><div style="font-size:0.72rem;color:var(--text-muted);">₹667/mo EMI</div></div>
+  <div style="display:flex;gap:10px;flex:1;justify-content:flex-end;">
+    <button class="btn-demo-sm" style="padding:10px 16px;font-size:0.78rem;">Demo</button>
+    <button class="btn-enrol-main" style="padding:10px 20px;font-size:0.82rem;margin-bottom:0;width:auto;">Enrol →</button>
+  </div>
+</div>
+
+<a href="https://wa.me/918019466635" class="wa-float">💬</a>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Curriculum accordion
+  document.querySelectorAll('.week-header').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.week-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  // Architecture tab switcher
+  document.querySelectorAll('.arch-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.arch-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.arch-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('panel-' + tab.dataset.panel');
+    });
+  });
+
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.06 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+<!-- ── SITE FOOTER ── -->
+<footer style="background:#080c14;border-top:1px solid rgba(255,255,255,0.06);padding:48px 48px 32px;margin-top:0;">
+  <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;flex-wrap:wrap;">
+    <div>
+      <a href="newtonjee-homepage.html" style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:#ffffff;text-decoration:none;display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+        <span style="width:28px;height:28px;background:var(--amber);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:0.85rem;color:#000;font-weight:900;">N</span>
+        Newton<span style="color:var(--amber);">JEE</span>
+      </a>
+      <p style="font-size:0.82rem;color:#5d7080;line-height:1.7;max-width:240px;">India's most elite AI &amp; Robotics career accelerator. Hyderabad, Telangana.</p>
+    </div>
+    <div>
+      <h5 style="font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#5d7080;margin-bottom:16px;">Courses</h5>
+      <a href="course-python-for-ai.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Python for AI</a>
+      <a href="course-machine-learning.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Machine Learning</a>
+      <a href="course-generative-ai-llms.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Generative AI &amp; LLMs</a>
+      <a href="robotics-research.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">🤖 Robotics Research</a>
+      <a href="newtonjee-homepage.html#courses" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;">All Courses →</a>
+    </div>
+    <div>
+      <h5 style="font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#5d7080;margin-bottom:16px;">Platform</h5>
+      <a href="certifications.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Certifications</a>
+      <a href="success-stories.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Success Stories</a>
+      <a href="newtonjee-pricing.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Pricing</a>
+      <a href="blog.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">Blog</a>
+      <a href="portal.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;">Student Portal</a>
+    </div>
+    <div>
+      <h5 style="font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#5d7080;margin-bottom:16px;">Contact</h5>
+      <a href="tel:+918019466635" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">📞 +91 80194 66635</a>
+      <a href="/cdn-cgi/l/email-protection#cfa7aaa3a3a08fa1aab8bba0a1a5aaaae1aca0a2" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">✉ <span class="__cf_email__" data-cfemail="48202d24242708262d3f3c2726222d2d662b2725">[email&#160;protected]</span></a>
+      <a href="https://wa.me/918019466635" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;margin-bottom:9px;">💬 WhatsApp Us</a>
+      <a href="contact.html" style="display:block;font-size:0.82rem;color:#5d7080;text-decoration:none;">📍 HITEC City, Hyderabad</a>
+    </div>
+  </div>
+  <div style="max-width:1200px;margin:28px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,0.05);display:flex;justify-content:space-between;font-size:0.72rem;color:#3d5060;">
+    <span>© 2025 NewtonJEEAI Technologies. All rights reserved.</span>
